@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+  <div class="row">
+    <div class="col s12">
+      <a class="btn waves-effect" href="{% url 'families:child_add' %}"><i class="material-icons left">add</i>Ajouter un enfant</a>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Mes enfants</span>
+          <table class="striped">
+            <thead><tr><th>Prénom</th><th>Nom</th><th>Naissance</th><th>Actions</th></tr></thead>
+            <tbody>
+            {% for child in children %}
+              <tr>
+                <td>{{ child.first_name }}</td>
+                <td>{{ child.last_name }}</td>
+                <td>{{ child.birth_date }}</td>
+                <td>
+                  <a class="btn-small" href="{% url 'families:child_edit' child.pk %}">Éditer</a>
+                  <a class="btn-small red lighten-1" href="{% url 'families:child_delete' child.pk %}">Supprimer</a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="4" class="grey-text">Aucun enfant.</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

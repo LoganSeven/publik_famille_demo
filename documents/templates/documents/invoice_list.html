@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+  <h4><i class="material-icons left">receipt</i>Mes factures</h4>
+  <table class="striped">
+    <thead><tr><th>Titre</th><th>Créé le</th><th>Télécharger</th></tr></thead>
+    <tbody>
+      {% for d in documents %}
+      <tr>
+        <td>{{ d.title }}</td>
+        <td>{{ d.created_at }}</td>
+        <td><a class="btn-small" href="{{ d.file.url }}" target="_blank">PDF</a></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3" class="grey-text">Aucune facture disponible.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

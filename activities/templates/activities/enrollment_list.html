@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+  <h4><i class="material-icons left">assignment</i>Mes inscriptions</h4>
+  <table class="striped">
+    <thead><tr><th>Enfant</th><th>Activité</th><th>Statut</th><th>Facture</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for e in enrollments %}
+        <tr>
+          <td>{{ e.child }}</td>
+          <td>{{ e.activity }}</td>
+          <td>
+            {% if e.status == 'PENDING_PAYMENT' %}
+              <span class="badge-pill badge-warn">En attente de paiement</span>
+            {% elif e.status == 'CONFIRMED' %}
+              <span class="badge-pill badge-ok">Confirmée</span>
+            {% elif e.status == 'CANCELLED' %}
+              <span class="badge-pill badge-cancel">Annulée</span>
+            {% else %}
+              {{ e.get_status_display }}
+            {% endif %}
+          </td>
+          <td>
+            {% with inv=e.invoice %}
+              {% if inv %}
+                {{ inv.amount }} € — {{ inv.get_status_display }}
+              {% else %}
+                —
+              {% endif %}
+            {% endwith %}
+          </td>
+          <td>
+            {% if e.invoice and e.invoice.status == 'UNPAID' %}
+              <form method="post" action="{% url 'billing:pay_invoice' e.invoice.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn waves-effect">Payer</button>
+              </form>
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="grey-text">Aucune inscription.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

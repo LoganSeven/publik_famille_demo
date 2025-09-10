@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+  <h4><i class="material-icons left">bug_report</i>Journaux applicatifs</h4>
+  <div class="card">
+    <div class="card-content">
+      <div class="log-container">{{ log_html|safe }}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

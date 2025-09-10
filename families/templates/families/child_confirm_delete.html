@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="row section">
+  <div class="col s12 m8 l6 offset-m2 offset-l3">
+    <div class="card red lighten-5">
+      <div class="card-content">
+        <span class="card-title">Supprimer l'enfant</span>
+        <p>Confirmez la suppression de <strong>{{ object }}</strong>.</p>
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn red waves-effect">Supprimer</button>
+          <a href="{% url 'families:child_list' %}" class="btn-flat">Annuler</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

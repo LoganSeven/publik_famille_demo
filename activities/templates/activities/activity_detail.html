@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ activity.title }}</span>
+      <p>{{ activity.description }}</p>
+      <p><strong>Tarif :</strong> {{ activity.fee }} €</p>
+    </div>
+  </div>
+
+  {% if user.is_authenticated %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Inscrire un enfant</span>
+        <form method="post" action="{% url 'activities:enroll' activity.pk %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn green waves-effect">Inscrire</button>
+          <a href="{% url 'activities:list' %}" class="btn-flat">Retour</a>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <p><a href="/accounts/login/">Connectez-vous</a> pour inscrire un enfant.</p>
+  {% endif %}
+</div>
+{% endblock %}
