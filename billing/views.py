@@ -30,10 +30,9 @@ def pay_invoice(request, pk):
         return redirect('activities:enrollments')
 
     try:
-        # Marquer payé
-        invoice.status = Invoice.Status.PAID
-        invoice.paid_on = timezone.now()
-        invoice.save(update_fields=['status', 'paid_on'])
+        # Marquer payé via passerelle
+        gw = get_billing_gateway()
+        gw.mark_paid(invoice)
         info(f"Paiement accepté invoice={invoice.pk}.")
 
         # Génération du PDF & Document
@@ -44,7 +43,7 @@ def pay_invoice(request, pk):
             full_path = os.path.join(settings.MEDIA_ROOT, rel_path)
             generate_invoice_pdf(invoice, full_path)
         except Exception as ex:
-            error(f"Erreur génération PDF invoice={invoice.pk}: {{ex}}")
+            error(f"Erreur génération PDF invoice={invoice.pk}: {ex}")
             raise PDFGenerationError("La facture a été payée mais la génération du PDF a échoué.")
 
         try:
@@ -57,14 +56,13 @@ def pay_invoice(request, pk):
             )
             info(f"Document créé id={doc.id} pour invoice={invoice.pk}.")
         except Exception as ex:
-            error(f"Erreur enregistrement Document invoice={invoice.pk}: {{ex}}")
+            error(f"Erreur enregistrement Document invoice={invoice.pk}: {ex}")
             raise DocumentStorageError("Le PDF a été généré mais n'a pas pu être enregistré.")
 
         messages.success(request, "Paiement effectué. Facture disponible dans Mes documents > Factures.")
         return redirect('activities:enrollments')
 
-    except BillingError as ex:
-        # Paiement ok mais incident de génération/enregistrement
-        warn(f"Incident post-paiement invoice={invoice.pk}: {{ex}}")
+    except (BillingError, PaymentError) as ex:
+        warn(f"Incident post-paiement invoice={invoice.pk}: {ex}")
         messages.warning(request, str(ex))
         return redirect('activities:enrollments')

@@ -1,9 +1,18 @@
 # billing/gateways.py
 from dataclasses import dataclass
 from typing import Protocol
+import logging
+import os
+from decimal import Decimal
+import requests
+from requests.exceptions import RequestException
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from .models import Invoice
+from .exceptions import BillingError, PaymentError
 from activities.models import Enrollment
+
+logger = logging.getLogger(__name__)
 
 class BillingGateway(Protocol):
     def create_invoice(self, enrollment: Enrollment, amount) -> Invoice: ...
@@ -24,22 +33,53 @@ class LocalBillingGateway:
 
 @dataclass
 class LingoGateway:
-    base_url: str | None = None
+    base_url: str | None = None  # e.g. http://localhost:8080
+
+    def _require_base(self) -> str:
+        base = self.base_url or os.getenv('BILLING_LINGO_BASE_URL')
+        if not base:
+            raise BillingError("BILLING_LINGO_BASE_URL is not configured")
+        return base.rstrip('/')
 
     def create_invoice(self, enrollment: Enrollment, amount) -> Invoice:
-        # Simulation locale: on crée une ligne Invoice, en conditions réelles on appellerait Lingo (API) et stockerait un id externe.
-        return Invoice.objects.create(enrollment=enrollment, amount=amount)
+        base = self._require_base()
+        url = f"{base}/invoices"
+        payload = {"amount": float(Decimal(str(amount)))}
+        try:
+            resp = requests.post(url, json=payload, timeout=5)
+            resp.raise_for_status()
+        except RequestException as exc:
+            logger.exception("Lingo create_invoice failed")
+            raise BillingError("Failed to create invoice at Lingo") from exc
+        data = resp.json()
+        lingo_id = data.get("id")
+        return Invoice.objects.create(enrollment=enrollment, amount=amount, lingo_id=lingo_id)
 
     def mark_paid(self, invoice: Invoice) -> Invoice:
-        # Simulation locale: on "reçoit" un retour OK de Lingo et on marque payé.
         if invoice.status == Invoice.Status.PAID:
             return invoice
-        invoice.status = Invoice.Status.PAID
-        invoice.paid_on = timezone.now()
+        base = self._require_base()
+        if not invoice.lingo_id:
+            raise PaymentError("Invoice has no lingo_id")
+        url = f"{base}/invoices/{invoice.lingo_id}/pay"
+        try:
+            resp = requests.post(url, timeout=5)
+            resp.raise_for_status()
+        except RequestException as exc:
+            logger.exception("Lingo mark_paid failed")
+            raise PaymentError("Failed to mark invoice paid at Lingo") from exc
+        data = resp.json()
+        new_status = data.get("status") or Invoice.Status.PAID
+        invoice.status = new_status
+        paid_str = data.get("paid_on")
+        dt = parse_datetime(paid_str) if paid_str else timezone.now()
+        if timezone.is_naive(dt):
+            dt = timezone.make_aware(dt, timezone.get_current_timezone())
+        invoice.paid_on = dt
         invoice.save(update_fields=['status', 'paid_on'])
         return invoice
 
-def get_billing_gateway():
+def get_billing_gateway() -> BillingGateway:
     from django.conf import settings
     backend = getattr(settings, 'BILLING_BACKEND', 'local')
     if backend == 'lingo':

@@ -29,7 +29,7 @@ python manage.py runserver
 ## 2) Fonctionnalités clés
 
 - **Enfants** (CRUD), **Activités**, **Inscriptions**, **Factures**.
-- Paiement **simulé** (POST + CSRF) → un **PDF** est généré et visible dans **Mes documents > Factures**.
+- Paiement **simulé** ou via **API Lingo** → un **PDF** est généré et visible dans **Mes documents > Factures**.
 - **Journaux HTML** colorés (gravité) avec vue d’admin.
 - **Sécurité** : CSRF, cookies HttpOnly, X-Frame-Options, tests d’accès.
 - **UI Material** (Materialize) + CSS custom FR.
@@ -48,8 +48,8 @@ python manage.py test
 
 ## Modes adaptateurs (Local / Lingo / WCS)
 
-- **Facturation (BILLING_BACKEND)** : `local` (par défaut) ou `lingo` (simulation locale structurée pour brancher Lingo).
-  - Variables utiles : `BILLING_LINGO_BASE_URL` (optionnel).
+- **Facturation (BILLING_BACKEND)** : `local` (par défaut) ou `lingo` (API Lingo pour créer et régler les factures).
+  - Variables utiles : `BILLING_LINGO_BASE_URL` (URL de l'API).
 - **Inscriptions (ENROLLMENT_BACKEND)** : `local` (par défaut) ou `wcs` (simulation locale structurée pour brancher WCS).
   - Variables utiles : `WCS_BASE_URL` (optionnel).
 

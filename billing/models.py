@@ -13,6 +13,8 @@ class Invoice(models.Model):
     status = models.CharField('Statut', max_length=16, choices=Status.choices, default=Status.UNPAID)
     issued_on = models.DateTimeField('Émise le', default=timezone.now)
     paid_on = models.DateTimeField('Payée le', null=True, blank=True)
+    # Remote provider identifier (Lingo)
+    lingo_id = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
         ordering = ['-issued_on']

@@ -1,4 +1,4 @@
-
 Django>=5.0,<5.3
 python-dotenv>=1.0.1
 reportlab>=4.2.2
+requests>=2.31.0
