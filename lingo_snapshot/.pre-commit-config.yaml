@@ -1,0 +1,36 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+    - id: double-quote-string-fixer
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.1
+    hooks:
+    - id: pyupgrade
+      args: ['--keep-percent-format', '--py311-plus']
+-   repo: https://github.com/adamchainz/django-upgrade
+    rev: 1.23.1
+    hooks:
+    - id: django-upgrade
+      args: ['--target-version', '4.2']
+-   repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+    - id: black
+      args: ['--target-version', 'py311', '--skip-string-normalization', '--line-length', '110']
+-   repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+    - id: isort
+      args: ['--profile', 'black', '--line-length', '110']
+- repo: https://github.com/rtts/djhtml
+  rev: '3.0.6'
+  hooks:
+    - id: djhtml
+      args: ['--tabwidth', '2']
+-   repo: https://git.entrouvert.org/pre-commit-debian.git
+    rev: v0.3
+    hooks:
+    - id: pre-commit-debian

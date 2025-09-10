@@ -1,0 +1,122 @@
+{% extends "lingo/invoicing/print_document_base.html" %}
+{% load i18n %}
+
+{% block title %}{{ credit.label }} — {{ block.super }}{% endblock %}
+{% block document-label %}{{ credit.label }}{% endblock %}
+
+{% block informations %}
+  <dt>{% trans "Credit number:" %}</dt>
+  <dd>{{ credit.formatted_number }}</dd>
+  {% if credit.previous_invoice %}
+    <dt>{% trans "Initial invoice number:" %}</dt>
+    <dd>{{ credit.previous_invoice.formatted_number }}</dd>
+  {% endif %}
+  <dt>{% trans "Date:" %}</dt>
+  <dd>{{ credit.date_invoicing|default:credit.created_at|date }}</dd>
+{% endblock %}
+
+{% block content %}
+  <table id="lines">
+    <tbody>
+      {% for user, lines in lines_by_user %}
+        <tr class="line-user-separator"><td colspan="5"></td></tr>
+        <tr class="line-user-infos"><td colspan="5" class="user-name">{{ lines.0.user_name }}</td></tr>
+        <tr class="line-column-headers">
+          <th class="description">{% trans "Services" %}</th>
+          <th class="details">{% trans "Details" %}</th>
+          <th class="amount unit-amount">{% trans "Unit amount" %}</th>
+          <th class="quantity">{% trans "Quantity" %}</th>
+          <th class="amount total-amount">{% trans "Total amount" %}</th>
+        </tr>
+        {% for line in lines %}
+          {% ifchanged line.activity_label %}
+            {% if line.activity_label or not forloop.first %}
+              <tr><td colspan="4" class="activity"><i>{{ line.activity_label|default:"&nbsp;" }}</i></td></tr>
+            {% endif %}
+          {% endifchanged %}
+          <tr>
+            <td class="description">
+              {{ line.label }}
+            </td>
+            <td class="details">
+              {% if not line.details.partial_bookings %}
+                {% if line.details.check_type_label %}
+                  {{ line.details.check_type_label }}
+                {% elif line.details.status == 'absence' %}
+                  {% if document_model == 'middle' %}
+                    {% trans "Absence" %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              {% if document_model == 'middle' and line.display_description %}
+                {{ line.description }}
+              {% endif %}
+            </td>
+            <td class="amount unit-amount">{% blocktrans with amount=line.unit_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+            <td class="quantity">{{ line.quantity|floatformat }}</td>
+            <td class="amount total-amount">{% blocktrans with amount=line.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+          </tr>
+        {% endfor %}
+        {% if lines_by_user|length > 1 %}
+          <tr class="line-user-subtotal">
+            <td class="subtotal" colspan="4">{% trans "Subtotal:" %}</td>
+            <td class="amount total-amount">{% blocktrans with amount=amount_by_user|get:user|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr class="grand-total">
+        <td class="label" colspan="4">
+          {% trans "Total amount:" %}
+        </td>
+        <td class="amount">{% blocktrans with amount=credit.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  {% if regie.invoice_custom_text %}
+    <div id="regie-custom-text">
+      {{ regie.invoice_custom_text|safe }}
+    </div>
+  {% endif %}
+
+  {% if document_model == 'full' and lines_by_user_for_details %}
+    <div class="page_break"></div>
+    <h1>{% trans "Detail of service days" %}</h1>
+    <table id="lines-details">
+      <tbody>
+        {% for user, lines in lines_by_user_for_details %}
+          <tr class="line-user-separator"><td colspan="5"></td></tr>
+          <tr><td colspan="2" class="user-name">{% with line=lines|first %}{{ line.user_name }}{% endwith %}</td></tr>
+          <tr>
+            <th class="description">{% trans "Services" %}</th>
+            <th class="details">{% trans "Details" %}</th>
+          </tr>
+          {% for line in lines %}
+            {% ifchanged line.activity_label %}
+              {% if line.activity_label or not forloop.first %}
+                <tr><td colspan="2" class="activity"><i>{{ line.activity_label|default:"&nbsp;" }}</i></td></tr>
+              {% endif %}
+            {% endifchanged %}
+            <tr>
+              <td class="description">
+                {{ line.label }}
+              </td>
+              <td class="details">
+                {% if not line.details.partial_bookings %}
+                  {% if line.details.check_type_label %}
+                    {{ line.details.check_type_label }}
+                  {% elif line.details.status == 'absence' %}
+                    {% trans "Absence" %}
+                  {% endif %}
+                {% endif %}
+                {{ line.description }}
+              </td>
+            </tr>
+          {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

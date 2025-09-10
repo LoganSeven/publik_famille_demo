@@ -1,0 +1,10 @@
+{% load i18n %}
+<td colspan="10" class="line-replayed">
+  {% trans "This line was replayed - reload the page to get new lines" %}
+  <br />
+  {% trans "reload the page:" %}
+  <a href="#" onClick="location.reload()">{% trans "current page" context "reload page" %}</a>
+  - <a href="{% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}" >{% trans "without filters" context "reload page" %}</a>
+  - <a href="{% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}?user_external_id={{ line.user_external_id }}" >{% trans "filtered on user" context "reload page" %}</a>
+  - <a href="{% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}?payer_external_id={{ line.payer_external_id }}" >{% trans "filtered on payer" context "reload page" %}</a>
+</td>

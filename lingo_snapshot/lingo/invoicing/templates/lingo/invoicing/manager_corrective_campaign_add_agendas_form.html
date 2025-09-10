@@ -1,0 +1,71 @@
+{% extends "lingo/invoicing/manager_campaign_detail.html" %}
+{% load gadjo static i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if kind == 'all' %}
+    {% url 'lingo-manager-invoicing-corrective-campaign-all-agendas-add' regie_pk=regie.pk pk=log.campaign.pk as add_url %}
+  {% else %}
+    {% url 'lingo-manager-invoicing-corrective-campaign-agenda-add' regie_pk=regie.pk pk=log.campaign.pk agenda_pk=agendas.0.pk as add_url %}
+  {% endif %}
+  <a href="{{ add_url }}">
+    {% if has_running_corrective %}
+      {% trans 'Update corrective campaign' %}
+    {% else %}
+      {% trans 'New corrective campaign' %}
+    {% endif %}
+  </a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>
+    {% if has_running_corrective %}
+      {% trans 'Update corrective campaign' %}
+    {% else %}
+      {% trans 'New corrective campaign' %}
+    {% endif %}
+  </h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      {% if has_running_corrective %}
+        {% if kind == 'all' %}
+          {% trans "Add these agendas to the current corrective campaign:" %}
+        {% else %}
+          {% trans "Add this agenda to the current corrective campaign:" %}
+        {% endif %}
+      {% else %}
+        {% if kind == 'all' %}
+          {% trans "New corrective campaign with these agendas:" %}
+        {% else %}
+          {% trans "New corrective campaign with this agenda:" %}
+        {% endif %}
+      {% endif %}
+      <ul>
+        {% for agenda in agendas %}
+          <li>{{ agenda }}</li>
+        {% endfor %}
+      </ul>
+    </p>
+    <div class="buttons">
+      <button class="submit-button">
+        {% if has_running_corrective %}
+          {% if kind == 'all' %}
+            {% trans "Add agendas" %}
+          {% else %}
+            {% trans "Add agenda" %}
+          {% endif %}
+        {% else %}
+          {% trans "New corrective campaign" %}
+        {% endif %}
+      </button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}#open:settings">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

@@ -1,0 +1,282 @@
+{% extends "lingo/pricing/manager_pricing_detail.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-pricing-parameters' object.pk %}">{% trans "Parameters" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>
+    {{ object }}
+    <span class="identifier">[{% trans "identifier:" %} {{ object.slug }}]</span>
+  </h2>
+  {% if user_can_manage %}
+    <span class="actions">
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        <li><a rel="popup" class="action-duplicate" href="{% url 'lingo-manager-pricing-duplicate' pk=object.pk %}">{% trans 'Duplicate' %}</a></li>
+        <li><a rel="popup" href="{% url 'lingo-manager-pricing-delete' object.pk %}">{% trans 'Delete' %}</a></li>
+      </ul>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% with agendas=object.agendas.all %}
+    <div class="section">
+      <div class="pk-tabs">
+        <div class="pk-tabs--tab-list" role="tablist">
+          <button aria-controls="panel-options" aria-selected="true" id="tab-options" role="tab" tabindex="0">{% trans "Options" %}</button>
+          <button aria-controls="panel-permissions" aria-selected="false" id="tab-permissions" role="tab" tabindex="-1">{% trans "Permissions" %}</button>
+          <button aria-controls="panel-variables" aria-selected="false" id="tab-variables" role="tab" tabindex="-1">{% trans "Variables" %}</button>
+          <button aria-controls="panel-criterias" aria-selected="false" id="tab-criterias" role="tab" tabindex="-1">{% trans "Criterias" %}</button>
+          {% if object.subscription_required %}
+            <button aria-controls="panel-agendas" aria-selected="false" id="tab-agendas" role="tab" tabindex="-1">{% trans "Agendas" %}</button>
+          {% endif %}
+          <button aria-controls="panel-debug" aria-selected="false" id="tab-debug" role="tab" tabindex="-1">{% trans "Test tool" %}</button>
+          {% if object.flat_fee_schedule %}
+            <button aria-controls="panel-billing-dates" aria-selected="false" id="tab-billing-dates" role="tab" tabindex="-1">{% trans "Billing dates" %}</button>
+          {% endif %}
+        </div>
+        <div class="pk-tabs--container">
+
+          <div aria-labelledby="tab-options" id="panel-options" role="tabpanel" tabindex="0">
+            <ul>
+              <li>{% blocktrans trimmed with start=object.date_start|date:'d/m/Y' end=object.date_end|date:'d/m/Y' %}From {{ start }} to {{ end }}{% endblocktrans %}</li>
+              <li>{% trans "Flat fee schedule:" %} {{ object.flat_fee_schedule|yesno }}</li>
+              {% if object.flat_fee_schedule %}
+                <li>{% trans "Subscription required:" %} {{ object.subscription_required|yesno }}</li>
+              {% endif %}
+              <li>{% trans "Kind of pricing:"%} {{ object.get_kind_display }}</li>
+              {% if object.kind == 'reduction' %}
+                <li>{% trans "Reduction rate (template):" %} <pre>{{ object.reduction_rate }}</pre></li>
+              {% elif object.kind == 'effort' %}
+                <li>{% trans "Pricing to be multiplied by the effort rate (template):" %} <pre>{{ object.effort_rate_target }}</pre></li>
+              {% endif %}
+              <li>{% trans "Accounting code (template):" %} <pre>{{ object.accounting_code }}</pre></li>
+            </ul>
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a href="{% url 'lingo-manager-inspect' %}">{% trans "Inspect tool" %}</a>
+              </div>
+            {% endif %}
+          </div>
+
+          <div aria-labelledby="tab-permissions" hidden="" id="panel-permissions" role="tabpanel" tabindex="0">
+            <ul>
+              <li>{% trans "Edit role:" %} {{ object.edit_role|default:'' }}</li>
+              <li>{% trans "View role:" %} {{ object.view_role|default:'' }}</li>
+            </ul>
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a class="pk-button" rel="popup" href="{% url 'lingo-manager-pricing-permissions-edit' pk=object.pk %}">{% trans 'Define permissions' %}</a>
+              </div>
+            {% endif %}
+          </div>
+
+          <div aria-labelledby="tab-variables" hidden="" id="panel-variables" role="tabpanel" tabindex="0">
+            {% if object.extra_variables %}
+              <label>{% trans 'Extra variables:' %}</label>
+              <dl>
+                {% for key in object.get_extra_variables_keys %}
+                  <dt><b>{% blocktrans %}{{ key }}:{% endblocktrans %}</b></dt>
+                  <dd><pre>{{ object.extra_variables|get:key }}</pre></dd>
+                {% endfor %}
+              </dl>
+            {% endif %}
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a class="pk-button" rel="popup" href="{% url 'lingo-manager-pricing-variable-edit' pk=object.pk %}">{% trans 'Define variables' %}</a>
+                <a href="{% url 'lingo-manager-inspect' %}">{% trans "Inspect tool" %}</a>
+              </div>
+            {% endif %}
+          </div>
+
+          <div aria-labelledby="tab-criterias" hidden="" id="panel-criterias" role="tabpanel" tabindex="0">
+            {% with criterias=object.criterias.all categories=object.categories.all %}
+              {% if categories %}
+                <div>
+                  {% blocktrans trimmed %}Use drag and drop with the ⣿ handles to reorder categories.{% endblocktrans %}
+                </div>
+              {% endif %}
+              <div class="sortable" {% if user_can_manage %}data-order-url="{% url 'lingo-manager-pricing-criteria-category-order' object.pk %}"{% endif %}>
+                {% for category in categories %}
+                  <div class="paragraph sortable-item" data-item-id="{{ category.pk }}">
+                    <h4>
+                      {% if user_can_manage %}
+                        <span class="handle">⣿</span>
+                      {% endif %}
+                      {% trans "Category:" %} {{ category }}
+                    </h4>
+                    <p>{% trans "Selected criterias:" %}</p>
+                    <ul>
+                      {% for criteria in criterias %}
+                        {% if criteria.category_id == category.pk %}
+                          <li>{{ criteria }}</li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                    {% if user_can_manage %}
+                      <p>
+                        <a rel="popup" class="pk-button" href="{% url 'lingo-manager-pricing-criteria-category-edit' pk=object.pk category_pk=category.pk %}">{% trans "Change criterias selection" %}</a>
+                        <a rel="popup" class="pk-button" href="{% url 'lingo-manager-pricing-criteria-category-delete' pk=object.pk category_pk=category.pk %}">{% trans "Remove this category" %}</a>
+                      </p>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+                {% if categories|length < 3 and user_can_manage %}
+                  <div class="panel--buttons">
+                    <a rel="popup" class="pk-button" href="{% url 'lingo-manager-pricing-criteria-category-add' pk=object.pk %}">{% trans "Add a category" %} <span class="extra-info">({% trans "max 3 categories" %})</span></a>
+                  </div>
+                {% endif %}
+              </div>
+            {% endwith %}
+          </div>
+
+          {% if object.subscription_required %}
+            <div aria-labelledby="tab-agendas" hidden id="panel-agendas" role="tabpanel" tabindex="0">
+              {% regroup agendas by category_label as agenda_groups %}
+              {% for group in agenda_groups %}
+                <h4>{% if group.grouper %}{{ group.grouper }}{% else %}{% trans "Misc" %}{% endif %}</h4>
+                <ul class="objects-list single-links">
+                  {% for agenda in group.list %}
+                    <li>
+                      {% if user.is_staff %}
+                        <a href="{% url 'lingo-manager-agenda-detail' pk=agenda.pk %}">
+                          {{ agenda.label }}
+                        </a>
+                      {% else %}
+                        {{ agenda.label }}
+                      {% endif %}
+                      {% if user_can_manage %}
+                        <a class="delete" rel="popup" href="{% url 'lingo-manager-pricing-agenda-delete' object.pk agenda.pk %}">{% trans "remove"%}</a>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endfor %}
+              {% if user_can_manage %}
+                <div class="panel--buttons">
+                  <a class="pk-button" href="{% url 'lingo-manager-pricing-agenda-add' object.pk %}">{% trans "Add agendas" %}</a>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <div aria-labelledby="tab-debug" hidden id="panel-debug" role="tabpanel" tabindex="0">
+            <form method="get" enctype="multipart/form-data" action="{% url 'lingo-manager-pricing-test-tool' object.pk %}">
+              {{ test_tool_form|with_template }}
+              {% if not object.flat_fee_schedule %}
+                <script>
+                  $(function() {
+                    var presences = {};
+                    var absences = {};
+                    {% for agenda in agendas %}
+                      presences['{{ agenda.pk }}'] = [];
+                      absences['{{ agenda.pk }}'] = [];
+                      {% for check_type in agenda.check_type_group.check_types.all %}
+                        {% if check_type.kind == "presence" %}
+                          presences['{{ agenda.pk }}'].push({slug: '{{ check_type.slug }}', label: '{{ check_type.label }}'});
+                        {% else %}
+                          absences['{{ agenda.pk }}'].push({slug: '{{ check_type.slug }}', label: '{{ check_type.label }}'});
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                    $('#id_agenda').on('change', function() {
+                      var agenda_id = $(this).val();
+                      var $select = $('#id_booking_status');
+                      var current_value = $select.val();
+                      $select.find('option').remove().end().append('<option value="presence">' + '{% trans "Presence" %}' + '</option>');
+                      if (presences[agenda_id]) {
+                        $.each(presences[agenda_id], function(index, value) {
+                          $select.append('<option value="presence::' + value.slug + '">' + '{% trans "Presence" %} (' + value.label + ')</option>');
+                        });
+                      }
+                      $select.append('<option value="absence">' + '{% trans "Absence" %}' + '</option>');
+                      if (absences[agenda_id]) {
+                        $.each(absences[agenda_id], function(index, value) {
+                          $select.append('<option value="absence::' + value.slug + '">' + '{% trans "Absence" %} (' + value.label + ')</option>');
+                        });
+                      }
+                      $select.val(current_value);
+                    });
+                  });
+                </script>
+              {% endif %}
+              <div class="buttons">
+                <button class="submit-button">{% trans "Compute" %}</button>
+              </div>
+            </form>
+            {% if request.GET and test_tool_form.is_valid %}
+              {% with test_tool_form.compute as pricing_data %}
+                <div class="test-tool-result">
+                  <div class="infonotice">
+                    <h3>{% trans "Computed pricing data" %}</h3>
+                    {% if pricing_data.pricing is not None %}<p>{% trans "Pricing:" %} {{ pricing_data.pricing|stringformat:".2f" }}</p>{% endif %}
+                    {% if pricing_data.error is not None %}<p>{% trans "Error:" %} {{ pricing_data.error.get_error_display|default:'' }}</p>{% endif %}
+                    <pre>{{ pricing_data|pprint }}</pre>
+                  </div>
+                </div>
+              {% endwith %}
+            {% endif %}
+          </div>
+
+          {% if object.flat_fee_schedule %}
+            <div aria-labelledby="tab-billing-dates" hidden id="panel-billing-dates" role="tabpanel" tabindex="0">
+              {% if billing_dates %}
+                <ul class="objects-list single-links">
+                  {% for billing_date in billing_dates %}
+                    <li>
+                      {% if user_can_manage %}
+                        <a rel="popup" href="{% url 'lingo-manager-pricing-billing-date-edit' object.pk billing_date.pk %}">
+                          {{ billing_date }}
+                        </a>
+                        <a class="delete" rel="popup" href="{% url 'lingo-manager-pricing-billing-date-delete' object.pk billing_date.pk %}">{% trans "remove"%}</a>
+                      {% else %}
+                        {{ billing_date }}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <div class="big-msg-info">
+                  {% blocktrans trimmed with date_start=object.date_start|date:'d/m/Y' %}
+                    No billing dates. The start date of the pricing ({{ date_start }}) is used as the only available billing date.
+                  {% endblocktrans %}
+                </div>
+              {% endif %}
+              {% if user_can_manage %}
+                <div class="panel--buttons">
+                  <a class="pk-button" rel="popup" href="{% url 'lingo-manager-pricing-billing-date-add' object.pk %}">{% trans "New billing date" %}</a>
+                </div>
+                </div>
+              {% endif %}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  {% endwith %}
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+
+    {% if user_can_manage %}
+      <h3>{% trans "Actions" %}</h3>
+      <a class="button button-paragraph" rel="popup" href="{% url 'lingo-manager-pricing-edit' object.pk %}">{% trans 'Options' %}</a>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-pricing-export' pk=object.pk %}">{% trans 'Export' %}</a>
+    {% endif %}
+
+    {% if user_can_manage %}
+      <h3>{% trans "Navigation" %}</h3>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-pricing-inspect' pk=pricing.pk %}">{% trans 'Inspect' %}</a>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-pricing-history' pk=pricing.pk %}">{% trans 'History' %}</a>
+    {% endif %}
+
+    {% url 'lingo-manager-pricing-list' as object_list_url %}
+    {% include 'lingo/includes/application_detail_fragment.html' %}
+
+  </aside>
+{% endblock %}

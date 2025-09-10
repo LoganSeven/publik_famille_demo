@@ -1,0 +1,94 @@
+{% extends "lingo/invoicing/manager_regie_payer_list.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Transactions for event" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-transaction-for-event-list' regie_pk=regie.pk %}?{{ request.GET.urlencode }}">{% trans "Transactions for event" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% blocktrans %}Transactions for event "{{ event_slug }}" ({{ event_date }}) and user "{{ user_external_id }}"{% endblocktrans %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div>
+    <table class="main pk-compact-table">
+      <thead>
+        <tr>
+          <th>{% trans "Invoicing object" %}</th>
+          <th>{% trans "Origin" %}</th>
+          <th>{% trans "Creation date" %}</th>
+          <th>{% trans "Payer" %}</th>
+          <th>{% trans "User" %}</th>
+          <th>{% trans "Activity" %}</th>
+          <th>{% trans "Event" %}</th>
+          <th>{% trans "Accounting code" %}</th>
+          <th>{% trans "Description" %}</th>
+          <th>{% trans "Event date" %}</th>
+          <th>{% trans "Unit amount" %}</th>
+          <th>{% trans "Quantity" %}</th>
+          <th>{% trans "Total amount" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in object_list %}
+          <tr class="line">
+            <td>
+              <a href="{% if line.invoicing_element == 'invoice' %}{% url 'lingo-manager-invoicing-regie-invoice-list' regie_pk=regie.pk %}{% else %}{% url 'lingo-manager-invoicing-regie-credit-list' regie_pk=regie.pk %}{% endif %}?number={{ line.invoicing_element_number }}">{{ line.invoicing_element_number }}</a>
+            </td>
+            <td>
+              {{ line.invoicing_element_origin }}
+            </td>
+            <td>
+              {{ line.invoicing_element_created_at|date:"d/m/Y" }}
+              {% if line.invoicing_element_date_invoicing %}
+                ({{ line.invoicing_element_date_invoicing|date:"d/m/Y" }})
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'lingo-manager-invoicing-regie-payer-transaction-list' regie_pk=regie.pk payer_external_id=line.invoicing_element_payer_external_id %}?event={{ event_slug }}&event_date_before={{ event_date }}&event_date_after={{ event_date }}&user_external_id={{ user_external_id }}">
+                {{ line.invoicing_element_payer_name }}
+              </a>
+            </td>
+            <td>
+              {{ line.user_name }} ({{ line.user_external_id }})
+            </td>
+            <td>
+              {{ line.activity_label }} {% if line.agenda_slug %}<br />({{ line.agenda_slug }}){% endif %}
+            </td>
+            <td>
+              {{ line.label }} {% if line.event_slug and '@' in line.event_slug %}<br />({{ line.event_slug|split:"@"|get:1 }}){% endif %}
+            </td>
+            <td>
+              {{ line.accounting_code }}
+            </td>
+            <td>
+              {% if not line.details.partial_bookings %}
+                {% if line.details.check_type_label %}
+                  {{ line.details.check_type_label }}
+                  <br />
+                {% elif line.details.status == 'absence' %}
+                  {% trans "Absence" %}
+                  <br />
+                {% endif %}
+              {% endif %}
+              {% if line.display_description %}
+                {{ line.description }}
+              {% endif %}
+            </td>
+            <td>{% if line.details.dates %}{% for d in line.details.dates %}{{ d|date:"d/m/Y" }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</td>
+            <td>{% blocktrans with amount=line.invoicing_element_unit_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+            <td>{{ line.invoicing_element_quantity|floatformat }}</td>
+            <td>{% blocktrans with amount=line.invoicing_element_total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

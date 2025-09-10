@@ -1,0 +1,43 @@
+Source: lingo
+Maintainer: Thomas NOËL <tnoel@entrouvert.com>
+Section: python
+Priority: optional
+Build-Depends: debhelper-compat (= 12),
+               dh-python,
+               python3-all,
+               python3-django,
+               python3-setuptools,
+               sassc,
+Standards-Version: 3.9.6
+
+Package: python3-lingo
+Architecture: all
+Depends: python3-django,
+         python3-django-ckeditor,
+         python3-djangorestframework,
+         python3-eopayment,
+         python3-gadjo,
+         python3-publik-django-templatetags,
+         python3-requests,
+         weasyprint,
+         ${misc:Depends},
+         ${python3:Depends},
+Recommends: python3-django-mellon,
+Description: Payment and Billing System (Python module)
+
+Package: lingo
+Architecture: all
+Depends: python3-django-mellon,
+         python3-django-tenant-schemas,
+         python3-hobo,
+         python3-lingo (= ${binary:Version}),
+         python3-psycopg2,
+         python3-sorl-thumbnail,
+         python3-uwsgidecorators,
+         util-linux,
+         uwsgi,
+         uwsgi-plugin-python3,
+         ${misc:Depends},
+Recommends: nginx,
+Suggests: postgresql,
+Description: Payment and Billing System

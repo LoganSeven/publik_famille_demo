@@ -1,0 +1,19 @@
+{% load static %}<!DOCTYPE html>
+<html {% if LANGUAGE_CODE %}lang="{{ LANGUAGE_CODE }}"{% endif %} {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+  <head>
+    <meta charset="UTF-8"><!-- 🔥 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, notranslate, noimageindex" />
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+    {% block footer %}
+    {% endblock %}
+  </body>
+</html>

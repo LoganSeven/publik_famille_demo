@@ -1,0 +1,80 @@
+{% extends "lingo/manager_homepage.html" %}
+{% load i18n %}
+
+{% block page-title-extra-label %}{% trans "Pricings" %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% url 'lingo-manager-pricing-list' as object_list_url %}
+  <a href="{{ object_list_url }}">{% trans "Pricings" %}</a>
+  {% include 'lingo/includes/application_breadcrumb_fragment.html' with title_no_application=_('Pricings outside applications') %}
+{% endblock %}
+
+{% block appbar %}
+  {% include 'lingo/includes/application_appbar_fragment.html' with title_no_application=_('Pricings outside applications') title_object_list=_('Pricings') %}
+{% endblock %}
+
+{% block content %}
+  {% if not application and not no_application %}
+    <div class="pk-information">
+      <p>{% trans "Define here pricings to attach to events agendas." %}</p>
+    </div>
+  {% endif %}
+  {% if object_list %}
+    <div>
+      <h3>{% trans "Pricings" context 'agenda pricing' %}</h3>
+      <ul class="objects-list single-links">
+        {% for object in object_list %}{% if not object.flat_fee_schedule %}
+          <li>
+            <a href="{% url 'lingo-manager-pricing-detail' pk=object.pk %}">
+              {% include 'lingo/includes/application_icon_fragment.html' %}
+              {{ object }}
+              <span class="extra-info"> [{% trans "identifier:" %} {{ object.slug }}]</span>
+            </a>
+          </li>
+        {% endif %}{% endfor %}
+      </ul>
+      <h3>{% trans "Flat fee schedule pricings" %}</h3>
+      <ul class="objects-list single-links">
+        {% for object in object_list %}{% if object.flat_fee_schedule %}
+          <li>
+            <a href="{% url 'lingo-manager-pricing-detail' pk=object.pk %}">
+              {% include 'lingo/includes/application_icon_fragment.html' %}
+              {{ object }}
+              <span class="extra-info"> [{% trans "identifier:" %} {{ object.slug }}]</span>
+            </a>
+          </li>
+        {% endif %}{% endfor %}
+      </ul>
+    </div>
+  {% elif not no_application %}
+    <div class="big-msg-info">
+      {% blocktrans trimmed %}
+        This site doesn't have any pricing yet. Click on the "New pricing" button in the top
+        right of the page to add a first one.
+      {% endblocktrans %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+  {% if not application and not no_application %}
+    <aside id="sidebar">
+
+      {% if user.is_staff %}
+        <h3>{% trans "Actions" %}</h3>
+        <a class="button button-paragraph" rel="popup" href="{% url 'lingo-manager-pricing-add' %}">{% trans 'New pricing' %}</a>
+        <a class="button button-paragraph" rel="popup" href="{% url 'lingo-manager-pricing-config-import' %}">{% trans 'Import site' %}</a>
+        <a class="button button-paragraph" rel="popup" href="{% url 'lingo-manager-pricing-config-export' %}" data-autoclose-dialog="true">{% trans 'Export site' %}</a>
+
+        <h3>{% trans "Navigation" %}</h3>
+        <a class="button button-paragraph" href="{% url 'lingo-manager-pricing-criteria-list' %}">{% trans "Criterias" %}</a>
+        <a class="button button-paragraph" href="{% url 'lingo-manager-agenda-list' %}">{% trans "Agendas" %}</a>
+        <a class="button button-paragraph" href="{% url 'lingo-manager-check-type-list' %}">{% trans "Check types" %}</a>
+      {% endif %}
+
+      {% include 'lingo/includes/application_list_fragment.html' with title_no_application=_('Pricings outside applications') %}
+
+    </aside>
+  {% endif %}
+{% endblock %}

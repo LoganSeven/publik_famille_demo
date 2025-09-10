@@ -1,0 +1,82 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Dockets" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-docket-list' regie_pk=regie.pk %}">{% trans "Dockets" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Dockets" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+          <legend class="gadjo-foldable-widget">{% trans "Dockets Filtering" %}</legend>
+          <div class="gadjo-folding">
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  {% if object_list %}
+    <div>
+      <table class="main pk-compact-table invoicing-element-list">
+        <thead>
+          <tr>
+            <th>{% trans "Number" %}</th>
+            <th>{% trans "Payment types" %}</th>
+            <th>{% trans "Number of payments" %}</th>
+            <th>{% trans "Stop date" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for docket in object_list %}
+            <tr class="docket">
+              <td>
+                <a href="{% url 'lingo-manager-invoicing-regie-docket-detail' regie_pk=regie.pk pk=docket.pk %}">{{ docket }}</a>
+              </td>
+              <td>
+                {% for payment_type in docket.payment_types.all %}{{ payment_type }}{% if not forloop.last %}, {% endif %}{% endfor %}
+              </td>
+              <td>
+                {% if docket.active_count %}<span class="meta meta-success">{{ docket.active_count }} ({% blocktrans with amount=docket.active_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %})</span>{% endif %}
+                {% if docket.cancelled_count %}<span class="meta meta-warning">{{ docket.cancelled_count }} ({% blocktrans with amount=docket.cancelled_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %})</span>{% endif %}
+              </td>
+              <td>
+                {{ docket.date_end|date:"d/m/Y" }}
+              </td>
+            </tr>
+            </tbody>
+          {% endfor %}
+        </table>
+        {% include "gadjo/pagination.html" %}
+      </div>
+  {% else %}
+    <div class="big-msg-info">
+      {% trans "This site doesn't have any docket yet." %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+
+    {% if user_can_control %}
+      <h3>{% trans "Actions" %}</h3>
+      <a class="button button-paragraph" href="?{{ request.GET.urlencode }}&ods">{% trans "ODS export" %}</a>
+      <a class="button button-paragraph" href="?{{ request.GET.urlencode }}&pdf">{% trans "PDF export" %}</a>
+    {% endif %}
+
+    <h3>{% trans "Navigation" %}</h3>
+    <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-docket-payment-list' regie_pk=regie.pk %}">{% trans "Payments outside dockets" %}</a>
+
+  </aside>
+{% endblock %}

@@ -1,0 +1,4 @@
+debian/debian_config.py   /usr/lib/lingo
+debian/lingo-manage       /usr/bin
+debian/settings.py        /etc/lingo
+debian/uwsgi.ini          /etc/lingo

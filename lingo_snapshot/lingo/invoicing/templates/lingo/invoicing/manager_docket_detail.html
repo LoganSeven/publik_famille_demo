@@ -1,0 +1,111 @@
+{% extends "lingo/invoicing/manager_docket_list.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-docket-detail' regie.pk object.pk %}">{{ object }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{{ object }}</h2>
+  {% if object.draft and user_can_control %}
+    <span class="actions">
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        <li><a href="{% url 'lingo-manager-invoicing-regie-docket-delete' regie_pk=regie.pk pk=object.pk %}" rel="popup">{% trans "Delete" %}</a></li>
+      </ul>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <ul>
+        {% if cancelled.list %}
+          <li>{% trans "Initial docket amount:" %} {% blocktrans with amount=object.get_payments_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+          <li>{% trans "Cancelled docket amount:" %} {% blocktrans with amount=cancelled.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+          <li>{% trans "Final docket amount:" %} {% blocktrans with amount=object.get_active_payments_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+        {% else %}
+          <li>{% trans "Docket amount:" %} {% blocktrans with amount=object.get_payments_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  {% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=regie.pk as regie_payment_list_url %}
+  {% for value in active %}
+    {% if value.list %}
+      <div class="section">
+        <h3>
+          {% if object.draft and user_can_control %}
+            <a href="{% url 'lingo-manager-invoicing-regie-docket-payment-type-edit' regie_pk=regie.pk pk=object.pk payment_type_pk=value.payment_type.pk %}">{{ value.payment_type }}</a>
+          {% else %}
+            {{ value.payment_type }}
+          {% endif %}
+        </h3>
+        <div>
+          <p>
+            {% trans "Number of payments:" %} {{ value.list|length }}
+            <br />
+            {% trans "Total amount:" %} {% blocktrans with amount=value.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+            <br />
+            {% trans "Additional information:" %}
+            <br />
+            {{ object.payment_types_info|get:value.payment_type.slug|default:""|linebreaksbr }}
+          </p>
+          <table class="main pk-compact-table invoicing-element-list">
+            {% for payment in value.list %}
+              <tr>
+                <td colspan="4">
+                  {% if payment.date_payment %}
+                    {% blocktrans with payment_number=payment.formatted_number pdate=payment.date_payment|date:'d/m/Y' cdate=payment.created_at|date:'d/m/Y' payer_id=payment.payer_external_id payer_name=payment.payer_name amount=payment.amount payment_type=payment.payment_type %}Payment <a href="{{ regie_payment_list_url }}?number={{ payment_number }}">{{ payment_number }}</a> dated {{ pdate }} (created on {{ cdate }}) from {{ payer_name }}, amount {{ amount }}€ ({{ payment_type }}){% endblocktrans %}
+                  {% else %}
+                    {% blocktrans with payment_number=payment.formatted_number cdate=payment.created_at|date:'d/m/Y' payer_id=payment.payer_external_id payer_name=payment.payer_name amount=payment.amount payment_type=payment.payment_type %}Payment <a href="{{ regie_payment_list_url }}?number={{ payment_number }}">{{ payment_number }}</a> dated {{ cdate }} from {{ payer_name }}, amount {{ amount }}€ ({{ payment_type }}){% endblocktrans %}
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% if cancelled.list %}
+    <div class="section">
+      <h3>{% trans "Cancelled payments" %}</h3>
+      <div>
+        <p>
+          {% trans "Number of payments:" %} {{ cancelled.list|length }}
+          <br />
+          {% trans "Total amount:" %} {% blocktrans with amount=cancelled.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+        </p>
+        <table class="main pk-compact-table invoicing-element-list">
+          {% for payment in cancelled.list %}
+            <tr>
+              <td colspan="4">
+                {% blocktrans with payment_number=payment.formatted_number cdate=payment.created_at|date:'d/m/Y' payer_id=payment.payer_external_id payer_name=payment.payer_name amount=payment.amount payment_type=payment.payment_type %}Payment <a href="{{ regie_payment_list_url }}?number={{ payment_number }}">{{ payment_number }}</a> dated {{ cdate }} from {{ payer_name }}, amount {{ amount }}€ ({{ payment_type }}){% endblocktrans %}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+  {% if user_can_control %}
+    <aside id="sidebar">
+
+      <h3>{% trans "Actions" %}</h3>
+      {% if object.draft %}
+        <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-docket-edit' regie.pk object.pk %}">{% trans "Edit" %}</a>
+        <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-docket-validate' regie.pk object.pk %}" rel="popup">{% trans "Validate" %}</a>
+      {% endif %}
+      <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-docket-ods' regie.pk object.pk %}">{% trans "ODS export" %}</a>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-docket-pdf' regie.pk object.pk %}">{% trans "PDF export" %}</a>
+
+    </aside>
+  {% endif %}
+{% endblock %}

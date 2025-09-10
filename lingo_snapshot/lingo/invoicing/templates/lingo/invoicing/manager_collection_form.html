@@ -1,0 +1,38 @@
+{% extends "lingo/invoicing/manager_collection_list.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if form.instance.pk %}
+    <a href="{% url 'lingo-manager-invoicing-regie-collection-detail' regie_pk=regie.pk pk=form.instance.pk %}">{{ form.instance }}</a>
+    <a href="{% url 'lingo-manager-invoicing-regie-collection-edit' regie_pk=regie.pk pk=form.instance.pk %}">{% trans "Edit" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-invoicing-regie-collection-add' regie_pk=regie.pk %}">{% trans "New collection" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if form.instance.pk %}
+    <h2>{% trans "Edit collection" %}</h2>
+  {% else %}
+    <h2>{% trans "New collection" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      {% if form.instance.pk %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-collection-detail' regie_pk=regie.pk pk=form.instance.pk %}">{% trans 'Cancel' %}</a>
+      {% else %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-collection-payment-list' regie.pk %}">{% trans 'Cancel' %}</a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

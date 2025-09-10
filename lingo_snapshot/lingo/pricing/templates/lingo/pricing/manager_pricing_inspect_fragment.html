@@ -1,0 +1,118 @@
+{% load i18n %}
+<div class="pk-tabs">
+  <div class="pk-tabs--tab-list" role="tablist">
+    <button aria-controls="panel-information" aria-selected="true" id="tab-information" role="tab" tabindex="0">{% trans "Information" %}</button>
+    <button aria-controls="panel-settings" aria-selected="false" id="tab-settings" role="tab" tabindex="-1">{% trans "Settings" %}</button>
+    <button aria-controls="panel-permissions" aria-selected="false" id="tab-permissions" role="tab" tabindex="-1">{% trans "Permissions" %}</button>
+    <button aria-controls="panel-pricings" aria-selected="false" id="tab-pricings" role="tab" tabindex="-1">{% trans "Pricings" context "amout" %}</button>
+  </div>
+  <div class="pk-tabs--container">
+
+    <div aria-labelledby="tab-information" id="panel-information" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div aria-labelledby="tab-settings" hidden id="panel-settings" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_settings_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if object.extra_variables %}
+          <h4>{% trans "Variables" %}</h4>
+          <ul>
+            {% for key in object.get_extra_variables_keys %}
+              <li class="parameter-variable-{{ key }}">
+                <span class="parameter">{% blocktrans %}{{ key }}:{% endblocktrans %}</span>
+                {{ object.extra_variables|get:key }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <h4>{% trans "Criterias" %}</h4>
+        {% with criterias=object.criterias.all categories=object.categories.all %}
+          {% for category in categories %}
+            <h5>{{ category }}</h5>
+            <ul>
+              {% for criteria in criterias %}
+                {% if criteria.category_id == category.pk %}
+                  <li class="parameter-criteria-{{ category.slug }}-{{ criteria.slug }}">
+                    <span class="parameter">{{ criteria }}</span>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endfor %}
+        {% endwith %}
+
+        {% with agendas=object.agendas.all %}
+          {% if agendas %}
+            <h4>{% trans "Agendas" %}</h4>
+            <ul>
+              {% for agenda in agendas %}
+                <li class="parameter-agenda }}">
+                  <span class="parameter">{{ agenda }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        {% with billing_dates=object.billingdates.all|dictsort:"date_start" %}
+          {% if billing_dates %}
+            <h4>{% trans "Billing dates" %}</h4>
+            <ul>
+              {% for billing_date in billing_dates %}
+                <li class="parameter-billing-date">
+                  <span class="parameter">{{ billing_date }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+
+    <div aria-labelledby="tab-permissions" hidden id="panel-permissions" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_permissions_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div aria-labelledby="tab-pricings" hidden id="panel-pricings" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_pricing_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

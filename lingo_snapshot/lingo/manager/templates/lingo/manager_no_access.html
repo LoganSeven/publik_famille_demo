@@ -1,0 +1,9 @@
+{% extends "lingo/manager_homepage.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="big-msg-sorry">
+    <p>{% trans 'This screen gives access to payment backends, regies, pricing you can access.' %}</p>
+    <p>{% trans 'Unfortunately, there is still no payment backend, regie or pricing configured this way.' %}</p>
+  </div>
+{% endblock %}

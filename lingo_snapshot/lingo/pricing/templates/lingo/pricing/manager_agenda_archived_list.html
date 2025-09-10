@@ -1,0 +1,44 @@
+{% extends "lingo/pricing/manager_agenda_list.html" %}
+{% load i18n thumbnail %}
+
+{% block page-title-extra-label %}{% trans "Archives" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-agenda-archived-list' %}">{% trans "Archives" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Archived agendas" %}</h2>
+{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    {% regroup object_list by category_label as agenda_groups %}
+    {% for group in agenda_groups %}
+      <div class="section">
+        {% if group.grouper %}<h3>{{ group.grouper }}</h3>{% elif not forloop.first %}<h3>{% trans "Misc" %}</h3>{% endif %}
+        <ul class="objects-list single-links">
+          {% for object in group.list %}
+            <li>
+              <a href="{% url 'lingo-manager-agenda-detail' object.pk %}">
+                {% include 'lingo/includes/application_icon_fragment.html' %}
+                {{ object.label }} <span class="identifier">[{% trans "identifier:" %} {{ object.slug }}, {% trans "kind:" %} {{ object.get_real_kind_display }}]</span>
+              </a>
+              {% with chrono_url=object.get_chrono_url %}{% if chrono_url %}<a href="{{ chrono_url }}" class="link-action-icon link">{% trans "view" %}</a>{% endif %}{% endwith %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="big-msg-info">
+      {% blocktrans trimmed %}
+        This site doesn't have any archived agenda yet.
+      {% endblocktrans %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

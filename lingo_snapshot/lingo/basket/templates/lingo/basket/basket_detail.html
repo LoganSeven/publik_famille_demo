@@ -1,0 +1,240 @@
+{% extends "lingo/interstitial_base.html" %}
+{% load i18n gadjo %}
+
+{% block title %}{% trans "Basket" %}{% endblock %}
+
+{% block extrascripts %}
+  <script src="{% xstatic 'jquery' 'jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="basket-title">
+    {% if request.session.back_url or portal_url %}
+      <a class="pk-button basket-back-link" href="{% firstof request.session.back_url portal_url %}"><span class="sr-only">{% trans "Back" %}</span></a>
+    {% endif %}
+    <h1>{% trans "My basket" %}</h1>
+  </div>
+  {% for message in basket.information_messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+  <ul class="basket">
+    {% for line in basket.lines %}
+      {% for label, description, quantity, unit_amount, total_amount, dummy, dummy, dummy, dummy, dummy, dummy, dummy in line.formatted_items %}
+        <li class="basket-item">
+          <a class="basket-item--label" {% if line.form_url %}href="{{ line.form_url }}{% endif %}">{{ line.user_name }} - {{ label }}{% if description %} - {{ description }}{% endif %}</a>
+          <span class="basket-item--total-amount">{% blocktrans with amount=total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</span>
+        </li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+  {% if basket.lines %}
+    <ul class="basket-amounts">
+      <li class="basket-amounts--total">
+        <span class="basket-amounts--total--label">{% trans "Basket amount:" %}</span>
+        <span class="basket-amounts--total--amount">{% blocktrans with amount=basket.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</span>
+      </li>
+      {% if basket.credit_amount %}
+        <li class="basket-amounts--credit">
+          <span class="basket-amounts--credit--label">{% trans "Credit:" %}</span>
+          <span class="basket-amounts--credit--amount">{% blocktrans with amount=basket.credit_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</span>
+        </li>
+      {% endif %}
+      <li class="basket-amounts--remaining">
+        <span class="basket-amounts--remaining--label">
+          {% if basket.remaining_amount < 0 %}
+            {% trans "New credit:" %}
+          {% else %}
+            {% trans "Amount to pay:" %}
+          {% endif %}
+        </span>
+        <span class="basket-amounts--remaining--amount">{% blocktrans with amount=basket.remaining_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</span>
+      </li>
+    </ul>
+
+    {% if basket.other_payer_credits_draft.exists %}
+      <p class="basket-other-payer-credits--title">{% trans "Generated credits for other payers:" %}</p>
+      <ul class="basket-other-payer-credits">
+        {% for credit in basket.other_payer_credits_draft.all %}
+          <li class="basket-other-payer-credits--payer">{% blocktrans with payer_name=credit.payer_name %}For {{ payer_name }}:{% endblocktrans %}
+            <ul class="basket-other-payer-credits--amounts">
+              {% for line in credit.lines.all %}
+                <li class="basket-other-payer-credits--amounts--item">
+                  <a class="basket-other-payer-credits--amounts--label" {% if line.form_url %}href="{{ line.form_url }}{% endif %}">{{ line.user_name }} - {{ line.label }}{% if line.description %} - {{ line.description }}{% endif %}</a>
+                  <span class="basket-other-payer-credits--amounts--total-amount">{% blocktrans with amount=line.total_amount|multiply:-1|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</span>
+                </li>
+              {% endfor %}
+              <li class="basket-other-payer-credits--total">
+                <span class="basket-other-payer-credits--label">{% trans "Credit:" %}</span>
+                <span class="basket-other-payer-credits--amount">{% blocktrans with amount=credit.total_amount|multiply:-1|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</span>
+              </li>
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if basket.is_expired %}
+      <div id="expired">
+        {% trans "Your basket has expired." %}
+      </div>
+    {% endif %}
+
+    {% if basket.remaining_amount == 0 %}
+      <div class="pk-attention">
+        {% trans "You don't have to pay anything but you have to validate your basket for the modifications to be taken into account." %}
+      </div>
+    {% endif %}
+
+    {% if not basket.is_online_payment_possible %}
+      <div class="pk-attention">
+        <p>
+          {{ basket.get_no_online_payment_reason }}
+        </p>
+      </div>
+    {% elif basket.status == 'open' and not basket.is_expired %}
+      <a id="validate-btn" class="pk-button" rel="popup" href="{% url 'lingo-basket-validate' %}">
+        {% if basket.remaining_amount < 0 %}
+          {% trans "Validate and get my credit" %}
+        {% elif basket.remaining_amount > 0 %}
+          {% trans "Validate and pay my invoice" %}
+        {% else %}
+          {% trans "Validate and get my invoice" %}
+        {% endif %}
+      </a>
+    {% endif %}
+    <a class="pk-button" rel="popup" href="{% url 'lingo-basket-cancel' %}">{% trans "Cancel" %}</a>
+  {% else %}
+    <p>{% trans "Your basket is empty." %}</p>
+  {% endif %}
+  <style>
+    .basket-title {
+      position: relative;
+    }
+    .basket-back-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .basket-back-link::before {
+      content: "\f104";
+      font-family: "FontAwesome";
+    }
+    .basket-title h1 {
+      margin: 0;
+      flex: 1;
+    }
+    ul.basket, ul.basket-amounts, ul.basket-other-payer-credits, ul.basket-other-payer-credits--amounts {
+      list-style: none;
+      padding-left: 0;
+    }
+    p.basket-other-payer-credits--title, ul.basket-other-payer-credits {
+      text-align: left;
+    }
+    li.basket-item, ul.basket-amounts li, ul.basket-other-payer-credits--amounts li {
+      text-align: right;
+    }
+  </style>
+  {% if basket.lines and not basket.is_expired %}
+    <script>
+      $(function() {
+        function makeTimer() {
+
+          var endTime = new Date("{{ basket.expiry_at.isoformat }}");
+          endTime = (Date.parse(endTime) / 1000);
+
+          var now = new Date();
+          now = (Date.parse(now) / 1000);
+
+          var timeLeft = endTime - now;
+
+          var days = Math.floor(timeLeft / 86400);
+          var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+          var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
+          var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+          if (seconds < 0 || minutes < 0 || hours < 0 || days < 0) {
+            $("#timer").html("💥");
+          } else {
+
+            if (seconds < "10") { seconds = "0" + seconds; }
+
+            if (days > 1) {
+              $("#days").html(days + "<span>" + "{% trans "days" %}" + "</span>");
+            } else if (days == 1) {
+              $("#days").html(days + "<span>" + "{% trans "day" %}" + "</span>");
+            } else {
+              $('#days').hide();
+            }
+            if (hours > 1) {
+              $("#hours").html(hours + " <span>" + "{% trans "hours" %}" + "</span>");
+            } else if (hours == 1) {
+              $("#hours").html(hours + " <span>" + "{% trans "hour" %}" + "</span>");
+            } else {
+              $('#hours').hide();
+            }
+            if (minutes > 1) {
+              $("#minutes").html(minutes + " <span>" + "{% trans "minutes" %}" + "</span>");
+            } else {
+              $("#minutes").html(minutes + " <span>" + "{% trans "minute" %}" + "</span>");
+            }
+            if (seconds > 1) {
+              var seconds_html = seconds + " <span>" + "{% trans "seconds" %}" + "</span>"
+            } else {
+              var seconds_html = seconds + " <span>" + "{% trans "second" %}" + "</span>"
+            }
+            if (days == 0 && hours == 0 && minutes == 0) {
+              if (seconds == 3) {
+                seconds_html += ' 🧨';
+              }
+              if (seconds == 2) {
+                seconds_html += ' 🧨 🧨';
+              }
+              if (seconds == 1) {
+                seconds_html += ' 🧨 🧨 🧨';
+              }
+              if (seconds == 0) {
+                $("#expiration").html("💥").addClass("boom");
+              }
+            }
+            $("#seconds").html(seconds_html);
+          }
+          if (hours > 0 || minutes >= 10) {
+            document.getElementById('seconds').style.display = 'none'
+          } else {
+            document.getElementById('seconds').style.display = 'inline'
+            const percent = timeLeft / (10 * 60) * 100
+            document.getElementById('timeleft-bar').style.setProperty('--timeleft-percent', percent + '%')
+          }
+        };
+        makeTimer()
+        setInterval(function() { makeTimer() }, 1000)
+      });
+    </script>
+  {% endif %}
+{% endblock %}
+
+{% block content-bottom %}
+  {% if basket.lines and not basket.is_expired %}
+    <div id="timeleft-bar" class="progress" style="--timeleft-percent: 100%">
+      <span>{% trans "Basket validity duration:" %}</span>
+      <span id="timer">
+        <span id="days"></span>
+        <span id="hours"></span>
+        <span id="minutes"></span>
+        <span id="seconds">-</span>
+      </span>
+    </div>
+    <style>
+      #timeleft-bar {
+        background: linear-gradient(to right, #ddd 0%, #ddd var(--timeleft-percent), white var(--timeleft-percent), white 100%);
+      }
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block footer %}
+  {% if portal_url %}
+    <footer>
+      <p><a href="{{ portal_url }}">{% trans "Back to portal" %}</a></p>
+    </footer>
+  {% endif %}
+{% endblock %}

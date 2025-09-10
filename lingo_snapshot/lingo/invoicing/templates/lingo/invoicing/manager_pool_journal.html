@@ -1,0 +1,102 @@
+{% extends "lingo/invoicing/manager_pool_detail.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">{% trans "Journal" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2 id="pool-title">
+    {% if pool.success_count %}<span class="meta meta-success">{{ pool.success_count }}</span>{% endif %}
+    {% if pool.warning_count %}<span class="meta meta-warning">{{ pool.warning_count }}</span>{% endif %}
+    {% if pool.error_count %}<span class="meta meta-error">{{ pool.error_count }}</span>{% endif %}
+    {{ pool.created_at|date:"DATETIME_FORMAT" }}
+  </h2>
+{% endblock %}
+
+{% block content %}
+  <div>
+    {% if pool.status == 'failed' %}
+      <div class="pk-error">
+        <p>{% trans "Error while running pool." %}</p>
+        {% if pool.exception %}<pre>{{ pool.exception }}</pre>{% endif %}
+      </div>
+    {% endif %}
+    <div class="section">
+      <div>
+        <form class="journal-filters">
+          <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+            <legend class="gadjo-foldable-widget">{% trans "Journal Filtering" %}</legend>
+            <div class="gadjo-folding">
+              {{ filterset.form|with_template }}
+              <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <table class="main pk-compact-table lines">
+      <thead>
+        <tr>
+          <th>{% trans "PK" %}</th>
+          <th>{% trans "Invoice number" %}</th>
+          <th>{% trans "Event" %}</th>
+          <th>{% trans "Amount" %}</th>
+          <th>{% trans "Quantity" %}</th>
+          <th>{% trans "Accounting code" %}</th>
+          <th>{% trans "User" %}</th>
+          <th>{% trans "Payer" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in object_list %}
+          <tr data-line-id="{{ line.pk }}" data-line-slot="{{ line.user_external_id }}//{{ line.slug }}" class="untoggled">
+            {% include 'lingo/invoicing/manager_line_detail_fragment.html' %}
+          </tr>
+          <tr data-details-for-line-id="{{ line.pk }}" style="display: none">
+            <td colspan="10">
+              {% trans "Pricing data:" %}
+              <pre>{{ line.pricing_data|pprint }}</pre>
+              {% trans "Event:" %}
+              <pre>{{ line.event|pprint }}</pre>
+              {% trans "Booking:" %}
+              <pre>{{ line.booking|pprint }}</pre>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+  <script>
+    $(function() {
+      $(document).on('click', 'a.error-status', function(event) {
+        // avoid reloading the whole page. There is no refresh of counters, it is not so important.
+        event.preventDefault();
+        var $a = $(this);
+        $.ajax({
+          url: $a.attr('href')
+        }).done(function(html) {
+          $a.parents('tr').html(html);
+        }).fail(function() {
+          location.reload();
+        });
+      });
+      $(document).on('click', 'a.error-replay', function(event) {
+        event.preventDefault();
+        var $a = $(this);
+        $.ajax({
+          url: $a.attr('href')
+        }).done(function(html) {
+          var line_slot = $a.parents('tr').data('line-slot');
+          $('tr[data-line-slot="' + line_slot + '"', $a.parents('tbody')).html(html);
+        }).fail(function() {
+          location.reload();
+        });
+      });
+    });
+  </script>
+{% endblock %}

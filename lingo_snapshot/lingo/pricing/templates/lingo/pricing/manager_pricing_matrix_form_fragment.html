@@ -1,0 +1,41 @@
+{% load i18n %}
+<div class="section">
+  {% if matrix.criteria %}<h3>{{ matrix.criteria.label }}</h3>{% endif %}
+  <div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.management_form }}
+      <table class="main">
+        {% if matrix.rows.0.cells.0.criteria %}
+          <thead>
+            <tr>
+              <th></th>
+              {% for cell in matrix.rows.0.cells %}
+                <th>{{ cell.criteria.label }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+        {% endif %}
+        <tbody>
+          {% for sub_form in form %}
+            {% with row=matrix.rows|get:forloop.counter0 %}
+              <tr>
+                <th>{{ row.criteria.label }}</th>
+                {% for field in sub_form %}
+                  <td>
+                    {{ field.errors.as_ul }}
+                    {{ field }}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endwith %}
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="buttons">
+        <button class="submit-button">{% trans "Save" %}</button>
+        <a class="cancel" href="{% url 'lingo-manager-pricing-detail' object.pk %}">{% trans 'Cancel' %}</a>
+      </div>
+    </form>
+  </div>
+</div>

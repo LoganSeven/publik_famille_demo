@@ -1,0 +1,180 @@
+{% load i18n %}
+{% if credit.label or credit.previous_invoice %}
+  <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+    <td colspan="7">{{ credit.label }}{% if credit.previous_invoice %}{% if credit.label %} - {% endif %}<i>{% trans "Initial invoice number:" %} {{ credit.previous_invoice.formatted_number }}</i>{% endif %}</td>
+  </tr>
+{% endif %}
+{% if not pool.draft %}
+  <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+    <td colspan="2"></td>
+    <td class="invoice-details" colspan="5">
+      <i>{% trans "Publication date:" %} {{ credit.date_publication|date:"d/m/Y" }}</i>
+    </td>
+  </tr>
+{% endif %}
+<tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+  <td colspan="2"></td>
+  <td class="invoice-details" colspan="5">
+    {% if not pool and credit.pool %}
+      <i>{% trans "Origin:" %} <a href="{% url 'lingo-manager-invoicing-pool-detail' regie_pk=regie.pk pk=credit.pool.campaign_id pool_pk=credit.pool.pk %}?credits&number={{ credit.formatted_number }}">{% trans "Campaign" %}</a></i>
+    {% else %}
+      <i>{% trans "Origin:" %} {{ credit.get_origin_display }}</i>
+    {% endif %}
+  </td>
+</tr>
+{% for line in object_list %}
+  {% if credit.pool %}
+    {% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=credit.pool.campaign_id pool_pk=credit.pool.pk as journal_url %}
+  {% endif %}
+  {% ifchanged line.user_external_id %}
+    <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+      <th colspan="7" class="user">
+        {% if credit.pool %}
+          <a href="{{ journal_url }}?user_external_id={{ line.user_external_id }}">{{ line.user_name }}</a>
+        {% else %}
+          {{ line.user_name }}
+        {% endif %}
+      </th>
+    </tr>
+    <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+      <td colspan="2">{% trans "Description" %}</td>
+      <td class="accounting-code">{% trans "Accounting code" %}</td>
+      <td class="amount">{% trans "Amount" %}</td>
+      <td class="quantity">{% trans "Quantity" %}</td>
+      <td class="amount">{% trans "Subtotal" %}</td>
+      <td></td>
+    </tr>
+  {% endifchanged %}
+  {% ifchanged line.user_external_id line.activity_label %}
+    {% if line.activity_label or not forloop.first %}
+      <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+        <td colspan="7" class="activity">{{ line.activity_label|default:"&nbsp;" }}</td>
+      </tr>
+    {% endif %}
+  {% endifchanged %}
+  <tr class="line untoggled {% if pool.draft and forloop.last %}last-line{% endif %}" data-related-invoicing-element-id="{{ credit.pk }}" data-invoicing-element-id="{{ credit.pk }}-{{ line.pk }}">
+    <td class="event">
+      {% if credit.pool %}
+        <a href="{{ journal_url }}?{% if pool.draft %}invoice_line{% else %}credit_line{% endif %}={{ line.pk }}">{{ line.label }}</a>
+      {% elif line.form_url %}
+        <a href="{{ line.form_url }}">{{ line.label }}</a>
+      {% else %}
+        {{ line.label }}
+      {% endif %}
+    </td>
+    <td class="details">
+      <small>
+        {% if not line.details.partial_bookings %}
+          {% if line.details.check_type_label %}
+            {{ line.details.check_type_label }}
+          {% elif line.details.status == 'presence' %}
+            {% trans "Presence" %}
+          {% elif line.details.status == 'absence' %}
+            {% trans "Absence" %}
+          {% endif %}
+        {% endif %}
+        {{ line.description }}
+      </small>
+    </td>
+    <td class="accounting-code">
+      {{ line.accounting_code }}
+    </td>
+    <td class="amount">
+      {% blocktrans with amount=line.unit_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+    </td>
+    <td class="quantity">
+      {{ line.quantity|floatformat }}
+    </td>
+    <td class="amount">
+      {% blocktrans with amount=line.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+    </td>
+    <td></td>
+  </tr>
+{% endfor %}
+{% if not pool.draft %}
+  {% if not credit.cancelled_at %}
+    <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+      <th colspan="7" class="assignments">
+        {% trans "Assignments" %}
+      </th>
+    </tr>
+    <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+      <td class="payment-num">{% trans "Payment" context 'payment' %}</td>
+      <td colspan="4">{% trans "Date" context 'payment' %}</td>
+      <td class="amount" colspan="2">{% trans "Amount" %}</td>
+    </tr>
+    {% for assignment in credit.creditassignment_set.all %}
+      <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+        {% if assignment.payment %}
+          <td>
+            <a href="{% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=regie.pk %}?number={{ assignment.payment.formatted_number }}">{{ assignment.payment.formatted_number }}</a>
+          </td>
+          <td colspan="4">
+            {{ assignment.payment.created_at|date:"DATETIME_FORMAT" }}
+          </td>
+        {% elif assignment.invoice %}
+          <td>
+            <i>{% trans "Pending..." %}</i>
+          </td>
+          <td colspan="4"></td>
+        {% else %}
+          <td>
+            <a href="{% url 'lingo-manager-invoicing-regie-refund-list' regie_pk=regie.pk %}?number={{ assignment.refund.formatted_number }}">{{ assignment.refund.formatted_number }} ({% trans "Refund" %})</a>
+          </td>
+          <td colspan="4">
+            {{ assignment.refund.created_at|date:"DATETIME_FORMAT" }}
+          </td>
+        {% endif %}
+        <td class="amount" colspan="2">
+          {% blocktrans with amount=assignment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+        <td colspan="7" class="no-payments">
+          {% trans "No assignments for this credit" %}
+        </td>
+      </tr>
+    {% endfor %}
+    {% if credit.assigned_amount %}
+      <tr class="line {% if not credit.remaining_amount%}last-line{% endif %}" data-related-invoicing-element-id="{{ credit.pk }}">
+        <td colspan="2"></td>
+        <td class="invoice-details" colspan="5">
+          <i>{% trans "Assigned amount:" %} {% blocktrans with amount=credit.assigned_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</i>
+        </td>
+      </tr>
+    {% endif %}
+    {% if credit.remaining_amount %}
+      {% if not credit.assigned_amount and not pool and user_can_invoice %}
+        <tr class="line" data-related-invoicing-element-id="{{ credit.pk }}">
+          <td colspan="2"></td>
+          <td class="invoice-details" colspan="5">
+            <i>{% trans "Remaining amount to assign:" %} {% blocktrans with amount=credit.remaining_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</i>
+          </td>
+        </tr>
+        <tr class="line last-line" data-related-invoicing-element-id="{{ credit.pk }}">
+          <td colspan="2"></td>
+          <td class="invoice-details" colspan="5">
+            <a href="{% url 'lingo-manager-invoicing-regie-credit-cancel' regie_pk=regie.pk credit_pk=credit.pk %}" rel="popup">{% trans "Cancel credit" %}</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr class="line last-line" data-related-invoicing-element-id="{{ credit.pk }}">
+          <td colspan="2"></td>
+          <td class="invoice-details" colspan="5">
+            <i>{% trans "Remaining amount to assign:" %} {% blocktrans with amount=credit.remaining_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</i>
+          </td>
+        </tr>
+      {% endif %}
+    {% endif %}
+  {% else %}
+    {% for label, value in credit.get_cancellation_info %}
+      <tr class="line {% if forloop.last %}last-line{% endif %}" data-related-invoicing-element-id="{{ credit.pk }}">
+        <td colspan="2"></td>
+        <td class="invoice-details" colspan="5">
+          <i>{% blocktrans %}{{ label }}:{% endblocktrans %} {{ value }}</i>
+        </td>
+      </tr>
+    {% endfor %}
+  {% endif %}
+{% endif %}

@@ -1,0 +1,78 @@
+{% extends "lingo/pricing/manager_pricing_list.html" %}
+{% load i18n %}
+
+{% block page-title-extra-label %}{% trans "Check types" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'lingo-manager-homepage' %}">{% trans "Payments" context 'lingo title' %}</a>
+  <a href="{% url 'lingo-manager-pricing-list' %}">{% trans "Pricings" %}</a>
+  {% url 'lingo-manager-check-type-list' as object_list_url %}
+  <a href="{{ object_list_url }}">{% trans "Check types" %}</a>
+  {% include 'lingo/includes/application_breadcrumb_fragment.html' with title_no_application=_('Check types outside applications') %}
+{% endblock %}
+
+{% block appbar %}
+  {% include 'lingo/includes/application_appbar_fragment.html' with title_no_application=_('Check types outside applications') title_object_list=_('Check types') %}
+{% endblock %}
+
+{% block content %}
+  {% if not application and not no_application %}
+    <div class="pk-information">
+      <p>{% trans "Define here check types used in events agendas to check bookings." %}</p>
+    </div>
+  {% endif %}
+  {% for object in object_list %}
+    <div class="section check-type-group">
+      <h3>
+        <a rel="popup" href="{% url 'lingo-manager-check-type-group-edit' object.pk %}">
+          {% include 'lingo/includes/application_icon_fragment.html' %}
+          {{ object }}
+        </a>
+        <span>
+          <a class="button" href="{% url 'lingo-manager-check-type-group-export' object.pk %}">{% trans "Export"%}</a>
+          <a class="button" rel="popup" href="{% url 'lingo-manager-check-type-group-delete' object.pk %}">{% trans "Delete"%}</a>
+        </span>
+      </h3>
+      <div>
+        <ul class="objects-list single-links">
+          {% for check_type in object.check_types.all|dictsort:"kind" %}
+            <li>
+              <a rel="popup" href="{% url 'lingo-manager-check-type-edit' object.pk check_type.pk %}">
+                {% if check_type.kind == 'absence' %}{% trans "Absence" %}{% else %}{% trans "Presence" %}{% endif %}
+                - {{ check_type }}
+                <span class="identifier">[{% trans "identifier:" %} {{ check_type.slug }}{% if check_type.code %}, {% trans "code:" %} {{ check_type.code }}{% endif %}]</span>
+                {% if check_type.disabled %}<span class="extra-info">({% trans "disabled" %})</span>{% endif %}
+              </a>
+              <a class="delete" rel="popup" href="{% url 'lingo-manager-check-type-delete' object.pk check_type.pk %}">{% trans "delete"%}</a>
+            </li>
+          {% endfor %}
+          <li><a class="add" rel="popup" href="{% url 'lingo-manager-check-type-add' object.pk %}">{% trans "Add a check type" %}</a></li>
+          <li><a class="edit" rel="popup" href="{% url 'lingo-manager-check-type-group-unexpected-presence-edit' object.pk %}">{% trans "Unexpected presence:" %} {{ object.unexpected_presence|default:"" }}</a></li>
+          <li><a class="edit" rel="popup" href="{% url 'lingo-manager-check-type-group-unjustified-absence-edit' object.pk %}">{% trans "Unjustified absence:" %} {{ object.unjustified_absence|default:"" }}</a></li>
+        </ul>
+      </div>
+    </div>
+  {% empty %}
+    {% if not no_application %}
+      <div class="big-msg-info">
+        {% blocktrans trimmed %}
+          This site doesn't have any check type group yet. Click on the "New group" button in the top
+          right of the page to add a first one.
+        {% endblocktrans %}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+  {% if not application and not no_application %}
+    <aside id="sidebar">
+
+      <h3>{% trans "Actions" %}</h3>
+      <a class="button button-paragraph" rel="popup" href="{% url 'lingo-manager-check-type-group-add' %}">{% trans 'New group' %}</a>
+
+      {% include 'lingo/includes/application_list_fragment.html' with title_no_application=_('Check types outside applications') %}
+
+    </aside>
+  {% endif %}
+{% endblock %}

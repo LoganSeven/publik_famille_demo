@@ -1,0 +1,45 @@
+{% extends "lingo/invoicing/manager_campaign_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-campaign-job-detail' regie.pk object.pk job.uuid %}">{{ job }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{{ job }}</h2>
+{% endblock %}
+
+{% block content %}
+  {% if object.status == 'failed' %}
+    <div class="pk-error">
+      {% if object.exception %}
+        <p>{% trans "Error running the job." %}</p>
+        <pre>{{ object.exception }}</pre>
+      {% endif %}
+      <p><a class="pk-button" href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}">{% trans "Back" %}</a></p>
+    </div>
+  {% else %}
+    <div class="pk-information">
+      <p>{% trans "Please wait…" %}</p>
+      {% for item in job_progression %}
+        <dl class="job-status">
+          <dt>{{ item.job.label }}</dt>
+          <dd>{{ item.job.get_status_display }}: {{ item.progression_status|default:"" }}</dd>
+        </dl>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <script>
+    $(function () {
+      {% if all_jobs_completed %}
+        window.location = "{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}";
+      {% elif not any_job_failed %}
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000);
+      {% endif %}
+    });
+  </script>
+{% endblock %}

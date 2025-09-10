@@ -1,0 +1,24 @@
+{% extends "lingo/invoicing/manager_pool_detail.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-pool-delete' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">{% trans "Delete" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Delete" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>{% trans "Are you sure you want to delete this final pool ?" %}</p>
+    <p>{% trans "Invoices are already numbered, if the pool is deleted, invoices will be kept and cancelled." %}</p>
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="delete-button">{% trans "Delete" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-pool-detail' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

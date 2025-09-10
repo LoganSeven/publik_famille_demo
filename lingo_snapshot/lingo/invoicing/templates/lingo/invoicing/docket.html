@@ -1,0 +1,159 @@
+{% extends "lingo/invoicing/print_document_base.html" %}
+{% load i18n %}
+
+{% block css %}
+  <style>
+    html {
+      padding: 0;
+      margin: 0;
+      color: #14213d;
+      font-family: "DejaVu Sans", sans-serif;
+      font-size: 9pt;
+      line-height: 1.2;
+    }
+    body {
+      margin: 0;
+    }
+    @media screen {
+      body {
+        margin: auto;
+        width: 21cm;
+        position: relative;
+      }
+    }
+    @page {
+      margin: 0.5cm;
+      margin-bottom: 1cm;
+      size: landscape;
+      @bottom-right {
+        content: "{% trans "Page" %} " counter(page) "/" counter(pages);
+        height: 1cm;
+        text-align: right;
+        width: 2cm;
+      }
+    }
+
+    body {
+      font-family: sans-serif;
+      font-size: 8pt;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+    th {
+      padding: 0.5em 0.5ex;
+      border: 0.5px solid black;
+    }
+    td {
+      border: 0.5px solid black;
+      padding: 0.5em 0.5ex;
+    }
+  </style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+  <h1>{{ regie }} - {% blocktrans %}List of the payments of docket {{ object }}{% endblocktrans %}</h1>
+  <ul>
+    {% if cancelled.list %}
+      <li>{% trans "Initial docket amount:" %} {% blocktrans with amount=object.get_payments_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+      <li>{% trans "Cancelled docket amount:" %} {% blocktrans with amount=cancelled.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+      <li>{% trans "Final docket amount:" %} {% blocktrans with amount=object.get_active_payments_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+    {% else %}
+      <li>{% trans "Docket amount:" %} {% blocktrans with amount=object.get_payments_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+    {% endif %}
+  </ul>
+  {% for value in active %}
+    {% if value.list %}
+      <h2>{{ value.payment_type }}</h2>
+      <div>
+        <p>
+          {% trans "Number of payments:" %} {{ value.list|length }}
+          <br />
+          {% trans "Total amount:" %} {% blocktrans with amount=value.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+          <br />
+          {% trans "Additional information:" %}
+          <br />
+          {{ object.payment_types_info|get:value.payment_type.slug|default:""|linebreaksbr }}
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>{% trans "Number" %}</th>
+              <th>{% trans "Date" %}</th>
+              <th>{% trans "Payer ID" %}</th>
+              <th>{% trans "Payer first name" %}</th>
+              <th>{% trans "Payer last name" %}</th>
+              <th>{% trans "Total amount" %}</th>
+              {% for k, v in payment_info %}
+                <th>{{ v }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for payment in value.list %}
+              <tr>
+                <td>{{ payment.formatted_number }}</td>
+                <td>{{ payment.created_at|date:"d/m/Y" }}</td>
+                <td>{{ payment.payer_external_id }}</td>
+                <td>{{ payment.payer_first_name }}</td>
+                <td>{{ payment.payer_last_name }}</td>
+                <td>{% blocktrans with amount=payment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+                {% for k, v in payment_info %}
+                  <td>{{ payment.payment_info|get:k|default:'' }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% if cancelled.list %}
+    <h2>{% trans "Cancelled payments" %}</h2>
+    <div>
+      <p>
+        {% trans "Number of payments:" %} {{ cancelled.list|length }}
+        <br />
+        {% trans "Total amount:" %} {% blocktrans with amount=cancelled.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>{% trans "Number" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Payer ID" %}</th>
+            <th>{% trans "Payer first name" %}</th>
+            <th>{% trans "Payer last name" %}</th>
+            <th>{% trans "Total amount" %}</th>
+            {% for k, v in payment_info %}
+              <th>{{ v }}</th>
+            {% endfor %}
+            <th>{% trans "Cancelled on" %}</th>
+            <th>{% trans "Cancellation reason" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for payment in cancelled.list %}
+            <tr>
+              <td>{{ payment.formatted_number }}</td>
+              <td>{{ payment.created_at|date:"d/m/Y" }}</td>
+              <td>{{ payment.payer_external_id }}</td>
+              <td>{{ payment.payer_first_name }}</td>
+              <td>{{ payment.payer_last_name }}</td>
+              <td>{% blocktrans with amount=payment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+              {% for k, v in payment_info %}
+                <td>{{ payment.payment_info|get:k|default:'' }}</td>
+              {% endfor %}
+              <td>{{ payment.cancelled_at|date:"d/m/Y" }}</td>
+              <td>{{ payment.cancellation_reason|default:'' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

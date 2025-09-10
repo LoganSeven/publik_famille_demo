@@ -1,0 +1,72 @@
+{% extends "lingo/manager_homepage.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "E-Payment" %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-epayment-transaction-list' %}">{% trans "E-Payment" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans 'E-Payment' %}</h2>
+  {% if backend_exists %}
+    <span class="actions">
+      <a href="{% url 'lingo-manager-epayment-backend-list' %}">{% trans 'Configure payment backends' %}</a>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if object_list or request.GET %}
+    <div class="section">
+      <div>
+        <form class="transaction-element-filters">
+          <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+            <legend class="gadjo-foldable-widget">{% trans "Transaction Filtering" %}</legend>
+            <div class="gadjo-folding">
+              {{ filterset.form|with_template }}
+              <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div>
+      <table class="main transactions-table">
+        <thead>
+          <tr>
+            <th>{% trans 'Status' %}</th>
+            <th>{% trans 'Date' %}</th>
+            <th>{% trans 'Order Identifier' %}</th>
+            <th>{% trans 'Bank Transaction Identifier' %}</th>
+            <th>{% trans "Invoice number" %}</th>
+            <th>{% trans "Payment number" %}</th>
+            <th>{% trans 'Amount' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in object_list %}
+            <tr>
+              <td class="transactions-table--status">{{ object.status_label }}</td>
+              <td>{{ object.start_date }}</td>
+              <td>{{ object.order_id }}</td>
+              <td>{{ object.bank_transaction_id|default:"" }}</td>
+              <td>{% if object.invoice %}<a href="{% url 'lingo-manager-invoicing-regie-invoice-list' regie_pk=object.invoice.regie_id %}?number={{ object.invoice.formatted_number }}">{{ object.invoice.formatted_number }}</a>{% else %}-{% endif %}</td>
+              <td>{% if object.invoice and object.payment_formatted_number %}<a href="{% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=object.invoice.regie_id %}?number={{ object.payment_formatted_number }}">{{ object.payment_formatted_number }}</a>{% else %}-{% endif %}</td>
+              <td>{% blocktrans with amount=object.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% include "gadjo/pagination.html" %}
+    </div>
+  {% else %}
+    <div class="big-msg-info">
+      {% blocktrans %}
+        There are no transactions yet.
+      {% endblocktrans %}
+    </div>
+  {% endif %}
+
+{% endblock %}

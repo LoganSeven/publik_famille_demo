@@ -1,0 +1,63 @@
+{% extends "lingo/invoicing/manager_collection_list.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Collections" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-collection-invoice-list' regie_pk=regie.pk %}">{% trans "Invoices outside collections" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Invoices outside collections" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset id="filters">
+          <legend>{% trans "Invoices outside collections search" %}</legend>
+          <div>
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Search" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div>
+    <table class="main pk-compact-table invoicing-element-list">
+      {% url 'lingo-manager-invoicing-regie-invoice-list' regie_pk=regie.pk as regie_invoice_list_url %}
+      {% for invoice in object_list %}
+        <tr>
+          <td colspan="4">
+            {% if invoice.date_invoicing %}
+              {% blocktrans with invoice_number=invoice.formatted_number number=invoice.formatted_number idate=invoice.date_invoicing|date:'d/m/Y' cdate=invoice.created_at|date:'d/m/Y' ddate=invoice.date_due|date:"d/m/Y" payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.remaining_amount total_amount=invoice.total_remaining %}Invoice <a href="{{ regie_invoice_list_url }}?number={{ invoice_number }}">{{ invoice_number }}</a> dated {{ idate }} (created on {{ cdate }}) addressed to <a href="{{ regie_invoice_list_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a> (Due date {{ ddate }}), remaining amount {{ amount }}€, total for the payer {{ total_amount }}€{% endblocktrans %}
+            {% else %}
+              {% blocktrans with invoice_number=invoice.formatted_number number=invoice.formatted_number cdate=invoice.created_at|date:'d/m/Y' ddate=invoice.date_due|date:"d/m/Y" payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.remaining_amount total_amount=invoice.total_remaining %}Invoice <a href="{{ regie_invoice_list_url }}?number={{ invoice_number }}">{{ invoice_number }}</a> dated {{ cdate }} addressed to <a href="{{ regie_invoice_list_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a> (Due date {{ ddate }}), remaining amount {{ amount }}€, total for the payer {{ total_amount }}€{% endblocktrans %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+  {% if user_can_invoice %}
+    <aside id="sidebar">
+
+      <h3>{% trans "Actions" %}</h3>
+      {% if not has_draft %}
+        <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-collection-add' regie_pk=regie.pk %}?{{ request.GET.urlencode }}">{% trans "New collection" %}</a>
+      {% else %}
+        <div class="paragraph">
+          {% trans "The action to create a new collection is not available because a draft collection already exists." %}
+        </div>
+      {% endif %}
+
+    </aside>
+  {% endif %}
+{% endblock %}

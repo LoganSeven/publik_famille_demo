@@ -1,0 +1,36 @@
+{% extends "lingo/pricing/manager_pricing_parameters.html" %}
+{% load static gadjo i18n %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="all" href="{% static "css/gadjo.multiselectwidget.css" %}?{% start_timestamp %}" />
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "js/gadjo.multiselectwidget.js" %}?{% start_timestamp %}"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-pricing-agenda-add' object.pk %}">{% trans "Add an agenda" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Add an agenda" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    {% include "lingo/includes/agenda_select_fragment.html" %}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-pricing-parameters' object.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

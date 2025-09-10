@@ -1,0 +1,18 @@
+{% extends "lingo/interstitial_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Basket" %}{% endblock %}
+
+{% block content %}
+  <div>
+    <h1>{% trans "My basket" %}</h1>
+    <form method="post" class="form-disable-on-submit">
+      {% csrf_token %}
+      <p>{% trans "Are you sure you want to validate this basket?" %}</p>
+      <div class="buttons">
+        <button class="submit-button">{% trans "Validate" %}</button>
+        <a class="cancel" href="{% url 'lingo-basket-detail' %}">{% trans 'Cancel' %}</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "lingo/interstitial_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Processing payment" %}{% endblock %}
+
+{% block content %}
+  <div id="processing-payment" aria-live="polite">
+    <h1>{% trans "Please wait" %}</h1>
+    <div class="loader"></div>
+    <p>
+      {% trans "Your payment is being processed." %}
+      <br>
+      {% trans "This will take at most 1 minute." %}
+    </p>
+  </div>
+  <template id="status-paid"> <!-- paid -->
+    <h1>{% trans "Payment confirmed" %}</h1>
+    <p>
+      {% trans "Your payment has been received." %}
+    </p>
+    <p id="continue">
+      <a href="{{ next_url }}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="status-4"> <!-- denied -->
+    <h1>{% trans "Payment denied" %}</h1>
+    <p>
+      {% trans "Your payment has been denied." %}
+    </p>
+    <p id="continue">
+      <a href="{{ next_url }}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="status-5"> <!-- cancelled -->
+    <h1>{% trans "Payment cancelled" %}</h1>
+    <p id="continue">
+      {% trans "The payment request has been cancelled." %}
+    </p>
+    <p id="continue">
+      <a href="{{ next_url }}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="status-99"> <!-- error -->
+    <h1>{% trans "Error" %}</h1>
+    <p>
+      {% trans "An error occured processing your payment." %}
+    </p>
+    <p id="continue">
+      <a href="{{ next_url }}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="status-timeout"> <!-- timeout -->
+    <h1>{% trans "Timeout" %}</h1>
+    <p>
+      {% trans "Network errors are preventing the processing of your payment." %}
+      {% trans "Checks will continue in the background." %}
+    </p>
+    <p id="continue">
+      <a href="{{ next_url }}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="title"> | {% firstof global_title site_title "Compte Citoyen" %}</template>
+
+  <script>
+    (function() {
+      function update_page(tmpl_id) {
+        const tmpl = document.getElementById(tmpl_id)
+        document.getElementById('processing-payment').innerHTML = tmpl.innerHTML
+        document.title = document.getElementsByTagName('h1')[0].textContent + document.getElementById('title').innerHTML
+      }
+
+      var interval_id = setInterval(async function() {
+        const response = await fetch('{{ processing_status_url }}', {method: 'GET'});
+        if (response.ok) {
+          const data = await response.json()
+          if (! data.running) {
+            clearInterval(interval_id)
+            clearTimeout(timeout_id)
+            if (data.paid) {
+              update_page('status-paid');
+            } else {
+              update_page('status-' + data.status);
+            }
+          }
+        }
+      }, {% if short_wait %}500{% else %}5000{% endif %})
+      var timeout_id = setTimeout( () => {
+        // one minute and still running
+        clearInterval(interval_id)
+        update_page('status-timeout');
+      }, 60000)
+    })()
+  </script>
+{% endblock %}

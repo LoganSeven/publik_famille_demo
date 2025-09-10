@@ -1,0 +1,21 @@
+<script>
+  $(function() {
+    $('.category-select-widget--button-add').on('click', function() {
+      var category_id = $('#id_category').val();
+      $('#id_agendas_0 option').each(function() {
+        if (category_id && $(this).data('category-id') == category_id) {
+          var $last = $('select[name="agendas"]').last();
+          if ($last.attr('id') == 'id_agendas_0' && $last.val() == $('#id_agendas_0 option').first().val()) {
+                        // first value not changed, set it
+            $('select[name="agendas"]').last().val($(this).val());
+          } else {
+                        // add a new value and set agenda
+            $('[name="agendas$add_element"]').click();
+            $('select[name="agendas"]').last().val($(this).val());
+          }
+        }
+      });
+      $('#id_category').val('');
+    });
+  });
+</script>

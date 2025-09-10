@@ -1,0 +1,59 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Credits" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-credit-list' regie_pk=regie.pk %}">{% trans "Credits" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Credits" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+          <legend class="gadjo-foldable-widget">{% trans "Credit Filtering" %}</legend>
+          <div class="gadjo-folding">
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div>
+    <table class="main pk-compact-table invoicing-element-list">
+      {% for credit in object_list %}
+        <tr class="credit untoggled" data-invoicing-element-id="{{ credit.pk }}" data-invoicing-element-lines-url="{% url 'lingo-manager-invoicing-regie-credit-line-list' regie_pk=regie.pk credit_pk=credit.pk %}">
+          <td colspan="6">
+            {% if credit.cancelled_at %}
+              <span class="meta meta-error">{% trans "Cancelled" context "credit" %}</span>
+            {% elif credit.remaining_amount > 0 and credit.assigned_amount > 0 %}
+              <span class="meta meta-warning">{% trans "Partially assigned" %}</span>
+            {% elif credit.remaining_amount == 0 and credit.total_amount > 0 %}
+              <span class="meta meta-success">{% trans "Assigned" %}</span>
+            {% endif %}
+            {% if credit.date_invoicing %}
+              {% blocktrans with credit_number=credit.formatted_number number=credit.formatted_number idate=credit.date_invoicing|date:'d/m/Y' cdate=credit.created_at|date:'d/m/Y' payer_id=credit.payer_external_id payer_name=credit.payer_name amount=credit.total_amount %}Credit {{ credit_number }} dated {{ idate }} (created on {{ cdate }}) for <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+            {% else %}
+              {% blocktrans with credit_number=credit.formatted_number number=credit.formatted_number cdate=credit.created_at|date:'d/m/Y' payer_id=credit.payer_external_id payer_name=credit.payer_name amount=credit.total_amount %}Credit {{ credit_number }} dated {{ cdate }} for <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+            {% endif %}
+            - <a href="{% url 'lingo-manager-invoicing-regie-credit-pdf' regie_pk=regie.pk credit_pk=credit.pk %}">{% trans "download" %}</a>
+          </td>
+          <td class="with-togglable">
+            <span class="togglable"></span>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

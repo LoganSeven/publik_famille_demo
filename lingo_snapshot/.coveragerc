@@ -1,0 +1,7 @@
+[run]
+omit =
+        manage.py
+        noxfile.py
+        setup.py
+[html]
+show_contexts = True

@@ -1,0 +1,83 @@
+{% extends "lingo/manager_base.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-inspect' %}">{% trans "Inspect tool" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans 'Inspect tool' %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div id="inspect-test-tool" class="section">
+    <h3>{% trans "Test tool" %}</h3>
+    <div>
+
+      <form action="{% url 'lingo-manager-inspect-test-template' %}" id="inspect-test-template" method="post">
+        {% csrf_token %}
+        {{ inspect_form|with_template }}
+        <button id="inspect-test-template-submit" class="submit-button submit">
+          {% trans "Test template"%}
+        </button>
+      </form>
+
+      <div hidden id="inspect-test-template-div">
+        <div class="infonotice">
+          <h3>{% trans "Template result" %}</h3>
+          <div id="inspect-test-template-result"></div>
+        </div>
+        <div class="infonotice">
+          <h3>{% trans "HTML sources" %}</h3>
+          <pre id="inspect-test-template-result-html"></pre>
+        </div>
+      </div>
+      <div class="errornotice" hidden id="inspect-test-template-error-div">
+        <h3>{% trans "Template rendering error" %}</h3>
+        <div id="inspect-test-template-error"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.body.onload = function() {
+      function ajax_cllbck() {
+        const res_div = document.getElementById('inspect-test-template-div');
+        const res_result = document.getElementById('inspect-test-template-result');
+        const res_result_html = document.getElementById('inspect-test-template-result-html');
+        const error_div = document.getElementById('inspect-test-template-error-div')
+        const error_reason = document.getElementById('inspect-test-template-error')
+        const result = JSON.parse(this.responseText)
+
+        if('error' in result) {
+          error_reason.innerHTML = result['error'];
+          res_div.setAttribute('hidden', 'true');
+          error_div.removeAttribute('hidden');
+        } else {
+          res_result.innerHTML = result['result'];
+          res_result_html.textContent = result['result'];
+          error_div.setAttribute('hidden', 'true');
+          res_div.removeAttribute('hidden');
+        }
+      }
+
+      function submit_btn_click() {
+        const csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value
+        const django_template = document.getElementsByName('django_template')[0].value
+        const querystring =
+          "csrfmiddlewaretoken="+encodeURIComponent(csrf_token)+"&django_template="+encodeURIComponent(django_template);
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = ajax_cllbck
+        xhttp.open("POST", "{% url 'lingo-manager-inspect-test-template' %}", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(querystring);
+        return false;
+      }
+
+      const submit_btn = document.getElementById('inspect-test-template-submit')
+      submit_btn.onclick = submit_btn_click
+    }
+  </script>
+{% endblock %}

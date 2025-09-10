@@ -1,0 +1,38 @@
+{% extends "lingo/epayment/transaction_list.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-epayment-backend-list' %}">{% trans "Payment backends" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans 'Payment backends' %}</h2>
+  {% if user.is_staff %}
+    <span class="actions">
+      <a rel="popup" href="{% url 'lingo-manager-epayment-backend-add' %}">{% trans 'New payment backend' %}</a>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    <ul class="objects-list single-links">
+      {% for payment_backend in object_list %}
+        <li>
+          <a href="{% url 'lingo-manager-epayment-backend-detail' pk=payment_backend.pk %}">{{ payment_backend.label }}
+            <span>({{payment_backend.service}})</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="big-msg-info">
+      {% blocktrans %}
+        There are no payment backend yet. Click on the "New" button in the top
+        right of the page to add a first one.
+      {% endblocktrans %}
+    </div>
+  {% endif %}
+
+{% endblock %}

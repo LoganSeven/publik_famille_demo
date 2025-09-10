@@ -1,0 +1,8 @@
+{% load thumbnail %}
+{% if not application and not no_application %}
+  {% for application in object.applications %}
+    {% thumbnail application.icon '16x16' format='PNG' as im %}
+      <img src="{{ im.url }}" alt="" class="application-icon" width="16" />
+    {% endthumbnail %}
+  {% endfor %}
+{% endif %}

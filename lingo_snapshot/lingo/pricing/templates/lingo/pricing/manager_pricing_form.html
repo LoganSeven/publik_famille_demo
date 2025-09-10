@@ -1,0 +1,51 @@
+{% extends "lingo/pricing/manager_pricing_list.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if form.instance.pk %}
+    <a href="{% url 'lingo-manager-pricing-detail' object.pk %}">{{ object }}</a>
+    <a href="{% url 'lingo-manager-pricing-parameters' object.pk %}">{% trans "Parameters" %}</a>
+    <a href="{% url 'lingo-manager-pricing-edit' object.pk %}">{% trans "Options" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-pricing-add' %}">{% trans "New pricing" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if object.pk %}
+    <h2>{% trans "Edit pricing" %}</h2>
+  {% else %}
+    <h2>{% trans "New pricing" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <script>
+      $(function() {
+        $('#id_flat_fee_schedule').on('change', function() {
+          if ($(this).is(':checked')) {
+            $('#id_subscription_required_p').show();
+          } else {
+            $('#id_subscription_required_p').hide();
+          }
+        });
+        $('#id_flat_fee_schedule').trigger('change');
+      });
+    </script>
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      {% if object.pk %}
+        <a class="cancel" href="{% url 'lingo-manager-pricing-parameters' object.pk %}">{% trans 'Cancel' %}</a>
+      {% else %}
+        <a class="cancel" href="{% url 'lingo-manager-pricing-list' %}">{% trans 'Cancel' %}</a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

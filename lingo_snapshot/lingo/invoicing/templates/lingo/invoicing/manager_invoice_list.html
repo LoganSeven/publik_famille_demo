@@ -1,0 +1,70 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Invoices" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-invoice-list' regie_pk=regie.pk %}">{% trans "Invoices" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Invoices" %}</h2>
+  {% if user_can_invoice %}
+    <span class="actions">
+      <a href="?{{ request.GET.urlencode }}&ods&full">{% trans "Get full ODS file" %}</a>
+      <a href="?{{ request.GET.urlencode }}&ods">{% trans "Get ODS file" %}</a>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+          <legend class="gadjo-foldable-widget">{% trans "Invoice Filtering" %}</legend>
+          <div class="gadjo-folding">
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div>
+    <table class="main pk-compact-table invoicing-element-list">
+      {% for invoice in object_list %}
+        <tr class="invoice untoggled" data-invoicing-element-id="{{ invoice.pk }}" data-invoicing-element-lines-url="{% url 'lingo-manager-invoicing-regie-invoice-line-list' regie_pk=regie.pk invoice_pk=invoice.pk %}">
+          <td colspan="6">
+            {% if invoice.cancelled_at %}
+              <span class="meta meta-error">{% trans "Cancelled" context "invoice" %}</span>
+            {% elif invoice.collection %}
+              <span class="meta meta-success">{% if invoice.collection.draft %}{% trans "Under collection" %}{% else %}{% trans "Collected" context "invoice" %}{% endif %}</span>
+            {% elif invoice.remaining_amount > 0 and invoice.paid_amount > 0 %}
+              <span class="meta meta-warning">{% trans "Partially paid" %}</span>
+            {% elif invoice.remaining_amount == 0 and invoice.total_amount > 0 %}
+              <span class="meta meta-success">{% trans "Paid" %}</span>
+            {% endif %}
+            {% if invoice.date_invoicing %}
+              {% blocktrans with invoice_number=invoice.formatted_number number=invoice.formatted_number idate=invoice.date_invoicing|date:'d/m/Y' cdate=invoice.created_at|date:'d/m/Y' payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.total_amount %}Invoice {{ invoice_number }} dated {{ idate }} (created on {{ cdate }}) addressed to <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+            {% else %}
+              {% blocktrans with invoice_number=invoice.formatted_number number=invoice.formatted_number cdate=invoice.created_at|date:'d/m/Y' payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.total_amount %}Invoice {{ invoice_number }} dated {{ cdate }} addressed to <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+            {% endif %}
+            - <a href="{% url 'lingo-manager-invoicing-regie-invoice-pdf' regie_pk=regie.pk invoice_pk=invoice.pk %}">{% if not invoice.collection and not invoice.cancelled_at %}{% trans "download (initial)" %}{% else %}{% trans "download" %}{% endif %}</a>
+            {% if not invoice.collection and not invoice.cancelled_at and invoice.paid_amount > 0%}
+              - <a href="{% url 'lingo-manager-invoicing-regie-invoice-dynamic-pdf' regie_pk=regie.pk invoice_pk=invoice.pk %}">{% trans "download (dynamic)" %}</a>
+            {% endif %}
+          </td>
+          <td class="with-togglable">
+            <span class="togglable"></span>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

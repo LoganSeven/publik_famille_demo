@@ -1,0 +1,109 @@
+{% load i18n %}
+<div class="pk-tabs">
+  <div class="pk-tabs--tab-list" role="tablist">
+    <button aria-controls="panel-information" aria-selected="true" id="tab-information" role="tab" tabindex="0">{% trans "Information" %}</button>
+    <button aria-controls="panel-settings" aria-selected="false" id="tab-settings" role="tab" tabindex="-1">{% trans "Settings" %}</button>
+    <button aria-controls="panel-permissions" aria-selected="false" id="tab-permissions" role="tab" tabindex="-1">{% trans "Permissions" %}</button>
+    <button aria-controls="panel-paymenttypes" aria-selected="false" id="tab-paymenttypes" role="tab" tabindex="-1">{% trans "Payment types" %}</button>
+  </div>
+  <div class="pk-tabs--container">
+
+    <div aria-labelledby="tab-information" id="panel-information" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div aria-labelledby="tab-settings" hidden id="panel-settings" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_settings_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h4>{% trans "Payer" %}</h4>
+        <ul>
+          {% for label, value in object.get_payer_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if object.with_campaigns %}
+          <h5>{% trans "Mapping" %}</h5>
+          <ul>
+            {% for label, value in object.payer_user_fields %}
+              <li class="parameter-{{ label|slugify }}">
+                <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+                {{ value }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <h4>{% trans "Counters" %}</h4>
+        <ul>
+          {% for label, value in object.get_counters_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h4>{% trans "Publishing" %}</h4>
+        <ul>
+          {% for label, value in object.get_publishing_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div aria-labelledby="tab-permissions" hidden id="panel-permissions" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_permissions_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div aria-labelledby="tab-paymenttypes" hidden id="panel-paymenttypes" role="tabpanel" tabindex="0">
+      <div class="section">
+        {% for payment_type in object.paymenttype_set.all %}
+          <h4>{{ payment_type }}</h4>
+          <ul>
+            {% for label, value in payment_type.get_inspect_fields %}
+              <li class="parameter-paymenttype-{{ label|slugify }}">
+                <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+                {{ value }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>

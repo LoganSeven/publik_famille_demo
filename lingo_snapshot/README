@@ -1,0 +1,66 @@
+Lingo
+=====
+
+Lingo is a billing and payment module for the Publik system.
+
+
+Code Style
+----------
+
+black is used to format the code, using thoses parameters:
+
+    black --target-version py37 --skip-string-normalization --line-length 110
+
+isort is used to format the imports, using those parameters:
+
+    isort --profile black --line-length 110
+
+pyupgrade is used to automatically upgrade syntax, using those parameters:
+
+    pyupgrade --keep-percent-format --py37-plus
+
+djhtml is used to automatically indent html files, using those parameters:
+
+    djhtml --tabwidth 2
+
+django-upgrade is used to automatically upgrade Django syntax, using those parameters:
+
+    django-upgrade --target-version 3.2
+
+There is .pre-commit-config.yaml to use pre-commit to automatically run these tools
+before commits. (execute `pre-commit install` to install the git hook.)
+
+
+License
+-------
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
+details.
+
+You should have received a copy of the GNU Affero General Public License along
+with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+Background image from the unDraw project:
+ # https://undraw.co/
+ #
+ # All images, assets and vectors published on unDraw can be used for free. You
+ # can use them for noncommercial and commercial purposes. You do not need to ask
+ # permission from or provide credit to the creator or unDraw.
+ #
+ # More precisely, unDraw grants you an nonexclusive, worldwide copyright
+ # license to download, copy, modify, distribute, perform, and use the assets
+ # provided from unDraw for free, including for commercial purposes, without
+ # permission from or attributing the creator or unDraw. This license does not
+ # include the right to compile assets, vectors or images from unDraw to
+ # replicate a similar or competing service, in any form or distribute the assets
+ # in packs. This extends to automated and non-automated ways to link, embed,
+ # scrape, search or download the assets included on the website without our
+ # consent.

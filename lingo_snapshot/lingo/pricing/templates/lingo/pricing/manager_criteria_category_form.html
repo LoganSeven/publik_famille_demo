@@ -1,0 +1,34 @@
+{% extends "lingo/pricing/manager_criteria_list.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if object.pk %}
+    <a href="{% url 'lingo-manager-pricing-criteria-category-edit' object.pk %}">{{ object }}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-pricing-criteria-category-add' %}">{% trans "New category" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if object.pk %}
+    <h2>{% trans "Edit category" %}</h2>
+  {% else %}
+    <h2>{% trans "New category" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-pricing-criteria-list' %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

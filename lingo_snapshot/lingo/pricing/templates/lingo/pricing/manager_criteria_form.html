@@ -1,0 +1,46 @@
+{% extends "lingo/pricing/manager_criteria_list.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if form.instance.pk %}
+    <a href="{% url 'lingo-manager-pricing-criteria-edit' form.instance.category_id form.instance.pk %}">{{ form.instance }}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-pricing-criteria-add' form.instance.category_id %}">{% trans "New criteria" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if form.instance.pk %}
+    <h2>{{ form.instance.category }} - {% trans "Edit criteria" %}</h2>
+  {% else %}
+    <h2>{{ form.instance.category }} - {% trans "New criteria" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <script>
+      $(function() {
+        $('#id_default').on('change', function() {
+          if ($(this).is(':checked')) {
+            $('#id_condition_p').hide();
+          } else {
+            $('#id_condition_p').show();
+          }
+        });
+        $('#id_default').trigger('change');
+      });
+    </script>
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-pricing-criteria-list' %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

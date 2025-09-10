@@ -1,0 +1,62 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Collections" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-collection-list' regie_pk=regie.pk %}">{% trans "Collections" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Collections" %}</h2>
+{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    <div>
+      <table class="main pk-compact-table invoicing-element-list">
+        <thead>
+          <tr>
+            <th>{% trans "Number" %}</th>
+            <th>{% trans "Number of invoices" %}</th>
+            <th>{% trans "End date" %}</th>
+            <th>{% trans "Minimal threshold" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for collection in object_list %}
+            <tr>
+              <td>
+                <a href="{% url 'lingo-manager-invoicing-regie-collection-detail' regie_pk=regie.pk pk=collection.pk %}">{{ collection }}</a>
+              </td>
+              <td>
+                {{ collection.count|default:0 }} ({% blocktrans with amount=collection.paid_amount|default:0|add:collection.remaining_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %})
+              </td>
+              <td>
+                {{ collection.date_end|date:"d/m/Y" }}
+              </td>
+              <td>
+                {% blocktrans with amount=collection.minimum_threshold|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+              </td>
+            </tr>
+            </tbody>
+          {% endfor %}
+        </table>
+        {% include "gadjo/pagination.html" %}
+      </div>
+  {% else %}
+    <div class="big-msg-info">
+      {% trans "This site doesn't have any collection yet." %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+
+    <h3>{% trans "Navigation" %}</h3>
+    <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-collection-invoice-list' regie_pk=regie.pk %}">{% trans "Invoices outside collections" %}</a>
+
+  </aside>
+{% endblock %}

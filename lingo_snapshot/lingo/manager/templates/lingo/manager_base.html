@@ -1,0 +1,23 @@
+{% extends "gadjo/base.html" %}
+{% load i18n static gadjo %}
+
+{% block page-title %}{% block page-title-extra-label %}{% trans 'Payments' context 'lingo title' %}{% endblock %} | {% trans 'Payments' context 'lingo title' as default_site_title %}{%firstof global_title default_site_title %}{% endblock %}
+{% block site-title %}
+  {% trans 'Payments' context 'lingo title' as default_site_title %}
+  {% firstof site_title default_site_title %}
+{% endblock %}
+
+{% block logout-url %}{% url "auth_logout" %}{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static 'js/lingo.manager.js' %}?{% start_timestamp %}"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-homepage' %}">{% trans "Payments" context 'lingo title' %}</a>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

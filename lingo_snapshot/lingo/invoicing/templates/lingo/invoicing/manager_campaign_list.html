@@ -1,0 +1,80 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Campaigns" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-campaign-list' regie_pk=regie.pk %}">{% trans "Campaigns" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Campaigns" %}</h2>
+  {% if user_can_invoice %}
+    <span class="actions">
+      <a href="{% url 'lingo-manager-invoicing-campaign-add' regie_pk=regie.pk %}">{% trans "New campaign" %}</a>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    <div class="section">
+      <ul class="objects-list single-links campaign-list">
+        {% for campaign in object_list %}
+          <li {% if campaign.prefetched_corrective_campaigns %}class="untoggled"{% endif %} data-campaign-id={{ campaign.pk }}>
+            <a href="{% url 'lingo-manager-invoicing-campaign-detail' regie_pk=regie.pk pk=campaign.pk %}">
+              {% if campaign.prefetched_logs %}
+                <i class="unlock-warning"></i>
+              {% endif %}
+              {{ campaign }}
+              {% if campaign.prefetched_corrective_campaigns or campaign.prefetched_logs %}
+                <span class="extra-info"> [{% if campaign.prefetched_corrective_campaigns %}{% trans "corrective campaigns:" %} {{ campaign.prefetched_corrective_campaigns|length }}{% endif %}{% if campaign.prefetched_logs %}{% if campaign.prefetched_corrective_campaigns %} - {% endif %}{% trans "unlocked agendas:" %} {{ campaign.prefetched_logs|length }}{% endif %}]</span>
+              {% endif %}
+            </a>
+            {% if campaign.has_pending_corrective_campaign %}
+              <span class="badge">{% trans "correction in progress" %}</span>
+            {% elif campaign.finalized %}
+              <span class="badge badge-success">{% trans "validated" %}</span>
+            {% endif %}
+            {% if campaign.prefetched_corrective_campaigns %}<span class="togglable"></span>{% endif %}
+          </li>
+          {% for corrective_campaign in campaign.prefetched_corrective_campaigns %}
+            <li class="corrective" data-primary-campaign-id={{ corrective_campaign.primary_campaign_id }} style="display: none">
+              <a href="{% url 'lingo-manager-invoicing-campaign-detail' regie_pk=regie.pk pk=corrective_campaign.pk %}">
+                {{ corrective_campaign }}
+                {% if corrective_campaign.finalized %}
+                  <span class="badge badge-success">{% trans "validated" %}</span>
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+
+    <div class="big-msg-info">
+      {% blocktrans trimmed %}
+        This site doesn't have any campaign yet. Click on the "New campaign" button in the top
+        right of the page to add a first one.
+      {% endblocktrans %}
+    </div>
+  {% endif %}
+  <script>
+    $(function() {
+      $(document).on('click', 'li .togglable', function(event) {
+        event.preventDefault();
+        var $toggle = $(this);
+        var $li = $toggle.parents('li');
+        var campaign_id = $li.data('campaign-id');
+        var $corrective_campaigns = $('li[data-primary-campaign-id=' + campaign_id + ']');
+        $li.toggleClass('toggled').toggleClass('untoggled');
+        $corrective_campaigns.toggle();
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

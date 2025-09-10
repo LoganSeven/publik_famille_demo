@@ -1,0 +1,264 @@
+{% load i18n %}
+{% if invoice.label or invoice.previous_invoice %}
+  <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+    <td colspan="7">{{ invoice.label }}{% if invoice.previous_invoice %}{% if invoice.label %} - {% endif %}<i>{% trans "Initial invoice number:" %} {{ invoice.previous_invoice.formatted_number }}</i>{% endif %}</td>
+  </tr>
+{% endif %}
+<tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+  <td colspan="2"></td>
+  <td class="invoice-details" colspan="5">
+    <i>{% trans "Direct debit:" %} {{ invoice.direct_debit|yesno }}</i>
+  </td>
+</tr>
+<tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+  <td colspan="2"></td>
+  <td class="invoice-details" colspan="5">
+    <i>{% trans "Publication date:" %} {{ invoice.date_publication|date:"d/m/Y" }}</i>
+  </td>
+</tr>
+{% if invoice.date_payment_deadline_displayed %}
+  <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+    <td colspan="2"></td>
+    <td class="invoice-details" colspan="5">
+      <i>{% trans "Displayed payment deadline:" %} {{ invoice.date_payment_deadline_displayed|date:"d/m/Y" }}</i>
+    </td>
+  </tr>
+{% endif %}
+<tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+  <td colspan="2"></td>
+  <td class="invoice-details" colspan="5">
+    <i>{% trans "Effective payment deadline:" %} {{ invoice.date_payment_deadline|date:"d/m/Y" }}</i>
+  </td>
+</tr>
+<tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+  <td colspan="2"></td>
+  <td class="invoice-details" colspan="3">
+    <i>{% trans "Due date:" %} {{ invoice.date_due|date:"d/m/Y" }}</i>
+  </td>
+  <td class="action" colspan="2">
+    {% if not pool and not invoice.collection and not invoice.cancelled_at and user_can_invoice %}
+      <a href="{% url 'lingo-manager-invoicing-regie-invoice-edit-dates' regie_pk=regie.pk invoice_pk=invoice.pk %}" rel="popup">{% trans "Edit" %}</a>
+    {% endif %}
+  </td>
+</tr>
+{% if invoice.date_debit %}
+  <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+    <td colspan="2"></td>
+    <td class="invoice-details" colspan="5">
+      <i>{% trans "Debit date:" %} {{ invoice.date_debit|date:"d/m/Y" }}</i>
+    </td>
+  </tr>
+{% endif %}
+<tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+  <td colspan="2"></td>
+  <td class="invoice-details" colspan="5">
+    {% if not pool and invoice.pool %}
+      <i>{% trans "Origin:" %} <a href="{% url 'lingo-manager-invoicing-pool-detail' regie_pk=regie.pk pk=invoice.pool.campaign_id pool_pk=invoice.pool.pk %}?number={{ invoice.formatted_number }}">{% trans "Campaign" %}</a></i>
+    {% else %}
+      <i>{% trans "Origin:" %} {{ invoice.get_origin_display }}</i>
+    {% endif %}
+  </td>
+</tr>
+{% for line in object_list %}
+  {% if invoice.pool %}
+    {% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=invoice.pool.campaign_id pool_pk=invoice.pool.pk as journal_url %}
+  {% endif %}
+  {% ifchanged line.user_external_id %}
+    <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+      <th colspan="7" class="user">
+        {% if invoice.pool %}
+          <a href="{{ journal_url }}?user_external_id={{ line.user_external_id }}">{{ line.user_name }}</a>
+        {% else %}
+          {{ line.user_name }}
+        {% endif %}
+      </th>
+    </tr>
+    <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+      <td colspan="2">{% trans "Description" %}</td>
+      <td class="accounting-code">{% trans "Accounting code" %}</td>
+      <td class="amount">{% trans "Amount" %}</td>
+      <td class="quantity">{% trans "Quantity" %}</td>
+      <td class="amount">{% trans "Subtotal" %}</td>
+      <td></td>
+    </tr>
+  {% endifchanged %}
+  {% ifchanged line.user_external_id line.activity_label %}
+    {% if line.activity_label or not forloop.first %}
+      <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+        <td colspan="7" class="activity">{{ line.activity_label|default:"&nbsp;" }}</td>
+      </tr>
+    {% endif %}
+  {% endifchanged %}
+  <tr class="line untoggled {% if pool.draft and forloop.last %}last-line{% endif %}" data-related-invoicing-element-id="{{ invoice.pk }}" data-invoicing-element-id="{{ invoice.pk }}-{{ line.pk }}">
+    <td class="event">
+      {% if invoice.pool %}
+        <a href="{{ journal_url }}?invoice_line={{ line.pk }}">{{ line.label }}</a>
+      {% elif line.form_url %}
+        <a href="{{ line.form_url }}">{{ line.label }}</a>
+      {% else %}
+        {{ line.label }}
+      {% endif %}
+    </td>
+    <td class="details">
+      <small>
+        {% if not line.details.partial_bookings %}
+          {% if line.details.check_type_label %}
+            {{ line.details.check_type_label }}
+          {% elif line.details.status == 'presence' %}
+            {% trans "Presence" %}
+          {% elif line.details.status == 'absence' %}
+            {% trans "Absence" %}
+          {% endif %}
+        {% endif %}
+        {% if line.display_description %}
+          {{ line.description }}
+        {% endif %}
+      </small>
+    </td>
+    <td class="accounting-code">
+      {{ line.accounting_code }}
+    </td>
+    <td class="amount">
+      {% blocktrans with amount=line.unit_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+    </td>
+    <td class="quantity">
+      {{ line.quantity|floatformat }}
+    </td>
+    <td class="amount">
+      {% blocktrans with amount=line.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+    </td>
+    {% if not pool.draft and line.total_amount and not invoice.cancelled_at %}
+      <td class="with-togglable">
+        <span class="togglable"></span>
+      </td>
+    {% endif %}
+  </tr>
+  {% if not pool.draft and line.total_amount and not invoice.cancelled_at %}
+    <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}-{{ line.pk }}" style="display: none;">
+      <th colspan="7" class="payments">
+        {% trans "Payments" %}
+      </th>
+    </tr>
+    <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}-{{ line.pk }}" style="display: none;">
+      <td class="payment-num">{% trans "Payment" context 'payment' %}</td>
+      <td>{% trans "Date" context 'payment' %}</td>
+      <td colspan="3">{% trans "Type" context 'payment' %}</td>
+      <td class="amount" colspan="2">{% trans "Amount" %}</td>
+    </tr>
+    {% for invoice_line_payment in line.invoicelinepayment_set.all %}
+      <tr class="line payment {% if forloop.last %}last-line{% endif %}" data-related-invoicing-element-id="{{ invoice.pk }}-{{ line.pk }}" style="display: none;">
+        <td>
+          <a href="{% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=regie.pk %}?number={{ invoice_line_payment.payment.formatted_number }}">{{ invoice_line_payment.payment.formatted_number }}</a>
+        </td>
+        <td>
+          {{ invoice_line_payment.payment.created_at|date:"DATETIME_FORMAT" }}
+        </td>
+        <td colspan="3">
+          {{ invoice_line_payment.payment.payment_type.label }}
+        </td>
+        <td class="amount" colspan="2">
+          {% blocktrans with amount=invoice_line_payment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr class="line payment" data-related-invoicing-element-id="{{ invoice.pk }}-{{ line.pk }}" style="display: none;">
+        <td colspan="7" class="no-payments">
+          {% trans "No payments for this line" %}
+        </td>
+      </tr>
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+{% if not pool.draft %}
+  {% if not invoice.cancelled_at %}
+    <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+      <th colspan="7" class="payments">
+        {% trans "Payments" %}
+      </th>
+    </tr>
+    <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+      <td class="payment-num">{% trans "Payment" context 'payment' %}</td>
+      <td>{% trans "Date" context 'payment' %}</td>
+      <td colspan="3">{% trans "Type" context 'payment' %}</td>
+      <td class="amount" colspan="2">{% trans "Amount" %}</td>
+    </tr>
+    {% for invoice_payment in invoice.get_invoice_payments %}
+      <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+        <td>
+          <a href="{% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=regie.pk %}?number={{ invoice_payment.payment.formatted_number }}">{{ invoice_payment.payment.formatted_number }}</a>
+        </td>
+        <td>
+          {{ invoice_payment.payment.created_at|date:"DATETIME_FORMAT" }}
+        </td>
+        <td colspan="3">
+          {{ invoice_payment.payment.payment_type.label }}
+          {% if invoice_payment.payment.payment_type.slug == 'credit' %}({% for credit_num in invoice_payment.payment.credit_formatted_numbers %}<a href="{% url 'lingo-manager-invoicing-regie-credit-list' regie_pk=regie.pk %}?number={{ credit_num }}">{{ credit_num }}</a>{% if not forloop.last %} - {% endif %}{% endfor %}){% endif %}
+        </td>
+        <td class="amount" colspan="2">
+          {% blocktrans with amount=invoice_payment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+        <td colspan="7" class="no-payments">
+          {% trans "No payments for this invoice" %}
+        </td>
+      </tr>
+    {% endfor %}
+    {% if invoice.collection %}
+      <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+        <td colspan="2"></td>
+        <td class="payment-details" colspan="5">
+          <i>{% trans "Collection:" %} <a href="{% url 'lingo-manager-invoicing-regie-collection-detail' regie_pk=regie.pk pk=invoice.collection.pk %}">{{ invoice.collection }}</a></i>
+        </td>
+      </tr>
+    {% endif %}
+    {% if invoice.paid_amount %}
+      <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+        <td colspan="2"></td>
+        <td class="invoice-details" colspan="5">
+          <i>{% trans "Paid amount:" %} {% blocktrans with amount=invoice.paid_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</i>
+        </td>
+      </tr>
+    {% endif %}
+    {% if invoice.remaining_amount or invoice.total_amount == 0 %}
+      {% if not invoice.paid_amount and not pool and not invoice.collection and user_can_invoice %}
+        <tr class="line" data-related-invoicing-element-id="{{ invoice.pk }}">
+          <td colspan="2"></td>
+          <td class="invoice-details" colspan="5">
+            <i>{% trans "Remaining amount:" %} {% blocktrans with amount=invoice.remaining_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</i>
+          </td>
+        </tr>
+        <tr class="line last-line" data-related-invoicing-element-id="{{ invoice.pk }}">
+          <td colspan="2"></td>
+          <td class="invoice-details" colspan="5">
+            <a href="{% url 'lingo-manager-invoicing-regie-invoice-cancel' regie_pk=regie.pk invoice_pk=invoice.pk %}" rel="popup">{% trans "Cancel invoice" %}</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr class="line last-line" data-related-invoicing-element-id="{{ invoice.pk }}">
+          <td colspan="2"></td>
+          <td class="invoice-details" colspan="5">
+            <i>{% trans "Remaining amount:" %} {% blocktrans with amount=invoice.remaining_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</i>
+          </td>
+        </tr>
+      {% endif %}
+    {% else %}
+      <tr class="line last-line" data-related-invoicing-element-id="{{ invoice.pk }}">
+        <td colspan="2"></td>
+        <td class="invoice-details" colspan="5">
+          <i>{% trans "Payments certificate:" %} <a href="{% url 'lingo-manager-invoicing-regie-invoice-payments-pdf' regie_pk=regie.pk invoice_pk=invoice.pk %}">{% trans "download" %}</a></i>
+        </td>
+      </tr>
+    {% endif %}
+  {% else %}
+    {% for label, value in invoice.get_cancellation_info %}
+      <tr class="line {% if forloop.last %}last-line{% endif %}" data-related-invoicing-element-id="{{ invoice.pk }}">
+        <td colspan="2"></td>
+        <td class="invoice-details" colspan="5">
+          <i>{% blocktrans %}{{ label }}:{% endblocktrans %} {{ value }}</i>
+        </td>
+      </tr>
+    {% endfor %}
+  {% endif %}
+{% endif %}

@@ -1,0 +1,49 @@
+{% extends "lingo/invoicing/manager_campaign_list.html" %}
+{% load gadjo static i18n %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" media="all" href="{% static "css/gadjo.multiselectwidget.css" %}?{% start_timestamp %}" />
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "js/gadjo.multiselectwidget.js" %}?{% start_timestamp %}"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if form.instance.pk %}
+    <a href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}">{{ object }}</a>
+    <a href="{% url 'lingo-manager-invoicing-campaign-edit' regie.pk object.pk %}">{% trans "Edit" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-invoicing-campaign-add' regie.pk %}">{% trans "New campaign" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if object.pk %}
+    <h2>{% trans "Edit campaign" %}</h2>
+  {% else %}
+    <h2>{% trans "New campaign" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|with_template }}
+    {% include "lingo/includes/agenda_select_fragment.html" %}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      {% if object.pk %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}#open:settings">{% trans 'Cancel' %}</a>
+      {% else %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-campaign-list' regie.pk %}">{% trans 'Cancel' %}</a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

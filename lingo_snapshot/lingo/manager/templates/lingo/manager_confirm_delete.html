@@ -1,0 +1,25 @@
+{% extends "lingo/manager_base.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <h2>{{ view.model.get_verbose_name }}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      {% if cannot_delete %}
+        {{ cannot_delete_msg }}
+      {% elif delete_msg %}
+        {{ delete_msg }}
+      {% else %}
+        {% blocktrans %}Are you sure you want to delete this?{% endblocktrans %}
+      {% endif %}
+    </p>
+    <div class="buttons">
+      <button class="delete-button" {% if cannot_delete %}disabled="disabled"{% endif %}>{% if delete_button_label %}{{ delete_button_label }}{% else %}{% trans 'Delete' %}{% endif %}</button>
+      <a class="cancel" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

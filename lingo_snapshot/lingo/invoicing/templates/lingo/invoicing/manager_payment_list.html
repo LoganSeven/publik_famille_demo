@@ -1,0 +1,119 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Payments" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=regie.pk %}">{% trans "Payments" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Payments" %}</h2>
+  {% if user_can_control %}
+    <span class="actions">
+      <a href="?{{ request.GET.urlencode }}&ods&full">{% trans "Get full ODS file" %}</a>
+      <a href="?{{ request.GET.urlencode }}&ods">{% trans "Get ODS file" %}</a>
+    </span>
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+          <legend class="gadjo-foldable-widget">{% trans "Payment Filtering" %}</legend>
+          <div class="gadjo-folding">
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div>
+    <table class="main pk-compact-table invoicing-element-list">
+      {% url 'lingo-manager-invoicing-regie-invoice-list' regie_pk=regie.pk as regie_invoice_list_url %}
+      {% for payment in object_list %}
+        <tr class="payment untoggled" data-invoicing-element-id="{{ payment.pk }}">
+          <td colspan="4">
+            {% if payment.cancelled_at %}
+              <span class="meta meta-error">{% trans "Cancelled" %}</span>
+            {% endif %}
+            {% if payment.date_payment %}
+              {% blocktrans with payment_number=payment.formatted_number pdate=payment.date_payment|date:'d/m/Y' cdate=payment.created_at|date:'d/m/Y' payer_id=payment.payer_external_id payer_name=payment.payer_name amount=payment.amount payment_type=payment.payment_type %}Payment {{ payment_number }} dated {{ pdate }} (created on {{ cdate }}) from <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€ ({{ payment_type }}){% endblocktrans %}
+            {% else %}
+              {% blocktrans with payment_number=payment.formatted_number cdate=payment.created_at|date:'d/m/Y' payer_id=payment.payer_external_id payer_name=payment.payer_name amount=payment.amount payment_type=payment.payment_type %}Payment {{ payment_number }} dated {{ cdate }} from <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€ ({{ payment_type }}){% endblocktrans %}
+            {% endif %}
+            - <a href="{% url 'lingo-manager-invoicing-regie-payment-pdf' regie_pk=regie.pk payment_pk=payment.pk %}">{% trans "download" %}</a>
+          </td>
+          <td class="with-togglable">
+            <span class="togglable"></span>
+          </td>
+        </tr>
+        <tr class="line" data-related-invoicing-element-id="{{ payment.pk }}" style="display: none;">
+          <td>{% trans "Invoice" %}</td>
+          <td class="amount" colspan="2">{% trans "Amount charged" %}</td>
+          <td class="amount" colspan="2">{% trans "Amount assigned" %}</td>
+        </tr>
+        {% for invoice_payment in payment.get_invoice_payments %}
+          <tr class="line" data-related-invoicing-element-id="{{ payment.pk }}" style="display: none;">
+            <td class="invoice">
+              <a href="{{ regie_invoice_list_url }}?number={{ invoice_payment.invoice.formatted_number }}">{{ invoice_payment.invoice.formatted_number }}</a>
+              {% if payment.payment_type.slug == 'credit' %}({% for credit_num in invoice_payment.invoice.credit_formatted_numbers %}<a href="{% url 'lingo-manager-invoicing-regie-credit-list' regie_pk=regie.pk %}?number={{ credit_num }}">{{ credit_num }}</a>{% if not forloop.last %} - {% endif %}{% endfor %}){% endif %}
+            </td>
+            <td class="amount" colspan="2">{% blocktrans with amount=invoice_payment.invoice.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+            <td class="amount" colspan="2">{% blocktrans with amount=invoice_payment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+          </tr>
+        {% empty %}
+          <tr class="line" data-related-invoicing-element-id="{{ payment.pk }}" style="display: none;">
+            <td colspan="5" class="no-assignments">
+              {% trans "No assignments for this payment" %}
+            </td>
+          </tr>
+        {% endfor %}
+        {% for label, value in payment.get_payment_info %}
+          <tr class="line" data-related-invoicing-element-id="{{ payment.pk }}" style="display: none;">
+            <td colspan="2"></td>
+            <td class="payment-details" colspan="3">
+              <i>{% blocktrans %}{{ label }}:{% endblocktrans %} {{ value }}</i>
+            </td>
+          </tr>
+        {% endfor %}
+        {% if payment.docket %}
+          <tr class="line" data-related-invoicing-element-id="{{ payment.pk }}" style="display: none;">
+            <td colspan="2"></td>
+            <td class="payment-details" colspan="3">
+              <i>{% trans "Docket:" %} <a href="{% url 'lingo-manager-invoicing-regie-docket-detail' regie_pk=regie.pk pk=payment.docket.pk %}">{{ payment.docket }}</a></i>
+            </td>
+          </tr>
+        {% endif %}
+        {% if not payment.cancelled_at %}
+          {% if user_can_control and not payment.has_collected_invoices %}
+            <tr class="line last-line" data-related-invoicing-element-id="{{ payment.pk }}" style="display: none;">
+              <td colspan="2"></td>
+              <td class="payment-details" colspan="3">
+                <a href="{% url 'lingo-manager-invoicing-regie-payment-cancel' regie_pk=regie.pk payment_pk=payment.pk %}" rel="popup">{% trans "Cancel payment" %}</a>
+              </td>
+            </tr>
+          {% endif %}
+        {% else %}
+          {% for label, value in payment.get_cancellation_info %}
+            <tr class="line {% if forloop.last %}last-line{% endif %}" data-related-invoicing-element-id="{{ payment.pk }}" style="display: none;">
+              <td colspan="2"></td>
+              <td class="payment-details" colspan="3">
+                <i>{% blocktrans %}{{ label }}:{% endblocktrans %} {{ value }}</i>
+              </td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

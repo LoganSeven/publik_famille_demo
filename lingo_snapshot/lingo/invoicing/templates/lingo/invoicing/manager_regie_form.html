@@ -1,0 +1,39 @@
+{% extends "lingo/invoicing/manager_regie_list.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if object.pk %}
+    <a href="{% url 'lingo-manager-invoicing-regie-detail' regie.pk %}">{{ regie }}</a>
+    <a href="{% url 'lingo-manager-invoicing-regie-parameters' regie.pk %}">{% trans "Parameters" %}</a>
+    <a href="{% url 'lingo-manager-invoicing-regie-edit' regie.pk %}">{% trans "Edit" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-invoicing-regie-add' %}">{% trans "New regie" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if regie.pk %}
+    <h2>{% trans "Edit regie" %} - {{ regie }}</h2>
+  {% else %}
+    <h2>{% trans "New regie" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button>{% trans "Submit" %}</button>
+      {% if object.pk %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-parameters' regie.pk %}">{% trans 'Cancel' %}</a>
+      {% else %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-list' %}">{% trans 'Cancel' %}</a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

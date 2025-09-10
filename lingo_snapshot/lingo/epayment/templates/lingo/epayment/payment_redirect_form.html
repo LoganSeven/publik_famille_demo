@@ -1,0 +1,25 @@
+{% extends "lingo/interstitial_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Redirection in progress" %}{% endblock %}
+
+{% block content %}
+  <main>
+    <p>
+      {% trans "Please wait while your browser is being redirected to the payment website..." %}
+    </p>
+    <div class="loader"></div>
+    <form action="{{ form.url }}" method="{{ form.method }}" style="display: none">
+      {% for field in form.fields %}
+        <input type="{{ field.type }}" name="{{ field.name }}" value="{{ field.value }}"/>
+      {% endfor %}
+      <input type="submit">
+    </form>
+  </main>
+
+  <script>
+    (function() {
+      document.forms[0].submit()
+    })()
+  </script>
+{% endblock %}

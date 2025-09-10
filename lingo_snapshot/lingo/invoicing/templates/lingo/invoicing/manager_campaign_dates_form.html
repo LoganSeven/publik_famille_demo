@@ -1,0 +1,27 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo static i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}">{{ object.label }}</a>
+  <a href="{% url 'lingo-manager-invoicing-campaign-dates-edit' regie.pk object.pk %}">{% trans "Edit dates" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Edit dates" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      {% if object.pk %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}">{% trans 'Cancel' %}</a>
+      {% else %}
+        <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-detail' regie.pk %}">{% trans 'Cancel' %}</a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}

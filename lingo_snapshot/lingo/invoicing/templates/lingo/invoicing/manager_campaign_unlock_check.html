@@ -1,0 +1,22 @@
+{% extends "lingo/invoicing/manager_campaign_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-campaign-unlock-check' regie.pk object.pk %}">{% trans "Unlock check" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Unlock check" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>{% trans "Are you sure you want to unlock check?" %}</p>
+    <div class="buttons">
+      <button class="submit-button">{% trans "Unlock check" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

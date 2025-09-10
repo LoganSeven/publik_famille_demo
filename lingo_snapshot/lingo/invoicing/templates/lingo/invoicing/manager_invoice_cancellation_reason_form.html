@@ -1,0 +1,33 @@
+{% extends "lingo/invoicing/manager_cancellation_reason_list.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if object.pk %}
+    <a href="{% url 'lingo-manager-invoicing-invoice-cancellation-reason-edit' object.pk %}">{% trans "Edit" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-invoicing-invoice-cancellation-reason-add' %}">{% trans "New invoice cancellation reason" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if object.pk %}
+    <h2>{% trans "Edit invoice cancellation reason" %} - {{ reason }}</h2>
+  {% else %}
+    <h2>{% trans "New invoice cancellation reason" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button>{% trans "Submit" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-cancellation-reason-list' %}#open:invoice">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

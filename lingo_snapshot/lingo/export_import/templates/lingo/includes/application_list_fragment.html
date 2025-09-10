@@ -1,0 +1,15 @@
+{% load i18n thumbnail %}
+{% if applications %}
+  <h3>{% trans "Applications" %}</h3>
+  {% for application in applications %}
+    <a class="button button-paragraph" href="?application={{ application.slug }}">
+      {% thumbnail application.icon '16x16' format='PNG' as im %}
+        <img src="{{ im.url }}" alt="" class="application-icon" width="16" />
+      {% endthumbnail %}
+      {{ application }}
+    </a>
+  {% endfor %}
+  <a class="button button-paragraph" href="?no-application">
+    {{ title_no_application }}
+  </a>
+{% endif %}

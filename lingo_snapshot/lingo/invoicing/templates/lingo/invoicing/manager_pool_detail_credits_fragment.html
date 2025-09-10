@@ -1,0 +1,21 @@
+{% load i18n %}
+{% for credit in object_list %}
+  <tr class="credit untoggled" data-invoicing-element-id="{{ credit.pk }}" data-invoicing-element-lines-url="{% url 'lingo-manager-invoicing-credit-line-list' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk credit_pk=credit.pk %}">
+    <td colspan="6">
+      {% if pool.draft %}
+        {% blocktrans with credit_number=credit.formatted_number number=credit.pk cdate=credit.created_at|date:'d/m/Y' payer_id=credit.payer_external_id payer_name=credit.payer_name amount=credit.total_amount %}Credit <a href="{{ journal_url }}?invoice_id={{ number }}">{{ credit_number }}</a> dated {{ cdate }} addressed to <a href="{{ journal_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+      {% else %}
+        {% if credit.remaining_amount > 0 and credit.assigned_amount > 0 %}
+          <span class="meta meta-warning">{% trans "Partially assigned" %}</span>
+        {% elif credit.remaining_amount == 0 %}
+          <span class="meta meta-success">{% trans "Assigned" %}</span>
+        {% endif %}
+        {% blocktrans with credit_number=credit.formatted_number number=credit.formatted_number cdate=credit.created_at|date:'d/m/Y' payer_id=credit.payer_external_id payer_name=credit.payer_name amount=credit.total_amount %}Credit <a href="{{ journal_url }}?credit_number={{ number }}">{{ credit_number }}</a> dated {{ cdate }} addressed to <a href="{{ journal_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+      {% endif %}
+      - <a href="{% url 'lingo-manager-invoicing-credit-pdf' regie_pk=regie.pk pk=pool.campaign_id pool_pk=pool.pk credit_pk=credit.pk %}">{% trans "download" %}</a>
+    </td>
+    <td class="with-togglable">
+      <span class="togglable"></span>
+    </td>
+  </tr>
+{% endfor %}

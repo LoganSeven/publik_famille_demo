@@ -1,0 +1,33 @@
+{% extends "lingo/pricing/manager_pricing_parameters.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if form.instance.pk %}
+    <a href="{% url 'lingo-manager-pricing-billing-date-edit' object.pk form.instance.pricing.pk %}">{{ form.instance }}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-pricing-billing-date-add' object.pk %}">{% trans "New billing date" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if form.instance.pk %}
+    <h2>{{ form.instance.pricing }} - {% trans "Edit billing date" %}</h2>
+  {% else %}
+    <h2>{{ form.instance.pricing }} - {% trans "New billing date" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-pricing-parameters' object.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

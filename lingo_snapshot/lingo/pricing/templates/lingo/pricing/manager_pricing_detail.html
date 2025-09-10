@@ -1,0 +1,147 @@
+{% extends "lingo/pricing/manager_pricing_list.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-pricing-detail' object.pk %}">{{ object }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>
+    {{ object }}
+    <span class="identifier">[{% trans "identifier:" %} {{ object.slug }}]</span>
+  </h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div class="pk-tabs">
+      <div class="pk-tabs--tab-list" role="tablist">
+        <button aria-controls="panel-matrix" aria-selected="true" id="tab-matrix" role="tab" tabindex="0">{% trans "Pricings" context 'amount' %}</button>
+        {% if object.kind == 'effort' %}
+          <button aria-controls="panel-pricing-options" aria-selected="false" id="tab-pricing-options" role="tab" tabindex="-1">{% trans "Pricing options" %}</button>
+        {% elif object.kind == 'reduction' %}
+          <button aria-controls="panel-min-matrix" aria-selected="false" id="tab-min-matrix" role="tab" tabindex="-1">{% trans "Minimal pricings" %}</button>
+        {% endif %}
+      </div>
+      <div class="pk-tabs--container">
+
+        <div aria-labelledby="tab-matrix" id="panel-matrix" role="tabpanel" tabindex="0">
+          {% with iter_matrix=object.iter_pricing_matrix|list %}
+            {% for matrix in iter_matrix %}
+              <div class="section">
+                {% if matrix.criteria %}<h3>{{ matrix.criteria.label }}</h3>{% endif %}
+                <table class="main pricing-matrix-{{ matrix.criteria.slug }}">
+                  {% if matrix.rows.0.cells.0.criteria %}
+                    <thead>
+                      <tr>
+                        <th></th>
+                        {% for cell in matrix.rows.0.cells %}<th scope="col">{{ cell.criteria.label }}</th>{% endfor %}
+                      </tr>
+                    </thead>
+                  {% endif %}
+                  <tbody>
+                    {% for row in matrix.rows %}
+                      <tr class="pricing-row-{{ row.criteria.slug }}">
+                        <th scope="row">{{ row.criteria.label }}</th>
+                        {% for cell in row.cells %}
+                          <td class="pricing-cell-{{ cell.criteria.slug }}">{% spaceless %}
+                            {% if object.kind == 'effort' %}
+                              {{ cell.value|floatformat:"4"|default_if_none:"" }}
+                            {% else %}
+                              {{ cell.value|floatformat:"2"|default_if_none:"" }}
+                            {% endif %}
+                          {% endspaceless %}</td>
+                        {% endfor %}
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% if user_can_manage %}
+                  <div class="panel--buttons">
+                    <a class="pk-button" href="{% if matrix.criteria %}{% url 'lingo-manager-pricing-matrix-slug-edit' object.pk matrix.criteria.slug %}{% else %}{% url 'lingo-manager-pricing-matrix-edit' object.pk %}{% endif %}">{% trans "Edit pricing" context 'matrix' %}</a>
+                  </div>
+                {% endif %}
+              </div>
+            {% empty %}
+              <div class="big-msg-info">
+                {% blocktrans trimmed %}
+                  This pricing is misconfigured.
+                {% endblocktrans %}
+              </div>
+            {% endfor %}
+          {% endwith %}
+        </div>
+
+        {% if object.kind == 'effort' %}
+          <div aria-labelledby="tab-pricing-options" hidden="" id="panel-pricing-options" role="tabpanel" tabindex="0">
+            <ul>
+              <li>{% trans "Minimal pricing:" %} {{ object.min_pricing|default_if_none:"" }}</li>
+            </ul>
+            <ul>
+              <li>{% trans "Maximal pricing:" %} {{ object.max_pricing|default_if_none:"" }}</li>
+            </ul>
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a class="pk-button" rel="popup" href="{% url 'lingo-manager-pricing-pricingoptions-edit' object.pk %}">{% trans "Edit pricing options" %}</a>
+              </div>
+            {% endif %}
+          </div>
+        {% elif object.kind == 'reduction' %}
+          <div aria-labelledby="tab-min-matrix" hidden="" id="panel-min-matrix" role="tabpanel" tabindex="0">
+            {% with iter_matrix=object.iter_min_pricing_matrix|list %}
+              {% for matrix in iter_matrix %}
+                <div class="section">
+                  {% if matrix.criteria %}<h3>{{ matrix.criteria.label }}</h3>{% endif %}
+                  <table class="main pricing-min-matrix-{{ matrix.criteria.slug }}">
+                    {% if matrix.rows.0.cells.0.criteria %}
+                      <thead>
+                        <tr>
+                          <th></th>
+                          {% for cell in matrix.rows.0.cells %}<th scope="col">{{ cell.criteria.label }}</th>{% endfor %}
+                        </tr>
+                      </thead>
+                    {% endif %}
+                    <tbody>
+                      {% for row in matrix.rows %}
+                        <tr class="pricing-row-{{ row.criteria.slug }}">
+                          <th scope="row">{{ row.criteria.label }}</th>
+                          {% for cell in row.cells %}
+                            <td class="pricing-cell-{{ cell.criteria.slug }}">{% spaceless %}
+                              {{ cell.value|floatformat:"2"|default_if_none:"" }}
+                            {% endspaceless %}</td>
+                          {% endfor %}
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  {% if user_can_manage %}
+                    <div class="panel--buttons">
+                      <a class="pk-button" href="{% if matrix.criteria %}{% url 'lingo-manager-pricing-min-matrix-slug-edit' object.pk matrix.criteria.slug %}{% else %}{% url 'lingo-manager-pricing-min-matrix-edit' object.pk %}{% endif %}">{% trans "Edit minimal pricing" %}</a>
+                    </div>
+                    </div>
+                  {% endif %}
+              {% empty %}
+                <div class="big-msg-info">
+                  {% blocktrans trimmed %}
+                    This pricing is misconfigured.
+                  {% endblocktrans %}
+                </div>
+              {% endfor %}
+            {% endwith %}
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+
+    <h3>{% trans "Actions" %}</h3>
+    <a class="button button-paragraph" href="{% url 'lingo-manager-pricing-parameters' object.pk %}">{% trans 'Parameters' %}</a>
+
+  </aside>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% load i18n %}
+<div class="category-select-widget">
+  <div class="category-select-widget--select-button-container">
+    {% include "django/forms/widgets/select.html" %}
+    <button type="button" name="{{ widget.name }}$add_elements" class="category-select-widget--button-add" title="{% trans "Add" %}" aria-label="{% trans "Add agendas" %}"></button>
+  </div>
+</div>

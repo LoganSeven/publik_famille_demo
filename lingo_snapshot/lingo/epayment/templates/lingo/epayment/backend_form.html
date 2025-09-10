@@ -1,0 +1,36 @@
+{% extends "lingo/epayment/backend_list.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if object.pk %}
+    <a href="{% url 'lingo-manager-epayment-backend-detail' object.pk %}">{{ object }}</a>
+    <a href="{% url 'lingo-manager-epayment-backend-edit' object.pk %}">{% trans "Edit payment backend" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-epayment-backend-add' %}">{% trans "New payment backend" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if object.pk %}
+    <h2>{% trans "Edit payment backend" %}</h2>
+  {% else %}
+    <h2>{% trans "New payment backend" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      {% if object.pk %}
+        <button class="submit-button">{% trans "Save" %}</button>
+        <a class="cancel" href="{% url 'lingo-manager-epayment-backend-detail' object.pk %}">{% trans 'Cancel' %}</a>
+      {% else %}
+        <button class="submit-button">{% trans "Create" %}</button>
+        <a class="cancel" href="{% url 'lingo-manager-epayment-backend-list' %}">{% trans 'Cancel' %}</a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}

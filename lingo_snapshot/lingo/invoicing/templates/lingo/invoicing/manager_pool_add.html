@@ -1,0 +1,28 @@
+{% extends "lingo/invoicing/manager_campaign_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-pool-add' regie.pk object.pk %}">{% trans "Start a pool" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "New pool" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {% if not object.adjustment_campaign or not has_partial_bookings_agendas %}
+      <p>{% trans "Are you sure you want to start a new pool?" %}</p>
+    {% else %}
+      <p>{% trans "An adjustment campaign cannot be launched on a partial bookings agenda." %}</p>
+    {% endif %}
+    <div class="buttons">
+      {% if not object.adjustment_campaign or not has_partial_bookings_agendas %}
+        <button class="submit-button">{% trans "Run" %}</button>
+      {% endif %}
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% load i18n static %}
+<script src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script>
+  CKEDITOR.stylesSet.add('default',
+    [
+      {name: '{% trans "Paragraph" %}', element: 'p', styles: {'font-size': 'unset'}},
+      {name: '{% trans "Small paragraph" %}', element: 'p', styles: {'font-size': '80%'}},
+    ]
+  )
+</script>
+

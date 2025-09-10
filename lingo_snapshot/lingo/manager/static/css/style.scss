@@ -1,0 +1,310 @@
+$mobile-limit: 760px;
+
+li span.identifier {
+	font-size: 80%;
+	opacity: 0.6;
+}
+
+h2 span.identifier {
+	font-size: 1rem;
+	opacity: 0.6;
+}
+
+div.paragraph {
+	background: white;
+	box-sizing: border-box;
+	border: 1px solid #386ede;
+	border-radius: 3px;
+	max-width: 100%;
+	padding: 5px 15px;
+	margin-bottom: 1rem;
+	h4 {
+		margin-top: 5px;
+		border-bottom: none;
+	}
+}
+
+a.button.button-paragraph {
+	text-align: left;
+	box-sizing: border-box;
+	display: block;
+	max-width: 100%;
+	margin-bottom: 1rem;
+}
+
+a.button.button-paragraph p {
+	font-weight: normal;
+	color: #333;
+	margin: 0;
+	line-height: 150%;
+}
+
+a.button.button-paragraph p:last-child {
+	padding-bottom: 5px;
+}
+
+a.button.button-paragraph:hover p {
+	color: white;
+}
+
+#lingo-manager-main {
+	background: none bottom right no-repeat;
+	background-image: url(home_background.svg);
+	background-size: 100vh auto;
+	min-height: 80vh;
+	width: 99%;
+	height: 90%;
+	@media screen and (max-width: $mobile-limit) {
+		background: none !important;
+		min-height: 0;
+		height: auto;
+	}
+}
+
+#lingo-manager-regie-main {
+	background: none bottom right no-repeat;
+	background-image: url(regie_background.svg);
+	background-size: 100vh auto;
+	min-height: 80vh;
+	width: 99%;
+	height: 90%;
+	@media screen and (max-width: $mobile-limit) {
+		background: none !important;
+		min-height: 0;
+		height: auto;
+	}
+}
+
+.sortable {
+	span.handle {
+		cursor: move;
+		display: inline-block;
+		padding: 0.5ex;
+		text-align: center;
+		width: 2em;
+		height: 100%;
+		box-sizing: border-box;
+		font-weight: normal;
+	}
+}
+
+ul.objects-list.sortable {
+	li {
+		position: relative;
+		& > a {
+			display: inline-block;
+		}
+	}
+}
+
+ul.objects-list.single-links li a.link::before {
+	content: "\f08e"; /* fa-external-link  */
+}
+
+div.test-tool-result .infonotice h3 {
+	margin-top: 0;
+	font-weight: normal;
+}
+
+.pk-tabs--container {
+	& > div {
+		padding: 1ex;
+		.panel--buttons a.button {
+			line-height: inherit;
+		}
+	}
+}
+
+span.togglable {
+	padding: 1em 2ex;
+	cursor: pointer;
+}
+.objects-list span.togglable {
+	position: absolute;
+	right: 1ex;
+	line-height: 2em;
+	height: 2em;
+	padding-top: 0;
+	top: 0.25em;
+}
+
+.untoggled span.togglable:after {
+	font-family: FontAwesome;
+	content: "\f107"; /* angle-down */
+	cursor: pointer;
+}
+
+.toggled span.togglable:after {
+	font-family: FontAwesome;
+	content: "\f106"; /* angle-up */
+	cursor: pointer;
+}
+
+i.unlock-warning::before {
+	font-family: FontAwesome;
+	content: "\f071"; /* exclamation-triangle */
+	font-style: normal;
+}
+
+ul.campaign-list {
+	li {
+		span.badge:has(+span) {
+			right: 4em;
+		}
+		&.corrective {
+			margin-left: 2em;
+		}
+	}
+}
+
+table.invoicing-element-list {
+	tr.last-line td {
+		padding-bottom: 2em;
+	}
+	td {
+		&.quantity, &.amount, &.payment-num, &.accounting-code {
+			width: 8em;
+		}
+		&.with-togglable {
+			width: 2em;
+		}
+		&.quantity, &.amount, &.with-togglable, &.action {
+			text-align: right;
+		}
+		&.activity {
+			font-style: italic;
+		}
+	}
+}
+table.pk-compact-table td.line-replayed {
+	text-align: center;
+}
+
+ul.objects-list li span.badge.badge-success {
+	background: var(--green);
+}
+
+.django-ckeditor-widget {
+	display: block !important;
+	max-width: 80em;
+}
+
+.django-date-range-widget .content {
+	display: flex;
+	align-items: baseline;
+	gap: 1ex;
+}
+
+span.invoice-colour {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin-right: 0.5em;
+	border: 1px solid #AAA;
+	border-radius: 0;
+	vertical-align: middle;
+}
+
+.application-logo, .application-icon {
+	vertical-align: middle;
+}
+
+#inspect-test-template textarea {
+	width: 100%;
+}
+
+.snapshots-list .collapsed {
+	display: none;
+}
+
+p.snapshot-description {
+	font-size: 80%;
+	margin: 0;
+}
+
+div.diff {
+	margin: 1em 0;
+	h3 {
+		del, ins {
+			font-weight: bold;
+			background-color: transparent;
+		}
+		del {
+			color: #fbb6c2 !important;
+		}
+		ins {
+			color: #d4fcbc !important;
+		}
+	}
+}
+
+ins {
+	text-decoration: none;
+	background-color: #d4fcbc;
+}
+
+del {
+	text-decoration: line-through;
+	background-color: #fbb6c2;
+	color: #555;
+}
+
+table.diff {
+	background: white;
+	border: 1px solid #f3f3f3;
+	border-collapse: collapse;
+	width: 100%;
+	colgroup, thead, tbody, td {
+		border: 1px solid #f3f3f3;
+	}
+	tbody tr:nth-child(even) {
+		background: #fdfdfd;
+	}
+	th, td {
+		max-width: 30vw;
+		/* it will not actually limit width as the table is set to
+		 * expand to 100% but it will prevent one side getting wider
+		 */
+		overflow: hidden;
+		text-overflow: ellipsis;
+		vertical-align: top;
+	}
+	.diff_header {
+		background: #f7f7f7;
+	}
+	td.diff_header {
+		text-align: right;
+		padding-right: 10px;
+		color: #606060;
+	}
+	.diff_next {
+		display: none;
+	}
+	.diff_add {
+		background-color: #aaffaa;
+	}
+	.diff_chg {
+		background-color: #ffff77;
+	}
+	.diff_sub {
+		background-color: #ffaaaa;
+	}
+}
+
+.transactions-table {
+	&--status {
+		white-space: pre;
+	}
+}
+
+.category-select-widget {
+	&--select-button-container {
+		  display: flex;
+		  gap: 0.5em;
+	}
+
+	&--button-add::before {
+		content: "\f067"; /* plus */
+		font-family: FontAwesome;
+	}
+}

@@ -1,0 +1,30 @@
+{% extends "lingo/invoicing/manager_payment_list.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-payment-cancel' regie.pk object.pk %}">{% trans "Cancel payment" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Cancel payment" %} - {{ object.formatted_number }}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% if object.docket %}
+      <ul class="messages">
+        <li class="warning">{% trans "This payment is included in a docket." %}<br />{% trans "If you cancel this payment, the docket will be modified." %}</li>
+      </ul>
+    {% endif %}
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button>{% trans "Submit" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-payment-list' regie.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

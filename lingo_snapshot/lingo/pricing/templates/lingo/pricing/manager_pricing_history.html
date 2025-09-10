@@ -1,0 +1,19 @@
+{% extends "lingo/pricing/manager_pricing_parameters.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <h2>{% trans 'Pricing history' %} - {{ pricing }}</h2>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-pricing-history' pk=pricing.pk %}">{% trans "History" %}</a>
+{% endblock %}
+
+{% block content %}
+  {% url 'lingo-manager-pricing-history-compare' pk=pricing.pk as compare_url %}
+  {% include 'lingo/includes/snapshot_history_fragment.html' %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

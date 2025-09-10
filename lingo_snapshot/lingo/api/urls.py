@@ -1,0 +1,249 @@
+# lingo - payment and billing system
+# Copyright (C) 2022  Entr'ouvert
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from django.urls import path
+
+from .views import agendas, basket, invoicing, pricing, statistics
+
+urlpatterns = [
+    path(
+        'agendas/unlock/',
+        agendas.agenda_unlock,
+        name='api-agendas-unlock',
+    ),
+    path(
+        'agenda/<slug:agenda_identifier>/check-types/',
+        agendas.agenda_check_type_list,
+        name='api-agenda-check-types',
+    ),
+    path(
+        'agendas/check-types/',
+        agendas.agendas_check_type_list,
+        name='api-agendas-check-types',
+    ),
+    path(
+        'agenda/<slug:agenda_identifier>/duplicate-settings/',
+        agendas.agenda_duplicate_settings,
+        name='api-agenda-duplicate-settings',
+    ),
+    path(
+        'pricings/',
+        pricing.pricings,
+        name='api-pricings',
+    ),
+    path(
+        'pricing/compute/',
+        pricing.pricing_compute,
+        name='api-pricing-compute',
+    ),
+    path(
+        'invoice-cancellation-reasons/',
+        invoicing.invoice_cancellation_reasons,
+        name='api-invoice-cancellation-reasons',
+    ),
+    path(
+        'regies/',
+        invoicing.invoicing_regies,
+        name='api-invoicing-regies',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/payment-types/',
+        invoicing.invoicing_payment_types,
+        name='api-invoicing-payment-types',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoices/',
+        invoicing.invoicing_invoices,
+        name='api-invoicing-invoices',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoices/history/',
+        invoicing.invoicing_history_invoices,
+        name='api-invoicing-history-invoices',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoices/collected/',
+        invoicing.invoicing_collected_invoices,
+        name='api-invoicing-collected-invoices',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoices/cancelled/',
+        invoicing.invoicing_cancelled_invoices,
+        name='api-invoicing-cancelled-invoices',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoice/<uuid:invoice_identifier>/',
+        invoicing.invoicing_invoice,
+        name='api-invoicing-invoice',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoice/<uuid:invoice_identifier>/pdf/',
+        invoicing.invoicing_invoice_pdf,
+        name='api-invoicing-invoice-pdf',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoice/<uuid:invoice_identifier>/dynamic/pdf/',
+        invoicing.invoicing_invoice_dynamic_pdf,
+        name='api-invoicing-invoice-dynamic-pdf',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoice/<uuid:invoice_identifier>/payments/pdf/',
+        invoicing.invoicing_invoice_payments_pdf,
+        name='api-invoicing-invoice-payments-pdf',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoice/<uuid:invoice_identifier>/pay/',
+        invoicing.invoicing_invoice_pay,
+        name='api-invoicing-invoice-pay',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoice/<uuid:invoice_identifier>/cancel/',
+        invoicing.invoicing_invoice_cancel,
+        name='api-invoicing-invoice-cancel',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/draft-invoices/',
+        invoicing.invoicing_draft_invoices,
+        name='api-invoicing-draft-invoices',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/draft-invoice/<uuid:draft_identifier>/lines/',
+        invoicing.invoicing_draft_invoice_lines,
+        name='api-invoicing-draft-invoice-lines',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/draft-invoice/<uuid:draft_identifier>/close/',
+        invoicing.invoicing_draft_invoice_close,
+        name='api-invoicing-draft-invoice-close',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/draft-credits/',
+        invoicing.invoicing_draft_credits,
+        name='api-invoicing-draft-credits',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/draft-credit/<uuid:draft_identifier>/lines/',
+        invoicing.invoicing_draft_credit_lines,
+        name='api-invoicing-draft-credit-lines',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/draft-credit/<uuid:draft_identifier>/close/',
+        invoicing.invoicing_draft_credit_close,
+        name='api-invoicing-draft-credit-close',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/from-bookings/',
+        invoicing.invoicing_from_bookings,
+        name='api-invoicing-from-bookings',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/from-bookings/dry-run/',
+        invoicing.invoicing_from_bookings_dry_run,
+        name='api-invoicing-from-bookings-dry-run',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/injected-lines/',
+        invoicing.injected_lines,
+        name='api-invoicing-injected-lines',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/payments/',
+        invoicing.invoicing_payments,
+        name='api-invoicing-payments',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/payment/<uuid:payment_identifier>/',
+        invoicing.invoicing_payment,
+        name='api-invoicing-payment',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/payment/<uuid:payment_identifier>/pdf/',
+        invoicing.invoicing_payment_pdf,
+        name='api-invoicing-payment-pdf',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/credits/',
+        invoicing.invoicing_credits,
+        name='api-invoicing-credits',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/credits/history/',
+        invoicing.invoicing_history_credits,
+        name='api-invoicing-history-credits',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/credit/<uuid:credit_identifier>/pdf/',
+        invoicing.invoicing_credit_pdf,
+        name='api-invoicing-credit-pdf',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/credit/<uuid:credit_identifier>/assign/',
+        invoicing.invoicing_credit_assign,
+        name='api-invoicing-credit-assign',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/refunds/',
+        invoicing.invoicing_refunds,
+        name='api-invoicing-refunds',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/invoicing-elements/split/',
+        invoicing.invoicing_elements_split,
+        name='api-invoicing-elements-split',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/baskets/',
+        basket.basket_baskets,
+        name='api-basket-baskets',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/basket/check/',
+        basket.basket_basket_check,
+        name='api-basket-basket-check',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/basket/<uuid:basket_identifier>/lines/',
+        basket.basket_basket_lines,
+        name='api-basket-basket-lines',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/basket/<uuid:basket_identifier>/lines/from-bookings/',
+        basket.basket_basket_lines_from_bookings,
+        name='api-basket-basket-lines-from-bookings',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/basket/lines/from-bookings/dry-run/',
+        basket.basket_basket_lines_from_bookings_dry_run,
+        name='api-basket-basket-lines-from-bookings-dry-run',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/basket/<uuid:basket_identifier>/line/<uuid:line_identifier>/items/',
+        basket.basket_basket_line_items,
+        name='api-basket-basket-line-items',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/basket/<uuid:basket_identifier>/line/<uuid:line_identifier>/close/',
+        basket.basket_basket_line_close,
+        name='api-basket-basket-line-close',
+    ),
+    path(
+        'regie/<slug:regie_identifier>/basket/<uuid:basket_identifier>/line/<uuid:line_identifier>/cancel/',
+        basket.basket_basket_line_cancel,
+        name='api-basket-basket-line-cancel',
+    ),
+    path('statistics/', statistics.statistics_list, name='api-statistics-list'),
+    path('statistics/invoice/', statistics.invoice_statistics, name='api-statistics-invoice'),
+]

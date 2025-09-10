@@ -1,0 +1,147 @@
+{% load i18n %}
+<table id="invoice-lines">
+  <tbody>
+    {% for user, lines in lines_by_user %}
+      <tr class="line-user-separator"><td colspan="5"></td></tr>
+      <tr class="line-user-infos"><td colspan="5" class="user-name">{% with line=lines|first %}{{ line.user_name }}{% endwith %}</td></tr>
+      <tr class="line-column-headers">
+        <th class="description">{% trans "Services" %}</th>
+        <th class="details">{% trans "Details" %}</th>
+        <th class="amount unit-amount">{% trans "Unit amount" %}</th>
+        <th class="quantity">{% trans "Quantity" %}</th>
+        <th class="amount total-amount">{% trans "Total amount" %}</th>
+      </tr>
+      {% for line in lines %}
+        {% ifchanged line.activity_label %}
+          {% if line.activity_label or not forloop.first %}
+            <tr><td colspan="5" class="activity"><i>{{ line.activity_label|default:"&nbsp;" }}</i></td></tr>
+          {% endif %}
+        {% endifchanged %}
+        <tr>
+          <td class="description">
+            {{ line.label }}
+          </td>
+          <td class="details">
+            {% if not line.details.partial_bookings %}
+              {% if line.details.check_type_label %}
+                {{ line.details.check_type_label }}
+              {% elif line.details.status == 'absence' %}
+                {% trans "Absence" %}
+              {% endif %}
+            {% endif %}
+            {% if document_model == 'middle' and line.display_description %}
+              {{ line.description }}
+            {% endif %}
+          </td>
+          {% if line.details.check_type_label or line.details.status != 'absence' or line.details.partial_bookings %}
+            <td class="amount unit-amount">{% blocktrans with amount=line.unit_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+            <td class="quantity">{{ line.quantity|floatformat }}</td>
+            <td class="amount total-amount">{% blocktrans with amount=line.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      {% if lines_by_user|length > 1 %}
+        <tr class="line-user-subtotal">
+          <td class="subtotal" colspan="4">{% trans "Subtotal:" %}</td>
+          <td class="amount total-amount">{% blocktrans with amount=amount_by_user|get:user|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    {% if invoice.collection %}
+      {% if not invoice.paid_amount %}
+        <tr class="grand-total">
+          <td class="label" colspan="4">
+            {% trans "Debt amount:" %}
+          </td>
+          <td class="amount">{% blocktrans with amount=invoice.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td class="label" colspan="4">
+            {% trans "Total amount:" %}
+          </td>
+          <td class="amount">{% blocktrans with amount=invoice.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+        <tr>
+          <td class="label" colspan="4">
+            {% trans "Paid amount:" %}
+          </td>
+          <td class="amount">{% blocktrans with amount=invoice.paid_amount_before_collect|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+        <tr class="grand-total">
+          <td class="label" colspan="4">
+            {% trans "Debt amount:" %}
+          </td>
+          <td class="amount">{% blocktrans with amount=invoice.collected_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+      {% endif %}
+      <tr class="grand-total">
+        <td class="label" colspan="4">
+          {% trans "Debt forwarded to the Treasury on:" %}
+        </td>
+        <td class="amount">{{ invoice.collection.created_at|date:"d/m/Y" }}</td>
+      </tr>
+    {% elif invoice_payments %}
+      <tr>
+        <td class="label" colspan="4">
+          {% trans "Invoiced amount:" %}
+        </td>
+        <td class="amount">{% blocktrans with amount=invoice.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+      </tr>
+      {% if invoice_paid_amount_without_credit %}
+        <tr>
+          <td class="label" colspan="4">
+            {% trans "Paid amount:" %}
+          </td>
+          <td class="amount">{% blocktrans with amount=invoice_paid_amount_without_credit|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+      {% endif %}
+      {% if invoice_paid_amount_with_credit %}
+        <tr>
+          <td class="label" colspan="4">
+            {% trans "Paid amount with credit:" %}
+          </td>
+          <td class="amount">{% blocktrans with amount=invoice_paid_amount_with_credit|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+      {% endif %}
+      <tr class="grand-total">
+        <td class="label" colspan="4">
+          {% trans "Remaining amount:" %}
+        </td>
+        <td class="amount">{% blocktrans with amount=invoice.remaining_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+      </tr>
+    {% else %}
+      <tr class="grand-total">
+        <td class="label" colspan="4">
+          {% trans "Total amount:" %}
+        </td>
+        <td class="amount">{% blocktrans with amount=invoice.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+      </tr>
+    {% endif %}
+  </tfoot>
+</table>
+<p class="deadline">
+  {% trans "Payment deadline:" %} <strong id="payment-deadline">{{ invoice.date_payment_deadline_displayed|default:invoice.date_payment_deadline|date:"d/m/Y" }}</strong>
+</p>
+{% if not invoice.collection and invoice_payments %}
+  <p class="payments">
+    {% trans "Details of payments recorded on this invoice" %}
+    {% for invoice_payment in invoice_payments %}
+      <br />
+      {% if invoice_payment.payment.payment_type.slug == 'credit' %}
+        - {% blocktrans with payment_num=invoice_payment.payment.formatted_number payment_date=invoice_payment.payment.created_at|date:"d/m/Y" amount=invoice_payment.payment.amount|floatformat:"2" credit_nums=invoice_payment.payment.credit_formatted_numbers|join:' ' payment_type=invoice_payment.payment.payment_type %}<b>{{ payment_num }}</b> of <b>{{ payment_date }}</b> amount <b>{{ amount }}€</b> of <b>{{ payment_type }} {{ credit_nums }}</b>{% endblocktrans %}
+      {% else %}
+        - {% blocktrans with payment_num=invoice_payment.payment.formatted_number payment_date=invoice_payment.payment.created_at|date:"d/m/Y" amount=invoice_payment.payment.amount|floatformat:"2" payment_type=invoice_payment.payment.payment_type %}<b>{{ payment_num }}</b> of <b>{{ payment_date }}</b> amount <b>{{ amount }}€</b> of <b>{{ payment_type }}</b>{% endblocktrans %}
+      {% endif %}
+    {% endfor %}
+  </p>
+  {% if invoice.remaining_amount == 0 %}
+    <p class="invoice-paid">
+      {% trans "Total amount paid - Invoice paid*." %}
+      <br />
+      <i>{% trans "*Subject to actual cashing of payments by check." %}</i>
+    </p>
+  {% endif %}
+{% endif %}

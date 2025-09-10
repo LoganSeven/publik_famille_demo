@@ -1,0 +1,22 @@
+{% extends "lingo/invoicing/manager_collection_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-collection-validate' regie_pk=regie.pk pk=object.pk %}">{% trans "Validate" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Validate" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>{% trans "Are you sure you want to validate this collection ?" %}</p>
+    <div class="buttons">
+      <button class="submit-button">{% trans "Validate" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-collection-detail' regie_pk=regie.pk pk=object.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

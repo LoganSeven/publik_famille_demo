@@ -1,0 +1,5 @@
+{% if application %}
+  <a href="{{ object_list_url }}?application={{ application.slug }}">{{ application }}</a>
+{% elif no_application %}
+  <a href="{{ object_list_url }}?no-application">{{ title_no_application }}</a>
+{% endif %}

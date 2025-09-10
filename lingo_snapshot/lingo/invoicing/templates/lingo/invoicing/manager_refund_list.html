@@ -1,0 +1,73 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Refunds" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-refund-list' regie_pk=regie.pk %}">{% trans "Refunds" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Refunds" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+          <legend class="gadjo-foldable-widget">{% trans "Refund Filtering" %}</legend>
+          <div class="gadjo-folding">
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div>
+    <table class="main pk-compact-table invoicing-element-list">
+      {% for refund in object_list %}
+        <tr class="refund untoggled" data-invoicing-element-id="{{ refund.pk }}">
+          <td colspan="5">
+            {% if refund.date_refund %}
+              {% blocktrans with refund_number=refund.formatted_number number=refund.formatted_number rdate=refund.date_refund|date:'d/m/Y' cdate=refund.created_at|date:'d/m/Y' payer_id=refund.payer_external_id payer_name=refund.payer_name amount=refund.amount %}Refund {{ refund_number }} dated {{ rdate }} (created on {{ cdate }}) for <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+            {% else %}
+              {% blocktrans with refund_number=refund.formatted_number number=refund.formatted_number cdate=refund.created_at|date:'d/m/Y' payer_id=refund.payer_external_id payer_name=refund.payer_name amount=refund.amount %}Refund {{ refund_number }} dated {{ cdate }} for <a href="?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+            {% endif %}
+          </td>
+          <td class="with-togglable">
+            <span class="togglable"></span>
+          </td>
+        </tr>
+        <tr class="line" data-related-invoicing-element-id="{{ refund.pk }}" style="display: none;">
+          <td class="credit-num">{% trans "Credit" %}</td>
+          <td colspan="2">{% trans "Date" context 'credit' %}</td>
+          <td class="amount">{% trans "Credit amount" %}</td>
+          <td class="amount" colspan="2">{% trans "Refund amount" %}</td>
+        </tr>
+        {% for assignment in refund.creditassignment_set.all %}
+          <tr class="line" data-related-invoicing-element-id="{{ refund.pk }}" style="display: none;">
+            <td>
+              <a href="{% url 'lingo-manager-invoicing-regie-credit-list' regie_pk=regie.pk %}?number={{ assignment.credit.formatted_number }}">{{ assignment.credit.formatted_number }}</a>
+            </td>
+            <td colspan="2">
+              {{ assignment.credit.created_at|date:'d/m/Y' }}
+            </td>
+            <td class="amount">
+              {% blocktrans with amount=assignment.credit.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+            </td>
+            <td class="amount" colspan="2">
+              {% blocktrans with amount=assignment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}
+            </td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

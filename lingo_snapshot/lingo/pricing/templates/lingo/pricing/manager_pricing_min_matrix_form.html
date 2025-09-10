@@ -1,0 +1,22 @@
+{% extends "lingo/pricing/manager_pricing_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if matrix.criteria %}
+    <a href="{% url 'lingo-manager-pricing-min-matrix-slug-edit' object.pk matrix.criteria.slug %}">{% trans "Edit minimal pricing" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-pricing-min-matrix-edit' object.pk %}">{% trans "Edit minimal pricing" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Edit minimal pricing" %}</h2>
+{% endblock %}
+
+{% block content %}
+  {% include 'lingo/pricing/manager_pricing_matrix_form_fragment.html' %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

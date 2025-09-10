@@ -1,0 +1,61 @@
+{% extends "lingo/invoicing/manager_docket_list.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-docket-payment-list' regie_pk=regie.pk %}">{% trans "Payments outside dockets" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Payments outside dockets" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset id="filters">
+          <legend>{% trans "Payments outside dockets search" %}</legend>
+          <div>
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Search" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div>
+    <table class="main pk-compact-table invoicing-element-list">
+      {% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=regie.pk as regie_payment_list_url %}
+      {% for payment in object_list %}
+        <tr>
+          <td colspan="4">
+            {% if payment.date_payment %}
+              {% blocktrans with payment_number=payment.formatted_number pdate=payment.date_payment|date:'d/m/Y' cdate=payment.created_at|date:'d/m/Y' payer_id=payment.payer_external_id payer_name=payment.payer_name amount=payment.amount payment_type=payment.payment_type %}Payment <a href="{{ regie_payment_list_url }}?number={{ payment_number }}">{{ payment_number }}</a> dated {{ pdate }} (created on {{ cdate }}) from {{ payer_name }}, amount {{ amount }}€ ({{ payment_type }}){% endblocktrans %}
+            {% else %}
+              {% blocktrans with payment_number=payment.formatted_number cdate=payment.created_at|date:'d/m/Y' payer_id=payment.payer_external_id payer_name=payment.payer_name amount=payment.amount payment_type=payment.payment_type %}Payment <a href="{{ regie_payment_list_url }}?number={{ payment_number }}">{{ payment_number }}</a> dated {{ cdate }} from {{ payer_name }}, amount {{ amount }}€ ({{ payment_type }}){% endblocktrans %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+  {% if user_can_control %}
+    <aside id="sidebar">
+
+      <h3>{% trans "Actions" %}</h3>
+      {% if not has_draft %}
+        <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-docket-add' regie_pk=regie.pk %}?{{ request.GET.urlencode }}">{% trans "New docket" %}</a>
+      {% else %}
+        <div class="paragraph">
+          {% trans "The action to create a new docket is not available because a draft docket already exists." %}
+        </div>
+      {% endif %}
+
+    </aside>
+  {% endif %}
+{% endblock %}

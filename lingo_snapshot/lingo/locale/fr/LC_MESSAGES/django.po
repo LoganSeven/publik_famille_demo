@@ -1,0 +1,5256 @@
+# lingo - payment and billing system, french translation
+# Copyright (C) 2022  Entr'ouvert
+# This file is distributed under the same license as the lingo package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lingo 0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-29 09:31+0000\n"
+"PO-Revision-Date: 2025-08-29 11:32+0200\n"
+"Last-Translator: Thomas NOËL <tnoel@entrouvert.com>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: agendas/chrono.py invoicing/views/regie.py pricing/views.py
+msgctxt "snapshot"
+msgid "created"
+msgstr "création"
+
+#: agendas/chrono.py
+msgid "Unable to get event details"
+msgstr "Impossible d’obtenir les détails de l’évènement"
+
+#: agendas/chrono.py
+#, python-format
+msgid "Unable to get event details (%s)"
+msgstr "Impossible d’obtenir les détails de l’évènement (%s)"
+
+#: agendas/chrono.py
+msgid "Unable to get events details"
+msgstr "Impossible d’obtenir les détails des évènements"
+
+#: agendas/chrono.py
+#, python-format
+msgid "Unable to get events details (%s)"
+msgstr "Impossible d’obtenir les détails des évènements (%s)"
+
+#: agendas/chrono.py
+msgid "Unable to get subscription details"
+msgstr "Impossible d’obtenir les détails de l’inscription"
+
+#: agendas/chrono.py
+#, python-format
+msgid "Unable to get subscription details (%s)"
+msgstr "Impossible d’obtenir les détails de l’inscription (%s)"
+
+#: agendas/chrono.py
+msgid "Unable to get check status"
+msgstr "Impossible d’obtenir les détails du pointage"
+
+#: agendas/chrono.py
+#, python-format
+msgid "Unable to get check status (%s)"
+msgstr "Impossible d’obtenir les détails du pointage (%s)"
+
+#: agendas/chrono.py
+msgid "Unable to lock events check"
+msgstr "Impossible de verrouiller les pointages des évènements"
+
+#: agendas/chrono.py
+#, python-format
+msgid "Unable to lock events check (%s)"
+msgstr "Impossible de verrouiller les pointages des évènements (%s)"
+
+#: agendas/chrono.py
+msgid "Unable to unlock events check"
+msgstr "Impossible de déverrouiller les pointages des évènements"
+
+#: agendas/chrono.py
+#, python-format
+msgid "Unable to unlock events check (%s)"
+msgstr "Impossible de déverrouiller les pointages des évènements (%s)"
+
+#: agendas/chrono.py
+msgid "Unable to mark events as invoiced"
+msgstr "Impossible de marquer les évènements comme facturés"
+
+#: agendas/chrono.py
+#, python-format
+msgid "Unable to mark events as invoiced (%s)"
+msgstr "Impossible de marquer les évènements comme facturés (%s)"
+
+#: agendas/models.py epayment/models.py invoicing/models/base.py
+#: invoicing/models/campaign.py invoicing/models/credit.py
+#: invoicing/models/invoice.py invoicing/models/payment.py
+#: invoicing/models/regie.py pricing/models.py snapshot/models.py
+msgid "Label"
+msgstr "Libellé"
+
+#: agendas/models.py epayment/models.py invoicing/models/credit.py
+#: invoicing/models/invoice.py invoicing/models/payment.py
+#: invoicing/models/regie.py
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+#: pricing/models.py
+msgid "Identifier"
+msgstr "Identifiant"
+
+#: agendas/models.py
+msgid "Category label"
+msgstr "Libellé de la catégorie"
+
+#: agendas/models.py
+msgid "Category identifier"
+msgstr "Identifiant de la catégorie"
+
+#: agendas/models.py
+msgid "Check type group"
+msgstr "Groupe de types de pointage"
+
+#: agendas/models.py api/views/statistics.py invoicing/models/regie.py
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Regie"
+msgstr "Régie"
+
+#: agendas/models.py
+msgid "Agenda (payment)"
+msgstr "Agenda (paiements)"
+
+#: agendas/models.py
+msgid "Agendas (payment)"
+msgstr "Agendas (paiements)"
+
+#: agendas/models.py pricing/models.py
+#, python-format
+msgid "Missing \"%s\" agenda"
+msgstr "Agenda « %s » manquant"
+
+#: agendas/models.py
+#, python-format
+msgid "Missing \"%s\" check type group"
+msgstr "Groupe de type de pointage « %s » manquant"
+
+#: agendas/models.py
+#, python-format
+msgid "Missing \"%s\" regie"
+msgstr "Régie « %s » manquante"
+
+#: agendas/models.py
+msgid "Partial bookings"
+msgstr "Réservations partielles"
+
+#: agendas/models.py
+msgid "Events"
+msgstr "Évènements"
+
+#: agendas/models.py
+msgid "Check type to be used in case of unexpected presence"
+msgstr "Type de pointage à utiliser en cas de présence non prévue"
+
+#: agendas/models.py
+msgid "Check type to be used in case of unjustified absence"
+msgstr "Type de pointage à utiliser en cas d’absence injustifiée"
+
+#: agendas/models.py pricing/forms.py
+msgid "Check type groups"
+msgstr "Groupes de types de pointage"
+
+#: agendas/models.py
+#, python-format
+msgid "Missing \"%s\" check type"
+msgstr "Type de pointage « %s » manquant"
+
+#: agendas/models.py
+msgid "Code"
+msgstr "Code"
+
+#: agendas/models.py
+msgid "Colour"
+msgstr "Couleur"
+
+#: agendas/models.py
+msgid "Kind"
+msgstr "Type"
+
+#: agendas/models.py api/views/invoicing.py
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice_details_fragment.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/utils.py invoicing/views/regie.py pricing/forms.py
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Absence"
+msgstr "Absence"
+
+#: agendas/models.py
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: pricing/forms.py
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Presence"
+msgstr "Présence"
+
+#: agendas/models.py pricing/models.py
+msgid "Pricing"
+msgstr "Tarif"
+
+#: agendas/models.py
+msgid "Fixed pricing"
+msgstr "Tarif fixe"
+
+#: agendas/models.py
+msgid "Pricing rate"
+msgstr "Taux tarifaire"
+
+#: agendas/models.py
+msgid "Percentage rate"
+msgstr "Pourcentage du tarif initial"
+
+#: agendas/models.py invoicing/models/credit.py invoicing/models/invoice.py
+#: invoicing/models/payment.py invoicing/models/regie.py
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: api/serializers.py
+#, python-format
+msgid "Invalid format for slot %s"
+msgstr "Format invalid pour le créneau %s"
+
+#: api/serializers.py
+#, python-format
+msgid "Missing agenda slug in slot %s"
+msgstr "Il manque l’identifiant de l’agenda dans le créneau %s"
+
+#: api/serializers.py
+#, python-format
+msgid "Missing event slug in slot %s"
+msgstr "Il manque l’identifiant de l’évènement dans le slot %s"
+
+#: api/serializers.py
+#, python-format
+msgid "Unknown agendas: %s"
+msgstr "Agendas inconnus : %s"
+
+#: api/serializers.py
+#, python-format
+msgid "Unknown agenda: %s"
+msgstr "Agenda inconnu : %s"
+
+#: api/serializers.py
+#, python-format
+msgid "Unknown pricing: %s"
+msgstr "Grille tarifaire inconnue : %s"
+
+#: api/serializers.py
+msgid "Either \"slots\", \"agenda\" or \"pricing\" parameter is required."
+msgstr ""
+"Il est nécessaire de passer un paramètre « slots », « agenda » ou "
+"« pricing »."
+
+#: api/serializers.py
+msgid "This field is required when using \"agenda\" parameter."
+msgstr "Ce champ est obligatoire quand le paramètre « agenda » est utilisé."
+
+#: api/serializers.py
+msgid "This field is required when using \"pricing\" parameter."
+msgstr "Ce champ est obligatoire quand le paramètre « pricing » est utilisé."
+
+#: api/serializers.py
+#, python-format
+msgid "No agenda pricing found for event %s"
+msgstr "Aucune grille tarifaire trouvée pour l’évènement %s"
+
+#: api/serializers.py
+#, python-format
+msgid "No agenda pricing found for agenda %s"
+msgstr "Aucune grille tarifaire trouvée pour l’agenda %s"
+
+#: api/serializers.py
+msgid "User not found."
+msgstr "Utilisateur inconnu."
+
+#: api/serializers.py
+msgid "Unknown invoice."
+msgstr "Facture inconnue."
+
+#: api/serializers.py
+msgid "Must be a valid UUID."
+msgstr "Doit être un UUID valide."
+
+#: api/serializers.py
+msgid "The invoice due date has passed."
+msgstr "La date d’échéance est dépassée."
+
+#: api/serializers.py
+msgid "The invoice is set up for direct debit."
+msgstr "Cette facture est configurée pour du prélèvement automatique."
+
+#: api/serializers.py
+msgid "Unknown invoice line."
+msgstr "Ligne de facturation inconnue."
+
+#: api/serializers.py
+msgid "The invoice due date of this line has passed."
+msgstr "La date d’échéance de la facture de cette ligne est dépassée."
+
+#: api/serializers.py
+msgid "The invoice of this line is set up for direct debit."
+msgstr ""
+"La facture de cette ligne est configurée pour du prélèvement automatique."
+
+#: api/serializers.py
+msgid "Can not create payment for invoice lines of different payers."
+msgstr ""
+"Impossible de créer un règlement pour des lignes de facturation de "
+"différents payeurs."
+
+#: api/serializers.py
+msgid "Amount is bigger than sum of invoice lines remaining amounts."
+msgstr ""
+"Le montant est supérieur à la somme des montants restant à payer des lignes "
+"de facturation."
+
+#: api/serializers.py
+msgid "Can not create payment for invoices of different payers."
+msgstr ""
+"Impossible de créer un règlement pour des factures de différents payeurs."
+
+#: api/serializers.py
+msgid "Amount is bigger than sum of invoices remaining amounts."
+msgstr ""
+"Le montant est supérieur à la somme des montants restant à payer des "
+"factures."
+
+#: api/serializers.py
+msgid "Unknown credit."
+msgstr "Avoir inconnu."
+
+#: api/serializers.py
+msgid "Credit already completely assigned."
+msgstr "Cet avoir est déjà totalement affecté."
+
+#: api/serializers.py
+msgid "date_start must be before date_end."
+msgstr "data_start doit précéder date_end."
+
+#: api/serializers.py
+msgid "a basket to finalize already exists"
+msgstr "un panier à finaliser existe déjà"
+
+#: api/serializers.py
+msgid "a basket to finalize already exists in another regie"
+msgstr "un panier à finaliser existe déjà dans une autre régie"
+
+#: api/serializers.py
+msgid ""
+"a line already exists in active basket in this regie for this "
+"user_external_id"
+msgstr ""
+"une ligne a déjà été ouverte dans un panier actif de cette régie pour ce "
+"user_external_id"
+
+#: api/serializers.py
+msgid "a basket to pay already exists"
+msgstr "un panier à payer existe déjà"
+
+#: api/serializers.py
+msgid "a line is already opened in basket for this user_external_id"
+msgstr "une ligne a déjà été ouverte dans le panier pour ce user_external_id"
+
+#: api/serializers.py
+msgid "Invoice count"
+msgstr "Nombre de factures"
+
+#: api/serializers.py invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Total amount"
+msgstr "Montant total"
+
+#: api/serializers.py invoicing/views/regie.py
+msgid "Paid amount"
+msgstr "Montant réglé"
+
+#: api/serializers.py
+msgid "Remaining amount"
+msgstr "Montant restant dû"
+
+#: api/serializers.py api/views/statistics.py
+msgid "Day"
+msgstr "Jour"
+
+#: api/views/agendas.py api/views/basket.py api/views/invoicing.py
+#: api/views/pricing.py api/views/utils.py
+msgid "invalid payload"
+msgstr "contenu de requête invalide"
+
+#: api/views/agendas.py
+msgid "unknown target agenda"
+msgstr "agenda cible inconnu"
+
+#: api/views/agendas.py
+#, python-format
+msgid "settings copied from %s"
+msgstr "paramètres copiés depuis %s"
+
+#: api/views/basket.py
+#, python-format
+msgid "Invoice from %s"
+msgstr "Facture du %s"
+
+#: api/views/invoicing.py api/views/pricing.py
+msgid "invalid filters"
+msgstr "filtres invalides"
+
+#: api/views/invoicing.py basket/templates/lingo/basket/basket_detail.html
+#: epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/models/credit.py invoicing/models/invoice.py
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/templates/lingo/invoicing/payment.html
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+#, python-format
+msgid "%(amount)s€"
+msgstr "%(amount)s €"
+
+#: api/views/invoicing.py invoicing/models/invoice.py
+#, python-format
+msgid "(amount to pay: %s)"
+msgstr "(montant à régler : %s)"
+
+#: api/views/invoicing.py
+msgid "can not create invoice from draft invoice with negative amount"
+msgstr ""
+"impossible de créer une facture depuis un brouillon avec un montant négatif"
+
+#: api/views/invoicing.py
+msgid "can not create credit from draft invoice with positive amount"
+msgstr ""
+"impossible de créer un avoir depuis un brouillon avec un montant positif"
+
+#: api/views/pricing.py
+#, python-format
+msgid "This filter is required when using \"%s\" filter."
+msgstr "Ce filtre est obligatoire quand le filtre « %s » est utilisé."
+
+#: api/views/statistics.py
+msgctxt "regies"
+msgid "All"
+msgstr "Toutes"
+
+#: api/views/statistics.py
+msgctxt "activity"
+msgid "All"
+msgstr "Toutes"
+
+#: api/views/statistics.py
+msgctxt "payer"
+msgid "All"
+msgstr "Tous"
+
+#: api/views/statistics.py invoicing/models/regie.py
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Invoice"
+msgstr "Facture"
+
+#: api/views/statistics.py
+msgid "Interval"
+msgstr "Intervalle"
+
+#: api/views/statistics.py
+msgid "Measures"
+msgstr "Mesures"
+
+#: api/views/statistics.py invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/campaign.py invoicing/views/regie.py
+msgid "Activity"
+msgstr "Activité"
+
+#: api/views/statistics.py
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+msgid "Payer"
+msgstr "Payeur"
+
+#: api/views/statistics.py
+msgid "invalid statistics filters"
+msgstr "filtres de statistiques invalides"
+
+#: api/views/utils.py
+msgid "no changes"
+msgstr "aucun changement"
+
+#: api/views/utils.py
+#, python-format
+msgid "wrong regie for agendas: %s"
+msgstr "Régie incorrecte pour les agendas : %s"
+
+#: api/views/utils.py
+msgid "Booking"
+msgstr "Réservation"
+
+#: api/views/utils.py
+msgid "Cancellation"
+msgstr "Annulation"
+
+#: api/views/utils.py invoicing/utils.py
+msgid "Booking (regularization)"
+msgstr "Réservation (régularisation)"
+
+#: api/views/utils.py invoicing/utils.py
+msgid "Cancellation (regularization)"
+msgstr "Annulation (régularisation)"
+
+#: basket/apps.py basket/templates/lingo/basket/basket_cancel.html
+#: basket/templates/lingo/basket/basket_confirmation.html
+#: basket/templates/lingo/basket/basket_detail.html
+#: basket/templates/lingo/basket/basket_validate.html invoicing/models/base.py
+msgid "Basket"
+msgstr "Panier"
+
+#: basket/models.py
+msgid "open"
+msgstr "ouvert"
+
+#: basket/models.py
+msgid "to be paid"
+msgstr "à payer"
+
+#: basket/models.py
+msgid "completed"
+msgstr "terminé"
+
+#: basket/models.py
+msgid "cancelled"
+msgstr "annulé"
+
+#: basket/models.py
+msgid "expired"
+msgstr "expiré"
+
+#: basket/models.py
+msgid "No payment system has been configured."
+msgstr "Aucun système de paiement n’a été configuré."
+
+#: basket/models.py
+msgid "Transaction cancelled"
+msgstr "Transaction annulée"
+
+#: basket/models.py
+msgid "Basket cancelled"
+msgstr "Panier annulé"
+
+#: basket/models.py
+msgid "Basket expired"
+msgstr "Panier expiré"
+
+#: basket/models.py invoicing/models/credit.py invoicing/models/invoice.py
+#: invoicing/models/regie.py
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+msgid "Credit"
+msgstr "Avoir"
+
+#: basket/templates/lingo/basket/basket_cancel.html
+#: basket/templates/lingo/basket/basket_detail.html
+#: basket/templates/lingo/basket/basket_validate.html
+msgid "My basket"
+msgstr "Mon panier"
+
+#: basket/templates/lingo/basket/basket_cancel.html
+msgid "Are you sure you want to cancel this basket?"
+msgstr "Êtes-vous sûr·e de vouloir annuler votre panier ?"
+
+#: basket/templates/lingo/basket/basket_cancel.html
+msgid "Confirm cancellation"
+msgstr "Confirmer l’annulation"
+
+#: basket/templates/lingo/basket/basket_cancel.html
+msgid "Keep basket"
+msgstr "Conserver le panier"
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Please wait"
+msgstr "Veuillez patienter"
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+msgid "Your basket is being processed."
+msgstr "Votre panier est en cours de traitement."
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+msgid "Invoice created"
+msgstr "Facture créée"
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+msgid "An invoice with a zero amount has been created."
+msgstr "Une facture avec un montant de 0 € a été créée."
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+#: epayment/templates/lingo/epayment/payment_message.html
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Continue"
+msgstr "Continuer"
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+msgid "An invoice has been created. This invoice has been paid with credits."
+msgstr "Une facture a été créée. Cette facture a été réglée par avoir."
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+msgid "Credit created"
+msgstr "Avoir créé"
+
+#: basket/templates/lingo/basket/basket_confirmation.html
+msgid "A credit has been created."
+msgstr "Un avoir a été créé."
+
+#: basket/templates/lingo/basket/basket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_job_detail.html
+msgid "Back"
+msgstr "Retour"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Basket amount:"
+msgstr "Montant du panier :"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Credit:"
+msgstr "Avoir :"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "New credit:"
+msgstr "Nouvel avoir :"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Amount to pay:"
+msgstr "Montant à régler :"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Generated credits for other payers:"
+msgstr "Avoirs générés pour d’autres payeurs :"
+
+#: basket/templates/lingo/basket/basket_detail.html
+#, python-format
+msgid "For %(payer_name)s:"
+msgstr "Pour %(payer_name)s :"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Your basket has expired."
+msgstr "Votre panier a expiré."
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid ""
+"You don't have to pay anything but you have to validate your basket for the "
+"modifications to be taken into account."
+msgstr ""
+"Vous n’avez rien à payer mais vous devez obligatoirement valider votre "
+"panier pour que les modifications soient prises en compte."
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Validate and get my credit"
+msgstr "Valider et obtenir mon avoir"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Validate and pay my invoice"
+msgstr "Valider et régler ma facture"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Validate and get my invoice"
+msgstr "Valider et obtenir ma facture"
+
+#: basket/templates/lingo/basket/basket_detail.html
+#: basket/templates/lingo/basket/basket_validate.html
+#: epayment/templates/lingo/epayment/backend_confirm_delete.html
+#: epayment/templates/lingo/epayment/backend_form.html
+#: invoicing/templates/lingo/invoicing/export.html
+#: invoicing/templates/lingo/invoicing/import.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_dates_form.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_event_amounts_form.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_finalize.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_form.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_invoices_form.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_unlock_check.html
+#: invoicing/templates/lingo/invoicing/manager_collection_form.html
+#: invoicing/templates/lingo/invoicing/manager_collection_validate.html
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_form.html
+#: invoicing/templates/lingo/invoicing/manager_credit_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_credit_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_docket_form.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_type_form.html
+#: invoicing/templates/lingo/invoicing/manager_docket_validate.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_dates_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_type_form.html
+#: invoicing/templates/lingo/invoicing/manager_pool_add.html
+#: invoicing/templates/lingo/invoicing/manager_pool_delete.html
+#: invoicing/templates/lingo/invoicing/manager_pool_promote.html
+#: invoicing/templates/lingo/invoicing/manager_regie_counters_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_mapping_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_permissions_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_publishing_form.html
+#: manager/templates/lingo/manager_confirm_delete.html
+#: pricing/templates/lingo/pricing/export.html
+#: pricing/templates/lingo/pricing/import.html
+#: pricing/templates/lingo/pricing/manager_agenda_form.html
+#: pricing/templates/lingo/pricing/manager_check_type_form.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_form.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_form.html
+#: pricing/templates/lingo/pricing/manager_criteria_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_agenda_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_billing_date_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_criteria_category_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_duplicate_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_matrix_form_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_permissions_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_pricingoptions_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_variable_form.html
+msgid "Cancel"
+msgstr "Annuler"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Your basket is empty."
+msgstr "Votre panier est vide."
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "days"
+msgstr "jours"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "day"
+msgstr "jour"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "hours"
+msgstr "heures"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "hour"
+msgstr "heure"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "minutes"
+msgstr "minutes"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "minute"
+msgstr "minute"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "seconds"
+msgstr "secondes"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "second"
+msgstr "seconde"
+
+#: basket/templates/lingo/basket/basket_detail.html
+msgid "Basket validity duration:"
+msgstr "Durée de validité du panier :"
+
+#: basket/templates/lingo/basket/basket_detail.html
+#: epayment/templates/lingo/epayment/payment_message.html
+msgid "Back to portal"
+msgstr "Retourner sur le portail"
+
+#: basket/templates/lingo/basket/basket_payment_in_progress.html
+msgid "Basket Payment"
+msgstr "Règlement du panier"
+
+#: basket/templates/lingo/basket/basket_payment_in_progress.html
+msgid ""
+"You should have been redirected to the payment platform, your browser may "
+"have opened it in a different window."
+msgstr ""
+"Vous devriez avoir été redirigé vers la plateforme de paiement, votre "
+"navigateur l'a peut-être ouverte dans une autre fenêtre."
+
+#: basket/templates/lingo/basket/basket_payment_in_progress.html
+msgid ""
+"If this did not happen, if an error occured, you should contact our services."
+msgstr ""
+"Si ce n'est pas le cas, si une erreur s'est produite, vous devez contacter "
+"nos services."
+
+#: basket/templates/lingo/basket/basket_payment_in_progress.html
+msgid "Cancel Basket"
+msgstr "Annuler le panier"
+
+#: basket/templates/lingo/basket/basket_validate.html
+msgid "Are you sure you want to validate this basket?"
+msgstr "Êtes-vous sûr·e de vouloir valider votre panier ?"
+
+#: basket/templates/lingo/basket/basket_validate.html
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#: invoicing/templates/lingo/invoicing/manager_collection_validate.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_validate.html
+msgid "Validate"
+msgstr "Valider"
+
+#: callback/models.py invoicing/models/campaign.py
+msgid "Registered"
+msgstr "Enregistré"
+
+#: callback/models.py invoicing/models/campaign.py
+msgid "Running"
+msgstr "En cours"
+
+#: callback/models.py
+msgid "To retry"
+msgstr "À réessayer"
+
+#: callback/models.py invoicing/models/campaign.py
+msgid "Failed"
+msgstr "En erreur"
+
+#: callback/models.py invoicing/models/campaign.py
+msgid "Completed"
+msgstr "Terminé"
+
+#: epayment/forms.py
+msgid "Invalid value."
+msgstr "Valeur invalide."
+
+#: epayment/forms.py epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/views/regie.py
+msgid "Status"
+msgstr "Statut"
+
+#: epayment/forms.py
+msgid "All"
+msgstr "Tout"
+
+#: epayment/forms.py epayment/models.py
+msgid "Started"
+msgstr "Initiée"
+
+#: epayment/forms.py epayment/models.py invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+#: invoicing/views/regie.py
+msgid "Paid"
+msgstr "Réglée"
+
+#: epayment/forms.py
+msgid "Others"
+msgstr "Autres"
+
+#: epayment/forms.py epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/forms.py invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+#: invoicing/views/regie.py
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+msgid "Date"
+msgstr "Date"
+
+#: epayment/forms.py epayment/templates/lingo/epayment/transaction_list.html
+msgid "Order Identifier"
+msgstr "Identifiant de paiement"
+
+#: epayment/forms.py epayment/templates/lingo/epayment/transaction_list.html
+msgid "Bank Transaction Identifier"
+msgstr "Identifiant de transaction bancaire"
+
+#: epayment/forms.py invoicing/forms.py
+msgid "Amount min"
+msgstr "Montant minimum"
+
+#: epayment/forms.py invoicing/forms.py
+msgid "Amount max"
+msgstr "Montant maximum"
+
+#: epayment/forms.py epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/payment.html invoicing/views/regie.py
+msgid "Invoice number"
+msgstr "Numéro de la facture"
+
+#: epayment/forms.py epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/forms.py
+msgid "Payment number"
+msgstr "Numéro du règlement"
+
+#: epayment/models.py
+msgid "Dummy (for tests)"
+msgstr "Factice (pour tests)"
+
+#: epayment/models.py
+msgid "SIPS (Atos, other countries)"
+msgstr "SIPS (Atos, autres pays)"
+
+#: epayment/models.py
+msgid "Ingenico (formerly Ogone)"
+msgstr "Ingenico (précédemment Ogone)"
+
+#: epayment/models.py
+msgid ""
+"The identifier is used in webservice calls and callback URLs for the payment "
+"backend."
+msgstr ""
+"L’identifiant est utilisé dans les appels webservice et les adresses de "
+"retour utilisées par les services de paiement."
+
+#: epayment/models.py
+msgid "Payment Service"
+msgstr "Plateforme de paiement"
+
+#: epayment/models.py
+msgid "Payment Service Options"
+msgstr "Options de la plateforme de paiement"
+
+#: epayment/models.py invoicing/models/regie.py pricing/models.py
+msgid "Edit role"
+msgstr "Rôle d’édition"
+
+#: epayment/models.py invoicing/models/regie.py pricing/models.py
+msgid "View role"
+msgstr "Rôle de visualisation"
+
+#: epayment/models.py
+msgid "The amount is too low to be paid online."
+msgstr "Le montant est trop bas pour être payé en ligne."
+
+#: epayment/models.py
+msgid "The amount is too high to be paid online."
+msgstr "Le montant est trop élevé pour être payé en ligne."
+
+#: epayment/models.py
+msgid "Paid (accepted)"
+msgstr "Payé (accepté)"
+
+#: epayment/models.py
+msgid "Denied"
+msgstr "Refusé"
+
+#: epayment/models.py invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+msgid "Cancelled"
+msgstr "Annulé"
+
+#: epayment/models.py invoicing/models/campaign.py
+msgid "Waiting"
+msgstr "En attente"
+
+#: epayment/models.py
+msgid "Expired"
+msgstr "Expiré"
+
+#: epayment/models.py epayment/templates/lingo/epayment/payment_processing.html
+#: invoicing/forms.py invoicing/models/campaign.py
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+msgid "Error"
+msgstr "Erreur"
+
+#: epayment/models.py
+#, python-format
+msgid "Unknown (%s)"
+msgstr "Inconnu (%s)"
+
+#: epayment/models.py invoicing/models/regie.py
+msgid "Online"
+msgstr "En ligne"
+
+#: epayment/templates/lingo/epayment/backend_confirm_delete.html
+msgid "Are you sure you want to delete this backend?"
+msgstr "Êtes-vous sûr·e de vouloir supprimer cette plateforme ?"
+
+#: epayment/templates/lingo/epayment/backend_confirm_delete.html
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_pool_delete.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: manager/templates/lingo/manager_confirm_delete.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Delete"
+msgstr "Supprimer"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_form.html
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#: invoicing/templates/lingo/invoicing/manager_collection_form.html
+#: invoicing/templates/lingo/invoicing/manager_credit_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_payment_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_type_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_pricing_pricingoptions_form.html
+msgid "Edit"
+msgstr "Modifier"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_agenda_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+msgid "Settings"
+msgstr "Paramètres"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Permissions"
+msgstr "Permissions"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Identifier:"
+msgstr "Identifiant :"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Regie:"
+msgstr "Régie :"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+msgid "Payment Service:"
+msgstr "Plateforme de paiement :"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_agenda_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+#, python-format
+msgid "%(label)s:"
+msgstr "%(label)s :"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Edit role:"
+msgstr "Rôle d’édition :"
+
+#: epayment/templates/lingo/epayment/backend_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "View role:"
+msgstr "Rôle de visualisation :"
+
+#: epayment/templates/lingo/epayment/backend_form.html
+msgid "Edit payment backend"
+msgstr "Modifier la plateforme de paiement"
+
+#: epayment/templates/lingo/epayment/backend_form.html
+#: epayment/templates/lingo/epayment/backend_list.html
+msgid "New payment backend"
+msgstr "Nouvelle plateforme de paiement"
+
+#: epayment/templates/lingo/epayment/backend_form.html
+#: invoicing/templates/lingo/invoicing/appearance_settings_form.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_dates_form.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_form.html
+#: invoicing/templates/lingo/invoicing/manager_collection_form.html
+#: invoicing/templates/lingo/invoicing/manager_docket_form.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_type_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_type_form.html
+#: pricing/templates/lingo/pricing/manager_agenda_form.html
+#: pricing/templates/lingo/pricing/manager_check_type_form.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_form.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_form.html
+#: pricing/templates/lingo/pricing/manager_criteria_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_agenda_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_billing_date_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_criteria_category_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_matrix_form_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_permissions_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_pricingoptions_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_variable_form.html
+msgid "Save"
+msgstr "Enregistrer"
+
+#: epayment/templates/lingo/epayment/backend_form.html
+msgid "Create"
+msgstr "Créer"
+
+#: epayment/templates/lingo/epayment/backend_list.html
+msgid "Payment backends"
+msgstr "Plateformes de paiement"
+
+#: epayment/templates/lingo/epayment/backend_list.html
+msgid ""
+"\n"
+"        There are no payment backend yet. Click on the \"New\" button in the "
+"top\n"
+"        right of the page to add a first one.\n"
+"      "
+msgstr ""
+"\n"
+"Il n’y a pas encore de plateforme de paiement configurée.  Cliquez sur le "
+"bouton dans le coin supérieur droit de la page pour en configurer une."
+
+#: epayment/templates/lingo/epayment/payment_message.html
+#: invoicing/models/regie.py
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Payment"
+msgstr "Règlement"
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Processing payment"
+msgstr "Traitement du paiement"
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Your payment is being processed."
+msgstr "Votre paiement est en cours de traitement."
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "This will take at most 1 minute."
+msgstr "Ceci peut prendre une minute tout au plus."
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Payment confirmed"
+msgstr "Paiement confirmé"
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Your payment has been received."
+msgstr "Votre paiement a été reçu."
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Payment denied"
+msgstr "Paiement refusé"
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Your payment has been denied."
+msgstr "Votre paiement a été refusé."
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Payment cancelled"
+msgstr "Paiement annulé"
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "The payment request has been cancelled."
+msgstr "La demande de paiement a été annulée."
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "An error occured processing your payment."
+msgstr "Une erreur a eu lieu pendant le traitement de votre paiement."
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Timeout"
+msgstr "Expiration"
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Network errors are preventing the processing of your payment."
+msgstr "Des erreurs de réseau empêchent le traitement de votre paiement."
+
+#: epayment/templates/lingo/epayment/payment_processing.html
+msgid "Checks will continue in the background."
+msgstr "Le traitement va continuer en arrière-plan."
+
+#: epayment/templates/lingo/epayment/payment_redirect_form.html
+msgid "Redirection in progress"
+msgstr "Redirection en cours"
+
+#: epayment/templates/lingo/epayment/payment_redirect_form.html
+msgid ""
+"Please wait while your browser is being redirected to the payment website..."
+msgstr ""
+"Veuillez patienter pendant que votre navigateur vous envoie sur le site de "
+"paiement…"
+
+#: epayment/templates/lingo/epayment/transaction_list.html
+#: manager/templates/lingo/manager_homepage.html
+msgid "E-Payment"
+msgstr "Paiement en ligne"
+
+#: epayment/templates/lingo/epayment/transaction_list.html
+msgid "Configure payment backends"
+msgstr "Configurer les plateformes de paiement"
+
+#: epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+msgid "Transaction Filtering"
+msgstr "Filtrer les transactions"
+
+#: epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+msgctxt "form filtering action"
+msgid "Filter"
+msgstr "Filtrer"
+
+#: epayment/templates/lingo/epayment/transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+#: invoicing/views/campaign.py
+msgid "Amount"
+msgstr "Montant"
+
+#: epayment/templates/lingo/epayment/transaction_list.html
+msgid ""
+"\n"
+"        There are no transactions yet.\n"
+"      "
+msgstr ""
+"\n"
+"  Il n’y a pas encore de transaction.\n"
+"  "
+
+#: epayment/views.py
+msgid "Please fill additional backend parameters."
+msgstr "Veuillez compléter les paramètres de la plateforme."
+
+#: epayment/views.py
+msgid "The payment requires an email address."
+msgstr "Une adresse électronique est obligatoire pour le paiement."
+
+#: epayment/views.py
+#, python-format
+msgid "Unexpected error: %s"
+msgstr "Erreur non prévue : %s"
+
+#: epayment/views.py
+msgid "This invoice has already been paid."
+msgstr "Cette facture a déjà été réglée."
+
+#: epayment/views.py
+msgid "This invoice has been cancelled."
+msgstr "Cette facture a été annulée."
+
+#: epayment/views.py
+msgid "This invoice has been collected."
+msgstr "Cette facture a été titrée."
+
+#: epayment/views.py
+msgid "This invoice must be paid using the basket."
+msgstr "Cette facture doit être réglée en utilisant le panier"
+
+#: epayment/views.py
+msgid "This invoice cannot yet be paid."
+msgstr "Cette facture ne peut pas encore être réglée."
+
+#: export_import/api_views.py
+msgid "Roles"
+msgstr "Rôles"
+
+#: export_import/api_views.py
+msgid "Role"
+msgstr "Rôle"
+
+#: export_import/api_views.py
+msgid "Invalid tar file, missing manifest"
+msgstr "Mauvais format de fichier tar, manifest manquant"
+
+#: export_import/api_views.py
+#, python-format
+msgid "Invalid tar file, missing component %(type)s/%(slug)s"
+msgstr "Mauvais format de fichier tar, composant %(type)s/%(slug)s manquant"
+
+#: export_import/api_views.py
+msgid "Invalid tar file"
+msgstr "Mauvais format de fichier tar"
+
+#: export_import/api_views.py
+#, python-format
+msgid "Application (%s)"
+msgstr "Application (%s)"
+
+#: export_import/api_views.py
+#, python-format
+msgid "Regie (%(slug)s) referenced in \"%(objects)s\""
+msgstr "Régie (%(slug)s) référencée dans « %(objects)s »"
+
+#: export_import/api_views.py
+msgid "Existing data"
+msgstr "Données existantes"
+
+#: export_import/templates/lingo/includes/application_detail_fragment.html
+#: export_import/templates/lingo/includes/application_list_fragment.html
+msgid "Applications"
+msgstr "Applications"
+
+#: invoicing/errors.py
+msgid "template is empty"
+msgstr "le gabarit est vide"
+
+#: invoicing/errors.py
+msgid "result is empty"
+msgstr "le résultat est vide"
+
+#: invoicing/errors.py
+msgid "syntax error"
+msgstr "erreur de syntaxe"
+
+#: invoicing/errors.py
+msgid "variable error"
+msgstr "erreur de variable"
+
+#: invoicing/errors.py
+msgid "card model is not configured"
+msgstr "le modèle de fiche n’est pas configuré"
+
+#: invoicing/errors.py
+msgid "result is not a boolean"
+msgstr "le résultat n’est pas un bouléen"
+
+#: invoicing/errors.py
+msgid "mapping not defined"
+msgstr "la correspondance n’est pas définie"
+
+#: invoicing/errors.py
+msgid "Impossible to determine payer"
+msgstr "Impossible de déterminer le payeur"
+
+#: invoicing/errors.py
+#, python-format
+msgid "Impossible to determine payer: %(reason)s"
+msgstr "Impossible de déterminer le payeur : %(reason)s"
+
+#: invoicing/errors.py
+msgid "Impossible to get payer field"
+msgstr "Impossible d’obtenir un champ du payeur"
+
+#: invoicing/errors.py
+#, python-format
+msgid "Impossible to get payer %(key)s: %(reason)s"
+msgstr ""
+"Impossible de déterminer la valeur de %(key)s pour le payeur : %(reason)s"
+
+#: invoicing/forms.py invoicing/models/regie.py
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "Regies"
+msgstr "Régies"
+
+#: invoicing/forms.py pricing/forms.py
+msgid "Export File"
+msgstr "Fichier d’export"
+
+#: invoicing/forms.py
+msgid "Another regie exists with the same identifier."
+msgstr "Une régie existe déjà avec le même identifiant."
+
+#: invoicing/forms.py
+msgid "Linked card model"
+msgstr "Modèle de fiche lié"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Invoice information:"
+msgstr "Informations de la facture :"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "No"
+msgstr "Non"
+
+#: invoicing/forms.py
+msgid "Another payment type exists with the same identifier."
+msgstr "Un type de règlement existe déjà avec le même identifiant."
+
+#: invoicing/forms.py pricing/forms.py
+msgid "Add agendas of the category"
+msgstr "Ajouter les agendas de la catégorie"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: pricing/forms.py pricing/templates/lingo/pricing/manager_agenda_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Agendas"
+msgstr "Agendas"
+
+#: invoicing/forms.py pricing/forms.py
+msgid "End date must be greater than start date."
+msgstr "La date de fin doit venir après la date de début."
+
+#: invoicing/forms.py
+#, python-format
+msgid "Agenda \"%s\" has already a campaign overlapping this period."
+msgstr "L’agenda « %s » a déjà une campagne qui chevauche cette période."
+
+#: invoicing/forms.py
+msgid "Payment deadline must be greater than publication date."
+msgstr "La date limite de règlement doit venir après la date de publication."
+
+#: invoicing/forms.py
+msgid "Due date must be greater than payment deadline."
+msgstr "La date d’échéance doit venir après la date limite de règlement."
+
+#: invoicing/forms.py
+msgid "Correction"
+msgstr "Correction"
+
+#: invoicing/forms.py
+msgid "Extra data to add to the report"
+msgstr "Données supplémentaires à ajouter au rapport"
+
+#: invoicing/forms.py
+msgid "Comma separated list of keys defined in extra_data."
+msgstr ""
+"Liste de clés (apparaissant dans extra_data) séparées par des virgules."
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_agenda_archived_list.html
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Misc"
+msgstr "Divers"
+
+#: invoicing/forms.py
+msgid "Cancellation description for invoices"
+msgstr "Description de l'annulation pour les factures"
+
+#: invoicing/forms.py
+msgid "Payer (external ID)"
+msgstr "Payeur (Identifiant externe)"
+
+#: invoicing/forms.py invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html invoicing/views/campaign.py
+#: invoicing/views/regie.py
+msgid "Payer first name"
+msgstr "Prénom du payeur"
+
+#: invoicing/forms.py invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html invoicing/views/campaign.py
+#: invoicing/views/regie.py
+msgid "Payer last name"
+msgstr "Nom du payeur"
+
+#: invoicing/forms.py
+msgid "User (external ID)"
+msgstr "Utilisateur (Identifiant externe)"
+
+#: invoicing/forms.py invoicing/views/campaign.py invoicing/views/regie.py
+msgid "User first name"
+msgstr "Prénom de l’utilisateur"
+
+#: invoicing/forms.py invoicing/views/campaign.py invoicing/views/regie.py
+msgid "User last name"
+msgstr "Nom l’utilisateur"
+
+#: invoicing/forms.py
+msgid "Total amount min"
+msgstr "Montant total minimum"
+
+#: invoicing/forms.py
+msgid "Total amount max"
+msgstr "Montant total maximum"
+
+#: invoicing/forms.py
+msgid "all"
+msgstr "tout"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Event"
+msgstr "Evènement"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Accounting code"
+msgstr "Code d’imputation comptable"
+
+#: invoicing/forms.py
+msgid "Payer direct debit"
+msgstr "Le payeur est en prélèvement automatique"
+
+#: invoicing/forms.py
+msgid "Totally"
+msgstr "En totalité"
+
+#: invoicing/forms.py
+msgid "Partially"
+msgstr "Partiellement"
+
+#: invoicing/forms.py invoicing/models/payment.py
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+msgid "Stop date"
+msgstr "Date d’arrêt"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+msgid "Minimal threshold"
+msgstr "Seuil minimal"
+
+#: invoicing/forms.py
+msgid "Credit number"
+msgstr "Numéro de l’avoir"
+
+#: invoicing/forms.py
+msgid "Invoice/credit number"
+msgstr "Numéro de la facture/avoir"
+
+#: invoicing/forms.py
+msgid "Invoice line"
+msgstr "Ligne de facturation"
+
+#: invoicing/forms.py
+msgid "Credit line"
+msgstr "Ligne d’avoir"
+
+#: invoicing/forms.py invoicing/models/campaign.py
+msgid "Success"
+msgstr "Succès"
+
+#: invoicing/forms.py
+msgid "Success (Injected)"
+msgstr "Succès (Injectée)"
+
+#: invoicing/forms.py invoicing/models/campaign.py
+msgid "Warning"
+msgstr "Avertissement"
+
+#: invoicing/forms.py
+msgid "Error (To treat)"
+msgstr "Erreur (A traiter)"
+
+#: invoicing/forms.py
+msgid "Error (Ignored)"
+msgstr "Erreur (Ignorée)"
+
+#: invoicing/forms.py
+msgid "Error (Fixed)"
+msgstr "Erreur (Corrigée)"
+
+#: invoicing/forms.py invoicing/models/campaign.py
+#, python-format
+msgid "Error: %s"
+msgstr "Erreur : %s"
+
+#: invoicing/forms.py
+msgid "Invoice origin"
+msgstr "Origine de la facture"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Creation date"
+msgstr "Date de création"
+
+#: invoicing/forms.py invoicing/views/regie.py
+msgid "Payment deadline"
+msgstr "Date limite de règlement"
+
+#: invoicing/forms.py invoicing/models/campaign.py invoicing/models/invoice.py
+#: invoicing/views/regie.py
+msgid "Due date"
+msgstr "Date d’échéance"
+
+#: invoicing/forms.py
+msgid "Yes"
+msgstr "Oui"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+msgctxt "invoice"
+msgid "Collected"
+msgstr "Titrée"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+#: invoicing/views/regie.py
+msgid "Payment type"
+msgstr "Type de règlement"
+
+#: invoicing/forms.py
+msgid "Docket number"
+msgstr "Numéro du bordereau"
+
+#: invoicing/forms.py invoicing/models/regie.py invoicing/views/regie.py
+msgid "Additional information"
+msgstr "Informations complémentaires"
+
+#: invoicing/forms.py
+msgid "Credit origin"
+msgstr "Origine de l’avoir"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_credits_fragment.html
+msgid "Assigned"
+msgstr "Affecté"
+
+#: invoicing/forms.py
+msgid "Refund number"
+msgstr "Numéro du remboursement"
+
+#: invoicing/forms.py
+msgid "Another invoice cancellation reason exists with the same identifier."
+msgstr "Un motif d’annulation de facture existe déjà avec le même identifiant."
+
+#: invoicing/forms.py
+msgid "Another credit cancellation reason exists with the same identifier."
+msgstr "Un motif d’annulation d’avoir existe déjà avec le même identifiant."
+
+#: invoicing/forms.py
+msgid "Another payment cancellation reason exists with the same identifier."
+msgstr ""
+"Un motif d’annulation de règlement existe déjà avec le même identifiant."
+
+#: invoicing/forms.py
+msgid "Invoice/Credit number"
+msgstr "Numéro de la facture/avoir"
+
+#: invoicing/forms.py
+msgid "Invoice/Credit origin"
+msgstr "Origine de la facture/avoir"
+
+#: invoicing/forms.py
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/campaign.py invoicing/views/regie.py
+msgid "Event date"
+msgstr "Date de l’évènement"
+
+#: invoicing/models/base.py pricing/models.py
+msgid "Basic"
+msgstr "Basique"
+
+#: invoicing/models/base.py
+msgid "Middle"
+msgstr "Intermédiaire"
+
+#: invoicing/models/base.py
+msgid "Full"
+msgstr "Complet"
+
+#: invoicing/models/base.py
+msgid "API"
+msgstr "API"
+
+#: invoicing/models/base.py
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Campaign"
+msgstr "Campagne"
+
+#: invoicing/models/base.py invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html invoicing/views/regie.py
+msgid "Cancelled on"
+msgstr "Annulé le"
+
+#: invoicing/models/base.py
+msgid "Cancelled by"
+msgstr "Annulé par"
+
+#: invoicing/models/base.py
+msgid "Reason"
+msgstr "Motif"
+
+#: invoicing/models/base.py invoicing/models/credit.py
+#: invoicing/models/invoice.py invoicing/models/payment.py
+#: invoicing/models/regie.py
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+msgid "Description"
+msgstr "Description"
+
+#: invoicing/models/base.py invoicing/views/regie.py
+msgid "Invoicing date"
+msgstr "Date de facturation"
+
+#: invoicing/models/base.py invoicing/models/campaign.py
+#: invoicing/views/regie.py
+msgid "Publication date"
+msgstr "Date de publication"
+
+#: invoicing/models/base.py
+msgid "Date on which the invoice is visible on the portal."
+msgstr "Date à laquelle la facture est visible sur le portail."
+
+#: invoicing/models/campaign.py pricing/forms.py pricing/models.py
+msgid "Start date"
+msgstr "Date de début"
+
+#: invoicing/models/campaign.py invoicing/models/invoice.py
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+#: pricing/forms.py pricing/models.py
+msgid "End date"
+msgstr "Date de fin"
+
+#: invoicing/models/campaign.py
+msgid "Date on which invoices are visible on the portal."
+msgstr "Date à laquelle les factures sont visibles sur le portail."
+
+#: invoicing/models/campaign.py invoicing/models/invoice.py
+msgid "Displayed payment deadline"
+msgstr "Date limite de règlement affichée"
+
+#: invoicing/models/campaign.py invoicing/models/invoice.py
+msgid ""
+"Payment deadline displayed to user on the portal. Leave empty to display the "
+"effective payment deadline."
+msgstr ""
+"Date limite de règlement affichée à l'utilisateur sur le portail. Laissez "
+"vide pour afficher la date limite de règlement effective."
+
+#: invoicing/models/campaign.py invoicing/models/invoice.py
+msgid "Effective payment deadline"
+msgstr "Date limite de règlement effective"
+
+#: invoicing/models/campaign.py
+msgid "Date on which invoices are no longer payable online."
+msgstr "Date à laquelle les factures ne peuvent plus être réglées en ligne."
+
+#: invoicing/models/campaign.py
+msgid "Date on which invoices are no longer payable at the counter."
+msgstr "Date à laquelle les factures ne peuvent plus être réglées au guichet."
+
+#: invoicing/models/campaign.py invoicing/models/invoice.py
+msgid "Debit date"
+msgstr "Date de prélèvement"
+
+#: invoicing/models/campaign.py
+msgid "Integrate injected lines"
+msgstr "Intégrer les lignes injectées"
+
+#: invoicing/models/campaign.py
+msgid "no"
+msgstr "no"
+
+#: invoicing/models/campaign.py
+msgid "yes, only for the period"
+msgstr "oui, seulement pour la période"
+
+#: invoicing/models/campaign.py
+msgid "yes, all injected lines before the end of the period"
+msgstr "oui, toutes les lignes injectées avant la fin de la période"
+
+#: invoicing/models/campaign.py
+msgid "Adjustment campaign"
+msgstr "Campagne de régularisation"
+
+#: invoicing/models/campaign.py invoicing/models/regie.py
+msgid "Invoice model"
+msgstr "Modèle de facture"
+
+#: invoicing/models/campaign.py invoicing/models/regie.py
+msgid "Custom text in invoice"
+msgstr "Texte personnalisé sur les factures"
+
+#: invoicing/models/campaign.py
+msgid "Displayed under the address and additional information blocks."
+msgstr "Affiché sous les blocs adresse et informations complémentaires."
+
+#: invoicing/models/campaign.py
+#, python-format
+msgid "%(label)s (%(start)s - %(end)s)"
+msgstr "%(label)s (%(start)s - %(end)s)"
+
+#: invoicing/models/campaign.py
+msgid "Units"
+msgstr "Unités"
+
+#: invoicing/models/campaign.py
+msgid "Minutes"
+msgstr "Minutes"
+
+#: invoicing/models/campaign.py
+msgid "Ignored"
+msgstr "Ignorée"
+
+#: invoicing/models/campaign.py
+msgid "Fixed"
+msgstr "Corrigée"
+
+#: invoicing/models/campaign.py
+#, python-format
+msgid "Job \"%(label)s\" started on %(date)s"
+msgstr "Tâche « %(label)s » démarrée le %(date)s"
+
+#: invoicing/models/campaign.py
+#, python-format
+msgid "%(current_count)s (unknown total)"
+msgstr "%(current_count)s (total inconnu)"
+
+#: invoicing/models/campaign.py
+#, python-format
+msgid "%(current_count)s/%(total_count)s (%(percent)s%%)"
+msgstr "%(current_count)s/%(total_count)s (%(percent)s%%)"
+
+#: invoicing/models/campaign.py
+msgid "Invoices generation preparation"
+msgstr "Préparation de la génération des factures"
+
+#: invoicing/models/campaign.py
+msgid "Campaign validation"
+msgstr "Validation de la campagne"
+
+#: invoicing/models/campaign.py
+msgid "Invoices generation"
+msgstr "Génération des factures"
+
+#: invoicing/models/campaign.py
+msgid "Invoice lines generation"
+msgstr "Génération des lignes de facturation"
+
+#: invoicing/models/campaign.py
+msgid "Invoices finalization"
+msgstr "Finalisation des factures"
+
+#: invoicing/models/credit.py invoicing/models/invoice.py
+#: invoicing/models/payment.py invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html invoicing/views/regie.py
+msgid "Cancellation reason"
+msgstr "Motif d’annulation"
+
+#: invoicing/models/credit.py
+#, python-format
+msgid "(credit left: %s)"
+msgstr "(avoir restant : %s)"
+
+#: invoicing/models/credit.py
+msgid "Refund date"
+msgstr "Date de remboursement"
+
+#: invoicing/models/invoice.py
+msgid "Date on which the invoice is no longer payable online."
+msgstr "Date à laquelle la facture ne peut plus être réglée en ligne."
+
+#: invoicing/models/invoice.py
+msgid "Date on which the invoice is no longer payable at the counter."
+msgstr "Date à laquelle la facture ne peut plus être réglée au guichet."
+
+#: invoicing/models/invoice.py invoicing/models/payment.py
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+msgid "TEMPORARY"
+msgstr "TEMPORAIRE"
+
+#: invoicing/models/invoice.py
+#, python-format
+msgid "Credit from %s"
+msgstr "Avoir du %s"
+
+#: invoicing/models/invoice.py
+msgid "Pay invoices"
+msgstr "Solder les factures"
+
+#: invoicing/models/invoice.py
+msgid ""
+"When the collection is validated, add a \"Collect\" type payment to the "
+"collected invoices."
+msgstr ""
+"Lorsque le bordereau de titrage est validé, ajouter un règlement de type "
+"« Titre » aux factures titrées."
+
+#: invoicing/models/payment.py
+msgid "Check issuer"
+msgstr "Émetteur"
+
+#: invoicing/models/payment.py
+msgid "Check bank/organism"
+msgstr "Banque/Organisme"
+
+#: invoicing/models/payment.py
+msgid "Check number"
+msgstr "Numéro de chèque"
+
+#: invoicing/models/payment.py
+msgid "Bank transfer number"
+msgstr "Numéro de virement"
+
+#: invoicing/models/payment.py
+msgid "Reference"
+msgstr "Référence"
+
+#: invoicing/models/payment.py invoicing/views/regie.py
+msgid "Payment date"
+msgstr "Date de règlement"
+
+#: invoicing/models/payment.py invoicing/views/regie.py
+msgid "Debt reference"
+msgstr "Référence de la dette"
+
+#: invoicing/models/regie.py
+msgid "Regie with invoicing campaigns"
+msgstr "Régie avec campagnes de facturation"
+
+#: invoicing/models/regie.py
+msgid "Optional regie description."
+msgstr "Description optionnelle de la régie."
+
+#: invoicing/models/regie.py
+msgid "Invoice role"
+msgstr "Rôle de factureur"
+
+#: invoicing/models/regie.py
+msgid "Control role"
+msgstr "Rôle de régisseur"
+
+#: invoicing/models/regie.py
+msgid "Card Model"
+msgstr "Modèle de fiche"
+
+#: invoicing/models/regie.py
+msgid "Prefix for payer external id"
+msgstr "Préfixe de l’identifiant externe du payeur"
+
+#: invoicing/models/regie.py
+msgid "Template for payer external id"
+msgstr "Gabarit de l’identifiant externe du payeur"
+
+#: invoicing/models/regie.py
+msgid "To get payer external id from user external id"
+msgstr ""
+"Pour récupérer l’identifiant externe du payeur depuis l’identifiant externe "
+"de l’usager"
+
+#: invoicing/models/regie.py
+msgid "Template for payer external id from nameid"
+msgstr "Gabarit de l’identifiant externe du payeur depuis un nameid"
+
+#: invoicing/models/regie.py
+msgid "Use a credit when created to pay old invoices"
+msgstr "Utiliser un avoir dès sa création pour régler des factures existantes"
+
+#: invoicing/models/regie.py
+msgid "Counter name"
+msgstr "Nom du compteur"
+
+#: invoicing/models/regie.py
+msgid "Invoice number format"
+msgstr "Format du numéro de facture"
+
+#: invoicing/models/regie.py
+msgid "Invoice collection docket number format"
+msgstr "Format du numéro de bordereau de factures titrées"
+
+#: invoicing/models/regie.py
+msgid "Payment number format"
+msgstr "Format du numéro de règlement"
+
+#: invoicing/models/regie.py
+msgid "Payment docket number format"
+msgstr "Format du numéro de bordereau"
+
+#: invoicing/models/regie.py
+msgid "Credit number format"
+msgstr "Format du numéro d’avoir"
+
+#: invoicing/models/regie.py
+msgid "Refund number format"
+msgstr "Format du numéro de remboursement"
+
+#: invoicing/models/regie.py
+msgid "Main colour in documents"
+msgstr "Couleur principale dans les documents"
+
+#: invoicing/models/regie.py
+msgid "Displayed in footer."
+msgstr "Affiché en bas de page."
+
+#: invoicing/models/regie.py
+msgid "Payments certificate model"
+msgstr "Modèle d’attestation de paiement"
+
+#: invoicing/models/regie.py
+msgid "Controller name"
+msgstr "Nom du régisseur"
+
+#: invoicing/models/regie.py
+msgid "City name"
+msgstr "Nom de la ville"
+
+#: invoicing/models/regie.py
+msgid "Custom Logo"
+msgstr "Logo personnalisé"
+
+#: invoicing/models/regie.py
+msgid "Custom Address"
+msgstr "Adresse personnalisée"
+
+#: invoicing/models/regie.py
+msgid "Custom invoice extra information"
+msgstr "Informations complémentaires personnalisées"
+
+#: invoicing/models/regie.py
+msgid "Displayed below the address block."
+msgstr "Affichées sous le bloc adresse."
+
+#: invoicing/models/regie.py
+msgid "First name"
+msgstr "Prénom"
+
+#: invoicing/models/regie.py
+msgid "Last name"
+msgstr "Nom"
+
+#: invoicing/models/regie.py
+msgid "Address"
+msgstr "Adresse"
+
+#: invoicing/models/regie.py
+msgid "Email"
+msgstr "Email"
+
+#: invoicing/models/regie.py
+msgid "Phone"
+msgstr "Téléphone"
+
+#: invoicing/models/regie.py invoicing/views/regie.py
+msgid "Direct debit"
+msgstr "Prélèvement automatique"
+
+#: invoicing/models/regie.py
+msgid "Logo"
+msgstr "Logo"
+
+#: invoicing/models/regie.py
+msgid "Credit card"
+msgstr "CB"
+
+#: invoicing/models/regie.py
+msgid "Cash"
+msgstr "Espèces"
+
+#: invoicing/models/regie.py
+msgid "Check"
+msgstr "Chèque"
+
+#: invoicing/models/regie.py
+msgid "CESU"
+msgstr "CESU"
+
+#: invoicing/models/regie.py
+msgid "Holiday check"
+msgstr "Chèque-vacances"
+
+#: invoicing/models/regie.py
+msgid "Collection docket"
+msgstr "Bordereau de factures titrées"
+
+#: invoicing/models/regie.py
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+msgid "Refund"
+msgstr "Remboursement"
+
+#: invoicing/models/regie.py
+msgid "Payment Docket"
+msgstr "Bordereau de remise de règlements"
+
+#: invoicing/templates/lingo/invoicing/appearance_settings_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "Appearance Settings"
+msgstr "Paramètres d’éditique"
+
+#: invoicing/templates/lingo/invoicing/appearance_settings_form.html
+msgid "Appearance"
+msgstr "Éditique"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+msgid "Credit number:"
+msgstr "Numéro de l’avoir :"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Initial invoice number:"
+msgstr "Numéro de facture initial :"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice.html
+msgid "Date:"
+msgstr "Date :"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice_details_fragment.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Services"
+msgstr "Prestations"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice_details_fragment.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/views/regie.py
+msgid "Details"
+msgstr "Détails"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Unit amount"
+msgstr "Coût unitaire"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Quantity"
+msgstr "Quantité"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Subtotal:"
+msgstr "Sous-total :"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+msgid "Total amount:"
+msgstr "Montant total :"
+
+#: invoicing/templates/lingo/invoicing/credit.html
+#: invoicing/templates/lingo/invoicing/invoice_details_fragment.html
+msgid "Detail of service days"
+msgstr "Détail des jours de prestation"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/print_document_base.html
+msgid "Page"
+msgstr "Page"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#, python-format
+msgid "List of the payments of docket %(object)s"
+msgstr "Liste des règlements du bordereau %(object)s"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+msgid "Initial docket amount:"
+msgstr "Montant bordereau initial :"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+msgid "Cancelled docket amount:"
+msgstr "Montant annulé :"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+msgid "Final docket amount:"
+msgstr "Montant bordereau final :"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+msgid "Docket amount:"
+msgstr "Montant bordereau :"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+msgid "Number of payments:"
+msgstr "Nombre de règlements :"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+msgid "Additional information:"
+msgstr "Informations complémentaires :"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/views/regie.py
+msgid "Number"
+msgstr "Numéro"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html invoicing/views/regie.py
+msgid "Payer ID"
+msgstr "Identifiant du payeur"
+
+#: invoicing/templates/lingo/invoicing/docket.html
+#: invoicing/templates/lingo/invoicing/dockets.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/views/regie.py
+msgid "Cancelled payments"
+msgstr "Règlements annulés"
+
+#: invoicing/templates/lingo/invoicing/dockets.html
+msgid "Initial amount:"
+msgstr "Montant initial :"
+
+#: invoicing/templates/lingo/invoicing/dockets.html
+msgid "Cancelled amount:"
+msgstr "Montant annulé :"
+
+#: invoicing/templates/lingo/invoicing/dockets.html
+msgid "Final amount:"
+msgstr "Montant final :"
+
+#: invoicing/templates/lingo/invoicing/dockets.html
+msgid "Amount:"
+msgstr "Montant :"
+
+#: invoicing/templates/lingo/invoicing/dockets.html invoicing/views/regie.py
+msgid "Docket"
+msgstr "Bordereau"
+
+#: invoicing/templates/lingo/invoicing/export.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/export.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Export"
+msgstr "Exporter"
+
+#: invoicing/templates/lingo/invoicing/import.html
+#: pricing/templates/lingo/pricing/import.html
+msgid "Import"
+msgstr "Importer"
+
+#: invoicing/templates/lingo/invoicing/invoice.html
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+msgid "Invoice number:"
+msgstr "Numéro de la facture :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Debt amount:"
+msgstr "Montant de la dette :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Paid amount:"
+msgstr "Montant réglé :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Debt forwarded to the Treasury on:"
+msgstr "Dette transmise au Trésor Public le :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Invoiced amount:"
+msgstr "Montant facturé :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Paid amount with credit:"
+msgstr "Montant réglé par avoir :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Remaining amount:"
+msgstr "Montant restant dû :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Payment deadline:"
+msgstr "Date limite de règlement :"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Details of payments recorded on this invoice"
+msgstr "Détail des règlements enregistrés sur cette facture"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#, python-format
+msgid ""
+"<b>%(payment_num)s</b> of <b>%(payment_date)s</b> amount <b>%(amount)s€</b> "
+"of <b>%(payment_type)s %(credit_nums)s</b>"
+msgstr ""
+"<b>%(payment_num)s</b> du <b>%(payment_date)s</b> montant <b>%(amount)s€</b> "
+"en <b>%(payment_type)s %(credit_nums)s</b>"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+#, python-format
+msgid ""
+"<b>%(payment_num)s</b> of <b>%(payment_date)s</b> amount <b>%(amount)s€</b> "
+"of <b>%(payment_type)s</b>"
+msgstr ""
+"<b>%(payment_num)s</b> du <b>%(payment_date)s</b> montant <b>%(amount)s€</b> "
+"en <b>%(payment_type)s</b>"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "Total amount paid - Invoice paid*."
+msgstr "Montant total réglé – Facture acquittée*"
+
+#: invoicing/templates/lingo/invoicing/invoice_fragment.html
+msgid "*Subject to actual cashing of payments by check."
+msgstr "*sous réserve d’encaissement effectif des règlements par chèque."
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_dates_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_dates_form.html
+msgid "Edit dates"
+msgstr "Editer les dates"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_form.html
+msgid "New corrective campaign"
+msgstr "Nouvelle campagne de correction"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_event_amounts_form.html
+msgid "Export invoiced amounts per event"
+msgstr "Exporter les montants facturés par événement"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Some agendas have been unlocked since the last run:"
+msgstr "Des agendas ont été déverrouillés depuis le dernier lancement :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Add this agenda to current corrective campaign"
+msgstr "Ajouter cet agenda à la campagne de correction actuelle"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "New corrective campaign with this agenda"
+msgstr "Nouvelle campagne de correction avec cet agenda"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Add all agendas to current corrective campaign"
+msgstr "Ajouter tous les agendas à la campagne de correction actuelle"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "New corrective campaign with all agendas"
+msgstr "Nouvelle campagne de correction avec tous les agendas"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Pools"
+msgstr "Trains de facturation"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Dates"
+msgstr "Dates"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Invoices"
+msgstr "Factures"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#, python-format
+msgid "Ended at %(edate)s"
+msgstr "terminé à %(edate)s"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "draft"
+msgstr "brouillon"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "final"
+msgstr "définitif"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_pool_add.html
+msgid "Start a pool"
+msgstr "Lancer un train de facturation"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_unlock_check.html
+msgid "Unlock check"
+msgstr "Déverrouiller les pointages"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_finalize.html
+msgid "Validate campaign"
+msgstr "Valider la campagne"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Label:"
+msgstr "Libellé :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Start date:"
+msgstr "Date de début :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "End date:"
+msgstr "Date de fin :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Integrate injected lines:"
+msgstr "Intégrer les lignes injectées :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+msgid "Adjustment campaign:"
+msgstr "Campagne de régularisation :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Publication date:"
+msgstr "Date de publication :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Displayed payment deadline:"
+msgstr "Date limite de règlement affichée :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Effective payment deadline:"
+msgstr "Date limite de règlement effective :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Due date:"
+msgstr "Date d’échéance :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Debit date:"
+msgstr "Date de prélèvement :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Invoice model:"
+msgstr "Modèle de facture :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Custom text in invoice:"
+msgstr "Texte personnalisé sur les factures :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_event_amounts_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+msgid "Get ODS file"
+msgstr "Télécharger au format ODS"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_finalize.html
+msgid "Are you sure you want to validate this campaign?"
+msgstr "Êtes-vous sûr·e de vouloir valider cette campagne ?"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_form.html
+#: invoicing/templates/lingo/invoicing/manager_campaign_list.html
+msgid "New campaign"
+msgstr "Nouvelle campagne"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_form.html
+msgid "Edit campaign"
+msgstr "Modification de la campagne"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_invoices_form.html
+msgid "Invoices Settings"
+msgstr "Éditique"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_invoices_form.html
+#: invoicing/templates/lingo/invoicing/manager_credit_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_credit_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_dates_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_cancellation_reason_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_counters_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_mapping_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_permissions_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_publishing_form.html
+msgid "Submit"
+msgstr "Enregistrer"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Campaigns"
+msgstr "Campagnes"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_list.html
+msgid "corrective campaigns:"
+msgstr "campagnes de correction :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_list.html
+msgid "unlocked agendas:"
+msgstr "agendas déverrouillés :"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_list.html
+msgid "correction in progress"
+msgstr "correction en cours"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_list.html
+msgid "validated"
+msgstr "validée"
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_list.html
+msgid ""
+"This site doesn't have any campaign yet. Click on the \"New campaign\" "
+"button in the top right of the page to add a first one."
+msgstr ""
+"Ce site n’a pas encore de campagne.  Cliquez sur le bouton « Nouvelle "
+"campagne » dans le coin supérieur droit de la page pour en ajouter une "
+"première."
+
+#: invoicing/templates/lingo/invoicing/manager_campaign_unlock_check.html
+msgid "Are you sure you want to unlock check?"
+msgstr "Êtes-vous sûr·e de vouloir déverrouller les pointages ?"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "Cancellation reasons"
+msgstr "Motifs d’annulation"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: manager/templates/lingo/manager_base.html
+#: manager/templates/lingo/manager_homepage.html manager/views.py
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgctxt "lingo title"
+msgid "Payments"
+msgstr "Paiements"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Credits"
+msgstr "Avoirs"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Payments"
+msgstr "Règlements"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "disabled"
+msgstr "désactivé"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid "delete"
+msgstr "supprimer"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancellation_reason_form.html
+msgid "New invoice cancellation reason"
+msgstr "Nouveau motif d’annulation de facture"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_credit_cancellation_reason_form.html
+msgid "New credit cancellation reason"
+msgstr "Nouveau motif d’annulation d’avoir"
+
+#: invoicing/templates/lingo/invoicing/manager_cancellation_reason_list.html
+#: invoicing/templates/lingo/invoicing/manager_payment_cancellation_reason_form.html
+msgid "New payment cancellation reason"
+msgstr "Nouveau motif d’annulation de règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+msgid "Number of invoices:"
+msgstr "Nombre de factures :"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+msgid "Minimal threshold:"
+msgstr "Seuil minimal :"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+msgid "Pay invoices:"
+msgstr "Solder les factures :"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#, python-format
+msgid ""
+"Invoice <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> dated %(idate)s (created "
+"on %(cdate)s) addressed to <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Due date %(ddate)s), "
+"collected amount %(amount)s€, total for the payer %(total_amount)s€"
+msgstr ""
+"Facture <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> datée du %(idate)s (créée "
+"le %(cdate)s) adressée à <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Date d’échéance "
+"%(ddate)s), montant titré %(amount)s€, total pour le payeur %(total_amount)s€"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#, python-format
+msgid ""
+"Invoice <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> dated %(cdate)s addressed "
+"to <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Due date %(ddate)s), "
+"collected amount %(amount)s€, total for the payer %(total_amount)s€"
+msgstr ""
+"Facture <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> datée du %(cdate)s "
+"adressée à <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Date d’échéance "
+"%(ddate)s), montant titré %(amount)s€, total pour le payeur %(total_amount)s€"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_detail.html
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Actions"
+msgstr "Actions"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_form.html
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+msgid "New collection"
+msgstr "Nouveau titrage"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_form.html
+msgid "Edit collection"
+msgstr "Editer le titrage"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Collections"
+msgstr "Titrages"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+msgid "Invoices outside collections"
+msgstr "Factures non titrées"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+msgid "Invoices outside collections search"
+msgstr "Rechercher des factures non titrées"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+msgctxt "form filtering action"
+msgid "Search"
+msgstr "Rechercher"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+#, python-format
+msgid ""
+"Invoice <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> dated %(idate)s (created "
+"on %(cdate)s) addressed to <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Due date %(ddate)s), "
+"remaining amount %(amount)s€, total for the payer %(total_amount)s€"
+msgstr ""
+"Facture <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> datée du %(idate)s (créée "
+"le %(cdate)s) adressée à <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Date d’échéance "
+"%(ddate)s), montant restant %(amount)s€, total pour le payeur "
+"%(total_amount)s€"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+#, python-format
+msgid ""
+"Invoice <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> dated %(cdate)s addressed "
+"to <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Due date %(ddate)s), "
+"remaining amount %(amount)s€, total for the payer %(total_amount)s€"
+msgstr ""
+"Facture <a href=\"%(regie_invoice_list_url)s?"
+"number=%(invoice_number)s\">%(invoice_number)s</a> datée du %(cdate)s "
+"adressée à <a href=\"%(regie_invoice_list_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a> (Date d’échéance "
+"%(ddate)s), montant restant %(amount)s€, total pour le payeur "
+"%(total_amount)s€"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_invoice_list.html
+msgid ""
+"The action to create a new collection is not available because a draft "
+"collection already exists."
+msgstr ""
+"L’action de création d’un nouveau titrage n’est pas disponible car il y a "
+"déjà un titrage à l’état de brouillon."
+
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+msgid "Number of invoices"
+msgstr "Nombre de factures"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+msgid "This site doesn't have any collection yet."
+msgstr "Ce site n’a pas encore de titrages."
+
+#: invoicing/templates/lingo/invoicing/manager_collection_list.html
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Navigation"
+msgstr "Navigation"
+
+#: invoicing/templates/lingo/invoicing/manager_collection_validate.html
+msgid "Are you sure you want to validate this collection ?"
+msgstr "Êtes-vous sûr·e de vouloir valider ce titrage ?"
+
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+msgid "Update corrective campaign"
+msgstr "modifier la campagne de correction"
+
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+msgid "Add these agendas to the current corrective campaign:"
+msgstr "Ajouter ces agendas à la campagne de correction actuelle :"
+
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+msgid "Add this agenda to the current corrective campaign:"
+msgstr "Ajouter cet agenda à la campagne de correction actuelle :"
+
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+msgid "New corrective campaign with these agendas:"
+msgstr "Nouvelle campagne de correction avec ces agendas :"
+
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+msgid "New corrective campaign with this agenda:"
+msgstr "Nouvelle campagne de correction avec cet agenda :"
+
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+#: manager/templates/lingo/widgets/categoryselectwidget.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Add agendas"
+msgstr "Ajouter les agendas"
+
+#: invoicing/templates/lingo/invoicing/manager_corrective_campaign_add_agendas_form.html
+msgid "Add agenda"
+msgstr "Ajouter l’agenda"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+msgid "Cancel credit"
+msgstr "Annuler l’avoir"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_cancellation_reason_form.html
+msgid "Edit credit cancellation reason"
+msgstr "Modifier le motif d’annulation d’avoir"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Origin:"
+msgstr "Origine :"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Subtotal"
+msgstr "Sous-total"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+msgid "Assignments"
+msgstr "Affectations"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgctxt "payment"
+msgid "Payment"
+msgstr "Règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgctxt "payment"
+msgid "Date"
+msgstr "Date"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+msgid "Pending..."
+msgstr "En cours de traitement ..."
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+msgid "No assignments for this credit"
+msgstr "Pas d’affectation pour cet avoir"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+msgid "Assigned amount:"
+msgstr "Montant affecté :"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_lines.html
+msgid "Remaining amount to assign:"
+msgstr "Montant restant à affecter :"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+msgid "Credit Filtering"
+msgstr "Filtrer les avoirs"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+msgctxt "credit"
+msgid "Cancelled"
+msgstr "Annulé"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_credits_fragment.html
+msgid "Partially assigned"
+msgstr "Affecté partiellement"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#, python-format
+msgid ""
+"Credit %(credit_number)s dated %(idate)s (created on %(cdate)s) for <a "
+"href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount "
+"%(amount)s€"
+msgstr ""
+"Avoir %(credit_number)s daté du %(idate)s (créé le %(cdate)s) adressé à <a "
+"href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant "
+"%(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#, python-format
+msgid ""
+"Credit %(credit_number)s dated %(cdate)s for <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount %(amount)s€"
+msgstr ""
+"Avoir %(credit_number)s daté du %(cdate)s adressé à <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_credit_list.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_credits_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+msgid "download"
+msgstr "télécharger"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+#, python-format
+msgid ""
+"Payment <a href=\"%(regie_payment_list_url)s?"
+"number=%(payment_number)s\">%(payment_number)s</a> dated %(pdate)s (created "
+"on %(cdate)s) from %(payer_name)s, amount %(amount)s€ (%(payment_type)s)"
+msgstr ""
+"Règlement <a href=\"%(regie_payment_list_url)s?"
+"number=%(payment_number)s\">%(payment_number)s</a> daté du %(pdate)s (créé "
+"le %(cdate)s) de %(payer_name)s, montant %(amount)s € (%(payment_type)s)"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+#, python-format
+msgid ""
+"Payment <a href=\"%(regie_payment_list_url)s?"
+"number=%(payment_number)s\">%(payment_number)s</a> dated %(cdate)s from "
+"%(payer_name)s, amount %(amount)s€ (%(payment_type)s)"
+msgstr ""
+"Règlement <a href=\"%(regie_payment_list_url)s?"
+"number=%(payment_number)s\">%(payment_number)s</a> daté du %(cdate)s de "
+"%(payer_name)s, montant %(amount)s € (%(payment_type)s)"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+msgid "ODS export"
+msgstr "Exporter l’ODS"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_detail.html
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+msgid "PDF export"
+msgstr "Exporter le PDF"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_form.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+msgid "New docket"
+msgstr "Nouveau bordereau"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_form.html
+msgid "Edit docket"
+msgstr "Editer le bordereau"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Dockets"
+msgstr "Bordereaux"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+msgid "Dockets Filtering"
+msgstr "Filtrer les bordereaux"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Payment types"
+msgstr "Types de règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/views/regie.py
+msgid "Number of payments"
+msgstr "Nombre de règlements"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+msgid "This site doesn't have any docket yet."
+msgstr "Ce site n’a pas encore de bordereaux."
+
+#: invoicing/templates/lingo/invoicing/manager_docket_list.html
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+msgid "Payments outside dockets"
+msgstr "Règlements non remis"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+msgid "Payments outside dockets search"
+msgstr "Rechercher des règlements non remis"
+
+#: invoicing/templates/lingo/invoicing/manager_docket_payment_list.html
+msgid ""
+"The action to create a new docket is not available because a draft docket "
+"already exists."
+msgstr ""
+"L’action de création d’un nouveau bordereau n’est pas disponible car il y a "
+"déjà un bordereau à l’état de brouillon."
+
+#: invoicing/templates/lingo/invoicing/manager_docket_validate.html
+msgid "Are you sure you want to validate this docket ?"
+msgstr "Êtes-vous sûr·e de vouloir valider ce bordereau ?"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Cancel invoice"
+msgstr "Annuler la facture"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_cancellation_reason_form.html
+msgid "Edit invoice cancellation reason"
+msgstr "Modifier le motif d’annulation de facture"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Direct debit:"
+msgstr "Prélèvement automatique :"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgctxt "payment"
+msgid "Type"
+msgstr "Type"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "No payments for this line"
+msgstr "Pas de règlement pour cette ligne"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "No payments for this invoice"
+msgstr "Pas de règlement pour cette facture"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Collection:"
+msgstr "Titrage :"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_lines.html
+msgid "Payments certificate:"
+msgstr "Attestation de paiement :"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+msgid "Get full ODS file"
+msgstr "Télécharger au format ODS - mode complet"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+msgid "Invoice Filtering"
+msgstr "Filtrer les factures"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+#: invoicing/views/regie.py
+msgctxt "invoice"
+msgid "Cancelled"
+msgstr "Annulée"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+msgid "Under collection"
+msgstr "En cours de titrage"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+#: invoicing/views/regie.py
+msgid "Partially paid"
+msgstr "Réglée partiellement"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#, python-format
+msgid ""
+"Invoice %(invoice_number)s dated %(idate)s (created on %(cdate)s) addressed "
+"to <a href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount "
+"%(amount)s€"
+msgstr ""
+"Facture %(invoice_number)s datée du %(idate)s (créée le %(cdate)s) adressée "
+"à <a href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant "
+"%(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#, python-format
+msgid ""
+"Invoice %(invoice_number)s dated %(cdate)s addressed to <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount %(amount)s€"
+msgstr ""
+"Facture %(invoice_number)s datée du %(cdate)s adressée à <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+msgid "download (initial)"
+msgstr "télécharger (initiale)"
+
+#: invoicing/templates/lingo/invoicing/manager_invoice_list.html
+msgid "download (dynamic)"
+msgstr "télécharger (dynamique)"
+
+#: invoicing/templates/lingo/invoicing/manager_job_detail.html
+msgid "Error running the job."
+msgstr "Erreur lors de l’exécution d'une tâche."
+
+#: invoicing/templates/lingo/invoicing/manager_job_detail.html
+msgid "Please wait…"
+msgstr "Veuillez patienter…"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+msgid "see agenda"
+msgstr "voir l’agenda"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+msgid "see event"
+msgstr "voir l’évènement"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+#, python-format
+msgid "%(quantity)s minute"
+msgid_plural "%(quantity)s minutes"
+msgstr[0] "%(quantity)s minute"
+msgstr[1] "%(quantity)s minutes"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+#, python-format
+msgid "direct debit: %(payer_direct_debit)s"
+msgstr "prélèvement automatique : %(payer_direct_debit)s"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+msgid "reset"
+msgstr "réinitialiser"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+msgid "ignore"
+msgstr "ignorer"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+msgid "mark as fixed"
+msgstr "marquer comme résolue"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+msgid "replay"
+msgstr "rejouer"
+
+#: invoicing/templates/lingo/invoicing/manager_line_detail_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+msgid "Injected"
+msgstr "Injectée"
+
+#: invoicing/templates/lingo/invoicing/manager_line_replayed.html
+msgid "This line was replayed - reload the page to get new lines"
+msgstr ""
+"Cette ligne a été rejouée — rechargez la page pour voir les nouvelles lignes"
+
+#: invoicing/templates/lingo/invoicing/manager_line_replayed.html
+msgid "reload the page:"
+msgstr "recharger la page :"
+
+#: invoicing/templates/lingo/invoicing/manager_line_replayed.html
+msgctxt "reload page"
+msgid "current page"
+msgstr "page actuelle"
+
+#: invoicing/templates/lingo/invoicing/manager_line_replayed.html
+msgctxt "reload page"
+msgid "without filters"
+msgstr "sans filtres"
+
+#: invoicing/templates/lingo/invoicing/manager_line_replayed.html
+msgctxt "reload page"
+msgid "filtered on user"
+msgstr "filtrée sur l’usager"
+
+#: invoicing/templates/lingo/invoicing/manager_line_replayed.html
+msgctxt "reload page"
+msgid "filtered on payer"
+msgstr "filtrée sur le payeur"
+
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Non invoiced lines"
+msgstr "Lignes non facturées"
+
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+msgid "User"
+msgstr "Usager"
+
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+msgid "Pricing data:"
+msgstr "Données tarifaires :"
+
+#: invoicing/templates/lingo/invoicing/manager_non_invoiced_line_list.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+msgid "Event:"
+msgstr "Evènement :"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_cancel_form.html
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+msgid "Cancel payment"
+msgstr "Annuler le règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_cancel_form.html
+msgid "This payment is included in a docket."
+msgstr "Ce règlement est lié à un bordereau de remise."
+
+#: invoicing/templates/lingo/invoicing/manager_payment_cancel_form.html
+msgid "If you cancel this payment, the docket will be modified."
+msgstr "Si vous annulez ce règlement, le bordereau sera modifié."
+
+#: invoicing/templates/lingo/invoicing/manager_payment_cancellation_reason_form.html
+msgid "Edit payment cancellation reason"
+msgstr "Modifier le motif d’annulation de règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+msgid "Payment Filtering"
+msgstr "Filtrer les règlements"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#, python-format
+msgid ""
+"Payment %(payment_number)s dated %(pdate)s (created on %(cdate)s) from <a "
+"href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount "
+"%(amount)s€ (%(payment_type)s)"
+msgstr ""
+"Règlement %(payment_number)s daté du %(pdate)s (créé le %(cdate)s) de <a "
+"href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant "
+"%(amount)s € (%(payment_type)s)"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#, python-format
+msgid ""
+"Payment %(payment_number)s dated %(cdate)s from <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount %(amount)s€ "
+"(%(payment_type)s)"
+msgstr ""
+"Règlement %(payment_number)s daté du %(cdate)s de <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant %(amount)s € "
+"(%(payment_type)s)"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/payment.html
+msgid "Amount charged"
+msgstr "Montant facturé"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+#: invoicing/templates/lingo/invoicing/payment.html
+msgid "Amount assigned"
+msgstr "Montant affecté"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+msgid "No assignments for this payment"
+msgstr "Pas d’affectation pour ce règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_list.html
+msgid "Docket:"
+msgstr "Bordereau :"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_type_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "New payment type"
+msgstr "nouveau type de règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_payment_type_form.html
+msgid "Edit payment type"
+msgstr "Modifier le type de règlement"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_add.html
+msgid "New pool"
+msgstr "Nouveau train de facturation"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_add.html
+msgid "Are you sure you want to start a new pool?"
+msgstr "Êtes-vous sûr·e de vouloir lancer un nouveau train de facturation ?"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_add.html
+#: invoicing/views/pool.py
+msgid "An adjustment campaign cannot be launched on a partial bookings agenda."
+msgstr ""
+"Une campagne de régularisation ne peut pas être lancée sur des agendas à "
+"réservation partielles."
+
+#: invoicing/templates/lingo/invoicing/manager_pool_add.html
+msgid "Run"
+msgstr "Lancer"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_delete.html
+msgid "Are you sure you want to delete this final pool ?"
+msgstr ""
+"Êtes-vous sûr·e de vouloir supprimer ce train de facturation définitif ?"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_delete.html
+msgid ""
+"Invoices are already numbered, if the pool is deleted, invoices will be kept "
+"and cancelled."
+msgstr ""
+"Les factures sont déjà numérotées, si ce train de facturation est supprimé, "
+"les factures seront conservées et annulées."
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+msgid "Pool"
+msgstr "Train de facturation"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+msgid "Journal"
+msgstr "Journal"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/views/pool.py
+msgid "Stop"
+msgstr "Stop"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/templates/lingo/invoicing/manager_pool_promote.html
+msgid "Generate invoices"
+msgstr "Générer les factures"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail.html
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+msgid "Error while running pool."
+msgstr "Erreur lors de l’exécution du train de facturation."
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_credits_fragment.html
+#, python-format
+msgid ""
+"Credit <a href=\"%(journal_url)s?invoice_id=%(number)s\">%(credit_number)s</"
+"a> dated %(cdate)s addressed to <a href=\"%(journal_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount %(amount)s€"
+msgstr ""
+"Avoir <a href=\"%(journal_url)s?invoice_id=%(number)s\">%(credit_number)s</"
+"a> daté du %(cdate)s adressé à <a href=\"%(journal_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_credits_fragment.html
+#, python-format
+msgid ""
+"Credit <a href=\"%(journal_url)s?"
+"credit_number=%(number)s\">%(credit_number)s</a> dated %(cdate)s addressed "
+"to <a href=\"%(journal_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount %(amount)s€"
+msgstr ""
+"Avoir <a href=\"%(journal_url)s?"
+"credit_number=%(number)s\">%(credit_number)s</a> daté du %(cdate)s adressé à "
+"<a href=\"%(journal_url)s?payer_external_id=%(payer_id)s\">%(payer_name)s</"
+"a>, montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+#, python-format
+msgid ""
+"Invoice <a href=\"%(journal_url)s?"
+"invoice_id=%(number)s\">%(invoice_number)s</a> dated %(cdate)s addressed to "
+"<a href=\"%(journal_url)s?payer_external_id=%(payer_id)s\">%(payer_name)s</"
+"a>, amount %(amount)s€"
+msgstr ""
+"Facture <a href=\"%(journal_url)s?"
+"invoice_id=%(number)s\">%(invoice_number)s</a> datée du %(cdate)s adressée à "
+"<a href=\"%(journal_url)s?payer_external_id=%(payer_id)s\">%(payer_name)s</"
+"a>, montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_detail_invoices_fragment.html
+#, python-format
+msgid ""
+"Invoice <a href=\"%(journal_url)s?"
+"invoice_number=%(number)s\">%(invoice_number)s</a> dated %(cdate)s addressed "
+"to <a href=\"%(journal_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount %(amount)s€"
+msgstr ""
+"Facture <a href=\"%(journal_url)s?"
+"invoice_number=%(number)s\">%(invoice_number)s</a> datée du %(cdate)s "
+"adressée à <a href=\"%(journal_url)s?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+msgid "Journal Filtering"
+msgstr "Filtrer le journal"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+msgid "PK"
+msgstr "PK"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_journal.html
+msgid "Booking:"
+msgstr "Réservation :"
+
+#: invoicing/templates/lingo/invoicing/manager_pool_promote.html
+msgid "Impossible to generate invoices: errors remain."
+msgstr "Impossible de générer les factures : des lignes sont en erreur."
+
+#: invoicing/templates/lingo/invoicing/manager_pool_promote.html
+msgid "Are you sure you want to generate invoices ?"
+msgstr "Êtes-vous sûr·e de vouloir générer les factures ?"
+
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Refunds"
+msgstr "Remboursements"
+
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+msgid "Refund Filtering"
+msgstr "Filtrer les remboursements"
+
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+#, python-format
+msgid ""
+"Refund %(refund_number)s dated %(rdate)s (created on %(cdate)s) for <a "
+"href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount "
+"%(amount)s€"
+msgstr ""
+"Remboursement %(refund_number)s daté du %(rdate)s (créé le %(cdate)s) "
+"adressé à <a href=\"?payer_external_id=%(payer_id)s\">%(payer_name)s</a>, "
+"montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+#, python-format
+msgid ""
+"Refund %(refund_number)s dated %(cdate)s for <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, amount %(amount)s€"
+msgstr ""
+"Remboursement %(refund_number)s daté du %(cdate)s adressé à <a href=\"?"
+"payer_external_id=%(payer_id)s\">%(payer_name)s</a>, montant %(amount)s €"
+
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+msgctxt "credit"
+msgid "Date"
+msgstr "Date"
+
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+msgid "Credit amount"
+msgstr "Montant de l’avoir"
+
+#: invoicing/templates/lingo/invoicing/manager_refund_list.html
+msgid "Refund amount"
+msgstr "Montant du remboursement"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_counters_form.html
+msgid "Edit counters"
+msgstr "Editer les compteurs"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Parameters"
+msgstr "Paramètres"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Invoicing campaign"
+msgstr "Campagne de facturation"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Create an invoicing or adjustment campaign."
+msgstr "Créer une campagne de facturation ou de régularisation."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Search for an invoice, its details and status, edit it."
+msgstr "Rechercher une facture, son détail et son statut, l'éditer."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Search for a credit, its details and assignments."
+msgstr "Rechercher une facture d'avoir, son détail et son affectation."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid ""
+"Create a collection for unpaid invoices or search for an existing collection."
+msgstr "Créer un titre de factures impayées ou rechercher un titre existant."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Search for a payment, its details and status, edit it."
+msgstr "Rechercher un règlement, son détail et son statut, l'éditer."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Search for a refund, its details and asignments, edit it."
+msgstr "Rechercher un remboursement, son détail et son affectation, l'éditer."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Create a payment docket, edit it or search for an existing docket."
+msgstr ""
+"Créer un bordereau de remise de règlements, l'éditer ou rechercher un "
+"bordereau existant."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_list.html
+msgid "Payers"
+msgstr "Payeurs"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_detail.html
+msgid "Search for a payer and consult these transactions."
+msgstr "Rechercher un payeur et consulter ces mouvements."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_form.html
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "New regie"
+msgstr "Nouvelle régie"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_form.html
+msgid "Edit regie"
+msgstr "Modifier la régie"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_history.html
+msgid "Regie history"
+msgstr "Historique de la régie"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_history.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_agenda_history.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_history.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_history.html
+#: pricing/templates/lingo/pricing/manager_pricing_history.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "History"
+msgstr "Historique"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_history_compare.html
+#: pricing/templates/lingo/pricing/manager_agenda_history_compare.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_history_compare.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_history_compare.html
+#: pricing/templates/lingo/pricing/manager_pricing_history_compare.html
+msgid "Compare snapshots"
+msgstr "Comparaison des sauvergardes"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_history_compare.html
+#: pricing/templates/lingo/pricing/manager_agenda_history_compare.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_history_compare.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_history_compare.html
+#: pricing/templates/lingo/pricing/manager_pricing_history_compare.html
+msgid "JSON"
+msgstr "JSON"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_history_compare.html
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_agenda_history_compare.html
+#: pricing/templates/lingo/pricing/manager_agenda_inspect.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_history_compare.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_inspect.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_history_compare.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_inspect.html
+#: pricing/templates/lingo/pricing/manager_pricing_history_compare.html
+#: pricing/templates/lingo/pricing/manager_pricing_inspect.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Inspect"
+msgstr "Inspecteur"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_history_compare.html
+#: pricing/templates/lingo/pricing/manager_agenda_history_compare.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_history_compare.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_history_compare.html
+#: pricing/templates/lingo/pricing/manager_pricing_history_compare.html
+msgid "Compare inspect"
+msgstr "Comparaison des inspecteurs"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_history_compare.html
+#: pricing/templates/lingo/pricing/manager_agenda_history_compare.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_history_compare.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_history_compare.html
+#: pricing/templates/lingo/pricing/manager_pricing_history_compare.html
+msgid "Compare JSON"
+msgstr "Comparaison JSON"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_agenda_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_check_type_group_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_criteria_category_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+msgid "Information"
+msgstr "Informations"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+msgid "Mapping"
+msgstr "Correspondances"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Counters"
+msgstr "Compteurs"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_inspect_fragment.html
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Publishing"
+msgstr "Éditique"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "Regies outside applications"
+msgstr "Régies hors applications"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+#: pricing/templates/lingo/pricing/manager_agenda_archived_list.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "identifier:"
+msgstr "identifiant :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid ""
+"\n"
+"        This site doesn't have any regie yet. Click on the \"New\" button in "
+"the top\n"
+"        right of the page to add a first one.\n"
+"      "
+msgstr ""
+"\n"
+"Ce site n’a pas encore de régie.  Cliquez sur le bouton « Nouvelle régie » "
+"dans le coin supérieur droit de la page pour en ajouter une première."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "Go to document"
+msgstr "Aller au document"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "invoice or credit reference"
+msgstr "référence de la facture/avoir"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+msgid "Search"
+msgstr "Recherche"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "Import site"
+msgstr "Importer un site"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "Export site"
+msgstr "Exporter le site"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Payer mapping"
+msgstr "Correspondances du payeur"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Used in agendas"
+msgstr "Utilisation dans les agendas"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Regie with invoicing campaigns:"
+msgstr "Régie avec campagnes de facturation :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Use a credit when created to pay old invoices:"
+msgstr ""
+"Utiliser un avoir dès sa création pour régler des factures existantes :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Invoice role:"
+msgstr "Rôle de factureur :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Control role:"
+msgstr "Rôle de régisseur :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Define permissions"
+msgstr "Définir les permissions"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Card Model:"
+msgstr "Modèle de fiche :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Prefix for payer external id:"
+msgstr "Préfixe de l’identifiant externe du payeur :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Template for payer external id:"
+msgstr "Gabarit de l’identifiant externe du payeur :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Template for payer external id from nameid:"
+msgstr "Gabarit de l’identifiant externe du payeur depuis un nameid :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: manager/templates/lingo/manager_inspect.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Inspect tool"
+msgstr "Outil d’inspection"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_mapping_form.html
+msgid "Edit mapping"
+msgstr "Modification des correspondances"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Counter name:"
+msgstr "Nom du compteur :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Invoice number format:"
+msgstr "Format du numéro de facture :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Invoice collection docket number format:"
+msgstr "Format du numéro de bordereau de factures titrées :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Payment number format:"
+msgstr "Format du numéro de règlement :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Payment docket number format:"
+msgstr "Format du numéro de bordereau :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Credit number format:"
+msgstr "Format du numéro de crédit :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Refund number format:"
+msgstr "Format du numéro de remboursement :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "This regie is not used yet."
+msgstr "Cette régie n’est pas encore utilisée."
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Main colour in documents:"
+msgstr "Couleur principale dans les documents :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Payments certificate model:"
+msgstr "Modèle d’attestation de paiement :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Controller name:"
+msgstr "Nom du régisseur :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "City name:"
+msgstr "Nom de la ville :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Custom logo:"
+msgstr "Logo personnalisé :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Custom address:"
+msgstr "Adresse personnalisée :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_parameters.html
+msgid "Custom invoice extra information:"
+msgstr "Informations complémentaires personnalisées :"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_form.html
+msgid "Edit payer"
+msgstr "Editer le payeur"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_list.html
+msgid "Payer Filtering"
+msgstr "Filtrer les payeurs"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+msgid "Payer transactions"
+msgstr "Mouvements du payer"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#, python-format
+msgid "Transactions of payer \"%(payer_external_id)s\""
+msgstr "Mouvements du payeur « %(payer_external_id)s »"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Invoicing object"
+msgstr "Elément de facturation"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_payer_transaction_list.html
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#: invoicing/views/regie.py
+msgid "Origin"
+msgstr "Origine"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_permissions_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_permissions_form.html
+msgid "Edit permissions"
+msgstr "Modification des permissions"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_publishing_form.html
+msgid "Publishing Settings"
+msgstr "Paramètres d’éditique"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+msgid "Transactions for event"
+msgstr "Transactions pour un évènement"
+
+#: invoicing/templates/lingo/invoicing/manager_regie_transaction_for_event_list.html
+#, python-format
+msgid ""
+"Transactions for event \"%(event_slug)s\" (%(event_date)s) and user "
+"\"%(user_external_id)s\""
+msgstr ""
+"Transactions pour l’évènement « %(event_slug)s » (%(event_date)s) et "
+"l’utilisateur « %(user_external_id)s »"
+
+#: invoicing/templates/lingo/invoicing/payment.html
+msgid "Payment receipt"
+msgstr "Reçu de règlement"
+
+#: invoicing/templates/lingo/invoicing/payment.html
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+msgid "Invoiced account:"
+msgstr "Compte facturé :"
+
+#: invoicing/templates/lingo/invoicing/payment.html
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+msgid "Invoicing address:"
+msgstr "Adresse de facturation :"
+
+#: invoicing/templates/lingo/invoicing/payment.html
+#, python-format
+msgid ""
+"Hereby certifies that I have received a payment of type <b>%(payment_type)s</"
+"b> in the amount of <b>%(amount)s (number %(payment_number)s)</b>, for "
+"account <b>%(payer)s</b> (%(payer_id)s):"
+msgstr ""
+"Atteste par le présent reçu avoir perçu un règlement de type "
+"<b>%(payment_type)s</b> d’un montant de <b>%(amount)s (numéro "
+"%(payment_number)s)</b>, au bénéfice du compte <b>%(payer)s</b> "
+"(%(payer_id)s) :"
+
+#: invoicing/templates/lingo/invoicing/payment.html
+msgid "Invoice object"
+msgstr "Objet de la facture"
+
+#: invoicing/templates/lingo/invoicing/payment.html
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+#, python-format
+msgid "on %(event_date)s"
+msgstr "le %(event_date)s"
+
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+msgid "Payments certificate"
+msgstr "Attestation de paiement"
+
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+msgid "Invoice object:"
+msgstr "Objet facture :"
+
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+#, python-format
+msgid ""
+"Hereby certifies that I have received the amount of <b>%(amount)s</b> for "
+"account <b>%(payer)s</b> (%(payer_id)s) as follows:"
+msgstr ""
+"Atteste par la présente avoir perçu la somme de <b>%(amount)s</b> au "
+"bénéfice du compte <b>%(payer)s</b> (%(payer_id)s selon la répartition "
+"suivante :"
+
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+msgctxt "payment"
+msgid "Number"
+msgstr "Numéro"
+
+#: invoicing/templates/lingo/invoicing/payments_certificate.html
+msgid "Detail of invoice"
+msgstr "Détail de la facture"
+
+#: invoicing/utils.py
+msgid "Overtaking"
+msgstr "Dépassement"
+
+#: invoicing/utils.py
+msgid "Presence without booking"
+msgstr "Présence sans réservation"
+
+#: invoicing/utils.py
+msgid "unknown"
+msgstr "inconnu"
+
+#: invoicing/utils.py
+#, python-format
+msgid "%s booked hours for the period"
+msgstr "%s heures réservées sur la période"
+
+#: invoicing/utils.py
+#, python-format
+msgid "Invoice from %(start)s to %(end)s"
+msgstr "Facture du %(start)s au %(end)s"
+
+#: invoicing/views/campaign.py
+msgid "The last pool is invalid, please start a new pool."
+msgstr ""
+"Le dernier train de facuration est invalide, veuillez en lancer un nouveau."
+
+#: invoicing/views/campaign.py
+#, python-format
+msgid "Fail to unlock events check: %s"
+msgstr "Erreur lors du déverroullage des pointages: %s"
+
+#: invoicing/views/campaign.py
+#, python-format
+msgid "Fail to mark events as invoiced: %s"
+msgstr "Erreur lors du marquage des évènements comme étant facturés: %s"
+
+#: invoicing/views/campaign.py
+msgid ""
+"Not possible to update current corrective campaign, invoices have been "
+"generated."
+msgstr ""
+"Impossible de mettre à jour la campagne de correction actuelle, les factures "
+"ont été générées."
+
+#: invoicing/views/campaign.py
+msgid "Payer external ID"
+msgstr "Payeur (Identifiant externe)"
+
+#: invoicing/views/campaign.py
+msgid "Payer address"
+msgstr "Addresse du payeur"
+
+#: invoicing/views/campaign.py invoicing/views/regie.py
+msgid "Payer email"
+msgstr "Email du payeur"
+
+#: invoicing/views/campaign.py invoicing/views/regie.py
+msgid "Payer phone"
+msgstr "Téléphone du payeur"
+
+#: invoicing/views/campaign.py
+msgid "User external ID"
+msgstr "Utilisateur (Identifiant externe)"
+
+#: invoicing/views/campaign.py pricing/forms.py
+msgid "Booking status"
+msgstr "Statut de la réservation"
+
+#: invoicing/views/home.py pricing/views.py
+msgid "File is not in the expected JSON format."
+msgstr "Le fichier n’est pas dans le format JSON attendu."
+
+#: invoicing/views/home.py pricing/views.py
+#, python-format
+msgid "Key \"%s\" is missing."
+msgstr "La clé « %s » est manquante."
+
+#: invoicing/views/home.py
+msgid "No regie created."
+msgstr "Aucune régie créée."
+
+#: invoicing/views/home.py
+#, python-format
+msgid "A regie has been created."
+msgid_plural "%(count)d regies have been created."
+msgstr[0] "Une régie a été créée."
+msgstr[1] "%(count)d régies ont été créées."
+
+#: invoicing/views/home.py
+msgid "No regie updated."
+msgstr "Aucune régie mise à jour."
+
+#: invoicing/views/home.py
+#, python-format
+msgid "A regie has been updated."
+msgid_plural "%(count)d regies have been updated."
+msgstr[0] "Une régie a été mise à jour."
+msgstr[1] "%(count)d régies ont été mises à jour."
+
+#: invoicing/views/home.py pricing/views.py
+msgid "imported"
+msgstr "import"
+
+#: invoicing/views/home.py pricing/views.py
+msgid "No data found."
+msgstr "Aucune donnée trouvée."
+
+#: invoicing/views/pool.py
+msgid "Are you sure you want to stop this pool?"
+msgstr "Êtes-vous sûr·e de vouloir stopper ce train de facturation ?"
+
+#: invoicing/views/pool.py
+msgid "Stopped"
+msgstr "Stoppé"
+
+#: invoicing/views/pool.py
+msgid "Final pool deletion"
+msgstr "Suppression du train de facturation définitif"
+
+#: invoicing/views/regie.py
+#, python-format
+msgid "No document found for \"%s\""
+msgstr "Aucun document trouvé pour « %s »"
+
+#: invoicing/views/regie.py pricing/views.py
+msgid "changed permissions"
+msgstr "modification des permissions"
+
+#: invoicing/views/regie.py
+msgid "changed payer options"
+msgstr "modification des paramètres du payeur"
+
+#: invoicing/views/regie.py
+msgid "changed payer mapping"
+msgstr "modification des correspondances du payeur"
+
+#: invoicing/views/regie.py
+msgid "changed counters"
+msgstr "modification des compteurs"
+
+#: invoicing/views/regie.py
+msgid "changed publishing settings"
+msgstr "modification des paramètres d’éditique"
+
+#: invoicing/views/regie.py
+msgid "added payment type"
+msgstr "ajout d’un type de règlement"
+
+#: invoicing/views/regie.py
+msgid "changed payment type"
+msgstr "modification d’un type de règlement"
+
+#: invoicing/views/regie.py
+msgid "removed payment type"
+msgstr "suppression d’un type de règlement"
+
+#: invoicing/views/regie.py
+msgid "Total due"
+msgstr "Montant dû"
+
+#: invoicing/views/regie.py
+msgid "Not paid"
+msgstr "Non réglé"
+
+#: invoicing/views/regie.py
+msgid "Collect"
+msgstr "Titre"
+
+#: invoicing/views/regie.py
+msgid "Description (line)"
+msgstr "Description (ligne)"
+
+#: invoicing/views/regie.py
+msgid "Accounting code (line)"
+msgstr "Code d’imputation comptable (ligne)"
+
+#: invoicing/views/regie.py
+msgid "Amount (line)"
+msgstr "Montant (ligne)"
+
+#: invoicing/views/regie.py
+msgid "Quantity (line)"
+msgstr "Quantité (ligne)"
+
+#: invoicing/views/regie.py
+msgid "Subtotal (line)"
+msgstr "Sous-total (ligne)"
+
+#: invoicing/views/regie.py
+msgid "Amount assigned (line)"
+msgstr "Montant affecté (ligne)"
+
+#: invoicing/views/regie.py
+msgid "Credit numbers"
+msgstr "Numéros d’avoir"
+
+#: invoicing/views/regie.py
+msgid "Amount assigned (invoice)"
+msgstr "Montant affecté (facture)"
+
+#: invoicing/views/regie.py
+msgid "Total amount (payment)"
+msgstr "Montant total (règlement)"
+
+#: invoicing/views/regie.py
+msgid "Initial amount"
+msgstr "Montant initial"
+
+#: invoicing/views/regie.py
+msgid "Cancelled amount"
+msgstr "Montant annulé"
+
+#: invoicing/views/regie.py
+msgid "Final amount"
+msgstr "Montant final"
+
+#: invoicing/views/regie.py
+msgid "List of the payments of all dockets"
+msgstr "Liste des règlements de tous les bordereaux"
+
+#: invoicing/views/regie.py
+#, python-format
+msgid "List of the payments of dockets from %(start)s to %(stop)s"
+msgstr "Liste des règlements des bordereaux du %(start)s au %(stop)s"
+
+#: invoicing/views/regie.py
+#, python-format
+msgid "List of the payments of dockets from %(start)s"
+msgstr "Liste des règlements des bordereaux à partir du %(start)s"
+
+#: invoicing/views/regie.py
+#, python-format
+msgid "List of the payments of dockets to %(stop)s"
+msgstr "Liste des règlements des bordereaux jusqu’au %(stop)s"
+
+#: invoicing/views/regie.py
+msgid "Initial docket amount"
+msgstr "Montant bordereau initial"
+
+#: invoicing/views/regie.py
+msgid "Cancelled docket amount"
+msgstr "Montant annulé"
+
+#: invoicing/views/regie.py
+msgid "Final docket amount"
+msgstr "Montant bordereau final"
+
+#: invoicing/views/regie.py
+msgid "User ID"
+msgstr "Usager (identifiant)"
+
+#: invoicing/views/regie.py
+msgid "Agenda slug"
+msgstr "Agendas (slug)"
+
+#: invoicing/views/regie.py
+msgid "Event slug"
+msgstr "Évènement (slug)"
+
+#: manager/forms.py
+msgid "Django template"
+msgstr "Gabarit Django"
+
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+msgid "Show differences"
+msgstr "Afficher les différences"
+
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+msgid "Compare"
+msgstr "Comparer"
+
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+#, python-format
+msgid "1 other this day"
+msgid_plural "%(counter)s others"
+msgstr[0] "1 autre ce jour"
+msgstr[1] "%(counter)s autres ce jour"
+
+#: manager/templates/lingo/includes/snapshot_history_fragment.html
+#, python-format
+msgid "Version %(version)s"
+msgstr "Version %(version)s"
+
+#: manager/templates/lingo/manager_confirm_delete.html
+msgid "Are you sure you want to delete this?"
+msgstr "Êtes-vous sûr·e de vouloir supprimer ceci ?"
+
+#: manager/templates/lingo/manager_homepage.html
+msgid "Pricing - Pricings"
+msgstr "Tarification - Grilles tarifaires"
+
+#: manager/templates/lingo/manager_homepage.html
+msgid "Pricings attached to events agendas."
+msgstr "Grilles tarifaires à attacher à des agendas « évènements »."
+
+#: manager/templates/lingo/manager_homepage.html
+msgid "Invoicing - Regies"
+msgstr "Facturation - Régies"
+
+#: manager/templates/lingo/manager_homepage.html
+msgid "Regies and their campaigns, invoices, payments."
+msgstr "Les régies et leurs campagnes, factures, règlements."
+
+#: manager/templates/lingo/manager_homepage.html
+msgid "Online payment platforms."
+msgstr "Plateformes de paiement en ligne."
+
+#: manager/templates/lingo/manager_inspect.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Test tool"
+msgstr "Outil de test"
+
+#: manager/templates/lingo/manager_inspect.html
+msgid "Test template"
+msgstr "Tester le gabarit"
+
+#: manager/templates/lingo/manager_inspect.html
+msgid "Template result"
+msgstr "Résultat du gabarit"
+
+#: manager/templates/lingo/manager_inspect.html
+msgid "HTML sources"
+msgstr "Sources HTML"
+
+#: manager/templates/lingo/manager_inspect.html
+msgid "Template rendering error"
+msgstr "Erreur de rendu du gabarit"
+
+#: manager/templates/lingo/manager_no_access.html
+msgid ""
+"This screen gives access to payment backends, regies, pricing you can access."
+msgstr ""
+"Cet écran donne accès aux plateformes de paiement, régies et grilless "
+"tarifaires auxquels vous avez accès."
+
+#: manager/templates/lingo/manager_no_access.html
+msgid ""
+"Unfortunately, there is still no payment backend, regie or pricing "
+"configured this way."
+msgstr "Malheureusement il n’y en a pour le moment aucun accessible."
+
+#: manager/templates/lingo/widgets/categoryselectwidget.html
+msgid "Add"
+msgstr "Ajouter"
+
+#: pricing/errors.py
+msgid "decimal"
+msgstr "décimal"
+
+#: pricing/errors.py
+msgid "not found"
+msgstr "inconnu"
+
+#: pricing/errors.py
+#, python-format
+msgid "wrong kind (group: %(check_type_group)s, check type: %(check_type)s)"
+msgstr ""
+"mauvais type (groupe : %(check_type_group)s, type de pointage : "
+"%(check_type)s)"
+
+#: pricing/errors.py
+#, python-format
+msgid ""
+"pricing not configured (group: %(check_type_group)s, check type: "
+"%(check_type)s)"
+msgstr ""
+"tarif non configuré (groupe : %(check_type_group)s, type de pointage : "
+"%(check_type)s))"
+
+#: pricing/errors.py
+#, python-format
+msgid "category: %s"
+msgstr "catégorie : %s"
+
+#: pricing/errors.py
+msgid "Agenda pricing not found"
+msgstr "Aucune grille tarifaire trouvée"
+
+#: pricing/errors.py
+msgid "No matching criteria for category"
+msgstr "Aucun critère trouvé pour la catégorie"
+
+#: pricing/errors.py
+#, python-format
+msgid "No matching criteria for category: %(category)s"
+msgstr "Aucun critère trouvé pour la catégorie : %(category)s"
+
+#: pricing/errors.py
+msgid "Multiple default criteria found for category"
+msgstr "Plusieurs critères par défaut trouvés pour la catégorie"
+
+#: pricing/errors.py
+#, python-format
+msgid "Multiple default criteria found for category: %(category)s"
+msgstr "Plusieurs critères par défaut trouvés pour la catégorie : %(category)s"
+
+#: pricing/errors.py
+msgid "Impossible to determine a pricing for criterias"
+msgstr "Impossible de déterminer un tarif pour les critères"
+
+#: pricing/errors.py
+#, python-format
+msgid "Impossible to determine a pricing for criterias: %(criterias)s"
+msgstr "Impossible de déterminer un tarif pour les critères : %(criterias)s"
+
+#: pricing/errors.py
+msgid "Impossible to determine a minimal pricing for criterias"
+msgstr "Impossible de déterminer un tarif minimum pour les critères"
+
+#: pricing/errors.py
+#, python-format
+msgid "Impossible to determine a minimal pricing for criterias: %(criterias)s"
+msgstr ""
+"Impossible de déterminer un tarif minimum pour les critères : %(criterias)s"
+
+#: pricing/errors.py
+msgid "Pricing format error"
+msgstr "Erreur de format pour le tarif"
+
+#: pricing/errors.py
+#, python-format
+msgid "Pricing is not a %(wanted)s: %(pricing)s"
+msgstr "Le tarif n’est pas du type %(wanted)s : %(pricing)s"
+
+#: pricing/errors.py
+msgid "Minimal pricing format error"
+msgstr "Erreur de format du tarif minimal"
+
+#: pricing/errors.py
+#, python-format
+msgid "Minimal pricing is not a %(wanted)s: %(pricing)s"
+msgstr "Le tarif minimum n’est pas du type %(wanted)s : %(pricing)s"
+
+#: pricing/errors.py
+msgid "Impossible to determine a reduction rate"
+msgstr "Impossible de déterminer un taux de réduction"
+
+#: pricing/errors.py
+msgid "Reduction rate format error"
+msgstr "Erreur de format du taux de réduction"
+
+#: pricing/errors.py
+#, python-format
+msgid "Reduction rate is not a %(wanted)s: %(reduction_rate)s"
+msgstr "Le taux de réduction n’est pas du type %(wanted)s : %(reduction_rate)s"
+
+#: pricing/errors.py
+msgid "Reduction rate bad value"
+msgstr "Valeur incorrecte du taux de réduction"
+
+#: pricing/errors.py
+#, python-format
+msgid "Reduction rate bad value: %(reduction_rate)s"
+msgstr "Valeur de taux de réduction incorrecte: %(reduction_rate)s"
+
+#: pricing/errors.py
+msgid "Impossible to determine an effort rate target"
+msgstr "Impossible de déterminer une cible pour le taux d’effort"
+
+#: pricing/errors.py
+msgid "Effort rate target format error"
+msgstr "Erreur de format du taux d’effort"
+
+#: pricing/errors.py
+#, python-format
+msgid "Effort rate target is not a %(wanted)s: %(effort_rate_target)s"
+msgstr ""
+"La cible de taux d’effort n’est pas du type %(wanted)s : "
+"%(effort_rate_target)s"
+
+#: pricing/errors.py
+msgid "Effort rate target bad value"
+msgstr "Valeur incorrecte du taux d’effort"
+
+#: pricing/errors.py
+#, python-format
+msgid "Effort rate target bad value: %(effort_rate_target)s"
+msgstr "Valeur de cible de taux d’effort incorrecte: %(effort_rate_target)s"
+
+#: pricing/errors.py
+msgid "Impossible to determine an accounting code"
+msgstr "Impossible de déterminer un code d’imputation comptable"
+
+#: pricing/errors.py
+msgid "Unknown check status"
+msgstr "Pointage inconnu"
+
+#: pricing/errors.py
+#, python-format
+msgid "Unknown check status: %(status)s"
+msgstr "Pointage inconnu : %(status)s"
+
+#: pricing/errors.py
+msgid "Event is not checked"
+msgstr "L’évènement n’est pas pointé"
+
+#: pricing/errors.py
+msgid "Booking is not checked"
+msgstr "La réservation n’est pas pointée"
+
+#: pricing/errors.py
+msgid "Multiple booking found"
+msgstr "Plusieurs réservations trouvées"
+
+#: pricing/errors.py
+msgid "Check type error"
+msgstr "Erreur du type de pointage"
+
+#: pricing/errors.py
+#, python-format
+msgid "Check type error: %(reason)s"
+msgstr "Erreur du type de pointage : %(reason)s"
+
+#: pricing/forms.py
+msgid "Pricing criteria categories"
+msgstr "Catégories de critères"
+
+#: pricing/forms.py pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgctxt "agenda pricing"
+msgid "Pricings"
+msgstr "Grilles tarifaires"
+
+#: pricing/forms.py
+msgid "Invalid syntax."
+msgstr "Syntaxe invalide."
+
+#: pricing/forms.py
+msgid "Another criteria exists with the same identifier."
+msgstr "Un critère existe déjà avec le même identifiant."
+
+#: pricing/forms.py
+msgid "Another pricing exists with the same identifier."
+msgstr "Une grille tarifaire existe déjà avec le même identifiant."
+
+#: pricing/forms.py
+msgid "Some agendas are linked to this pricing; please unlink them first."
+msgstr ""
+"Des agendas utilisent cette grille tarifaire; il faut commencer par les en "
+"détacher."
+
+#: pricing/forms.py
+#, python-format
+msgid "Agenda \"%s\" has already a pricing overlapping this period."
+msgstr ""
+"L’agenda « %s » a déjà une grille tarifaire qui chevauche cette période."
+
+#: pricing/forms.py
+msgid ""
+"Some billing dates are are defined for this pricing; please delete them "
+"first."
+msgstr ""
+"Des dates de facturation sont définies pour cette grille tarifaire; veuillez "
+"les supprimer avant d’effectuer cette modification."
+
+#: pricing/forms.py
+msgid "Some billing dates are outside the pricing period."
+msgstr ""
+"Des dates de facturation sont en dehors de la période de cette grille "
+"tarifaire."
+
+#: pricing/forms.py
+msgid "Declare the reduction rate you want to apply for this pricing."
+msgstr "Déclarez le taux de réduction que vous souhaitez appliquer au tarif."
+
+#: pricing/forms.py
+msgid ""
+"Declare the amount you want to multiply by the effort rate for this pricing."
+msgstr ""
+"Déclarez le montant que vous souhaitez multiplier par le taux d’effort."
+
+#: pricing/forms.py
+msgid "New label"
+msgstr "Nouveau libellé"
+
+#: pricing/forms.py
+msgid "Variable name"
+msgstr "Nom de la variable"
+
+#: pricing/forms.py
+msgid "Value template"
+msgstr "Gabarit pour la valeur"
+
+#: pricing/forms.py
+msgid "Criteria category to add"
+msgstr "Catégorie de critère à ajouter"
+
+#: pricing/forms.py pricing/templates/lingo/pricing/manager_criteria_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Criterias"
+msgstr "Critères"
+
+#: pricing/forms.py
+#, python-format
+msgid "The agenda \"%s\" has already a pricing overlapping this period."
+msgstr ""
+"L’agenda « %s » a déjà une grille tarifaire qui chevauche cette période."
+
+#: pricing/forms.py
+msgid "The billing start date must be within the period of the pricing."
+msgstr ""
+"La date de facturation doit être inclus dans la période de la grille "
+"tarifaire."
+
+#: pricing/forms.py
+msgid "Agenda"
+msgstr "Agenda"
+
+#: pricing/forms.py
+msgid "Event identifier"
+msgstr "Identifiant de l’évènement"
+
+#: pricing/forms.py
+msgid "Billing date"
+msgstr "Date de facturation"
+
+#: pricing/forms.py
+msgid "User external identifier"
+msgstr "Identifiant de l’utilisateur"
+
+#: pricing/forms.py
+msgid "Payer external identifier"
+msgstr "Identifiant externe du payeur"
+
+#: pricing/forms.py
+#, python-format
+msgid "Presence (%s)"
+msgstr "Présence (%s)"
+
+#: pricing/forms.py
+#, python-format
+msgid "Absence (%s)"
+msgstr "Absence (%s)"
+
+#: pricing/forms.py
+msgid "This event takes place outside the period covered by this pricing"
+msgstr ""
+"Cet évènement a lieu en dehors de la période couverte par cette grille "
+"tarifaire"
+
+#: pricing/forms.py
+msgid "Please choose between pricing and pricing rate."
+msgstr "Veuillez choisir entre tarif et taux tarifaire."
+
+#: pricing/forms.py
+msgid "Another check type exists with the same identifier."
+msgstr "Un type de pointage existe déjà avec le même identifiant."
+
+#: pricing/models.py
+msgid "Criteria category"
+msgstr "Catégorie de critères"
+
+#: pricing/models.py
+msgid "Criteria categories"
+msgstr "Catégories de critères"
+
+#: pricing/models.py
+msgid "Category"
+msgstr "Catégorie"
+
+#: pricing/models.py
+msgid "Condition"
+msgstr "Condition"
+
+#: pricing/models.py
+msgid "Default criteria"
+msgstr "Critère par défaut"
+
+#: pricing/models.py
+msgid "Will be applied if no other criteria matches"
+msgstr "Ce critère sera appliqué si aucun autre critère ne correspond"
+
+#: pricing/models.py
+msgid "Flat fee schedule"
+msgstr "Grille tarifaire forfaitaire"
+
+#: pricing/models.py
+msgid "Subscription is required"
+msgstr "L’inscription est obligatoire"
+
+#: pricing/models.py
+msgid "Kind of pricing"
+msgstr "Type de tarif"
+
+#: pricing/models.py
+msgid "Reduction rate"
+msgstr "Taux de réduction"
+
+#: pricing/models.py
+msgid "Effort rate"
+msgstr "Taux d’effort"
+
+#: pricing/models.py
+msgid "Reduction rate (template)"
+msgstr "Taux de réduction (gabarit)"
+
+#: pricing/models.py
+msgid "The result is expressed as a percentage, and must be between 0 and 100."
+msgstr ""
+"Le résultat est exprimé en pourcentage, et doit être compris entre 0 et 100."
+
+#: pricing/models.py
+msgid "Amount to be multiplied by the effort rate (template)"
+msgstr "Montant multiplé par le taux d’effort (gabarit)"
+
+#: pricing/models.py
+msgid ""
+"The result is expressed as an amount, which is then multiplied by the effort "
+"rate."
+msgstr "Le résultat est un montant, qui sera multiplié par le taux d’effort."
+
+#: pricing/models.py
+msgid "Minimal pricing"
+msgstr "Tarif minimum"
+
+#: pricing/models.py
+msgid "Maximal pricing"
+msgstr "Tarif maximum"
+
+#: pricing/models.py
+msgid "Accounting code (template)"
+msgstr "Code d’imputation comptable (gabarit)"
+
+#: pricing/models.py pricing/templates/lingo/pricing/manager_agenda_list.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "Pricings"
+msgstr "Grilles tarifaires"
+
+#: pricing/models.py
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+#, python-format
+msgid "From %(start)s to %(end)s"
+msgstr "De %(start)s à %(end)s"
+
+#: pricing/models.py
+#, python-format
+msgid "Missing \"%s\" pricing category"
+msgstr "Catégorie de tarification « %s » manquante"
+
+#: pricing/models.py
+#, python-format
+msgid "Missing \"%(criteria)s\" pricing criteria for \"%(category)s\" category"
+msgstr ""
+"Critère de tarification « %(criteria)s » manquant pour la catégorie "
+"« %(category)s »"
+
+#: pricing/models.py
+#, python-format
+msgid "Copy of %s"
+msgstr "Copie de %s"
+
+#: pricing/models.py
+msgid "Billing start date"
+msgstr "Date de facturation"
+
+#: pricing/templates/lingo/pricing/manager_agenda_archived_list.html
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+msgid "Archives"
+msgstr "Archives"
+
+#: pricing/templates/lingo/pricing/manager_agenda_archived_list.html
+msgid "Archived agendas"
+msgstr "Agendas archivés"
+
+#: pricing/templates/lingo/pricing/manager_agenda_archived_list.html
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+msgid "kind:"
+msgstr "type :"
+
+#: pricing/templates/lingo/pricing/manager_agenda_archived_list.html
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+msgid "view"
+msgstr "voir"
+
+#: pricing/templates/lingo/pricing/manager_agenda_archived_list.html
+msgid "This site doesn't have any archived agenda yet."
+msgstr "Ce site n’a pas encore d’agendas archivés."
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Booking check options"
+msgstr "Paramètres du pointage"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Invoicing options"
+msgstr "Paramètres de facturation"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "This agenda doesn't have any pricing defined yet."
+msgstr "Cet agenda n’a pas encore de grille tarifaire associée."
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "Flat fee schedule pricings"
+msgstr "Grilles tarifaires forfaitaires"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "This agenda doesn't have any flat fee schedule pricing defined yet."
+msgstr "Cet agenda n’a pas encore de grille tarifaire forfaitaire associée."
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Check type group:"
+msgstr "Groupe de types de pointage :"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Absences:"
+msgstr "Absences :"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "No absence check type defined"
+msgstr "Aucun type de pointage d’absence défini"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Presences:"
+msgstr "Présences :"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "No presence check type defined"
+msgstr "Aucun type de pointage de présence défini"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "No check types configured for this agenda."
+msgstr "Pas de types de pointage configurés pour cet agenda."
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Configure"
+msgstr "Configurer"
+
+#: pricing/templates/lingo/pricing/manager_agenda_detail.html
+msgid "Agenda options"
+msgstr "Paramètres de l’agenda"
+
+#: pricing/templates/lingo/pricing/manager_agenda_history.html
+msgid "Agenda history"
+msgstr "Historique de l’agenda"
+
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+msgid "Agendas outside applications"
+msgstr "Agendas hors applications"
+
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+msgid ""
+"This site doesn't have any agenda yet. Click on the \"Refresh agendas\" "
+"button in the top right of the page to synchronize them."
+msgstr ""
+"Ce site n’a pas encore d’agenda.  Cliquez sur le bouton « Actualiser les "
+"agendas » dans le coin supérieur droit de la page pour en ajouter un premier."
+
+#: pricing/templates/lingo/pricing/manager_agenda_list.html
+msgid "Refresh agendas"
+msgstr "Actualiser les agendas"
+
+#: pricing/templates/lingo/pricing/manager_check_type_form.html
+msgid "New check type"
+msgstr "Nouveau type de pointage"
+
+#: pricing/templates/lingo/pricing/manager_check_type_form.html
+msgid "Edit check type"
+msgstr "Modification du type de pointage"
+
+#: pricing/templates/lingo/pricing/manager_check_type_group_form.html
+msgid "New check type group"
+msgstr "Nouveau groupe de types de pointage"
+
+#: pricing/templates/lingo/pricing/manager_check_type_group_form.html
+msgid "Edit check type group"
+msgstr "Modifier le groupe de types de pointage"
+
+#: pricing/templates/lingo/pricing/manager_check_type_group_history.html
+msgid "Check type group history"
+msgstr "Historique du groupe de types de pointage"
+
+#: pricing/templates/lingo/pricing/manager_check_type_group_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "Check types"
+msgstr "Types de pointage"
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "Check types outside applications"
+msgstr "Types de pointage hors applications"
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "Define here check types used in events agendas to check bookings."
+msgstr ""
+"Vous pouvez définir ici les types de pointage à utiliser pour le pointage "
+"des absences et des présences sur les agendas « évènements »."
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "code:"
+msgstr "code :"
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "Add a check type"
+msgstr "Ajouter un type de pointage"
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "Unexpected presence:"
+msgstr "Présence non prévue :"
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "Unjustified absence:"
+msgstr "Absence injustifiée :"
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid ""
+"This site doesn't have any check type group yet. Click on the \"New group\" "
+"button in the top right of the page to add a first one."
+msgstr ""
+"Ce site n’a pas encore de groupe de types de pointage.  Cliquez sur le  "
+"bouton « Nouveau groupe » dans le coin supérieur droit de la page pour en "
+"ajouter un premier."
+
+#: pricing/templates/lingo/pricing/manager_check_type_list.html
+msgid "New group"
+msgstr "Nouveau groupe"
+
+#: pricing/templates/lingo/pricing/manager_criteria_category_form.html
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid "New category"
+msgstr "Nouvelle catégorie"
+
+#: pricing/templates/lingo/pricing/manager_criteria_category_form.html
+msgid "Edit category"
+msgstr "Modification de la catégorie"
+
+#: pricing/templates/lingo/pricing/manager_criteria_category_history.html
+msgid "Criteria category history"
+msgstr "History de la catégorie de critères"
+
+#: pricing/templates/lingo/pricing/manager_criteria_form.html
+msgid "New criteria"
+msgstr "Nouveau critère"
+
+#: pricing/templates/lingo/pricing/manager_criteria_form.html
+msgid "Edit criteria"
+msgstr "Modification du critère"
+
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid "Criterias outside applications"
+msgstr "Critères hors applications"
+
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid "Define here pricing criterias used in pricings."
+msgstr ""
+"Vous pouvez définir ici les critères utilisés dans les grilles tarifaires."
+
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid ""
+"Use drag and drop with the ⣿ handles to reorder criterias inside a category."
+msgstr ""
+"Vous pouvez utiliser les poignées ⣿ pour ordonner les critères au sein d’une "
+"catégorie."
+
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid "default"
+msgstr "défaut"
+
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid "Add a criteria"
+msgstr "Ajouter un critère"
+
+#: pricing/templates/lingo/pricing/manager_criteria_list.html
+msgid ""
+"This site doesn't have any pricing category yet. Click on the \"New "
+"category\" button in the top right of the page to add a first one."
+msgstr ""
+"Ce site n’a pas encore de catégories de tarification.  Cliquez sur le bouton "
+"« Nouvelle catégorie » dans le coin supérieur droit de la page pour en "
+"ajouter une première."
+
+#: pricing/templates/lingo/pricing/manager_pricing_agenda_form.html
+msgid "Add an agenda"
+msgstr "Ajouter un agenda"
+
+#: pricing/templates/lingo/pricing/manager_pricing_billing_date_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "New billing date"
+msgstr "Nouvelle date de facturation"
+
+#: pricing/templates/lingo/pricing/manager_pricing_billing_date_form.html
+msgid "Edit billing date"
+msgstr "Modification de la date de facturation"
+
+#: pricing/templates/lingo/pricing/manager_pricing_criteria_category_form.html
+msgid "Select criterias"
+msgstr "Sélectionner des critères"
+
+#: pricing/templates/lingo/pricing/manager_pricing_criteria_category_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Add a category"
+msgstr "Ajouter une catégorie"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+msgctxt "amount"
+msgid "Pricings"
+msgstr "Tarifs"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+msgid "Pricing options"
+msgstr "Paramètres tarifaires"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+msgid "Minimal pricings"
+msgstr "Tarifs minimum"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_matrix_form.html
+msgctxt "matrix"
+msgid "Edit pricing"
+msgstr "Modification des tarifs"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+msgid "This pricing is misconfigured."
+msgstr "Cette grille tarifaire est mal configurée."
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+msgid "Minimal pricing:"
+msgstr "Tarif minimum :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+msgid "Maximal pricing:"
+msgstr "Tarif maximum :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_pricingoptions_form.html
+msgid "Edit pricing options"
+msgstr "Modification des paramètres tarifaires"
+
+#: pricing/templates/lingo/pricing/manager_pricing_detail.html
+#: pricing/templates/lingo/pricing/manager_pricing_min_matrix_form.html
+msgid "Edit minimal pricing"
+msgstr "Modification des tarifs minimum"
+
+#: pricing/templates/lingo/pricing/manager_pricing_duplicate_form.html
+msgid "Duplicate pricing"
+msgstr "Dupliquer la grille tarifaire"
+
+#: pricing/templates/lingo/pricing/manager_pricing_duplicate_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+#: pricing/templates/lingo/pricing/manager_pricing_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Options"
+msgstr "Options"
+
+#: pricing/templates/lingo/pricing/manager_pricing_form.html
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "New pricing"
+msgstr "Nouvelle grille tarifaire"
+
+#: pricing/templates/lingo/pricing/manager_pricing_form.html
+msgid "Edit pricing"
+msgstr "Modification de la grille tarifaire"
+
+#: pricing/templates/lingo/pricing/manager_pricing_history.html
+msgid "Pricing history"
+msgstr "History de la grille tarifaire"
+
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+msgctxt "amout"
+msgid "Pricings"
+msgstr "Tarifs"
+
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Variables"
+msgstr "Variables"
+
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+#, python-format
+msgid "%(key)s:"
+msgstr "%(key)s :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_inspect_fragment.html
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Billing dates"
+msgstr "Dates de facturation"
+
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "Pricings outside applications"
+msgstr "Grilles tarifaires hors applications"
+
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid "Define here pricings to attach to events agendas."
+msgstr ""
+"Vous pouvez définir ici les grilles tarifaires, que vous pourrez attacher à "
+"des agendas « évènements »."
+
+#: pricing/templates/lingo/pricing/manager_pricing_list.html
+msgid ""
+"This site doesn't have any pricing yet. Click on the \"New pricing\" button "
+"in the top right of the page to add a first one."
+msgstr ""
+"Ce site n’a pas encore de grille tarifaire.  Cliquez sur le bouton "
+"« Nouvelle grille tarifaire » dans le coin supérieur droit de la page pour "
+"en ajouter une première."
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Flat fee schedule:"
+msgstr "Grille tarifaire forfaitaire :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Subscription required:"
+msgstr "Inscription obligatoire :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Kind of pricing:"
+msgstr "Type de tarif :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Reduction rate (template):"
+msgstr "Taux de réduction (gabarit) :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Pricing to be multiplied by the effort rate (template):"
+msgstr "Tarif à multiplier par le taux d’effort (gabarit) :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Accounting code (template):"
+msgstr "Code d’imputation comptable (gabarit) :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Extra variables:"
+msgstr "Variables supplémentaires :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Define variables"
+msgstr "Définir les variables"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Use drag and drop with the ⣿ handles to reorder categories."
+msgstr "Vous pouvez utiliser les poignées ⣿ pour ordonner les catégories."
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Category:"
+msgstr "Catégorie :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Selected criterias:"
+msgstr "Critères sélectionnés :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Change criterias selection"
+msgstr "Modifier la sélection des critères"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Remove this category"
+msgstr "Supprimer cette catégorie"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "max 3 categories"
+msgstr "max 3 catégories"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "remove"
+msgstr "supprimer"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Compute"
+msgstr "Calculer"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Computed pricing data"
+msgstr "Données tarifaires calculées"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Pricing:"
+msgstr "Tarif :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+msgid "Error:"
+msgstr "Erreur :"
+
+#: pricing/templates/lingo/pricing/manager_pricing_parameters.html
+#, python-format
+msgid ""
+"No billing dates. The start date of the pricing (%(date_start)s) is used as "
+"the only available billing date."
+msgstr ""
+"Pas de dates de facturation. La date de début (%(date_start)s) est utilisée "
+"comme date de facturation."
+
+#: pricing/templates/lingo/pricing/manager_pricing_variable_form.html
+msgid "Variable definition"
+msgstr "Définition des variables"
+
+#: pricing/templates/lingo/pricing/manager_pricing_variable_form.html
+msgid "Add another variable"
+msgstr "Ajouter une autre variable"
+
+#: pricing/views.py
+msgid "No agenda updated."
+msgstr "Aucun agenda mis à jour."
+
+#: pricing/views.py
+#, python-format
+msgid "An agenda has been updated."
+msgid_plural "%(count)d agendas have been updated."
+msgstr[0] "Un agenda a été mis à jour."
+msgstr[1] "%(count)d agendas ont été mis à jour."
+
+#: pricing/views.py
+msgid "No check type group created."
+msgstr "Pas de groupe de types de pointage créé."
+
+#: pricing/views.py
+#, python-format
+msgid "A check type group has been created."
+msgid_plural "%(count)d check type groups have been created."
+msgstr[0] "Un groupe de types de pointage a été créé."
+msgstr[1] "%(count)d groupes de type de pointage ont été créés."
+
+#: pricing/views.py
+msgid "No check type group updated."
+msgstr "Aucun groupe de types de pointage mis à jour."
+
+#: pricing/views.py
+#, python-format
+msgid "A check type group has been updated."
+msgid_plural "%(count)d check type groups have been updated."
+msgstr[0] "Un groupe de types de pointage a été mis à jour."
+msgstr[1] "%(count)d groupes de types de pointage ont été mis à jour."
+
+#: pricing/views.py
+msgid "No pricing criteria category created."
+msgstr "Aucune catégorie de tarification créée."
+
+#: pricing/views.py
+#, python-format
+msgid "A pricing criteria category has been created."
+msgid_plural "%(count)d pricing criteria categories have been created."
+msgstr[0] "Une catégorie de tarification a été créée."
+msgstr[1] "%(count)d catégories de tarification ont été créées."
+
+#: pricing/views.py
+msgid "No pricing criteria category updated."
+msgstr "Aucune catégorie de tarification mise à jour."
+
+#: pricing/views.py
+#, python-format
+msgid "A pricing criteria category has been updated."
+msgid_plural "%(count)d pricing criteria categories have been updated."
+msgstr[0] "Une catégorie de tarification a été mise à jour."
+msgstr[1] "%(count)d catégories de tarification ont été mises à jour."
+
+#: pricing/views.py
+msgid "No pricing created."
+msgstr "Aucune grille tarifaire créée."
+
+#: pricing/views.py
+#, python-format
+msgid "A pricing has been created."
+msgid_plural "%(count)d pricings have been created."
+msgstr[0] "Une grille tarifaire a été créée."
+msgstr[1] "%(count)d grilles tarifaires ont été créées."
+
+#: pricing/views.py
+msgid "No pricing updated."
+msgstr "Aucune grille tarifaire mise à jour."
+
+#: pricing/views.py
+#, python-format
+msgid "A pricing has been updated."
+msgid_plural "%(count)d pricings have been updated."
+msgstr[0] "Une grille tarifaire a été mise à jour."
+msgstr[1] "%(count)d grilles tarifaires ont été mise à jour."
+
+#: pricing/views.py
+msgid "reordered criterias"
+msgstr "critères réordonnés"
+
+#: pricing/views.py
+msgid "added criteria"
+msgstr "ajout d’un critère"
+
+#: pricing/views.py
+msgid "changed criteria"
+msgstr "modification d’un critère"
+
+#: pricing/views.py
+msgid "removed criteria"
+msgstr "suppression d’un critère"
+
+#: pricing/views.py
+msgid "Agendas refreshed."
+msgstr "Les agendas ont été actualisés."
+
+#: pricing/views.py
+msgid "Configure booking check options"
+msgstr "Configurer les paramètres de pointage"
+
+#: pricing/views.py
+msgid "changed booking check options"
+msgstr "modification des paramètres de pointage"
+
+#: pricing/views.py
+msgid "Configure invoicing options"
+msgstr "Configurer les paramètres de facturation"
+
+#: pricing/views.py
+msgid "changed invoicing options"
+msgstr "modification des paramètres de facturation"
+
+#: pricing/views.py
+msgid "changed variables"
+msgstr "modification des variables"
+
+#: pricing/views.py
+msgid "added criteria category"
+msgstr "ajout d’une catégorie de critères"
+
+#: pricing/views.py
+msgid "changed criteria category"
+msgstr "modification d’une catégorie de critères"
+
+#: pricing/views.py
+msgid "removed criteria category"
+msgstr "supprimer d’une catégorie de critères"
+
+#: pricing/views.py
+msgid "reordered criteria categories"
+msgstr "catégories de critères réordonnées"
+
+#: pricing/views.py
+msgid "changed pricing options"
+msgstr "modification des paramètres tarifaires"
+
+#: pricing/views.py
+msgid "added agendas"
+msgstr "ajout d’agendas"
+
+#: pricing/views.py
+msgid "removed agenda"
+msgstr "suppression d’un agenda"
+
+#: pricing/views.py
+msgid "added billing date"
+msgstr "ajout d’une date de facturation"
+
+#: pricing/views.py
+msgid "changed billing date"
+msgstr "modification d’une date de facturation"
+
+#: pricing/views.py
+msgid "removed billing date"
+msgstr "suppression d’une date de facturation"
+
+#: pricing/views.py
+msgid "changed pricing"
+msgstr "modification des tarifs"
+
+#: pricing/views.py
+msgid "changed minimum pricing"
+msgstr "modification des tarifs minimum"
+
+#: snapshot/models.py
+msgid "deletion"
+msgstr "suppression"
+
+#: snapshot/views.py
+#, python-format
+msgid "Version %s"
+msgstr "Version %s"
+
+#: snapshot/views.py
+msgid "Snapshot"
+msgstr "Sauvegarde"
+
+#: templates/lingo/includes/ckeditor-js.html
+msgid "Paragraph"
+msgstr "Paragraphe"
+
+#: templates/lingo/includes/ckeditor-js.html
+msgid "Small paragraph"
+msgstr "Paragraphe petite écriture"
+
+#: templates/registration/login.html
+msgid "Log in"
+msgstr "Se connecter"
+
+#: utils/misc.py
+#, python-format
+msgid "Bad slug format \"%s\""
+msgstr "Erreur de format d’identifiant « %s »"
+
+#: utils/ods.py
+msgid "Sheet 1"
+msgstr "Feuille 1"
+
+#: utils/wcs.py
+#, python-format
+msgid "Unable to get WCS service (%s)"
+msgstr "Impossible d’obtenir le service WCS (%s)"
+
+#: utils/wcs.py
+msgid "Unable to get WCS data"
+msgstr "Impossible d’obtenir les données WCS"

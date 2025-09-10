@@ -1,0 +1,21 @@
+{% extends "lingo/interstitial_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Basket Payment" %}{% endblock %}
+
+{% block content %}
+  <div id="processing-payment">
+    <h1>{% trans "Basket Payment" %}</h1>
+    <p>{% blocktrans trimmed %}
+      You should have been redirected to the payment platform,
+      your browser may have opened it in a different window.
+    {% endblocktrans %}
+    </p>
+    <p>
+      {% blocktrans trimmed %}
+        If this did not happen, if an error occured, you should contact our services.
+      {% endblocktrans %}
+    </p>
+    <p><a class="pk-button" rel="popup" href="{% url 'lingo-basket-cancel' %}">{% trans "Cancel Basket" %}</a></p>
+    <div>
+{% endblock %}

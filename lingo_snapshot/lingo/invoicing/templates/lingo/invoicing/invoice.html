@@ -1,0 +1,28 @@
+{% extends "lingo/invoicing/print_document_base.html" %}
+{% load i18n %}
+
+{% block title %}{{ invoice.label }} — {{ block.super }}{% endblock %}
+{% block document-label %}{{ invoice.label }}{% endblock %}
+
+{% block informations %}
+  <dt>{% trans "Invoice number:" %}</dt>
+  <dd>{{ invoice.formatted_number }}</dd>
+  {% if invoice.previous_invoice %}
+    <dt>{% trans "Initial invoice number:" %}</dt>
+    <dd>{{ invoice.previous_invoice.formatted_number }}</dd>
+  {% endif %}
+  <dt>{% trans "Date:" %}</dt>
+  <dd>{{ invoice.date_invoicing|default:invoice.created_at|date }}</dd>
+{% endblock %}
+
+{% block content %}
+  {% include "lingo/invoicing/invoice_fragment.html" %}
+
+  {% if regie.invoice_custom_text %}
+    <div id="regie-custom-text">
+      {{ regie.invoice_custom_text|safe }}
+    </div>
+  {% endif %}
+
+  {% include "lingo/invoicing/invoice_details_fragment.html" %}
+{% endblock %}

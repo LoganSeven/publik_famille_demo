@@ -1,0 +1,244 @@
+{% load static i18n %}<!DOCTYPE html><html {% if lang %}lang="{{ lang }}"{% endif %}>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{% block title %}{{ object.formatted_number }}{% endblock %}</title>
+    {% if author %}<meta name="author" content="{{ author }}">{% endif %}
+    {% if object.created_at %}<meta name="dcterms.created" content="{{ object.created_at|date:"c" }}">{% endif %}
+    {% block css %}
+      <style>
+        html {
+          padding: 0;
+          margin: 0;
+          color: #14213d;
+          font-family: "DejaVu Sans", sans-serif;
+          font-size: 9pt;
+          line-height: 1.2;
+        }
+        body {
+          margin: 0;
+        }
+        @media screen {
+          body {
+            margin: auto;
+            width: 21cm;
+            position: relative;
+          }
+        }
+        h1 {
+          color: {{ regie.main_colour }};
+          margin: 0.4em 0;
+          font-size: 12pt;
+        }
+        h2 {
+          margin: 0.4em 0;
+          font-size: 10pt;
+        }
+        header {
+        /* top of page, addresses, can be folded */
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+        }
+        #logo {
+          max-height: 4cm;
+          max-width: 4cm;
+        }
+        main {
+        /* page content, after the fold */
+          padding-top: 9cm;
+        }
+        header aside {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 30%;
+        }
+        header > div {
+          margin-left: 30%;
+        }
+        address {
+          font-style: normal;
+        }
+        address#to {
+          position: absolute;
+          box-sizing: border-box;
+          padding: 0.5cm;
+          top: 3cm;  /* in addition to page margin (2cm) */
+          left: 8cm;
+          width: 10cm;
+          height: 5cm;
+          background: #fafafa;
+        }
+        #extra-info {
+        }
+
+        div.address-to-container {
+          margin-top: 1cm;
+        }
+        div.address-label {
+          clear: left;
+          float: left;
+          width: 5cm;
+        }
+        div.address-value {
+          float: left;
+          font-weight: bold;
+        }
+
+        dl#informations {
+          margin-left: 30%;  /* same as header/aside width */
+          margin-bottom: 1cm;
+        }
+        p#informations {
+          margin-bottom: 1cm;
+        }
+        dt, dd {
+          display: inline;
+          margin: 0;
+        }
+        dt {
+          color: #a9a;
+        }
+        dt::before {
+          content: '';
+          display: block;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        th {
+          vertical-align: bottom;
+          color: #a9a;
+          font-size: 9pt;
+          font-weight: 400;
+          padding-bottom: .25cm;
+          text-transform: uppercase;
+        }
+        td {
+          vertical-align: top;
+          padding: 0.1cm 0;
+        }
+        td.total-amount {
+          font-weight: bold;
+        }
+        td.user-name {
+          padding: 0.4em 0;
+          font-size: 9pt;
+          font-weight: 600;
+        }
+        td.details {
+          vertical-align: top;
+        }
+        th {
+          text-align: left;
+        }
+        th.amount, td.amount, th.quantity, td.quantity {
+          width: 2cm;
+          padding-left: 0.5cm;
+          padding-right: 0.2cm;
+          text-align: right;
+        }
+        tr.line-user-separator:not(:first-child) {
+          border-bottom: .2mm solid black;
+        }
+        tr + tr.line-user-infos td.user-name {
+          padding-top: 0.5cm;
+        }
+        tr.line-user-subtotal td.subtotal {
+          text-align: right;
+          font-weight: bold;
+        }
+        tfoot {
+          border-top: 0.5cm solid white;
+          display: table-row-group;
+        }
+        tfoot tr {
+          background: #eee;
+        }
+        tfoot tr.grand-total {
+          font-weight: bold;
+        }
+        tfoot td.label {
+          text-align: right;
+        }
+        p.invoice-paid i {
+          font-size: 8pt;
+        }
+        div.break {
+          break-before: page;
+        }
+        #regie-custom-text {
+          margin: auto;
+          margin-top: 2cm;
+          max-width: 55em;
+        }
+        #regie-signature {
+          margin-top: 2cm;
+          float: right;
+          width: 8cm;
+        }
+        .page_break {
+          display: block;
+          page-break-before: always;
+        }
+        @page {
+          margin: 1cm;
+          @bottom-right{
+            content: "{% trans "Page" %} " counter(page) "/" counter(pages);
+          }
+        }
+      </style>
+    {% endblock %}
+  </head>
+  <body>
+    {% block header %}
+      <header>
+        <aside>
+          {% if appearance_settings.logo %}
+            <img id="logo" src="data:{{appearance_settings.logo.content_type}};base64,{{ appearance_settings.logo_base64_encoded }}">
+          {% endif %}
+          {% if appearance_settings.address %}
+            <address id="from">
+              {{ appearance_settings.address|safe }}
+            </address>
+          {% endif %}
+          {% if appearance_settings.extra_info %}
+            <div id="extra-info">
+              {{ appearance_settings.extra_info|safe }}
+            </div>
+          {% endif %}
+          {% if invoice.pool.campaign.invoice_custom_text %}
+            <div id="extra-info">
+              {{ invoice.pool.campaign.invoice_custom_text|safe }}
+            </div>
+          {% endif %}
+        </aside>
+        <div>
+          <h1 id="document-label">{% block document-label %}{% endblock %}</h1>
+          {% block regie-label %}<h2 id="regie-label">{{ regie.label }}</h2>{% endblock %}
+          {% block address-to %}
+            <address id="to">
+              {% block address_to %}
+                {{ object.payer_first_name}} {{ object.payer_last_name}}
+                <br />
+                {{ object.payer_address|linebreaksbr }}
+              {% endblock %}
+            </address>
+          {% endblock %}
+        </div>
+      </header>
+    {% endblock %}
+    <main>
+      {% block informations-container %}
+        <dl id="informations">
+          {% block informations %}
+          {% endblock %}
+        </dl>
+      {% endblock %}
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>

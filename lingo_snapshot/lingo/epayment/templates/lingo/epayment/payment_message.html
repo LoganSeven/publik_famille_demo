@@ -1,0 +1,24 @@
+{% extends "lingo/interstitial_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Payment" %}{% endblock %}
+
+{% block content %}
+  <div id="processing-payment" aria-live="polite">
+    <h1>{% trans "Payment" %}</h1>
+    <p>{{ error }}</p>
+    {% if next_url %}
+      <p id="continue">
+        <a href="{{ next_url }}">{% trans "Continue" %}</a>
+      </p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {% if portal_url %}
+    <footer>
+      <p><a href="{{ portal_url }}">{% trans "Back to portal" %}</a></p>
+    </footer>
+  {% endif %}
+{% endblock %}

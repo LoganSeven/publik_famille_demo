@@ -1,0 +1,25 @@
+{% extends "lingo/invoicing/manager_invoice_list.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-invoice-edit-dates' regie.pk object.pk %}">{% trans "Edit dates" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Edit dates" %} - {{ object.formatted_number }}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button>{% trans "Submit" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-invoice-list' regie.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

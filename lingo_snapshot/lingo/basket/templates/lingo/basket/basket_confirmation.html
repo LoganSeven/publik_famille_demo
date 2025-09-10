@@ -1,0 +1,62 @@
+{% extends "lingo/interstitial_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Basket" %}{% endblock %}
+
+{% block content %}
+  <div id="processing-payment" aria-live="polite">
+    <h1>{% trans "Please wait" %}</h1>
+    <div class="loader"></div>
+    <p>
+      {% trans "Your basket is being processed." %}
+    </p>
+  </div>
+  <template id="status-invoice">
+    <h1>{% trans "Invoice created" %}</h1>
+    <p>
+      {% trans "An invoice with a zero amount has been created." %}
+    </p>
+    <p id="continue">
+      <a href="{% url 'lingo-basket-detail' %}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="status-invoice-paid">
+    <h1>{% trans "Invoice created" %}</h1>
+    <p>
+      {% trans "An invoice has been created. This invoice has been paid with credits." %}
+    </p>
+    <p id="continue">
+      <a href="{% url 'lingo-basket-detail' %}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="status-credit">
+    <h1>{% trans "Credit created" %}</h1>
+    <p>
+      {% trans "A credit has been created." %}
+    </p>
+    <p id="continue">
+      <a href="{% url 'lingo-basket-detail' %}">{% trans "Continue" %}</a>
+    </p>
+  </template>
+  <template id="title"> | {% firstof global_title site_title "Compte Citoyen" %}</template>
+
+  <script>
+    (function() {
+      function update_page(tmpl_id) {
+        const tmpl = document.getElementById(tmpl_id)
+        document.getElementById('processing-payment').innerHTML = tmpl.innerHTML
+        document.title = document.getElementsByTagName('h1')[0].textContent + document.getElementById('title').innerHTML
+      }
+
+      var timeout_id = setTimeout( () => {
+        {% if invoice %}
+          update_page('status-invoice');
+        {% elif invoice_paid %}
+          update_page('status-invoice-paid');
+        {% elif credit %}
+          update_page('status-credit');
+        {% endif %}
+      }, 3000)
+    })()
+  </script>
+{% endblock %}

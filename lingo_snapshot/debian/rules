@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export PYBUILD_NAME=lingo
+export PYBUILD_DISABLE=test
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_install:
+	dh_install
+	mv $(CURDIR)/debian/python3-lingo/usr/bin/manage.py $(CURDIR)/debian/lingo/usr/lib/lingo/manage.py

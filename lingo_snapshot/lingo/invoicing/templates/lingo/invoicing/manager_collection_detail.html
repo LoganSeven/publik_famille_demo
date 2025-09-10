@@ -1,0 +1,62 @@
+{% extends "lingo/invoicing/manager_collection_list.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-collection-detail' regie.pk object.pk %}">{{ object }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{{ object }}</h2>
+  {% if object.draft and user_can_invoice %}
+    <span class="actions">
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        <li><a href="{% url 'lingo-manager-invoicing-regie-collection-delete' regie_pk=regie.pk pk=object.pk %}" rel="popup">{% trans "Delete" %}</a></li>
+      </ul>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <ul>
+        <li>{% trans "Total amount:" %} {% blocktrans with amount=object.get_invoices_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+        <li>{% trans "Number of invoices:" %} {{ invoices|length }}</li>
+        <li>{% trans "Minimal threshold:" %} {% blocktrans with amount=object.minimum_threshold|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</li>
+        <li>{% trans "Pay invoices:" %} {{ object.pay_invoices|yesno }}</li>
+      </ul>
+    </div>
+  </div>
+
+  {% url 'lingo-manager-invoicing-regie-invoice-list' regie_pk=regie.pk as regie_invoice_list_url %}
+  <table class="main pk-compact-table invoicing-element-list">
+    {% for invoice in invoices %}
+      <tr>
+        <td colspan="4">
+          {% if invoice.date_invoicing%}
+            {% blocktrans with invoice_number=invoice.formatted_number number=invoice.formatted_number idate=invoice.date_invoicing|date:'d/m/Y' cdate=invoice.created_at|date:'d/m/Y' ddate=invoice.date_due|date:"d/m/Y" payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.collect_paid_amount|default:0|add:invoice.remaining_amount|floatformat:"2" total_amount=invoice.total_paid|default:0|add:invoice.total_remaining|floatformat:"2" %}Invoice <a href="{{ regie_invoice_list_url }}?number={{ invoice_number }}">{{ invoice_number }}</a> dated {{ idate }} (created on {{ cdate }}) addressed to <a href="{{ regie_invoice_list_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a> (Due date {{ ddate }}), collected amount {{ amount }}€, total for the payer {{ total_amount }}€{% endblocktrans %}
+          {% else %}
+            {% blocktrans with invoice_number=invoice.formatted_number number=invoice.formatted_number cdate=invoice.created_at|date:'d/m/Y' ddate=invoice.date_due|date:"d/m/Y" payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.collect_paid_amount|default:0|add:invoice.remaining_amount|floatformat:"2" total_amount=invoice.total_paid|default:0|add:invoice.total_remaining|floatformat:"2" %}Invoice <a href="{{ regie_invoice_list_url }}?number={{ invoice_number }}">{{ invoice_number }}</a> dated {{ cdate }} addressed to <a href="{{ regie_invoice_list_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a> (Due date {{ ddate }}), collected amount {{ amount }}€, total for the payer {{ total_amount }}€{% endblocktrans %}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% if user_can_invoice %}
+    {% if object.draft %}
+      <aside id="sidebar">
+
+        <h3>{% trans "Actions" %}</h3>
+        <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-collection-edit' regie.pk object.pk %}">{% trans "Edit" %}</a>
+        <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-collection-validate' regie.pk object.pk %}" rel="popup">{% trans "Validate" %}</a>
+
+      </aside>
+    {% endif %}
+  {% endif %}
+{% endblock %}

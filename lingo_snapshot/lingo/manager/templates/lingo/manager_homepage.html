@@ -1,0 +1,31 @@
+{% extends "lingo/manager_base.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <h2>{% trans 'Payments' context 'lingo title' %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div id="lingo-manager-main">
+    <div class="fx-grid--t3">
+      {% if pricing_access %}
+        <a class="button button-paragraph" href="{% url 'lingo-manager-pricing-list' %}">
+          {% trans "Pricing - Pricings"%}
+          <p>{% trans "Pricings attached to events agendas." %}</p>
+        </a>
+      {% endif %}
+      {% if regie_access %}
+        <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-list' %}">
+          {% trans "Invoicing - Regies" %}
+          <p>{% trans "Regies and their campaigns, invoices, payments." %}</p>
+        </a>
+      {% endif %}
+      {% if backend_access %}
+        <a class="button button-paragraph" href="{% url 'lingo-manager-epayment-transaction-list' %}">
+          {% trans "E-Payment" %}
+          <p>{% trans "Online payment platforms." %}</p>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

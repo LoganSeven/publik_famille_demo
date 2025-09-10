@@ -1,0 +1,184 @@
+{% extends "lingo/invoicing/manager_campaign_list.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-campaign-detail' regie.pk object.pk %}">{{ object.label }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{{ object }}</h2>
+  <span class="actions">
+    {% if user_can_invoice and object.finalized %}
+      {% if object.is_last %}
+        <a href="{% url 'lingo-manager-invoicing-corrective-campaign-add' regie_pk=regie.pk pk=object.pk %}">{% trans "New corrective campaign" %}</a>
+      {% endif %}
+      {% if object.primary_campaign is None and not has_running_corrective %}
+        <a href="{% url 'lingo-manager-invoicing-campaign-event-amounts-ods' regie_pk=regie.pk pk=object.pk %}" rel="popup">{% trans "Export invoiced amounts per event" %}</a>
+      {% endif %}
+    {% endif %}
+    {% if user_can_invoice and not object.finalized and not has_running_pool and not has_real_pool %}
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        <li><a href="{% url 'lingo-manager-invoicing-campaign-delete' regie_pk=regie.pk pk=object.pk %}" rel="popup">{% trans "Delete" %}</a></li>
+      </ul>
+    {% endif %}
+  </span>
+{% endblock %}
+
+{% block content %}
+  {% with logs=object.get_agenda_unlock_logs %}
+    {% if logs %}
+      <div class="pk-attention">
+        <p>{% trans "Some agendas have been unlocked since the last run:" %}</p>
+        <ul>
+          {% for log in logs %}
+            <li>
+              {{ log.agenda }}
+              {% if user_can_invoice and primary_campaign.finalized %}
+                - <a rel="popup" href="{% url 'lingo-manager-invoicing-corrective-campaign-agenda-add' regie_pk=regie.pk pk=log.campaign.pk agenda_pk=log.agenda.pk %}">
+                  {% if has_running_corrective %}
+                    {% trans 'Add this agenda to current corrective campaign' %}
+                  {% else %}
+                    {% trans 'New corrective campaign with this agenda' %}
+                  {% endif %}
+                </a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        {% if user_can_invoice and primary_campaign.finalized %}
+          <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-corrective-campaign-all-agendas-add' regie_pk=regie.pk pk=logs.0.campaign.pk %}">
+            {% if has_running_corrective %}
+              {% trans 'Add all agendas to current corrective campaign' %}
+            {% else %}
+              {% trans 'New corrective campaign with all agendas' %}
+            {% endif %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  <div class="section">
+    <div class="pk-tabs">
+      <div class="pk-tabs--tab-list" role="tablist">
+        <button aria-controls="panel-pools" aria-selected="true" id="tab-pools" role="tab" tabindex="0">{% trans "Pools" %}</button>
+        <button aria-controls="panel-settings" aria-selected="false" id="tab-settings" role="tab" tabindex="-1">{% trans "Settings" %}</button>
+        <button aria-controls="panel-dates" aria-selected="false" id="tab-dates" role="tab" tabindex="-1">{% trans "Dates" %}</button>
+        <button aria-controls="panel-invoices" aria-selected="false" id="tab-invoices" role="tab" tabindex="-1">{% trans "Invoices" %}</button>
+      </div>
+      <div class="pk-tabs--container">
+
+        <div aria-labelledby="tab-pools" id="panel-pools" role="tabpanel" tabindex="0">
+          <ul class="objects-list single-links">
+            {% for pool in pools %}
+              <li>
+                <a href="{% url 'lingo-manager-invoicing-pool-detail' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">
+                  {% if pool.draft_success_count or pool.success_count %}<span class="meta meta-success">{{ pool.draft_success_count|default:pool.success_count }}</span>{% endif %}
+                  {% if pool.draft_warning_count or pool.warning_count %}<span class="meta meta-warning">{{ pool.draft_warning_count|default:pool.warning_count }}</span>{% endif %}
+                  {% if pool.draft_error_count or pool.error_count %}<span class="meta meta-error">{{ pool.draft_error_count|default:pool.error_count }}</span>{% endif %}
+                  {{ pool.created_at|date:'DATETIME_FORMAT' }}
+                  <span class="extra-info">
+                    - {{ pool.get_status_display }}
+                    {% if pool.status == 'failed' %}[{{ pool.exception|truncatechars:50 }}]{% endif %}
+                    {% if pool.completed_at %}({% blocktrans with edate=pool.completed_at|date:"DATETIME_FORMAT" %}Ended at {{ edate }}{% endblocktrans %}){% endif %}
+                  </span>
+                  {% if pool.draft %}
+                    <span class="badge">{% trans "draft" %}</span>
+                  {% else %}
+                    <span class="badge badge-success">{% trans "final" %}</span>
+                  {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+          {% if user_can_invoice %}
+            {% if not object.finalized and not has_running_pool %}
+              {% if not has_real_pool %}
+                <div class="panel--buttons">
+                  <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-pool-add' regie_pk=regie.pk pk=object.pk %}">{% trans 'Start a pool' %}</a>
+                  {% if pools %}
+                    <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-campaign-unlock-check' regie_pk=regie.pk pk=object.pk %}">{% trans 'Unlock check' %}</a>
+                  {% endif %}
+                </div>
+              {% elif has_real_completed_pool %}
+                <div class="panel--buttons">
+                  <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-campaign-finalize' regie_pk=regie.pk pk=object.pk %}">{% trans 'Validate campaign' %}</a>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        </div>
+
+        <div aria-labelledby="tab-settings" hidden="" id="panel-settings" role="tabpanel" tabindex="0">
+          <h3>{% trans "Settings" %}</h3>
+          <ul>
+            <li>{% trans "Label:" %} {{ object.label }}</li>
+            <li>{% trans "Start date:" %} {{ object.date_start|date:'d/m/Y' }}</li>
+            <li>{% trans "End date:" %} {{ object.date_end|date:'d/m/Y' }}</li>
+            {% if has_injected_lines %}
+              <li>{% trans "Integrate injected lines:" %} {{ object.get_injected_lines_display }}</li>
+            {% endif %}
+            <li>{% trans "Adjustment campaign:" %} {{ object.adjustment_campaign|yesno }}</li>
+          </ul>
+          <h3>{% trans "Agendas" %}</h3>
+          {% regroup object.prefetched_agendas by category_label as agenda_groups %}
+          {% for group in agenda_groups %}
+            <h4>{% if group.grouper %}{{ group.grouper }}{% else %}{% trans "Misc" %}{% endif %}</h4>
+            <ul class="objects-list single-links">
+              {% for agenda in group.list %}
+                <li>
+                  {% if user.is_staff %}
+                    <a href="{% url 'lingo-manager-agenda-detail' pk=agenda.pk %}">
+                      {{ agenda.label }}
+                    </a>
+                  {% else %}
+                    {{ agenda.label }}
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+          {% if user_can_invoice and not object.primary_campaign and not object.finalized and not has_running_pool and not has_real_pool %}
+            <div class="panel--buttons">
+              <a class="pk-button" href="{% url 'lingo-manager-invoicing-campaign-edit' regie_pk=regie.pk pk=object.pk %}">{% trans "Edit" %}</a>
+            </div>
+          {% endif %}
+        </div>
+
+        <div aria-labelledby="tab-dates" hidden="" id="panel-dates" role="tabpanel" tabindex="0">
+          <ul>
+            <li>{% trans "Publication date:" %} {{ object.date_publication|date:'d/m/Y' }}</li>
+            <li>{% trans "Displayed payment deadline:" %} {{ object.date_payment_deadline_displayed|date:'d/m/Y' }}</li>
+            <li>{% trans "Effective payment deadline:" %} {{ object.date_payment_deadline|date:'d/m/Y' }}</li>
+            <li>{% trans "Due date:" %} {{ object.date_due|date:'d/m/Y' }}</li>
+            <li>{% trans "Debit date:" %} {{ object.date_debit|date:'d/m/Y' }}</li>
+          </ul>
+          {% if user_can_invoice and not has_running_pool %}
+            <div class="panel--buttons">
+              <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-campaign-dates-edit' regie_pk=regie.pk pk=object.pk %}">{% trans 'Edit' %}</a>
+            </div>
+          {% endif %}
+        </div>
+
+        <div aria-labelledby="tab-invoices" hidden="" id="panel-invoices" role="tabpanel" tabindex="0">
+          <dl>
+            <dt><b>{% trans "Invoice model:" %}</b></dt>
+            <dd><div>{{ object.get_invoice_model_display }}</div></dd>
+            <dt><b>{% trans "Custom text in invoice:" %}</b></dt>
+            <dd><div>{{ object.invoice_custom_text|default:"-"|safe }}</div></dd>
+          </dl>
+          {% if user_can_invoice and not object.primary_campaign and not object.finalized and not has_running_pool %}
+            <div class="panel--buttons">
+              <a class="pk-button" href="{% url 'lingo-manager-invoicing-campaign-invoices-edit' regie_pk=regie.pk pk=object.pk %}">{% trans "Edit" %}</a>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

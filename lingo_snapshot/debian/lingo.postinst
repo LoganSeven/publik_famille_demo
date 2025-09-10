@@ -1,0 +1,50 @@
+#! /bin/sh
+
+set -e
+
+NAME="lingo"
+USER=$NAME
+GROUP=$NAME
+CONFIG_DIR="/etc/$NAME"
+MANAGE_SCRIPT="/usr/bin/$NAME-manage"
+
+case "$1" in
+  configure)
+
+    # make sure the administrative user exists
+    if ! getent passwd $USER >/dev/null; then
+      adduser --disabled-password  --quiet --system \
+        --no-create-home --home /var/lib/$NAME \
+        --gecos "$NAME user" --group $USER
+    fi
+    # ensure dirs ownership
+    chown $USER:$GROUP /var/log/$NAME
+    chown $USER:$GROUP /var/lib/$NAME/collectstatic
+    chown $USER:$GROUP /var/lib/$NAME/tenants
+    chown $USER:$GROUP /var/lib/$NAME/spooler
+    # create a secret file
+    SECRET_FILE=$CONFIG_DIR/secret
+    if [ ! -f $SECRET_FILE ]; then
+        echo -n "Generating Django secret..." >&2
+        cat /dev/urandom | tr -dc [:alnum:]-_\!\%\^:\; | head -c70 > $SECRET_FILE
+        chown root:$GROUP $SECRET_FILE
+        chmod 0440 $SECRET_FILE
+    fi
+  ;;
+
+  triggered)
+      su -s /bin/sh -c "$MANAGE_SCRIPT hobo_deploy --redeploy" $USER
+  ;;
+
+  abort-upgrade|abort-remove|abort-deconfigure)
+  ;;
+
+  *)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 1
+  ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,13 @@
+{% load thumbnail %}
+{% if application %}
+  <h2>
+    {% thumbnail application.icon '64x64' format='PNG' as im %}
+      <img src="{{ im.url }}" alt="" class="application-logo" />
+    {% endthumbnail %}
+    {{ application }}
+  </h2>
+{% elif no_application %}
+  <h2>{{ title_no_application }}</h2>
+{% else %}
+  <h2>{{ title_object_list }}</h2>
+{% endif %}

@@ -1,0 +1,28 @@
+{% extends "lingo/invoicing/manager_pool_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-pool-promote' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">{% trans "Generate invoices" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Generate invoices" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      {% if cannot_promote %}
+        {% trans "Impossible to generate invoices: errors remain." %}
+      {% else %}
+        {% trans "Are you sure you want to generate invoices ?" %}
+      {% endif %}
+    </p>
+    <div class="buttons">
+      <button class="submit-button" {% if cannot_promote %}disabled="disabled"{% endif %}>{% trans "Generate invoices" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-pool-detail' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "lingo/invoicing/manager_campaign_detail.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-pool-detail' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">{% trans "Pool" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2 id="pool-title">
+    {% if pool.success_count %}<span class="meta meta-success">{{ pool.success_count }}</span>{% endif %}
+    {% if pool.warning_count %}<span class="meta meta-warning">{{ pool.warning_count }}</span>{% endif %}
+    {% if pool.error_count %}<span class="meta meta-error">{{ pool.error_count }}</span>{% endif %}
+    {{ pool.created_at|date:"DATETIME_FORMAT" }}
+  </h2>
+  <span class="actions">
+    <a href="{% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}">{% trans "Journal" %}</a>
+    {% if user_can_invoice and not object.finalized %}
+      {% if not has_running_pool %}
+        <a href="{% url 'lingo-manager-invoicing-pool-delete' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}" rel="popup">{% trans "Delete" %}</a>
+      {% endif %}
+      {% if pool.status == 'registered' or pool.status == 'running' %}
+        <a href="{% url 'lingo-manager-invoicing-pool-stop' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}" rel="popup">{% trans "Stop" %}</a>
+      {% endif %}
+      {% if not object.invalid and pool.draft and pool.status == 'completed' and pool.is_last %}
+        <a href="{% url 'lingo-manager-invoicing-pool-promote' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk %}" rel="popup">{% trans "Generate invoices" %}</a>
+      {% endif %}
+    {% endif %}
+    <span class="buttons-group">
+      <a class="{% if invoices %}active{% endif %}" href="?invoices">{% trans "Invoices" %}</a>
+      <a class="{% if credits %}active{% endif %}" href="?credits">{% trans "Credits" %}</a>
+    </span>
+  </span>
+{% endblock %}
+
+{% block content %}
+  {% if pool.status == 'failed' %}
+    <div class="pk-error">
+      <p>{% trans "Error while running pool." %}</p>
+      {% if pool.exception %}<pre>{{ pool.exception }}</pre>{% endif %}
+    </div>
+  {% endif %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        {% if invoices %}
+          <input type="hidden" name="invoices" />
+        {% else %}
+          <input type="hidden" name="credits" />
+        {% endif %}
+        <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+          <legend class="gadjo-foldable-widget">{% if invoices %}{% trans "Invoice Filtering" %}{% else %}{% trans "Credit Filtering" %}{% endif %}</legend>
+          <div class="gadjo-folding">
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  {% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk as journal_url %}
+  <div>
+    <table class="main pk-compact-table invoicing-element-list">
+      {% if invoices %}
+        {% include "lingo/invoicing/manager_pool_detail_invoices_fragment.html" %}
+      {% else %}
+        {% include "lingo/invoicing/manager_pool_detail_credits_fragment.html" %}
+      {% endif %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}

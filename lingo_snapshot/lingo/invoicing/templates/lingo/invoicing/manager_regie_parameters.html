@@ -1,0 +1,227 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load i18n gadjo %}
+
+{% block page-title-extra-label %}{% trans "Parameters" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-parameters' regie.pk %}">{% trans "Parameters" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans 'Regie' %} - {{ regie }}</h2>
+  {% if not has_related_objects and user_can_manage %}
+    <span class="actions">
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        <li><a href="{% url 'lingo-manager-invoicing-regie-delete' pk=regie.pk %}" rel="popup">{% trans "Delete" %}</a></li>
+      </ul>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div class="pk-tabs">
+      {% with carddef_name=regie.payer_carddef_name|default:'' %}
+        <div class="pk-tabs--tab-list" role="tablist">
+          <button aria-controls="panel-settings" aria-selected="true" id="tab-settings" role="tab" tabindex="0">{% trans "Settings" %}</button>
+          <button aria-controls="panel-permissions" aria-selected="false" id="tab-permissions" role="tab" tabindex="-1">{% trans "Permissions" %}</button>
+          <button aria-controls="panel-payer" aria-selected="false" id="tab-payer" role="tab" tabindex="-1">{% trans "Payer" %}</button>
+          {% if regie.with_campaigns and carddef_name %}
+            <button aria-controls="panel-payer-mapping" aria-selected="false" id="tab-payer-mapping" role="tab" tabindex="-1">{% trans "Payer mapping" %}</button>
+          {% endif %}
+          <button aria-controls="panel-counters" aria-selected="false" id="tab-counters" role="tab" tabindex="-1">{% trans "Counters" %}</button>
+          <button aria-controls="panel-usage" aria-selected="false" id="tab-usage" role="tab" tabindex="-1">{% trans "Used in agendas" %}</button>
+          <button aria-controls="panel-payment-types" aria-selected="false" id="tab-payment-types" role="tab" tabindex="-1">{% trans "Payment types" %}</button>
+          <button aria-controls="panel-publishing" aria-selected="false" id="tab-publishing" role="tab" tabindex="-1">{% trans "Publishing" %}</button>
+        </div>
+        <div class="pk-tabs--container">
+
+          <div aria-labelledby="tab-settings" id="panel-settings" role="tabpanel" tabindex="0">
+            {% if regie.description %}
+              <h3>{% trans "Description" %}</h3>
+              <p>{{ regie.description|linebreaksbr }}</p>
+            {% endif %}
+            <h3>{% trans "Parameters" %}</h3>
+            <ul>
+              <li>{% trans "Identifier:" %} {{ regie.slug }}</li>
+              <li>{% trans "Regie with invoicing campaigns:" %} {{ regie.with_campaigns|yesno }}</li>
+              <li>{% trans "Use a credit when created to pay old invoices:" %} {{ regie.assign_credits_on_creation|yesno }}</li>
+            </ul>
+          </div>
+
+          <div aria-labelledby="tab-permissions" hidden="" id="panel-permissions" role="tabpanel" tabindex="0">
+            <ul>
+              <li>{% trans "Edit role:" %} {{ regie.edit_role|default:'' }}</li>
+              <li>{% trans "View role:" %} {{ regie.view_role|default:'' }}</li>
+              <li>{% trans "Invoice role:" %} {{ regie.invoice_role|default:'' }}</li>
+              <li>{% trans "Control role:" %} {{ regie.control_role|default:'' }}</li>
+            </ul>
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-regie-permissions-edit' pk=object.pk %}">{% trans 'Define permissions' %}</a>
+              </div>
+            {% endif %}
+          </div>
+
+          <div aria-labelledby="tab-payer" hidden="" id="panel-payer" role="tabpanel" tabindex="0">
+            <ul>
+              {% if regie.with_campaigns %}
+                <li>{% trans "Card Model:" %} <code>{{ carddef_name }}</code></li>
+                <li>{% trans "Prefix for payer external id:" %} <pre>{{ regie.payer_external_id_prefix }}</pre></li>
+                <li>{% trans "Template for payer external id:" %} <pre>{{ regie.payer_external_id_template }}</pre></li>
+              {% endif %}
+              <li>{% trans "Template for payer external id from nameid:" %} <pre>{{ regie.payer_external_id_from_nameid_template }}</pre></li>
+            </ul>
+            <div class="panel--buttons">
+              {% if user_can_manage %}
+                <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-regie-payer-edit' pk=regie.pk %}">{% trans "Edit" %}</a>
+              {% endif %}
+              <a href="{% url 'lingo-manager-inspect' %}">{% trans "Inspect tool" %}</a>
+            </div>
+          </div>
+
+          {% if regie.with_campaigns and carddef_name %}
+            <div aria-labelledby="tab-payer-mapping" hidden="" id="panel-payer-mapping" role="tabpanel" tabindex="0">
+              <dl>
+                {% for label, value in regie.payer_user_fields %}
+                  <dt><b>{% blocktrans %}{{ label }}:{% endblocktrans %}</b></dt>
+                  <dd><pre>{{ value }}</pre></dd>
+                {% endfor %}
+              </dl>
+              {% if user_can_manage %}
+                <div class="panel--buttons">
+                  <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-regie-payer-mapping-edit' pk=regie.pk %}">{% trans "Edit mapping" %}</a>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <div aria-labelledby="tab-counters" hidden="" id="panel-counters" role="tabpanel" tabindex="0">
+            <dl>
+              <dt><b>{% trans "Counter name:" %}</b></dt>
+              <dd><code>{{ regie.counter_name }}</code></dd>
+              <dt><b>{% trans "Invoice number format:" %}</b></dt>
+              <dd><code>{{ regie.invoice_number_format }}</code></dd>
+              <dt><b>{% trans "Invoice collection docket number format:" %}</b></dt>
+              <dd><code>{{ regie.collection_number_format }}</code></dd>
+              <dt><b>{% trans "Payment number format:" %}</b></dt>
+              <dd><code>{{ regie.payment_number_format }}</code></dd>
+              <dt><b>{% trans "Payment docket number format:" %}</b></dt>
+              <dd><code>{{ regie.docket_number_format }}</code></dd>
+              <dt><b>{% trans "Credit number format:" %}</b></dt>
+              <dd><code>{{ regie.credit_number_format }}</code></dd>
+              <dt><b>{% trans "Refund number format:" %}</b></dt>
+              <dd><code>{{ regie.refund_number_format }}</code></dd>
+            </dl>
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-regie-counters-edit' pk=regie.pk %}">{% trans "Edit" %}</a>
+              </div>
+            {% endif %}
+          </div>
+
+          <div aria-labelledby="tab-usage" hidden="" id="panel-usage" role="tabpanel" tabindex="0">
+            {% if agendas %}
+              {% regroup agendas by category_label as agenda_groups %}
+              {% for group in agenda_groups %}
+                <h4>{% if group.grouper %}{{ group.grouper }}{% else %}{% trans "Misc" %}{% endif %}</h4>
+                <ul class="objects-list single-links">
+                  {% for agenda in group.list %}
+                    <li>
+                      {% if user.is_staff %}
+                        <a href="{% url 'lingo-manager-agenda-detail' pk=agenda.pk %}">
+                          {{ agenda.label }}
+                        </a>
+                      {% else %}
+                        {{ agenda.label }}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endfor %}
+            {% else %}
+              <div class="big-msg-info">
+                {% blocktrans trimmed %}
+                  This regie is not used yet.
+                {% endblocktrans %}
+              </div>
+            {% endif %}
+          </div>
+
+
+          <div aria-labelledby="tab-payment-types" hidden="" id="panel-payment-types" role="tabpanel" tabindex="0">
+            <ul class="objects-list single-links">
+              {% for payment_type in regie.paymenttype_set.all %}
+                <li>
+                  {% if user_can_manage %}
+                    <a rel="popup" href="{% url 'lingo-manager-invoicing-payment-type-edit' regie_pk=regie.pk pk=payment_type.pk %}">{{ payment_type }}{% if payment_type.disabled %}<span class="extra-info"> ({% trans "disabled" %})</span>{% endif %}</a>
+                    {% if not payment_type.used %}
+                      <a class="delete" rel="popup" href="{% url 'lingo-manager-invoicing-payment-type-delete' regie_pk=regie.pk pk=payment_type.pk %}">{% trans "delete"%}</a>
+                    {% endif %}
+                    </li>
+                  {% else %}
+                    <a>{{ payment_type }}{% if payment_type.disabled %}<span class="extra-info"> ({% trans "disabled" %})</span>{% endif %}</a>
+                  {% endif %}
+              {% endfor %}
+            </ul>
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a class="pk-button" rel="popup" href="{% url 'lingo-manager-invoicing-payment-type-add' regie_pk=regie.pk %}">{% trans "New payment type" %}</a>
+              </div>
+            {% endif %}
+          </div>
+
+          <div aria-labelledby="tab-publishing" hidden="" id="panel-publishing" role="tabpanel" tabindex="0">
+            <dl>
+              <dt><b>{% trans "Main colour in documents:" %}</b></dt>
+              <dd><div><span class="invoice-colour" style="background-color: {{ regie.main_colour }}"></span>{{ regie.main_colour }}</div></dd>
+              <dt><b>{% trans "Invoice model:" %}</b></dt>
+              <dd><div>{{ regie.get_invoice_model_display }}</div></dd>
+              <dt><b>{% trans "Custom text in invoice:" %}</b></dt>
+              <dd><div>{{ regie.invoice_custom_text|default:"-"|safe }}</div></dd>
+              <dt><b>{% trans "Payments certificate model:" %}</b></dt>
+              <dd><div>{% trans "Invoice information:" %} {{ regie.get_certificate_model_display|default:_('No') }}</div></dd>
+              <dt><b>{% trans "Controller name:" %}</b></dt>
+              <dd><div>{{ regie.controller_name|default:"-" }}</div></dd>
+              <dt><b>{% trans "City name:" %}</b></dt>
+              <dd><div>{{ regie.city_name|default:"-" }}</div></dd>
+              <dt><b>{% trans "Custom logo:" %}</b></dt>
+              <dd><div>{% if regie.custom_logo %}<a href="{{ regie.custom_logo.url }}">{{ regie.custom_logo }}</a>{% else %}-{% endif %}</div></dd>
+              <dt><b>{% trans "Custom address:" %}</b></dt>
+              <dd><div>{{ regie.custom_address|default:"-"|safe }}</div></dd>
+              <dt><b>{% trans "Custom invoice extra information:" %}</b></dt>
+              <dd><div>{{ regie.custom_invoice_extra_info|default:"-"|safe }}</div></dd>
+            </dl>
+            {% if user_can_manage %}
+              <div class="panel--buttons">
+                <a class="pk-button" href="{% url 'lingo-manager-invoicing-regie-publishing-edit' pk=regie.pk %}">{% trans "Edit" %}</a>
+              </div>
+            {% endif %}
+          </div>
+
+        </div>
+      {% endwith %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+
+    {% if user_can_manage %}
+      <h3>{% trans "Actions" %}</h3>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-edit' pk=regie.pk %}" rel="popup">{% trans "Edit" %}</a>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-export' pk=regie.pk %}">{% trans 'Export' %}</a>
+
+      <h3>{% trans "Navigation" %}</h3>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-inspect' pk=regie.pk %}">{% trans 'Inspect' %}</a>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-history' pk=regie.pk %}">{% trans 'History' %}</a>
+    {% endif %}
+
+    {% url 'lingo-manager-invoicing-regie-list' as object_list_url %}
+    {% include 'lingo/includes/application_detail_fragment.html' %}
+
+  </aside>
+{% endblock %}

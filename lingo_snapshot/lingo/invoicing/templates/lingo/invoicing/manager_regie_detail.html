@@ -1,0 +1,90 @@
+{% extends "lingo/invoicing/manager_regie_list.html" %}
+{% load i18n gadjo %}
+
+{% block page-title-extra-label %}{{ regie }} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-detail' regie.pk %}">{{ regie }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans 'Regie' %} - {{ regie }}</h2>
+  <span class="actions">
+    <a class="extra-actions-menu-opener"></a>
+    <ul class="extra-actions-menu">
+      <li><a href="{% url 'lingo-manager-invoicing-regie-parameters' pk=regie.pk %}">{% trans "Parameters" %}</a></li>
+    </ul>
+  </span>
+{% endblock %}
+
+{% block content %}
+  <div id="lingo-manager-regie-main">
+    <div class="fx-grid--t1">
+      {% if regie.with_campaigns %}
+        <div>
+          <h3>{% trans "Invoicing campaign" %}</h3>
+          <div class="fx-grid--t3">
+            <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-campaign-list' regie_pk=regie.pk %}">
+              {% trans 'Campaigns' %}
+              <p>{% trans "Create an invoicing or adjustment campaign." %}</p>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+      <div>
+        <h3>{% trans "Invoice" %}</h3>
+        <div class="fx-grid--t3">
+          <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-invoice-list' regie_pk=regie.pk %}">
+            {% trans 'Invoices' %}
+            <p>{% trans "Search for an invoice, its details and status, edit it." %}</p>
+          </a>
+          <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-credit-list' regie_pk=regie.pk %}">
+            {% trans 'Credits' %}
+            <p>{% trans "Search for a credit, its details and assignments." %}</p>
+          </a>
+          <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-collection-list' regie_pk=regie.pk %}">
+            {% trans 'Collections' %}
+            <p>{% trans "Create a collection for unpaid invoices or search for an existing collection." %}</p>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>{% trans "Payment" %}</h3>
+        <div class="fx-grid--t3">
+          <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-payment-list' regie_pk=regie.pk %}">
+            {% trans 'Payments' %}
+            <p>{% trans "Search for a payment, its details and status, edit it." %}</p>
+          </a>
+          <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-refund-list' regie_pk=regie.pk %}">
+            {% trans 'Refunds' %}
+            <p>{% trans "Search for a refund, its details and asignments, edit it." %}</p>
+          </a>
+          <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-docket-list' regie_pk=regie.pk %}">
+            {% trans 'Dockets' %}
+            <p>{% trans "Create a payment docket, edit it or search for an existing docket." %}</p>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>{% trans "Payer" %}</h3>
+        <div class="fx-grid--t3">
+          <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-regie-payer-list' regie_pk=regie.pk %}">
+            {% trans 'Payers' %}
+            <p>{% trans "Search for a payer and consult these transactions." %}</p>
+          </a>
+        </div>
+      </div>
+      {% if show_non_invoiced_lines %}
+        <div>
+          <div class="fx-grid--t3">
+            <a class="button button-paragraph" href="{% url 'lingo-manager-invoicing-non-invoiced-line-list' regie_pk=regie.pk %}">{% trans 'Non invoiced lines' %}</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

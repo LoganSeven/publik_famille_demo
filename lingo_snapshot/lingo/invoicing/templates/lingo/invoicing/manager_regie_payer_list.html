@@ -1,0 +1,47 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load gadjo i18n %}
+
+{% block page-title-extra-label %}{% trans "Payers" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-payer-list' regie_pk=regie.pk %}">{% trans "Payers" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Payers" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div>
+      <form class="invoicing-element-filters">
+        <fieldset class="gadjo-foldable gadjo-folded" id="filters">
+          <legend class="gadjo-foldable-widget">{% trans "Payer Filtering" %}</legend>
+          <div class="gadjo-folding">
+            {{ filterset.form|with_template }}
+            <button class="submit-button">{% trans "Filter" context 'form filtering action' %}</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div>
+    <table class="main pk-compact-table">
+      {% for value in object_list %}
+        <tr>
+          <td>
+            <a href="{% url 'lingo-manager-invoicing-regie-payer-transaction-list' regie_pk=regie.pk payer_external_id=value.payer_external_id %}">{{ value.payer_external_id }}</a>
+          </td>
+          <td>
+            {{ value.payer_name }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

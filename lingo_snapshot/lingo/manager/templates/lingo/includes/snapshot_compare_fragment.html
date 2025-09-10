@@ -1,0 +1,19 @@
+<p class="snapshot-description">{{ fromdesc }} ➔ {{ todesc }}</p>
+<div class="diff">
+  {% if mode == 'json' %}
+    {{ diff_serialization|safe }}
+  {% else %}
+    <div class="{{ tab_class_names }}">
+      <div class="pk-tabs--tab-list" role="tablist">
+        {% for tab in tabs %}{{ tab|safe }}{% endfor %}
+      </div>
+      <div class="pk-tabs--container">
+        {% for attrs, panel in panels %}
+          <div{% for k, v in attrs.items %} {{ k }}="{{ v }}"{% endfor %}>
+            {{ panel|safe }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,32 @@
+# locales
+recursive-include lingo/locale *.po *.mo
+
+# static
+recursive-include lingo/static *.scss *.css *.js *.ico *.gif *.png *.jpg *.svg
+recursive-include lingo/manager/static *.scss *.css *.js *.ico *.gif *.png *.jpg *.svg
+
+# templates
+recursive-include lingo/templates *.html *.txt
+recursive-include lingo/invoicing/templates *.html *.txt
+recursive-include lingo/manager/templates *.html *.txt
+recursive-include lingo/pricing/templates *.html *.txt
+recursive-include lingo/epayment/templates *.html *.txt
+recursive-include lingo/basket/templates *.html *.txt *.js
+recursive-include lingo/export_import/templates *.html *.txt *.js
+
+# sql (migrations)
+recursive-include lingo/invoicing/sql *.sql
+
+recursive-include tests *.py *.jpeg
+
+prune debian
+
+include COPYING README
+include MANIFEST.in
+include VERSION
+include .coveragerc
+include *.py
+include *.rc
+include *.yaml
+
+exclude .git-blame-ignore-revs

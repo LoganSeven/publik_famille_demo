@@ -1,0 +1,52 @@
+{% extends "lingo/invoicing/print_document_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Payment receipt" %} — {{ block.super }}{% endblock %}
+{% block document-label %}{% trans "Payment receipt" %}{% endblock %}
+
+{% block regie-label %}{% endblock %}
+
+{% block address-to %}
+  <div class="address-to-container">
+    <div class="address-label">{% trans "Invoiced account:" %}</div>
+    <div class="address-value">{{ payment.payer_name }} ({{ payment.payer_external_raw_id }})</div>
+    <div class="address-label">{% trans "Invoicing address:" %}</div>
+    <div class="address-value">{{ payment.payer_address|linebreaksbr }}</div>
+  </div>
+{% endblock %}
+
+{% block informations-container %}
+  <p id="informations">
+    {% blocktrans with amount=payment.amount|floatformat:"2" asvar amount %}{{ amount }}€{% endblocktrans %}
+    {% blocktrans with payment_type=payment.payment_type.label|upper payment_number=payment.formatted_number payer_id=payment.payer_external_raw_id payer=payment.payer_name %}Hereby certifies that I have received a payment of type <b>{{ payment_type }}</b> in the amount of <b>{{ amount }} (number {{ payment_number }})</b>, for account <b>{{ payer }}</b> ({{ payer_id }}):{% endblocktrans %}
+    <p>
+{% endblock %}
+
+{% block content %}
+  <table id="lines">
+    <thead>
+      <tr>
+        <th class="invoice">{% trans "Invoice number" %}</th>
+        <th class="object">{% trans "Invoice object" %}</th>
+        <th class="amount">{% trans "Amount charged" %}</th>
+        <th class="amount">{% trans "Amount assigned" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice_payment in invoice_payments %}
+        <tr>
+          <td class="invoice">{{ invoice_payment.invoice.formatted_number }}</td>
+          <td class="object">{{ invoice_payment.invoice.label }}</td>
+          <td class="amount">{% blocktrans with amount=invoice_payment.invoice.total_amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+          <td class="amount">{% blocktrans with amount=invoice_payment.amount|floatformat:"2" %}{{ amount }}€{% endblocktrans %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p id="regie-signature">
+    {{ regie.controller_name }}
+    <br />
+    {% if regie.city_name %}{{ regie.city_name }}, {% endif %}
+    {% blocktrans with event_date=payment.date_payment|default:payment.created_at|date:'d/m/Y' %}on {{ event_date }}{% endblocktrans %}
+  </p>
+{% endblock %}

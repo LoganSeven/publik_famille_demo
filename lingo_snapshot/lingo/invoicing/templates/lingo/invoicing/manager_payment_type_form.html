@@ -1,0 +1,33 @@
+{% extends "lingo/invoicing/manager_regie_parameters.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if form.instance.pk %}
+    <a href="{% url 'lingo-manager-invoicing-payment-type-edit' regie_pk=regie.pk pk=object.pk %}">{% trans "Edit" %}</a>
+  {% else %}
+    <a href="{% url 'lingo-manager-invoicing-payment-type-add' regie_pk=regie.pk %}">{% trans "New payment type" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block appbar %}
+  {% if object.pk %}
+    <h2>{% trans "Edit payment type" %}</h2>
+  {% else %}
+    <h2>{% trans "New payment type" %}</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-detail' regie.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

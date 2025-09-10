@@ -1,0 +1,25 @@
+{% load i18n %}
+{% for invoice in object_list %}
+  <tr class="invoice untoggled" data-invoicing-element-id="{{ invoice.pk }}" data-invoicing-element-lines-url="{% url 'lingo-manager-invoicing-invoice-line-list' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk invoice_pk=invoice.pk %}">
+    <td colspan="6">
+      {% if pool.draft %}
+        {% blocktrans with invoice_number=invoice.formatted_number number=invoice.pk cdate=invoice.created_at|date:'d/m/Y' payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.total_amount %}Invoice <a href="{{ journal_url }}?invoice_id={{ number }}">{{ invoice_number }}</a> dated {{ cdate }} addressed to <a href="{{ journal_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+      {% else %}
+        {% if invoice.cancelled_at %}
+          <span class="meta meta-error">{% trans "Cancelled" context "invoice" %}</span>
+        {% elif invoice.collection %}
+          <span class="meta meta-success">{% if invoice.collection.draft %}{% trans "Under collection" %}{% else %}{% trans "Collected" context "invoice" %}{% endif %}</span>
+        {% elif invoice.remaining_amount > 0 and invoice.paid_amount > 0 %}
+          <span class="meta meta-warning">{% trans "Partially paid" %}</span>
+        {% elif invoice.remaining_amount == 0 %}
+          <span class="meta meta-success">{% trans "Paid" %}</span>
+        {% endif %}
+        {% blocktrans with invoice_number=invoice.formatted_number number=invoice.formatted_number cdate=invoice.created_at|date:'d/m/Y' payer_id=invoice.payer_external_id payer_name=invoice.payer_name amount=invoice.total_amount %}Invoice <a href="{{ journal_url }}?invoice_number={{ number }}">{{ invoice_number }}</a> dated {{ cdate }} addressed to <a href="{{ journal_url }}?payer_external_id={{ payer_id }}">{{ payer_name }}</a>, amount {{ amount }}€{% endblocktrans %}
+      {% endif %}
+      - <a href="{% url 'lingo-manager-invoicing-invoice-pdf' regie_pk=regie.pk pk=pool.campaign_id pool_pk=pool.pk invoice_pk=invoice.pk %}">{% if not invoice.collection and not invoice.cancelled_at %}{% trans "download (initial)" %}{% else %}{% trans "download" %}{% endif %}</a>
+    </td>
+    <td class="with-togglable">
+      <span class="togglable"></span>
+    </td>
+  </tr>
+{% endfor %}

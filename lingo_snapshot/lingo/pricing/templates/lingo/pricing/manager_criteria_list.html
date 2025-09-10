@@ -1,0 +1,82 @@
+{% extends "lingo/pricing/manager_pricing_list.html" %}
+{% load i18n %}
+
+{% block page-title-extra-label %}{% trans "Criterias" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'lingo-manager-homepage' %}">{% trans "Payments" context 'lingo title' %}</a>
+  <a href="{% url 'lingo-manager-pricing-list' %}">{% trans "Pricings" %}</a>
+  {% url 'lingo-manager-pricing-criteria-list' as object_list_url %}
+  <a href="{{ object_list_url }}">{% trans "Criterias" %}</a>
+  {% include 'lingo/includes/application_breadcrumb_fragment.html' with title_no_application=_('Criterias outside applications') %}
+{% endblock %}
+
+{% block appbar %}
+  {% include 'lingo/includes/application_appbar_fragment.html' with title_no_application=_('Criterias outside applications') title_object_list=_('Criterias') %}
+{% endblock %}
+
+
+{% block content %}
+  {% if not application and not no_application %}
+    <div class="pk-information">
+      <p>{% trans "Define here pricing criterias used in pricings." %}</p>
+    </div>
+  {% endif %}
+  {% if object_list %}
+    {% if not application and not no_application %}
+      <p class="hint">
+        {% blocktrans trimmed %}
+          Use drag and drop with the ⣿ handles to reorder criterias inside a category.
+        {% endblocktrans %}
+      </p>
+    {% endif %}
+  {% endif %}
+  {% for object in object_list %}
+    <div class="section criteria-category">
+      <h3>
+        <a rel="popup" href="{% url 'lingo-manager-pricing-criteria-category-edit' object.pk %}">
+          {% include 'lingo/includes/application_icon_fragment.html' %}
+          {{ object }} [{{ object.slug }}]
+        </a>
+        <span>
+          <a class="button" href="{% url 'lingo-manager-pricing-criteria-category-export' object.pk %}">{% trans "Export"%}</a>
+          <a class="button" rel="popup" href="{% url 'lingo-manager-pricing-criteria-category-delete' object.pk %}">{% trans "Delete"%}</a>
+        </span>
+      </h3>
+      <div>
+        <ul class="objects-list single-links sortable" data-order-url="{% url 'lingo-manager-pricing-criteria-order' object.pk %}">
+          {% for criteria in object.criterias.all %}
+            <li{% if not criteria.default %} class="sortable-item" data-item-id="{{ criteria.pk }}"{% endif %}>
+              {% if not criteria.default and not application and not no_application %}<span class="handle">⣿</span>{% endif %}
+              <a rel="popup" href="{% url 'lingo-manager-pricing-criteria-edit' object.pk criteria.pk %}">{{ criteria }}{% if criteria.default %} <span class="extra-info">- {% trans "default" %}</span>{% endif %}</a>
+              <a class="delete" rel="popup" href="{% url 'lingo-manager-pricing-criteria-delete' object.pk criteria.pk %}">{% trans "delete"%}</a>
+            </li>
+          {% endfor %}
+          <li><a class="add" rel="popup" href="{% url 'lingo-manager-pricing-criteria-add' object.pk %}">{% trans "Add a criteria" %}</a></li>
+        </ul>
+      </div>
+    </div>
+  {% empty %}
+    {% if not no_application %}
+      <div class="big-msg-info">
+        {% blocktrans trimmed %}
+          This site doesn't have any pricing category yet. Click on the "New category" button in the top
+          right of the page to add a first one.
+        {% endblocktrans %}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+  {% if not application and not no_application %}
+    <aside id="sidebar">
+
+      <h3>{% trans "Actions" %}</h3>
+      <a class="button button-paragraph" rel="popup" href="{% url 'lingo-manager-pricing-criteria-category-add' %}">{% trans 'New category' %}</a>
+
+      {% include 'lingo/includes/application_list_fragment.html' with title_no_application=_('Criterias outside applications') %}
+
+    </aside>
+  {% endif %}
+{% endblock %}

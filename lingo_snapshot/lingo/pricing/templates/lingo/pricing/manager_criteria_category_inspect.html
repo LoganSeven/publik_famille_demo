@@ -1,0 +1,21 @@
+{% extends "lingo/pricing/manager_criteria_list.html" %}
+{% load i18n %}
+
+{% block page-title-extra-label %}{% trans "Inspect" %} | {{ block.super }}{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans 'Inspect' %}</h2>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-pricing-criteria-category-inspect' pk=criteria_category.pk %}">{% trans "Inspect" %}</a>
+{% endblock %}
+
+
+{% block content %}
+  {% include 'lingo/pricing/manager_criteria_category_inspect_fragment.html' %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

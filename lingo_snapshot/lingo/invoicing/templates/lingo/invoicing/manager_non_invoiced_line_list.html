@@ -1,0 +1,84 @@
+{% extends "lingo/invoicing/manager_regie_detail.html" %}
+{% load i18n %}
+
+{% block page-title-extra-label %}{% trans "Non invoiced lines" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-non-invoiced-line-list' regie_pk=regie.pk %}">{% trans "Non invoiced lines" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Non invoiced lines" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div>
+    <table class="main lines">
+      <thead>
+        <tr>
+          <th>{% trans "Event" %}</th>
+          <th>{% trans "Amount" %}</th>
+          <th>{% trans "User" %}</th>
+          <th>{% trans "Payer" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in object_list %}
+          <tr data-line-id="{% if line.status == 'injected' %}injected{% else %}line{% endif %}-{{ line.pk }}" class="untoggled">
+            <td>
+              {{ line.event_date|date:"d/m/Y" }} - {{ line.label }}
+              <br />
+              {% if line.status == 'error'%}
+                <a href="{% url 'lingo-manager-invoicing-pool-journal' regie_pk=regie.pk pk=line.campaign_id pool_pk=line.pool_id %}?pk={{ line.pk }}">({{ line.slug }})</a>
+                {% if line.event.agenda %}
+                  <br />
+                  <a href="{% url 'lingo-manager-agenda-detail-redirect' line.event.agenda %}">{% trans "see agenda" %}</a>
+                  {% if line.chrono_event_url %}- <a href="{{ line.chrono_event_url }}">{% trans "see event" %}</a>{% endif %}
+                {% endif %}
+              {% else %}
+                ({{ line.slug }})
+              {% endif %}
+            </td>
+            <td>{{ line.amount }}</td>
+            <td>{{ line.user_name }} ({{ line.user_external_id }})</td>
+            <td>{{ line.payer_name}} ({{ line.payer_external_id }})</td>
+            <td class="status">
+              <span class="meta meta-{{ line.status }}">{% spaceless %}
+                {% if line.status == 'error'%}
+                  {% trans "Error" %}
+                {% else %}
+                  {% trans "Injected" %}
+                {% endif %}
+              {% endspaceless %}</span>
+              {% if line.status == 'error'%}
+                ({{ line.error_display }})
+              {% endif %}
+            </td>
+            <td>
+              {% if line.status != 'injected' %}
+                <span class="togglable"></span>
+              {% endif %}
+            </td>
+          </tr>
+          {% if line.status != 'injected' %}
+            <tr data-details-for-line-id="line-{{ line.pk }}" style="display: none">
+              <td colspan="10">
+                {% trans "Pricing data:" %}
+                <pre>{{ line.pricing_data|pprint }}</pre>
+                {% trans "Event:" %}
+                <pre>{{ line.event|pprint }}</pre>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {% include "gadjo/pagination.html" %}
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "lingo/invoicing/manager_regie_parameters.html" %}
+{% load i18n %}
+
+{% block page-title-extra-label %}{% trans "Inspect" %} | {{ block.super }}{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans 'Inspect' %}</h2>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-inspect' pk=regie.pk %}">{% trans "Inspect" %}</a>
+{% endblock %}
+
+
+{% block content %}
+  {% include 'lingo/invoicing/manager_regie_inspect_fragment.html' %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

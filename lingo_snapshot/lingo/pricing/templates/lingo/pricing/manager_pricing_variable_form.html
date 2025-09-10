@@ -1,0 +1,47 @@
+{% extends "lingo/pricing/manager_pricing_parameters.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-pricing-variable-edit' object.pk %}">{% trans "Variable definition" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Variable definition" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.management_form }}
+    <table id="pricing-variable-forms">
+      <thead>
+        <tr>
+          {% for field in form.0 %}
+            <th class="column-{{ field.name }}{% if field.required %} required{% endif %}">{{ field.label }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for sub_form in form %}
+          <tr class='pricing-variable-form'>
+            {% for field in sub_form %}
+              <td class="field-{{ field.name }}">
+                {{ field.errors.as_ul }}
+                {{ field }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button id="add-pricing-variable-form" type="button">{% trans "Add another variable" %}</button>
+    <div class="buttons">
+      <button class="submit-button">{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-pricing-parameters' object.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

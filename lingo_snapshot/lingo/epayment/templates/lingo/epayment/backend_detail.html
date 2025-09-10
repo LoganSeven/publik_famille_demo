@@ -1,0 +1,62 @@
+{% extends "lingo/epayment/backend_list.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-epayment-backend-detail' pk=object.pk %}">{{ object }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{{ object }}</h2>
+  {% if user_can_manage %}
+    <span class="actions">
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        <li><a rel="popup" href="{% url 'lingo-manager-epayment-backend-delete' pk=object.pk %}">{% trans "Delete" %}</a></li>
+      </ul>
+      <a href="{% url 'lingo-manager-epayment-backend-edit' pk=object.pk %}">{% trans "Edit" %}</a>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div class="pk-tabs">
+      <div class="pk-tabs--tab-list" role="tablist">
+        <button aria-controls="panel-settings" aria-selected="true" id="tab-settings" role="tab" tabindex="0">{% trans "Settings" %}</button>
+        <button aria-controls="panel-permissions" aria-selected="false" id="tab-permissions" role="tab" tabindex="-1">{% trans "Permissions" %}</button>
+      </div>
+      <div class="pk-tabs--container">
+
+        <div aria-labelledby="tab-settings" id="panel-settings" role="tabpanel" tabindex="0">
+          <ul>
+            <li>{% trans "Identifier:" %} {{ object.slug }}</li>
+            <li>{% trans "Regie:" %} {% if object.regie %}<a href="{% url 'lingo-manager-invoicing-regie-detail' pk=object.regie.pk %}">{{ object.regie }}</a>{% endif %}</li>
+            <li>{% trans "Payment Service:" %} {{ object.get_service_display }}</li>
+            {% for param in object.service_parameters %}
+              {% with value=object.service_options|get:param.name %}
+                <li>
+                  {% blocktrans with label=param.caption|default:param.name %}{{ label }}:{% endblocktrans %}
+                  {% if param.type == False %}
+                    {{ value|default:False|yesno }}
+                  {% elif param.type == ""|make_list %}
+                    {{ value|join:', ' }}
+                  {% else %}
+                    {{ value|default:"" }}
+                  {% endif %}
+                </li>
+              {% endwith %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div aria-labelledby="tab-permissions" hidden="" id="panel-permissions" role="tabpanel" tabindex="0">
+          <ul>
+            <li>{% trans "Edit role:" %} {{ object.edit_role|default:'' }}</li>
+            <li>{% trans "View role:" %} {{ object.view_role|default:'' }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

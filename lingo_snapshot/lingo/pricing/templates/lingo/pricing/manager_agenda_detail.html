@@ -1,0 +1,125 @@
+{% extends "lingo/pricing/manager_agenda_list.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-agenda-detail' agenda.pk %}">{{ agenda }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{{ agenda }}
+    <span class="identifier">[{% trans "identifier:" %} {{ agenda.slug }}, {% trans "kind:" %} {{ agenda.get_real_kind_display }}]</span>
+  </h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div class="pk-tabs">
+      <div class="pk-tabs--tab-list" role="tablist">
+        <button aria-controls="panel-pricings" aria-selected="true" id="tab-pricings" role="tab" tabindex="0">{% trans "Pricings" context 'agenda pricing' %}</button>
+        <button aria-controls="panel-check" aria-selected="false" id="tab-check" role="tab" tabindex="-1">{% trans "Booking check options" %}</button>
+        <button aria-controls="panel-invoicing" aria-selected="false" id="tab-invoicing" role="tab" tabindex="-1">{% trans "Invoicing options" %}</button>
+      </div>
+      <div class="pk-tabs--container">
+
+        <div aria-labelledby="tab-pricings" id="panel-pricings" role="tabpanel" tabindex="0">
+          <h3>{% trans "Pricings" context 'agenda pricing' %}</h3>
+          {% if pricings %}
+            <ul class="objects-list single-links">
+              {% for pricing in pricings %}
+                <li>
+                  <a href="{% url 'lingo-manager-pricing-detail' pricing.pk %}">{{ pricing }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="big-msg-info">
+              {% blocktrans trimmed %}
+                This agenda doesn't have any pricing defined yet.
+              {% endblocktrans %}
+            </div>
+          {% endif %}
+          <h3>{% trans "Flat fee schedule pricings" %}</h3>
+          {% if pricings_flat %}
+            <ul class="objects-list single-links">
+              {% for pricing in pricings_flat %}
+                <li>
+                  <a href="{% url 'lingo-manager-pricing-detail' pricing.pk %}">{{ pricing }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="big-msg-info">
+              {% blocktrans trimmed %}
+                This agenda doesn't have any flat fee schedule pricing defined yet.
+              {% endblocktrans %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div aria-labelledby="tab-check" hidden="" id="panel-check" role="tabpanel" tabindex="0">
+          <ul>
+            {% if agenda.check_type_group %}
+              <li>{% trans "Check type group:" %} {{ agenda.check_type_group }}
+                <ul>
+                  <li>{% trans "Absences:" %}
+                    <ul>
+                      {% for check_type in agenda.check_type_group.check_types.absences %}
+                        <li>{{ check_type }}</li>
+                      {% empty %}
+                        <li>({% trans "No absence check type defined" %})</li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  <li>{% trans "Presences:" %}
+                    <ul>
+                      {% for check_type in agenda.check_type_group.check_types.presences %}
+                        <li>{{ check_type }}</li>
+                      {% empty %}
+                        <li>({% trans "No presence check type defined" %})</li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            {% else %}
+              <li>{% trans "No check types configured for this agenda." %}</li>
+            {% endif %}
+          </ul>
+          <div class="panel--buttons">
+            <a rel="popup" class="button" href="{% url 'lingo-manager-agenda-booking-check-settings' pk=object.pk %}">{% trans 'Configure' %}</a>
+          </div>
+        </div>
+
+        <div aria-labelledby="tab-invoicing" hidden="" id="panel-invoicing" role="tabpanel" tabindex="0">
+          <ul>
+            <li>{% trans "Regie:" %} {% if object.regie.pk %}<a href="{% url 'lingo-manager-invoicing-regie-detail' pk=object.regie.pk %}">{{ object.regie }}</a>{% endif %}</li>
+          </ul>
+          <div class="panel--buttons">
+            <a rel="popup" class="button" href="{% url 'lingo-manager-agenda-invoicing-settings' pk=object.pk %}">{% trans 'Configure' %}</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+
+    <h3>{% trans "Actions" %}</h3>
+    <a class="button button-paragraph" href="{% url 'lingo-manager-agenda-export' pk=agenda.pk %}">{% trans 'Export' %}</a>
+
+    <h3>{% trans "Navigation" %}</h3>
+    <a class="button button-paragraph" href="{% url 'lingo-manager-agenda-inspect' pk=agenda.pk %}">{% trans 'Inspect' %}</a>
+    <a class="button button-paragraph" href="{% url 'lingo-manager-agenda-history' pk=agenda.pk %}">{% trans 'History' %}</a>
+    {% with chrono_url=object.get_chrono_url %}{% if chrono_url %}
+      <a class="button button-paragraph" href="{{ chrono_url }}">{% trans "Agenda options" %}</a>
+    {% endif %}{% endwith %}
+
+    {% url 'lingo-manager-agenda-list' as object_list_url %}
+    {% include 'lingo/includes/application_detail_fragment.html' %}
+
+  </aside>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% load i18n %}
+<td class="line_id">{{ line.pk }}</td>
+<td>
+  {% if pool.draft and line.invoice_line.invoice %}
+    {% trans "TEMPORARY" %}-{{ line.invoice_line.invoice_id }}
+  {% elif line.invoice_line.invoice %}
+    {{ line.invoice_line.invoice.formatted_number }}
+  {% endif %}
+</td>
+<td>
+  {{ line.event_date|date:"d/m/Y" }} - {{ line.label }}
+  <br />
+  ({{ line.slug }})
+  {% if line.event.agenda %}
+    <br />
+    {% if user.is_staff %}
+      <a href="{% url 'lingo-manager-agenda-detail-redirect' line.event.agenda %}">{% trans "see agenda" %}</a>
+    {% endif %}
+    {% with line.get_chrono_event_url as event_url %}
+      {% if event_url %}{% if user.is_staff %}- {% endif %}<a href="{{ event_url }}">{% trans "see event" %}</a>{% endif %}
+    {% endwith %}
+  {% endif %}
+</td>
+<td>{{ line.amount }}</td>
+<td>
+  {% if line.quantity_type == 'minutes' %}
+    {% blocktrans count quantity=line.quantity %}{{ quantity }} minute{% plural %}{{ quantity }} minutes{% endblocktrans %}
+  {% else %}
+    {{ line.quantity }}
+  {% endif %}
+</td>
+<td>{{ line.accounting_code }}</td>
+<td>{{ line.user_name }} ({{ line.user_external_id }})</td>
+<td>
+  {{ line.payer_name }} ({{ line.payer_external_id }})
+  <br />
+  {% blocktrans with payer_direct_debit=line.payer_direct_debit|yesno %}direct debit: {{ payer_direct_debit }}{% endblocktrans %}
+</td>
+<td class="status">
+  <span class="meta meta-{{ line.status }}">{% spaceless %}
+    {% if line.status == 'error' and line.error_status %}
+      {{ line.get_error_status_display }}
+    {% else %}
+      {{ line.get_status_display }}
+    {% endif %}
+  {% endspaceless %}</span>
+  {% if line.status != 'success' %}
+    ({{ line.get_error_display }})
+    {% if show_fix_error and user_can_invoice and line.status == 'error' %}
+      <br />
+      {% if line.error_status %}
+        <a class="error-status" href="{% url 'lingo-manager-invoicing-line-set-error-status' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk line_pk=line.pk status='reset' %}">{% trans "reset" %}</a>
+      {% else %}
+        <a class="error-status" href="{% url 'lingo-manager-invoicing-line-set-error-status' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk line_pk=line.pk status='ignore' %}">{% trans "ignore" %}</a>
+        -
+        <a class="error-status" href="{% url 'lingo-manager-invoicing-line-set-error-status' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk line_pk=line.pk status='fix' %}">{% trans "mark as fixed" %}</a>
+      {% endif %}
+    {% endif %}
+    {% if user_can_invoice and line.status == 'error' and not line.error_status and pool.is_last %}
+      <br />
+      <a class="error-replay" href="{% url 'lingo-manager-invoicing-line-replay' regie_pk=regie.pk pk=object.pk pool_pk=pool.pk line_pk=line.pk %}">{% trans "replay" %}</a>
+    {% endif %}
+  {% endif %}
+  {% if line.from_injected_line_id %}({% trans "Injected" %}){% endif %}
+</td>
+<td>
+  <span class="togglable"></span>
+</td>

@@ -1,0 +1,25 @@
+{% extends "lingo/invoicing/manager_credit_list.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'lingo-manager-invoicing-regie-credit-cancel' regie.pk object.pk %}">{% trans "Cancel credit" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Cancel credit" %} - {{ object.formatted_number }}</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button>{% trans "Submit" %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-invoicing-regie-credit-list' regie.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

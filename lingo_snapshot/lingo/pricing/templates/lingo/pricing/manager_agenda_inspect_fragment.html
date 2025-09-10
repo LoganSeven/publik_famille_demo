@@ -1,0 +1,36 @@
+{% load i18n %}
+<div class="pk-tabs">
+  <div class="pk-tabs--tab-list" role="tablist">
+    <button aria-controls="panel-information" aria-selected="true" id="tab-information" role="tab" tabindex="0">{% trans "Information" %}</button>
+    <button aria-controls="panel-settings" aria-selected="false" id="tab-settings" role="tab" tabindex="-1">{% trans "Settings" %}</button>
+  </div>
+  <div class="pk-tabs--container">
+
+    <div aria-labelledby="tab-information" id="panel-information" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div aria-labelledby="tab-settings" hidden id="panel-settings" role="tabpanel" tabindex="0">
+      <div class="section">
+        <ul>
+          {% for label, value in object.get_settings_inspect_fields %}
+            <li class="parameter-{{ label|slugify }}">
+              <span class="parameter">{% blocktrans %}{{ label }}:{% endblocktrans %}</span>
+              {{ value }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

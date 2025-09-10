@@ -1,0 +1,80 @@
+{% extends "lingo/invoicing/manager_regie_list.html" %}
+{% load i18n %}
+
+{% block page-title-extra-label %}{% trans "Cancellation reasons" %}{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'lingo-manager-homepage' %}">{% trans "Payments" context 'lingo title' %}</a>
+  <a href="{% url 'lingo-manager-invoicing-regie-list' %}">{% trans "Regies" %}</a>
+  <a href="{% url 'lingo-manager-invoicing-cancellation-reason-list' %}">{% trans "Cancellation reasons" %}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Cancellation reasons" %}</h2>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <div class="pk-tabs">
+      <div class="pk-tabs--tab-list" role="tablist">
+        <button aria-controls="panel-invoice" aria-selected="true" id="tab-invoice" role="tab" tabindex="0">{% trans "Invoices" %}</button>
+        <button aria-controls="panel-credit" aria-selected="true" id="tab-credit" role="tab" tabindex="0">{% trans "Credits" %}</button>
+        <button aria-controls="panel-payment" aria-selected="false" id="tab-payment" role="tab" tabindex="-1">{% trans "Payments" %}</button>
+      </div>
+      <div class="pk-tabs--container">
+
+        <div aria-labelledby="tab-invoice" id="panel-invoice" role="tabpanel" tabindex="0">
+          <ul class="objects-list single-links">
+            {% for reason in invoice_reason_list %}
+              <li>
+                <a href="{% url 'lingo-manager-invoicing-invoice-cancellation-reason-edit' reason.pk %}">{{ reason }}{% if reason.disabled %}<span class="extra-info"> ({% trans "disabled" %})</span>{% endif %}</a>
+                {% if not reason.invoice_set.exists and not reason.credit_set.exists %}
+                  <a class="delete" rel="popup" href="{% url 'lingo-manager-invoicing-invoice-cancellation-reason-delete' reason.pk %}">{% trans "delete"%}</a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+          <div class="panel--buttons">
+            <a class="pk-button" href="{% url 'lingo-manager-invoicing-invoice-cancellation-reason-add' %}" rel="popup">{% trans "New invoice cancellation reason" %}</a>
+          </div>
+        </div>
+
+        <div aria-labelledby="tab-credit" hidden id="panel-credit" role="tabpanel" tabindex="0">
+          <ul class="objects-list single-links">
+            {% for reason in credit_reason_list %}
+              <li>
+                <a href="{% url 'lingo-manager-invoicing-credit-cancellation-reason-edit' reason.pk %}">{{ reason }}{% if reason.disabled %}<span class="extra-info"> ({% trans "disabled" %})</span>{% endif %}</a>
+                {% if not reason.credit_set.exists and not reason.credit_set.exists %}
+                  <a class="delete" rel="popup" href="{% url 'lingo-manager-invoicing-credit-cancellation-reason-delete' reason.pk %}">{% trans "delete"%}</a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+          <div class="panel--buttons">
+            <a class="pk-button" href="{% url 'lingo-manager-invoicing-credit-cancellation-reason-add' %}" rel="popup">{% trans "New credit cancellation reason" %}</a>
+          </div>
+        </div>
+
+        <div aria-labelledby="tab-payment" hidden id="panel-payment" role="tabpanel" tabindex="0">
+          <ul class="objects-list single-links">
+            {% for reason in payment_reason_list %}
+              <li>
+                <a href="{% url 'lingo-manager-invoicing-payment-cancellation-reason-edit' reason.pk %}">{{ reason }}{% if reason.disabled %}<span class="extra-info"> ({% trans "disabled" %})</span>{% endif %}</a>
+                {% if not reason.payment_set.exists %}
+                  <a class="delete" rel="popup" href="{% url 'lingo-manager-invoicing-payment-cancellation-reason-delete' reason.pk %}">{% trans "delete"%}</a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+          <div class="panel--buttons">
+            <a class="pk-button" href="{% url 'lingo-manager-invoicing-payment-cancellation-reason-add' %}" rel="popup">{% trans "New payment cancellation reason" %}</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

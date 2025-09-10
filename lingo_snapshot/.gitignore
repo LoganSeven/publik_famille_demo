@@ -1,0 +1,17 @@
+*.pyc
+lingo/local_settings.py
+lingo/version.py
+build/
+coverage.xml
+test_results.xml
+db.sqlite3
+lingo.egg-info/
+*.patch
+*.mo
+.cache
+.coverage
+.pytest_cache/
+junit*xml
+pylint.out
+*.swp
+lingo/manager/static/css/style.css

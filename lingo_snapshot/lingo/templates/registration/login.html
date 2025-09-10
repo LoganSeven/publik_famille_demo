@@ -1,0 +1,10 @@
+{% extends "lingo/manager_base.html" %}
+{% load gadjo i18n %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <button>{% trans 'Log in' %}</button>
+  </form>
+{% endblock %}

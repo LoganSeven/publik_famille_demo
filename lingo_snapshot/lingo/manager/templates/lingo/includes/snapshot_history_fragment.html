@@ -1,0 +1,63 @@
+{% load i18n %}
+<div>
+  <form action="{{ compare_url }}" method="get">
+    {% if object_list|length > 1 %}
+      <p><button>{% trans "Show differences" %}</button></p>
+    {% endif %}
+    <table class="main">
+      <thead>
+        <th>{% trans 'Identifier' %}</th>
+        <th>{% trans 'Compare' %}</th>
+        <th>{% trans 'Date' %}</th>
+        <th>{% trans 'Description' %}</th>
+        <th>{% trans 'User' %}</th>
+        <th>{% trans 'Actions' %}</th>
+      </thead>
+      <tbody class="snapshots-list">
+        {% for snapshot in object_list %}
+          <tr data-day="{{ snapshot.timestamp|date:"Y-m-d" }}" class="{% if snapshot.new_day %}new-day{% else %}collapsed{% endif %}">
+            <td><span class="counter">#{{ snapshot.pk }}</span></td>
+            <td>
+              {% if object_list|length > 1 %}
+                {% if not forloop.last %}<input type="radio" name="version1" value="{{ snapshot.pk }}" {% if forloop.first %}checked="checked"{% endif %} />{% else %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}
+                {% if not forloop.first %}<input type="radio" name="version2" value="{{ snapshot.pk }}" {% if forloop.counter == 2 %}checked="checked"{% endif %}/>{% else %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}
+              {% endif %}
+            </td>
+            <td>
+              {{ snapshot.timestamp }}
+              {% if snapshot.new_day and snapshot.day_other_count %} — <a class="reveal" href="#day-{{ snapshot.timestamp|date:"Y-m-d"}}">
+                {% if snapshot.day_other_count >= 50 %}<strong>{% endif %}
+                {% blocktrans trimmed count counter=snapshot.day_other_count %}
+                  1 other this day
+                {% plural %}
+                  {{ counter }} others
+                {% endblocktrans %}
+              {% endif %}
+            </td>
+            <td>
+              {% if snapshot.label %}
+                <strong>{{ snapshot.label }}</strong>
+              {% elif snapshot.comment %}
+                {{ snapshot.comment }}
+              {% endif %}
+              {% if snapshot.application_version %}({% blocktrans with version=snapshot.application_version %}Version {{ version }}{% endblocktrans %}){% endif %}
+            </td>
+            <td>{% if snapshot.user %} {{ snapshot.user.get_full_name }}{% endif %}</td>
+            <td>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+</div>
+
+<script>
+  $(function() {
+    $('tr.new-day a.reveal').on('click', function() {
+      var day = $(this).parents('tr.new-day').data('day');
+      $('.snapshots-list tr[data-day="' + day + '"]:not(.new-day)').toggleClass('collapsed');
+      return false;
+    });
+  });
+</script>

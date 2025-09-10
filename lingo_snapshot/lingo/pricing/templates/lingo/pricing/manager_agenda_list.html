@@ -1,0 +1,63 @@
+{% extends "lingo/pricing/manager_pricing_list.html" %}
+{% load i18n thumbnail %}
+
+{% block page-title-extra-label %}{% trans "Agendas" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'lingo-manager-homepage' %}">{% trans "Payments" context 'lingo title' %}</a>
+  <a href="{% url 'lingo-manager-pricing-list' %}">{% trans "Pricings" %}</a>
+  {% url 'lingo-manager-agenda-list' as object_list_url %}
+  <a href="{{ object_list_url }}">{% trans "Agendas" %}</a>
+  {% include 'lingo/includes/application_breadcrumb_fragment.html' with title_no_application=_('Agendas outside applications') %}
+{% endblock %}
+
+{% block appbar %}
+  {% include 'lingo/includes/application_appbar_fragment.html' with title_no_application=_('Agendas outside applications') title_object_list=_('Agendas') %}
+{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    {% regroup object_list by category_label as agenda_groups %}
+    {% for group in agenda_groups %}
+      <div class="section">
+        {% if group.grouper %}<h3>{{ group.grouper }}</h3>{% elif not forloop.first %}<h3>{% trans "Misc" %}</h3>{% endif %}
+        <ul class="objects-list single-links">
+          {% for object in group.list %}
+            <li>
+              <a href="{% url 'lingo-manager-agenda-detail' object.pk %}">
+                {% include 'lingo/includes/application_icon_fragment.html' %}
+                {{ object.label }} <span class="identifier">[{% trans "identifier:" %} {{ object.slug }}, {% trans "kind:" %} {{ object.get_real_kind_display }}]</span>
+              </a>
+              {% with chrono_url=object.get_chrono_url %}{% if chrono_url %}<a href="{{ chrono_url }}" class="link-action-icon link">{% trans "view" %}</a>{% endif %}{% endwith %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  {% elif not no_application %}
+    <div class="big-msg-info">
+      {% blocktrans trimmed %}
+        This site doesn't have any agenda yet. Click on the "Refresh agendas" button in the top
+        right of the page to synchronize them.
+      {% endblocktrans %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+  {% if not application and not no_application %}
+    <aside id="sidebar">
+
+      <h3>{% trans "Actions" %}</h3>
+      <a class="button button-paragraph" href="{% url 'lingo-manager-agenda-sync' %}">{% trans 'Refresh agendas' %}</a>
+
+      {% if with_archives %}
+        <h3>{% trans "Navigation" %}</h3>
+        <a class="button button-paragraph" href="{% url 'lingo-manager-agenda-archived-list' %}">{% trans 'Archives' %}</a>
+      {% endif %}
+
+      {% include 'lingo/includes/application_list_fragment.html' with title_no_application=_('Agendas outside applications') %}
+
+    </aside>
+  {% endif %}
+{% endblock %}

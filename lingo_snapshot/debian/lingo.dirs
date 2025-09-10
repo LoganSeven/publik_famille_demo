@@ -1,0 +1,7 @@
+/etc/lingo
+/usr/lib/lingo
+/usr/share/lingo/themes
+/var/lib/lingo/collectstatic
+/var/lib/lingo/spooler
+/var/lib/lingo/tenants
+/var/log/lingo

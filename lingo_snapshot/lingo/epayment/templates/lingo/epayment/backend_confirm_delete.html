@@ -1,0 +1,17 @@
+{% extends "lingo/epayment/backend_list.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <h2>{{ object.label }} ({{object.service }})</h2>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {% blocktrans %}Are you sure you want to delete this backend?{% endblocktrans %}
+    <div class="buttons">
+      <button class="delete-button">{% trans 'Delete' %}</button>
+      <a class="cancel" href="{% url 'lingo-manager-epayment-backend-list' %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

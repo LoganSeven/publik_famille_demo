@@ -1,0 +1,26 @@
+[Unit]
+Description=Lingo
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+SyslogIdentifier=uwsgi/%p
+Environment=LINGO_SETTINGS_FILE=/usr/lib/%p/debian_config.py
+Environment=LANG=C.UTF-8
+User=%p
+Group=%p
+ExecStartPre=/usr/bin/lingo-manage migrate_schemas --noinput --verbosity 1
+ExecStartPre=/usr/bin/lingo-manage collectstatic --noinput --link
+ExecStartPre=/bin/mkdir -p /var/lib/lingo/spooler/%m/
+ExecStart=/usr/bin/uwsgi --ini /etc/%p/uwsgi.ini --spooler /var/lib/lingo/spooler/%m/
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGQUIT
+TimeoutStartSec=0
+PrivateTmp=true
+Restart=on-failure
+RuntimeDirectory=lingo
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
