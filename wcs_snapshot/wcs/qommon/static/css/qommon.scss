@@ -1,0 +1,616 @@
+body.no-header #header {
+	display: none;
+}
+body.no-footer #footer {
+	display: none;
+}
+
+a {
+	color: #028;
+}
+
+.widget-dict--row div {
+	display: inline-block;
+}
+
+div.RankedItemsWidget input {
+	margin-right: 1em;
+}
+
+div.RankedItemsWidget li.error input {
+	border: 1px solid red;
+}
+
+div.AccountSettingWidget label {
+	padding-right: 2em;
+}
+
+div.WidgetDict .content div.list-add,
+div.list-add {
+	display: block;
+}
+
+div.SingleSelectWidgetWithOther .content .widget:not(.widget-hidden) {
+	display: inline-block;
+}
+
+div.SingleSelectWidgetWithOther .content br {
+	display: none;
+}
+
+p.use-file-from-fargo span {
+	border-bottom: 1px dotted #999;
+	cursor: pointer;
+}
+
+div.form .title, form.quixote .title {
+	font-weight: bold;
+}
+
+div.error {
+	color: black;
+	font-weight: bold;
+	background: transparent url(warning.png) top left no-repeat;
+	padding-left: 20px;
+	p {
+		margin: 0;
+	}
+}
+
+div.message {
+	color: black;
+	font-weight: normal;
+	background: transparent url(warning.png) top left no-repeat;
+	padding-left: 20px;
+}
+
+div.signok {
+	background: #b5ffbc;
+	border: 1px solid #5cde68;
+}
+
+div.signerror {
+	background: #ffa6a6;
+	border: 1px solid #cb2121;
+}
+
+
+div.buttons div.SubmitWidget,
+div.buttons div.SubmitWidget div.content {
+	display: inline-block;
+}
+
+div.buttons br { display: none; }
+
+div.widget {
+	margin-bottom: 0.5em;
+	clear: both;
+}
+
+form div.widget.SingleSelectWidgetWithOther div.widget {
+	margin-bottom: 0;
+}
+
+input[type="submit"][name="submit"] {
+	font-weight: bold;
+	box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.21);
+}
+
+div.form pre {
+	overflow: scroll;
+}
+
+
+div#error h1 {
+	margin: 0;
+}
+
+div#error {
+	width: 40em;
+	max-width: 500px;
+	margin: 15% auto;
+	background: white;
+	border: 1px solid #999;
+	padding: 1em;
+}
+
+div.hint {
+	font-size: 80%;
+	p {
+		margin: 0;
+	}
+}
+
+span.required {
+	margin-left: 0.7ex;
+	position: relative;
+	top: -0.2ex;
+}
+
+div.buttons {
+	margin-top: 1em;
+}
+
+div.RadiobuttonsWidget div.content {
+	display: block;
+}
+
+div.error-page {
+	margin: 1em;
+}
+
+pre#exception {
+	overflow: scroll;
+	padding: 1em;
+	border: 1px solid #bbb;
+	background: #f0f0f0;
+	font-size: 90%;
+}
+
+div.StringWidget ul {
+	margin: 0;
+	padding-left: 2em;
+	list-style: circle;
+}
+
+div.inline-first div.title,
+div.inline div.title {
+	display: inline-block;
+	float: left;
+	max-width: 20em;
+	text-align: left;
+	padding-top: 6px;
+}
+
+div.inline-first div.title span.required,
+div.inline div.title span.required {
+	margin-left: 1ex;
+	padding-left: 12px;
+}
+
+div.inline-first div.content,
+div.inline div.content {
+	margin-left: 1ex;
+}
+
+div.inline-first div.hint,
+div.inline div.hint {
+	display: none;
+}
+
+div.inline-first {
+	float: left;
+	clear: both;
+}
+
+div.inline {
+	float: left;
+	clear: none;
+}
+
+div.inline-first div.content,
+div.inline div.content {
+	margin-right: 1.5em;
+}
+
+	
+
+div.inline-first div.content,
+div.inline div.content {
+	display: inline-block;
+}
+
+.clear-both {
+	clear: both;
+}
+
+div.CheckboxesWidget div.content ul li.disabled {
+	color: #aaa;
+}
+
+div.CheckboxesWidget div.content ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+div.CheckboxesWidget div.content ul.inline li {
+	display: inline-block;
+	margin-right: 2em;
+}
+
+div.CheckboxesWidget, div.RadiobuttonsWidget {
+	padding: 5px 0;
+	.content label {
+		display: block;
+	}
+	&.widget-inline-radio .content li,
+	&.widget-inline-radio .content label {
+		display: inline-block;
+	}
+}
+
+div.dataview {
+	clear: both;
+}
+
+div.dataview div.field {
+	margin: 1em 0;
+}
+
+div.dataview .label {
+	font-weight: bold;
+	display: block;
+	margin: 0;
+}
+
+div.dataview .value {
+	display: block;
+	margin: 0 0 0 1em;
+}
+
+div.dataview div.field-type-items .value ul {
+	margin-top: 0;
+	margin-bottom : 0;
+}
+
+div.dataview .field-type-block > .value {
+	margin-left: 0;
+}
+
+form div.page,
+div.dataview div.page {
+	border: 1px solid #aaa;
+	padding: 1ex;
+	margin-bottom: 1em;
+	box-sizing: border-box;
+}
+
+form div.page::after,
+div.dataview div.page::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+form div.page p,
+div.dataview div.page p {
+	margin-top: 0;
+}
+
+form div.page h3,
+div.dataview div.page h3 {
+	margin: 0;
+	margin-bottom: 1ex;
+}
+
+div.dataview div.title h3 {
+	font-size: 115%;
+}
+
+div.dataview div.subtitle h4{
+	font-size: 110%;
+	border: none;
+}
+
+a#display-exception {
+    display: none;
+}
+
+div.block-edit-custom-text {
+	position: relative;
+}
+
+div.block-edit-custom-text:hover {
+	background: #eee;
+}
+
+div.block-edit-custom-text a.edit-custom-text {
+	display: none;
+}
+
+div.block-edit-custom-text:hover a.edit-custom-text {
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: -20px;
+	margin: 0;
+	background: #ccc;
+	color: #333;
+	padding: 3px 5px;
+	font-size: 50%;
+	height: 20px;
+	line-height: 20px;
+}
+
+span.select2-container {
+	min-width: 20em;
+}
+
+ul.select2-results {
+	text-align: left;
+}
+
+.passStrengthify {
+	padding-left: 1em;
+}
+
+div.qommon-map {
+	height: 280px;
+}
+
+.pk-tall-map div.qommon-map {
+	height: 560px;
+	max-height: 90vh;
+}
+
+label.activity {
+	background: url(indicator.gif) no-repeat top right;
+	padding-right: 30px;
+}
+
+form .widget-hidden {
+	display: none;
+}
+
+ul#evolutions {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+#evolutions:after {
+	/* the vertical timeline itself */
+	content: "";
+	background: #bbb;
+	position: absolute;
+	width: 1px;
+	top: 42px;
+	left: 31px;
+	height: calc(100% - 40px);
+	z-index: 0;
+	border-radius: 3px;
+}
+
+ul#evolutions li {
+	list-style-image: none;
+	margin: 1em 0 2em 0;
+	z-index: 10;
+	position: relative;
+}
+
+ul#evolutions li:after {
+	/* li:after, horizontal line, from the timeline to the item */
+	content: "";
+	background: #bbb;
+	position: absolute;
+	width: 100px;
+	left: 30px;
+	top: 42px;
+	height: 1px;
+	z-index: -10;
+}
+
+ul#evolutions div.evolution-metadata {
+	width: auto;
+	display: inline-block;
+	background: white;
+	margin-left: 70px;
+	padding: 1ex;
+	border: 1px solid #666;
+	margin-bottom: 0;
+}
+
+ul#evolutions span.time {
+	display: inline-block;
+	padding-left: 1em;
+	color: #aaa;
+}
+
+ul#evolutions li div.msg span.time {
+	position: absolute;
+	top: 1ex;
+	right: 1em;
+}
+
+ul#evolutions span.status {
+	font-weight: bold;
+	display: inline-block;
+}
+
+ul#evolutions span.user {
+	display: block;
+	opacity: 0.5;
+}
+
+ul#evolutions span.user span {
+	font-size: 80%;
+}
+
+ul#evolutions li div.msg {
+	padding: 1ex;
+	border: 1px solid #666;
+	margin-top: -1px;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+	position: relative;
+	background: white;
+	margin-left: 60px;
+	margin-right: 30px;
+}
+
+ul#evolutions li.msg-in div.msg {
+	background: #dfd;
+}
+
+ul#evolutions li.msg-out div.msg {
+	background: #ddf;
+}
+
+#evolutions .msg-system {
+	padding-top: 23px;
+	margin-bottom: 30px;
+}
+
+ul#evolutions li span.item {
+	/* left circle icon */
+	position: absolute;
+	text-align: center;
+	color: #666;
+	width: 31px;
+	height: 31px;
+	display: block;
+	left: 15px;
+	border-radius: 20px;
+	border: 1px solid #aaa;
+	top: 26px;
+	box-shadow: 0 0 0px 5px white;
+}
+
+div.halfwidth {
+	width: 45%;
+	float: left;
+}
+
+div.widget.halfwidth.right {
+	clear: none;
+	margin-left: 5%;
+}
+
+div.fullwidth {
+	width: 95%;
+}
+
+div.halfwidth textarea,
+div.fullwidth textarea,
+div.halfwidth select,
+div.fullwidth select,
+div.halfwidth input,
+div.fullwidth input {
+	width: 100%;
+}
+
+div.file-field img {
+	max-width: 100%;
+	max-height: 25vh;
+	display: block;
+}
+
+div.location-icon {
+	box-sizing: border-box;
+	pointer-events: none;
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	position: relative;
+	top: -5px;
+	left: -5px;
+	background: red;
+	border: 1px solid #800;
+	z-index: -100 !important;
+}
+
+div.file-button .widget-message {
+	display: none;
+}
+
+.leaflet-top.leaflet-right {
+	width: 40%;
+}
+
+.leaflet-search {
+	width: 100%;
+	display: flex;
+	justify-content: right;
+	align-items: start;
+
+	&.leaflet-control {
+		pointer-events: none;
+		&.open {
+			pointer-events: auto;
+		}
+	}
+
+	.leaflet-bar {
+		pointer-events: auto;
+	}
+
+	&--control {
+		width: 0;
+		display: flex;
+		flex-direction: column;
+		transition: all 0.2s;
+	}
+
+	&.open &--control {
+		width: 100%
+	}
+
+	&--input {
+		width: 100%;
+	}
+
+	&--result-list {
+		padding-right: 0.7em;
+		background: white;
+	}
+
+	&--result-item {
+		text-wrap: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		cursor: pointer;
+		padding: 6px;
+		font-size: 1.2em;
+		white-space: nowrap;
+
+		&:hover, &.selected {
+			color: white;
+			background-color: #5897fb;
+		}
+	}
+}
+
+.multi-value-filter {
+	&--add-value-button,
+	&--remove-value-button {
+		width: 2.2rem;
+		height: 2.2rem;
+		padding: 0;
+		margin: auto 0 auto 0.5rem;
+	}
+}
+
+span.malware-file {
+    color: var(--red);
+    margin-left: 8px;
+}
+
+span.waiting-for-scan-file,
+span.scan-error-file {
+    color: var(--orange);
+    margin-left: 8px;
+}
+
+span.malware-file::before,
+span.waiting-for-scan-file::before,
+span.scan-error-file::before {
+     font-family: FontAwesome;
+     margin-right: 3px;
+ }
+
+span.malware-file::before {
+    content: "\f1e2"; // bomb
+}
+
+span.waiting-for-scan-file::before {
+    content: " \f017"; // clock
+}
+
+span.scan-error-file::before {
+    content: " \f188"; // bug
+ }
+
+.workflow-test-action.assert-status .label {
+	font-weight: bold;
+}

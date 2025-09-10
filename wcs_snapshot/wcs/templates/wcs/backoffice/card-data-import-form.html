@@ -1,0 +1,37 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <div id="appbar">
+    <h2>{% trans "Import File" %}</h2>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="card-import-popup-content">
+
+    {% if impossible_csv_fields %}
+      <p>{% trans "You can add data to this card by uploading a JSON file." %}</p>
+    {% else %}
+      <p>{% trans "You can add data to this card by uploading a CSV or JSON file." %}</p>
+    {% endif %}
+
+    {% if not impossible_csv_fields %}
+      <p><a href="data-sample-csv">{% trans "Download sample CSV file for this card" %}</a></p>
+    {% else %}
+      <div class="warningnotice">
+        <p>
+          {% blocktrans trimmed count fields=impossible_csv_fields|length with labels=impossible_csv_fields|join:", " %}
+            {{ labels }} is required but cannot be filled from CSV.
+          {% plural %}
+            {{ labels }} are required but cannot be filled from CSV.
+          {% endblocktrans %}
+          {% trans "Only JSON files can be imported." %}
+        </p>
+      </div>
+    {% endif %}
+
+    {{ html_form.render|safe }}
+
+  </div>
+{% endblock %}

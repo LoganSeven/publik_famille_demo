@@ -1,0 +1,14 @@
+{% extends "qommon/forms/widget.html" %}
+{% block widget-control %}
+  <textarea hidden id="form_{{widget.get_name_for_id}}" name="{{widget.name}}">{{widget.value|default:""}}</textarea>
+  <godo-editor
+    style="width: 100%"
+    {% for attr in widget.attrs.items %}{{attr.0}}="{{attr.1}}" {% endfor %}
+    {% if widget.live_condition_source %}instant-update="true"{% endif %}
+    schema="{{widget.EDITION_MODE}}"
+    update-event="wcs:live-update"
+    linked-source="form_{{widget.get_name_for_id}}"
+  >
+  </godo-editor>
+  <script type="module" src="/static/xstatic/js/godo.js?{{version_hash}}"></script>
+{% endblock %}

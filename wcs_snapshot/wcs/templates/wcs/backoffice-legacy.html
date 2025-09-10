@@ -1,0 +1,7 @@
+{% extends "wcs/backoffice.html" %}
+
+{% block main-content %}
+  {{ form_side|default:"" }}
+  {{ body|safe }}
+{% endblock %}
+

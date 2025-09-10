@@ -1,0 +1,35 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Webservice responses" %}{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <a class="button button-paragraph" href="new" rel="popup">{% trans "New" %}</a>
+  <a class="button button-paragraph" href="import" rel="popup">{% trans "Import from other test" %}</a>
+{% endblock %}
+
+{% block body %}
+  <div class="section">
+    {% if webservice_responses %}
+      <ul class="objects-list single-links">
+        {% for response in webservice_responses %}
+          <li>
+            <a href="{{ response.id }}/">
+              {{ response }}
+              {% if not response.is_configured %}
+                <i>({% trans "not configured" %})</i>
+              {% endif %}
+            </a>
+            {% if not testdef.is_readonly %}
+              <a rel="popup" class="delete" href="{{ response.id }}/delete">{% trans "Remove" %}</a>
+              <a class="link-action-icon duplicate" href="{{ response.id }}/duplicate">{% trans "Duplicate" %}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div><p>{% trans "There are no webservice responses yet." %}<p></div>
+    {% endif %}
+  </div>
+{% endblock %}

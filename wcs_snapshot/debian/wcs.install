@@ -1,0 +1,4 @@
+debian/debian_config.py   /usr/lib/wcs
+debian/settings.py        /etc/wcs
+debian/uwsgi.ini          /etc/wcs
+debian/wcs-manage         /usr/bin

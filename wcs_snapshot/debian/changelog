@@ -1,0 +1,54 @@
+wcs (1.9-0.20111226.1) squeeze; urgency=low
+
+  * Upgrade packaging for Squeeze.
+
+ -- Jérôme Schneider <jschneider@entrouvert.com>  Mon, 26 Dec 2011 19:09:48 +0100
+
+wcs (1.5-1) lenny; urgency=low
+
+  * New upstream release.
+
+ -- Frederic Peters <fpeters@entrouvert.com>  Wed, 28 Oct 2009 13:46:35 +0100
+
+wcs (1.4~rc1-1) lenny; urgency=low
+
+  * Release Candidate 1, v2
+
+ -- Frederic Peters <fpeters@entrouvert.com>  Mon, 26 Oct 2009 16:47:36 +0100
+
+wcs (1.4~rc1-0) lenny; urgency=low
+
+  * Release Candidate
+
+ -- Frederic Peters <fpeters@debian.org>  Mon, 26 Oct 2009 14:45:05 +0100
+
+wcs (1.0-0.etch.1) etch; urgency=low
+
+  * First real release.
+
+ -- Frederic Peters <fpeters@debian.org>  Tue, 14 Apr 2009 08:32:50 +0200
+
+wcs (0.4.9svn-0) unstable; urgency=low
+
+  * CVS snapshot; no longer using SQLObject...
+
+ -- Frederic Peters <fpeters@debian.org>  Mon,  5 Sep 2005 19:01:11 +0200
+
+wcs (0.3.9cvs-0) unstable; urgency=low
+
+  * CVS snapshot; now using SQLObject.
+
+ -- Frederic Peters <fpeters@debian.org>  Mon, 22 Aug 2005 15:20:12 +0200
+
+wcs (0.1.9cvs-0) unstable; urgency=low
+
+  * CVS snapshot.
+
+ -- Frederic Peters <fpeters@debian.org>  Thu,  4 Aug 2005 10:51:42 +0200
+
+wcs (0.0.0-0) unstable; urgency=low
+
+  * Initial package.
+
+ -- Frederic Peters <fpeters@debian.org>  Sat, 23 Apr 2005 20:48:19 +0200
+

@@ -1,0 +1,12 @@
+{% extends "wcs/formdata_validation.html" %}
+
+{% block appbar-title %}{{ view.formdef.name }}{% endblock %}
+{% block form-side %}{% endblock %}
+
+{% block appbar-actions %}
+  {{ form_side|default:"" }}  {# discard button #}
+{% endblock %}
+
+{% block appbar-bottom %}
+  <div id="side">{{ view.step }}</div>
+{% endblock %}

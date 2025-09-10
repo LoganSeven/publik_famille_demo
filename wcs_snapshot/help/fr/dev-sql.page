@@ -1,0 +1,107 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="dev-sql" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#dev" />
+  <revision docversion="0.1" date="2014-03-23" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Tables et vues PostgreSQL</desc>
+
+</info>
+
+<title>Accès SQL aux données</title>
+
+<p>
+Configuré en mode PostgreSQL, <app>w.c.s.</app> crée une série de <em>vues</em>
+permettant un accès aux données des différents formulaires.
+L’utilisation de ces vues est recommandée, l’accès direct aux tables étant
+réservé aux usages internes.
+</p>
+
+<section id="views">
+  <title>Vues pour les données des formulaires</title>
+
+  <p>
+    Une vue nommée <code>wcs_view_<var>xx</var>_<var>libellé</var></code> (avec
+    <var>xx</var> étant l’identifiant du formulaire et <var>libellé</var>
+    étant son nom tel qu’il appararait dans les URL) est créée par type de
+    formulaire pour donner accès aux données de ceux-ci.
+  </p>
+
+  <p>
+    Les champs suivants sont exposés :
+  </p>
+
+  <list>
+    <item><p><var>id</var> : identifiant interne</p></item>
+    <item><p><var>id_display</var> : identifiant externe, le cas échéant</p></item>
+    <item><p><var>user_id</var> : identifiant de l’utilisateur</p></item>
+    <item><p><var>receipt_time</var> : date et heure de réception</p></item>
+    <item><p><var>status</var> : statut courant</p></item>
+    <item><p><var>is_at_endpoint</var> : indicateur de fin de traitement</p></item>
+    <item><p><var>category_id</var> : identifiant de la catégorie</p></item>
+    <item><p><var>formdef_id</var> : identifiant du type de formulaire</p></item>
+    <item><p><var>fts</var> : indexation texte intégral</p></item>
+    <item><p><var>backoffice_submission</var> : indicateur de saisie backoffice</p></item>
+    <item><p><var>submission_channel</var> : canal d’entrée</p></item>
+  </list>
+
+  <p>
+    Les différents champs du formulaire sont ensuite présents en autant de
+    colonnes, elles sont nommées selon le format
+    <code>f_<var>identifiant</var></code> où identifiant est le nom de variable
+    utilisé dans la définition du champ.  Quand celui-ci n’est pas défini, la
+    colonne est nommée
+    <code>f_<var>identifiant-numérique-interne</var>_<var>libellé</var></code>.
+    Pour un certain nombre de champs, différenciant la valeur présentée de la
+    valeur de stockage, un second champ est disponible, au nom suffixé de
+    <code>_display</code>.
+  </p>
+
+  <p>
+    Un dernier champ, <var>status_history</var> reprend un tableau avec
+    l’historique des statuts par lesquels le formulaire est passé.
+  </p>
+</section>
+
+<section id="concat">
+  <title>Agrégation de formulaires</title>
+
+  <p>
+    Les champs communs à l’ensemble des formulaires, c’est-à-dire ceux repris
+    dans la première liste donnée ci-dessus (<em>id</em>,
+    <em>id_display</em>…), sont également agrégés dans une vue unique,
+    <code>wcs_all_forms</code>.
+  </p>
+
+  <p>
+    De la même manière, les formulaires tirés d’une même catégorie sont agrégés
+    dans une vue nommée <code>wcs_category_<var>libellé</var></code> (ou
+    <var>libellé</var> correspond au titre de la catégorie).
+  </p>
+
+  <p>
+    Ces agrégations sont utiles pour permettre la réalisation d’opérations sur
+    l’ensemble des formulaires.
+  </p>
+
+  <screen>
+<output style="prompt">=> </output><input>SELECT date_part('hour', receipt_time) AS hour, count(*)</input>
+<output style="prompt">-> </output><input>FROM wcs_all_forms GROUP BY hour ORDER BY hour;</input>
+<output> hour | count 
+ ------+-------
+     0 |    24
+     1 |    16
+     2 |    10
+    (...)
+    (24 lignes)
+</output>
+</screen>
+
+</section>
+
+
+</page>

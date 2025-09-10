@@ -1,0 +1,44 @@
+{% load i18n %}
+{% for category in categories %}
+  {% if category.objects %}
+    {% with section_folded_pref_name="folded-admin-"|add:section|add:"-category-"|add:category.id %}
+      <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+           data-section-folded-pref-name="{{ section_folded_pref_name }}">
+        {% if category.name %}<h2>{{ category.name }}</h2>{% endif %}
+        <ul class="objects-list single-links">
+          {% for item in category.objects %}
+            <li {% if item.is_disabled %}class="disabled"{% endif %} data-search-text="{{ item.name|searchify }}-{{ item.slug }}"><a href="{{ item.get_admin_url }}">
+              {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=item %}{% endif %}
+              {{ item.name }}
+              {% if item.publication_date or item.expiration_date %}
+                <span class="extra-info publication-dates">
+                  {% if item.publication_date and item.expiration_date %}
+                    {% blocktrans trimmed with date1=item.publication_date|date:"DATETIME_FORMAT" date2=item.expiration_date|date:"DATETIME_FORMAT" %}
+                      Published from {{ date1 }} until {{ date2 }}
+                    {% endblocktrans %}
+                  {% elif item.publication_date %}
+                    {% blocktrans trimmed with date1=item.publication_date|date:"DATETIME_FORMAT" %}
+                      Published from {{ date1 }}
+                    {% endblocktrans %}
+                  {% elif item.expiration_date < now  %}
+                    {% blocktrans trimmed with date2=item.expiration_date|date:"DATETIME_FORMAT" %}
+                      Unpublished since {{ date2 }}
+                    {% endblocktrans %}
+                  {% else %}
+                    {% blocktrans trimmed with date2=item.expiration_date|date:"DATETIME_FORMAT" %}
+                      Published until {{ date2 }}
+                    {% endblocktrans %}
+                  {% endif %}
+                </span>
+              {% endif %}
+              {% if item.disabled and item.disabled_redirection %}
+                <span class="extra-info">- {% trans "redirection" %}</span>
+              {% endif %}
+            </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endwith %}
+  {% endif %}
+{% endfor %}

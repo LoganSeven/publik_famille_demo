@@ -1,0 +1,34 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="wf-anonymise" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#wf" />
+  <revision docversion="0.1" date="2014-08-26" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Anonymisation</title>
+
+<p>
+Dans le circuit de traitement d’une demande, après qu’elle ait été traitée,
+il peut être souhaité d’en conserver une trace à des fins statistiques, tout en
+lui retirant toute information à caractère personnel.
+</p>
+
+<p>
+L’élément « Anonymisation » répond à ce genre de besoin; il sera généralement
+placé dans un état du workflow atteint après l’expiration d’un délai.
+</p>
+
+<note style="important"><p>
+L’anonymisation des données privées est une obligation légale dans beaucoup de
+situations.
+</p></note>
+
+
+</page>
+

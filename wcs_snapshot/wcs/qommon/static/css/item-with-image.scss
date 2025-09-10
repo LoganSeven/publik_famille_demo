@@ -1,0 +1,63 @@
+.CheckboxesWithImagesWidget, .RadiobuttonsWithImagesWidget {
+	.content {
+		--image-width: var(--image-mobile-width);
+		--image-height: var(--image-mobile-height);
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: 5px;
+		@media (min-width: 761px) {
+			--image-width: var(--image-desktop-width);
+			--image-height: var(--image-desktop-height);
+		}
+		&:focus-within {
+			outline: 1px dashed var(--primary-color, #bbb);
+		}
+	}
+	&.pk-vertical-items {
+		.content {
+			flex-direction: column;
+		}
+		.item-with-image {
+			padding: 0;
+			grid-template-areas: 'input picture label';
+			justify-items: flex-start;
+			align-items: center;
+			grid-template-columns: auto var(--image-size) 1fr;
+			grid-column-gap: 0.7em;
+			grid-template-rows: auto;
+			flex: 0 0 auto;
+			&--input {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.item-with-image {
+	box-sizing: content-box;
+	padding: 10px;
+	flex: 0 0 var(--image-width);
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: var(--image-height) auto;
+	grid-row-gap: 5px;
+	grid-template-areas:
+		"picture picture"
+		"input label";
+	align-items: baseline;
+	justify-items: center;
+	&--picture {
+		margin-bottom: 5px;
+		grid-area: picture;
+		width: var(--image-width);
+		height: var(--image-height);
+		object-fit: contain;
+		object-position: bottom;
+	}
+	&--input {
+		grid-area: input;
+	}
+	&--label {
+		grid-area: label;
+	}
+}

@@ -1,0 +1,51 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="form-geolocation" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#form" />
+  <revision docversion="0.1" date="2015-05-01" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Cartes, adresses, etc.</desc>
+</info>
+
+<title>Géolocalisation</title>
+
+<p>
+ Un champ de type « Carte » permet d’afficher à l’usager une carte dans
+ laquelle il pourra pointer une adresse.
+</p>
+
+<p>
+ Le paramétrage du champ permet de préciser la zone sur laquelle la carte sera
+ centrée à l’ouverture du formulaire, ainsi que le niveau de zoom initial,
+ parce qu’il est inutile de présenter tout un pays dans un formulaire permettant
+ de signaler un trou dans une route de la ville, et des limites aux zooms,
+ parce qu’à nouveau, inutile de perdre l’usager dans un zoom affichant la terre
+ entière, ou le moindre brin d’herbe.
+</p>
+
+<p>
+ En alternative à une zone initiale fixe, il est également possible de demander
+ à l’appareil mobile de l’usager sa position (qui sera alors déterminée par
+ GPS, Wifi ou autre), et de centrer la carte sur celle-ci. Via les options de
+ préremplissage, il peut aussi être demandé d’automatiquement sélectionner
+ comme point la position courante de l’usager.
+</p>
+
+<section>
+ <title>Préremplissage basé sur la géolocalisation</title>
+
+ <p>
+  Les autres champs du formulaire peuvent être remplis selon le point qui sera
+  sélectionné par l’usager sur la carte; pour ce faire dans leurs options de
+  préremplissage il suffit de sélectionner « Géolocalisation » et de choisir
+  l’élément d’adresse souhaité comme contenu : la rue ou le numéro, ou les
+  deux, le code postal, la ville, la région.
+ </p>
+
+</section>
+
+</page>

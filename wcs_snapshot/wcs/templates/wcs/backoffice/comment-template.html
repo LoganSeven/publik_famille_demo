@@ -1,0 +1,62 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Comment Template" %} - {{ comment_template.name }}{% endblock %}
+
+{% block appbar-after-title %}
+  {% if comment_template.category_id %}<p class="appbar--category-subtitle">{{ comment_template.category.name }}</p>{% endif %}
+{% endblock %}
+
+{% block appbar-actions %}
+  {% if not comment_template.is_readonly %}
+    <a class="extra-actions-menu-opener"></a>
+    <ul class="extra-actions-menu">
+      <li><a href="export">{% trans "Export" %}</a></li>
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    </ul>
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=comment_template object=comment_template %}
+
+  {% if comment_template.comment %}
+    <div class="section">
+      <div class="comment-comment">{{ comment_template.comment }}</div>
+    </div>
+
+    <div class="section">
+      <h3>{% trans "Usage" %}</h3>
+      <ul class="objects-list single-links" data-async-url="{{ publisher.get_request.get_path }}usage">
+        <li class="loading-list-item"><p>{% trans "Searching..." %}</p></li>
+      </ul>
+    </div>
+
+  {% else %}
+    <div class="infonotice">{% trans "This comment template still needs to be configured." %}</div>
+  {% endif %}
+
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if comment_template.is_readonly %}
+    <div class="infonotice">
+      <p>{% trans "This comment template is readonly." %}</p>
+    </div>
+    {{ view.snapshot_info_block|safe }}
+  {% else %}
+    <h3>{% trans "Actions" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="edit">{% trans "Edit" %}</a></li>
+      <li><a class="button button-paragraph" href="duplicate" rel="popup">{% trans "Duplicate" %}</a></li>
+      <li><a class="button button-paragraph" rel="popup" href="history/save">{% trans "Save snapshot" %}</a></li>
+    </ul>
+
+    <h3>{% trans "Navigation" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="history/">{% trans "History" %}</a></li>
+    </ul>
+  {% endif %}
+  {% include 'wcs/backoffice/includes/applications.html' with applications=comment_template.applications prefix='../' %}
+{% endblock %}

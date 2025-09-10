@@ -1,0 +1,57 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="wf-form" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#wf" />
+  <link type="seealso" xref="misc-substvars" />
+  <revision docversion="0.1" date="2013-07-06" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Affichage d’un formulaire</title>
+
+<p>
+Lors du traitement d’une demande il peut être nécessaire de demander des
+informations supplémentaires à l’usager, ou qu’un agent complète la demande
+avec des informations internes (à l’image d’un « cadre réservé à
+l’administration » sur du papier).
+</p>
+
+<p>
+L’élément « Afficher un formulaire » répond à ce genre de besoin, en
+permettant la définition d’un formulaire de renseignement d’informations
+supplémentaires.
+</p>
+
+<p>
+L’interface pour définir les champs est identique à celle utilisée pour définir
+les formulaires généraux. Elle est accessible en cliquant sur le lien <gui>Éditer
+les champs</gui>. Toutes les options sont disponibles, à l’exception du
+multipage.
+</p>
+
+<note style="important"><p>
+Il est important de préciser un <gui>Nom de variable</gui> pour
+que la valeur qui sera renseignée par le champ soit sauvegardée.
+</p></note>
+
+<p>
+Il est nécessaire également de définir à qui sera présenté le formulaire, via
+le champ <gui>À</gui>, et de lui attribuer un <gui>Nom de variable</gui> qui
+permettra aux valeurs sauvegardées d’être accessibles au niveau des <link
+xref="misc-substvars">variables de substitution</link>, sous la forme
+<code><var>variable du formulaire</var>_var_<var>variable du
+champ</var></code> (par exemple : <code>contact_interne_var_telephone</code>).
+</p>
+
+<note><p>
+Pour les champs de type fichier, la variable contiendra le nom du fichier.
+L’adresse du fichier sera présente dans la variable nommée
+<code><var>variable du formulaire</var>_var_<var>variable du champ</var>_url</code>.
+</p></note>
+
+</page>

@@ -1,0 +1,151 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="misc-conditions" xml:lang="fr">
+
+<info>
+  <revision docversion="0.1" date="2014-09-12" status="draft"/>
+  <link type="seealso" xref="misc-substvars" />
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Exemples de conditions</title>
+
+<p>
+Dans la définition de pages conditionnelles et dans le paramétrage de sauts
+dans le workflow, il y a besoin d’exprimer une condition sous forme d’une
+expression Python. Cette page ne se veut évidemment pas un guide complet,
+toutes les possibilités offertes par le langage Python étant possibles, mais
+une série d’exemples concrets, rencontrés dans le paramétrage.
+</p>
+
+<note><p>Une explication sur les variables accessibles se trouve dans la page
+<link xref="misc-substvars">variables de substitution</link>.
+</p></note>
+
+<section>
+  <title>Expressions simples</title>
+
+  <p>
+  Pour tester le code postal associé à l’utilisateur courant, par exemple
+  pour proposer une page différente aux habitants d’une commune particulière,
+  l’expression suivante pourrait être utilisée :
+  </p>
+
+  <example><code>session_user_var_codepostal == '07530'</code></example>
+
+  <p>
+  Dans le même ordre d’idée, pour les utilisateurs qui ne seraient <em>pas</em>
+  de cette commune :
+  </p>
+
+  <example><code>session_user_var_codepostal != '07530'</code></example>
+
+  <p>
+  De manière générale, la négative peut également être obtenue en entourant
+  l’expression d’un <code>not()</code> :
+  </p>
+
+  <example><code>not(session_user_var_codepostal == '07530')</code></example>
+
+  <p>
+  Il peut également être imaginé de viser un département entier, en regardant
+  les deux premiers chiffres, deux manières sont possibles :
+  </p>
+
+  <example><code>session_user_var_codepostal.startswith('07')</code></example>
+
+  <p>
+  Ou, en utilisant <code>[:2]</code> pour signifier « les deux premiers
+  caractères » :
+  </p>
+
+  <example><code>session_user_var_codepostal[:2] == '07'</code></example>
+
+  <p>
+  Pour afficher une page uniquement si un champ texte optionnel a été complété,
+  la condition serait la suivante : (en considérant un champ de formulaire
+  auquel la variable "texte" a été associée)
+  </p>
+
+  <example><code>bool(form_var_texte)</code></example>
+
+  <p>
+  Tout autre chose, pour une réservation, on pourrait vouloir afficher une
+  page supplémentaire demandant les noms des inscrits, quand l’inscription
+  est faite pour plusieurs personnes. L’utilisation de <code>int()</code>
+  permet les comparaisons numériques :
+  </p>
+
+  <example><code>int(form_var_nombre_de_reservations) > 1</code></example>
+
+</section>
+
+
+<section>
+  <title>Expressions combinées</title>
+
+  <p>
+  Pour étendre un exemple donné plus haut, si on voulait afficher une page aux
+  usagers de deux communes différentes, on combinerait les expressions avec le
+  mot-clé <code>or</code> :
+  </p>
+
+  <example><code>session_user_var_codepostal == '07520' or session_user_var_codepostal == '07530'</code></example>
+
+  <p>
+  Cela peut devenir long avec un grand nombre de codes postaux, la même
+  expression peut être réduite en expression simple avec <code>in</code> :
+  </p>
+
+  <example><code>session_user_var_codepostal in ('07510', '07520', '07530')</code></example>
+
+  <p>
+  Sur ces exemples de codes postaux, si l’application visait plusieurs pays, on
+  devrait combiner le test, pour par exemple avoir « 07530 » comme code postal
+  <em>et</em> « France » comme pays. Cela se fait avec le mot-clé
+  <code>and</code> :
+  </p>
+
+  <example><code>session_user_var_codepostal == '07530' and session_user_var_pays == 'France'</code></example>
+
+</section>
+
+<section>
+  <title>Condition sur un âge ou un délai</title>
+
+  <p>
+  Pour limiter une condition aux enfants dont l’âge est inférieur à 6 ans vous
+  pouvez utiliser la fonction <code>utils.age_in_years</code> sur une variable de
+  type date.
+  </p>
+
+  <example><code>utils.age_in_years(form_var_date_de_naissance) &lt; 6</code></example>
+
+  <p>
+  Pour prendre en compte le nombre de mois vous disposez aussi de
+  <code>utils.age_in_years_and_months</code>. Ici l’âge à ne pas dépasser sera 6 ans
+  et 3 mois.
+  </p>
+
+  <example><code>utils.age_in_years_and_months(form_var_date_de_naissance) &lt; (6, 3)</code></example>
+
+  <p>
+  Les délais en terme de jour se calculeront avec <code>utils.age_in_days</code>. Ici
+  le délai est de 31 jours à dater de la soumission d’un formulaire.
+  </p>
+
+  <example><code>utils.age_in_days(form_receipt_datetime) &gt;= 31</code></example>
+
+  <p>
+  Les délais en terme de secondes se calculeront avec <code>utils.age_in_seconds</code>. Ici on attendra
+  au mieux deux heures (7200 secondes) avant de déclencher cette condition.
+  </p>
+
+  <example><code>utils.age_in_seconds(form_receipt_datetime) &gt;= 7200</code></example>
+
+</section>
+
+</page>

@@ -1,0 +1,54 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Workflow tests" %}{% endblock %}
+
+{% block appbar-actions %}
+  <a href="options" rel="popup">{% trans "Options" %}</a>
+{% endblock %}
+
+{% block body %}
+  {% if not testdef.workflow_tests.actions %}
+    <div class="infonotice"><p>{% trans "There are no workflow test actions yet." %}</p></div>
+  {% else %}
+    <p class="hint">{% trans "Use drag and drop with the handles to reorder fields." %}</p>
+  {% endif %}
+
+  <ul class="biglist sortable">
+    {% for action in testdef.workflow_tests.actions %}
+      <li id="{{ action.id }}" data-id="{{ action.id }}" class="biglistitem workflow-test-action {{ action.key }}">
+        {% if action.editable %}
+          <a class="biglistitem--content" href="{{ action.id }}/" rel="popup" title="{% trans "Edit" %}">
+        {% else %}
+          <span class="biglistitem--content" >
+        {% endif %}
+        <span class="label">{{ action.label }}</span>
+        <span class="biglistitem--content-details">
+          <span class="type">{{ action.render_as_line }}</span>
+        </span>
+        {% if action.editable %}
+          </a>
+        {% else %}
+          </span>
+        {% endif %}
+        <p class="commands">
+          {% if not testdef.is_readonly %}
+            <span class="duplicate">
+              <a href="{{ action.id }}/duplicate" title="{% trans "Duplicate" %}">{% trans "Duplicate" %}</a>
+            </span>
+            <span class="remove">
+              <a href="{{ action.id }}/delete" rel="popup" title="{% trans "Delete" %}">{% trans "Delete" %}</a>
+            </span>
+          {% endif %}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block sidebar-content %}
+  <div>
+    <h3>{% trans "New workflow test action" %}</h3>
+    {{ sidebar_form.render|safe }}
+  </div>
+{% endblock %}

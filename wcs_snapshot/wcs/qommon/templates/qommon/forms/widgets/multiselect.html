@@ -1,0 +1,20 @@
+{% extends "qommon/forms/widget.html" %}
+{% block widget-control %}
+  <select
+    {% if widget.readonly %}
+      hidden
+      id="form_{{widget.get_name_for_id}}_hidden" name="{{widget.name}}[]"
+    {% else %}
+      id="form_{{widget.get_name_for_id}}" name="{{widget.name}}[]"
+      data-autocomplete="true"
+    {% endif %}
+    {% if widget.required %}data-required="true"{% endif %}
+    {% for attr in widget.attrs.items %}{% if attr.0 != 'readonly' %}{{attr.0}}="{{attr.1}}" {% endif %}{% endfor %}>
+    {% for option in widget.get_options %}
+      <option value="{{ option.value }}" {% if option.disabled %}disabled{% endif %} {% if option.selected %}selected{% endif %}>{{ option.label }}</option>
+    {% endfor %}
+  </select>
+  {% if widget.readonly %}
+    <input readonly type="text" id="form_{{widget.get_name_for_id}}" value="{{ widget.get_selected_options_labels|join:", " }}">
+  {% endif %}
+{% endblock %}

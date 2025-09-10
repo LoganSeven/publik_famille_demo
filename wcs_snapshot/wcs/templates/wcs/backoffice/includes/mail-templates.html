@@ -1,0 +1,38 @@
+{% load i18n %}
+{% if categories %}
+  {% for category in categories %}
+    {% if category.mail_templates %}
+      {% with section_folded_pref_name="folded-admin-mailtemplates-category-"|add:category.id %}
+        <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+             data-section-folded-pref-name="{{ section_folded_pref_name }}">
+          <h2>{{ category.name }}</h2>
+          <ul class="objects-list single-links">
+            {% for mail_template in category.mail_templates %}
+              <li>
+                <a href="{{ mail_template.get_admin_url }}">
+                  {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=mail_template %}{% endif %}
+                  {{ mail_template.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+{% elif mail_templates %}
+  <ul class="objects-list single-links">
+    {% for mail_template in mail_templates %}
+      <li>
+        <a href="{{ mail_template.get_admin_url }}">
+          {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=mail_template %}{% endif %}
+          {{ mail_template.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="infonotice">
+    {% trans "There are no mail templates defined." %}
+  </div>
+{% endif %}

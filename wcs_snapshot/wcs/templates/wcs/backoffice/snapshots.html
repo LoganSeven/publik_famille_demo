@@ -1,0 +1,101 @@
+{% load i18n %}
+
+{% block body %}
+  <div id="appbar">
+    <div>
+      <h2 class="appbar--title">{% trans "History" %}</h2>
+    </div>
+    <span class="actions"></span>
+    {% block appbar-bottom %}
+      <label class="sr-only" for="appbar-history-search">{% trans "Search:" %}</label>
+      <input type="search" placeholder="{% trans "Quick search" %}" name="q" id="appbar-history-search" value="{{q|default:""}}">
+    {% endblock %}
+
+
+  </div>
+
+  {{ publisher.get_request.session.display_message|safe }}
+
+  {% with snapshots=view.snapshots %}
+    {% if snapshots %}
+      <div class="section">
+        <form action="compare" method="get">
+          {% if snapshots|length > 1 %}
+            <p><button>{% trans "Show differences" %}</button></p>
+          {% endif %}
+          <table class="main snapshots-table">
+            <thead>
+              <th>{% trans "Identifier" %}</th>
+              <th>{% trans "Compare" %}</th>
+              <th colspan="2">{% trans 'Date' %}</th>
+              <th colspan="3">{% trans "Description" %}</th>
+              <th>{% trans 'User' %}</th>
+              <th colspan="2">{% trans 'Actions' %}</th>
+              {% if form_has_tests %}<th>{% trans "Tests" %}</th>{% endif %}
+            </thead>
+            <tbody class="snapshots-list">
+              {% for snapshot in snapshots %}
+                <tr data-day="{{ snapshot.timestamp|date:"Y-m-d" }}"
+                    data-search-text="{{ snapshot.label|default:"" }}-{{ snapshot.comment|default:""|slugify }}"
+                    class="{% if snapshot.new_day %}new-day{% elif snapshot.label %}has-label{% else %}collapsed initially-collapsed{% endif %}">
+                  <td>
+                    <span class="counter">#{{ snapshot.id }}</span>
+                  </td>
+                  <td>
+                    {% if snapshots|length > 1 %}
+                      {% if not forloop.last %}<input type="radio" name="version1" value="{{ snapshot.id }}" {% if forloop.first %}checked="checked"{% endif %} />{% else %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}
+                      {% if not forloop.first %}<input type="radio" name="version2" value="{{ snapshot.id }}" {% if forloop.counter == 2 %}checked="checked"{% endif %}/>{% else %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}
+                    {% endif %}
+                  </td>
+                  <td colspan="2">
+                    {{ snapshot.timestamp }}
+                    {% if snapshot.new_day and snapshot.day_other_count %} — <a class="reveal"
+                                                                                href="#day-{{ snapshot.timestamp|date:"Y-m-d"}}">
+                      {% if snapshot.day_other_count >= 50 %}<strong>{% endif %}
+                      {% blocktrans trimmed count counter=snapshot.day_other_count %}
+                        1 other this day
+                      {% plural %}
+                        {{ counter }} others
+                      {% endblocktrans %}
+                    {% endif %}
+                  </td>
+                  <td class="label" colspan="3">
+                    {% if snapshot.label %}<strong>{{ snapshot.label }}</strong>{% elif snapshot.comment %}{{ snapshot.comment }}{% endif %}
+                    {% if snapshot.application_version %}({% blocktrans with version=snapshot.application_version %}Version {{ version }}{% endblocktrans %}){% endif %}
+                  </td>
+                  <td>{% if snapshot.user_id %}{{ snapshot.user }}{% endif %}</td>
+                  <td colspan="2">
+                    <a href="{{snapshot.id}}/view/">{% trans "View" %}</a>
+                    —
+                    <a data-popup {% if forloop.first %}class="disabled" href="#"{% else %}href="{{snapshot.id}}/restore"{% endif %}>{% trans "Restore" %}</a>
+                    —
+                    <a href="{{snapshot.id}}/export">{% trans "Export" %}</a>
+                  </td>
+                  {% if form_has_tests %}
+                    <td class="test-result">
+                      {% include "wcs/backoffice/includes/test-result-fragment.html" with result=snapshot.test_results add_link=True %}
+                    </td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+    {% else %}
+      <div class="infonotice"><p>{% trans "No changes history" %}</p></div>
+    {% endif %}
+  {% endwith %}
+
+
+  <script>
+    $(function() {
+      $('tr.new-day a.reveal').on('click', function() {
+        var day = $(this).parents('tr.new-day').data('day');
+        $('.snapshots-list tr[data-day="' + day + '"]:not(.new-day):not(.has-label)').toggleClass('collapsed');
+        return false;
+      });
+    });
+  </script>
+
+{% endblock %}

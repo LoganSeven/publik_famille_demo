@@ -1,0 +1,30 @@
+{% extends "qommon/forms/widgets/map.html" %}
+
+{% block widget-control-attributes %}
+  {% if not widget.readonly %}
+    data-markers-url="{{ widget.geojson_markers_url }}"
+    data-markers-radio-name="{{widget.name}}$marker_id"
+  {% endif %}
+  {% if widget.value %}
+    data-markers-initial-id="{{ widget.value }}"
+  {% endif %}
+{% endblock %}
+
+{% block widget-control %}
+  <input type="hidden" name="{{widget.name}}$marker_id" {% if widget.value %}value="{{widget.value}}"{% endif %}>
+  {{ block.super }}
+
+  <style>
+    .item-marker span.marker-icon {
+      position: relative;
+      z-index: 1000;
+      display: block;
+      width: 25px;
+      height: 41px;
+      background: url(/static/images/blank-marker-icon.png);
+    }
+    .item-marker span.marker-icon.marker-icon-on {
+      background: url(/static/xstatic/images/marker-icon.png);
+    }
+  </style>
+{% endblock %}

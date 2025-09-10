@@ -1,0 +1,27 @@
+{% extends "qommon/forms/widget.html" %}
+
+{% block widget-control %}
+  {% if "readonly" in widget.attrs %}
+    {# for readonly mode, add an hidden field with the correct value and a text #}
+    {# input with the formated date value; this will avoid displaying the date in #}
+    {# Y-m-d format, or including a date input with an ineffective reset × button. #}
+    <input type="hidden" name="{{widget.name}}" {% if widget.value %}value="{{ widget.value|date:"Y-m-d" }}"{% endif %}>
+    <input type="text" {% if widget.value %}value="{{ widget.value|date }}"{% endif %}
+         {% else %}
+    {# otherwise, use an <input type="date"> but also include js datetime picker #}
+    {# attributes, in case it's not supported. #}
+           <input name="{{widget.name}}" {% if widget.value %}value="{{ widget.value|date:"Y-m-d" }}"{% endif %}
+           type="date"
+           {% if widget.value %}data-formatted-value="{{ widget.value|default:"" }}"{% endif %}
+           {% if widget.minimum_date %}
+             min="{{widget.minimum_date|date:"Y-m-d"}}"
+           {% endif %}
+           {% if widget.maximum_date %}
+             max="{{widget.maximum_date|date:"Y-m-d"}}"
+           {% endif %}
+         {% endif %}
+         id="form_{{widget.get_name_for_id}}"
+         {% for attr in widget.attrs.items %}{{attr.0}}="{{attr.1}}" {% endfor %}
+         {% if widget.required %}required aria-required="true"{% endif %}
+  >
+{% endblock %}

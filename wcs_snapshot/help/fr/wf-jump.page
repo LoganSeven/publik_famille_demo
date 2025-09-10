@@ -1,0 +1,76 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="wf-jump" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#wf" />
+  <revision docversion="0.1" date="2015-05-01" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Changement de statut automatique</title>
+
+<p>
+L’action de changement de statut automatique permet de passer automatiquement
+un formulaire d’un statut à un autre, avec la possibilité de définir les
+critères à rencontrer pour que la transition ait lieu.
+</p>
+
+<p>
+Ces critères sont de trois ordres : une condition particulière, pouvant par
+exemple porter sur des données du formulaire, un déclencheur externe, pour
+l’interaction avec des systèmes externes, et un délai d’expiration, pour
+assurer une transition automatique après un temps donné.
+</p>
+
+<note>
+<p>
+Il est possible de combiner différents critères, dans ce cas ils devront
+tous être remplis pour que la transition ait lieu.
+</p>
+</note>
+
+<section>
+ <title>Condition</title>
+
+ <p>
+  De la même manière que dans les <link xref="form-multipages">pages
+  conditionnelles</link> une expression Python peut être spécifiée.
+ </p>
+</section>
+
+<section>
+ <title>Déclencheur</title>
+
+ <p>
+  Ce dispositif permet à un système tiers de provoquer la transition de statut,
+  il est décrit dans la documentation sur l’API, dans la page <link xref="api-workflow"/>.
+ </p>
+</section>
+
+<section>
+ <title>Expiration</title>
+
+ <p>
+  Le critère d’expiration permet d’avoir une transition de statut après un
+  certain délai seulement; il est par exemple utile pour créer un système de
+  relance automatique.
+ </p>
+
+ <note>
+ <p>
+  Le délai peut être introduit sous forme textuelle et il est possible de
+  combiner les unités de temps, par exemple : <code>1 mois 10 jours</code>.
+ </p>
+ <p>
+  Il peut également être spécifié sous forme d’expression Python, en préfixant
+  celle-ci d’un signe =, la valeur doit alors être un nombre de secondes.
+ </p>
+ </note>
+
+</section>
+
+</page>

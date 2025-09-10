@@ -1,0 +1,5 @@
+{% for application in object.applications %}
+  {% if application.icon %}
+    <img src="application/{{ application.slug }}/icon" alt="" class="application-icon" width="16" />
+  {% endif %}
+{% endfor %}

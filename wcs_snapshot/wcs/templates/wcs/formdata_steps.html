@@ -1,0 +1,43 @@
+{% load i18n %}
+<header id="steps" class="wcs-steps steps-{{page_labels|length}}">
+  <h2 id="steps--title">{% trans "Steps" %}</h2>
+  <div>
+    {% block steps-list %}
+      <ol class="wcs-steps--list">
+        {% for page_label in page_labels %}
+          {% spaceless %}
+            <li
+              class="wcs-step
+                     {% if forloop.first %}first{% endif %}
+                     {% if forloop.last %}last{% endif %}
+                     {% if forloop.counter == current_page_no %}current{% endif %}
+                     {% if forloop.counter < current_page_no %}step-before{% endif %}
+                     {% if forloop.counter > current_page_no %}step-after{% endif %}"
+              {% if forloop.counter < current_page_no %}
+                aria-label="{% blocktrans with page_label=page_label %}Go back to step: {{ page_label }}{% endblocktrans %}"
+                role="button"
+                tabindex="0"
+                data-page-id="{% with page=pages|get:forloop.counter0 %}{{ page.id }}{% endwith %}"
+              {% endif %}
+            >
+              <abbr
+                aria-label="{% blocktrans with page_no=forloop.counter page_count=page_labels|length %}Step {{ page_no }} of {{ page_count }}:{% endblocktrans %}"
+                title="{% blocktrans with page_no=forloop.counter page_count=page_labels|length %}Step {{ page_no }} of {{ page_count }}{% endblocktrans %}"
+                class="marker wcs-step--marker">
+                <span class="wcs-step--marker-nb">
+                  {{ forloop.counter }}
+                </span>
+                <span class="wcs-step--marker-total">
+                  {{ page_labels|length }}
+                </span>
+              </abbr>
+              <span class="label wcs-step--label"><span class="wcs-step--label-text">{{ page_label }}</span>
+                {% if forloop.counter == current_page_no %}<span class="sr-only"> ({% trans "current step" %})</span>{% endif %}
+              </span>
+            </li>
+          {% endspaceless %}
+        {% endfor %}
+      </ol>
+    {% endblock %}
+  </div>
+</header>

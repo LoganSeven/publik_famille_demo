@@ -1,0 +1,33 @@
+{% extends "qommon/forms/widgets/checkboxes.html" %}
+
+{% block widget-style-attributes %}
+  {% if widget.field.image_desktop_size %}--image-desktop-width: {{ widget.field.image_desktop_size|split:'x'|first }}px;--image-desktop-height: {{ widget.field.image_desktop_size|split:'x'|last }}px;{% endif %}{% if widget.field.image_mobile_size %}--image-mobile-width: {{ widget.field.image_mobile_size|split:'x'|first }}px;--image-mobile-height: {{ widget.field.image_mobile_size|split:'x'|last }}px;{% endif %}{{ block.super }}
+{% endblock %}
+
+{% block widget-control %}
+  <template id="item_{{ widget.get_name_for_id }}">
+    <label class="item-with-image">
+      <input {% for attr in widget.attrs.items %}{{attr.0}}="{{attr.1}}" {% endfor %}
+             type="checkbox"
+             value="yes"
+             {% if widget.readonly %}disabled{% else %}name="{{ option.name }}"{% endif %}
+             class="item-with-image--input" />
+      <img  alt="" class="item-with-image--picture" />
+      <span class="item-with-image--label"></span>
+    </label>
+  </template>
+  {% for option in widget.get_options %}
+    {% if option.start_optgroup or option.end_optgroup %}{# ignore #}
+    {% else %}
+      <label for="{{ widget.get_name_for_id }}_op_{{ forloop.counter0 }}" class="item-with-image">
+        <input id="{{ widget.get_name_for_id }}_op_{{ forloop.counter0 }}"
+               {% if option.selected %}checked="checked"{% endif %}
+               {% for attr in widget.attrs.items %}{{attr.0}}="{{attr.1}}" {% endfor %}
+               type="checkbox" {% if widget.readonly %}value="yes" disabled{% else %}name="{{ option.name }}" value="yes"{% endif %} class="item-with-image--input" />
+        {% if widget.readonly and option.selected %}<input type="hidden" name="{{ option.name }}" value="yes">{% endif %}
+        {% if option.options.image_url %}<img src="{{ option.options.image_url }}" title="{{ option.label }}" alt="" class="item-with-image--picture" />{% endif %}
+        <span class="item-with-image--label">{{ option.label }}</span></label>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+

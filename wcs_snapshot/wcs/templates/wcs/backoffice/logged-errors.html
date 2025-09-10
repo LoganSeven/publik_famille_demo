@@ -1,0 +1,46 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Logged Errors" %}{% endblock %}
+
+{% block appbar-actions %}
+  <a rel="popup" href="cleanup">{% trans "Cleanup" %}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="bo-block">
+    <form>
+      <input type="search" name="q" id="appbar-search" value="{{q|default:""}}">
+      <button>{% trans "Search" %}</button>
+    </form>
+  </div>
+
+  <table class="main logged-errors-table">
+    <thead>
+      <tr>
+        <th>{% trans "Latest occurence" %}</th>
+        <th>{% trans "Error" %}</th>
+        <th>{% trans "Count" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for error in errors %}
+        <tr>
+          <td class="timestamp">{{ error.latest_occurence_timestamp }}</td>
+          <td class="message"><a href="{{ error.id }}/"><span class="summary">{{ error.summary }}</span>
+            {% if error.exception_class or error.exception_message %}
+              <small class="extra-info">
+                {{ error.exception_class }} ({{ error.exception_message }})
+              </small>
+            {% endif %}
+            {% with formdef=error.get_formdef %}
+              {% if formdef %}<small class="extra-info">{{ formdef.name }}</small>{% endif %}
+            {% endwith %}
+          </a></td>
+          <td class="count"><span class="badge">{{ error.formatted_occurences_count }}</span></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {{ pagination_links|safe }}
+{% endblock %}

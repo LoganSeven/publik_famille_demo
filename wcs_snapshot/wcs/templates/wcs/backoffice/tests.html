@@ -1,0 +1,43 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Tests" %}{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  {% if not has_deprecated_fields %}
+    <a class="button button-paragraph" href="new" rel="popup">{% trans "New" %}</a>
+  {% endif %}
+  <a class="button button-paragraph" href="import" rel="popup">{% trans "Import" %}</a>
+  {% if testdefs %}
+    <a class="button button-paragraph" href="results/run">{% trans "Run tests" %}</a>
+  {% endif %}
+  <h3>{% trans "Navigation" %}</h3>
+  <a class="button button-paragraph" href="results/">{% trans "Test results" %}</a>
+  <a class="button button-paragraph" href="test-users/">{% trans "Test users" %}</a>
+{% endblock %}
+
+{% block body %}
+  <div class="section">
+    <h3>{% trans "Test form data" %}</h3>
+
+    {% if has_deprecated_fields %}
+      <div class="warningnotice">
+        <p>{% trans "Tests cannot be created because this form has deprecated fields." %}</p>
+      </div>
+    {% endif %}
+
+    {% if testdefs %}
+      <ul class="objects-list single-links">
+        {% for test in testdefs %}
+          <li>
+            <a href="{{ test.id }}/">{{ test }}</a>
+            <a rel="popup" class="delete" href="{{ test.id }}/delete">{% trans "remove" %}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div><p>{% trans "There are no tests yet." %}<p></div>
+    {% endif %}
+  </div>
+{% endblock %}

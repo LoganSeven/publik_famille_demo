@@ -1,0 +1,55 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="dev-scripts" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#dev" />
+  <revision docversion="0.1" date="2016-08-12" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Utilisation de scripts externes dans les calculs</desc>
+
+</info>
+
+<title>Scripts externes</title>
+
+<p>
+Il est possible d’étendre les capacités des champs calculés et des expressions
+utilisées dans les gabarits au moyen de scripts externes.  Pour cela il suffit
+de déposer dans le répertoire système du site, dans un sous-répertoire
+<code>scripts</code>, un fichier Python, dont le résultat doit être posé dans
+une variable nommée <code>result</code>.
+</p>
+
+<p>
+Par exemple <file>/var/lib/wcs/www.example.net/scripts/hello.py</file> pourrait
+être créé avec le contenu suivant :
+</p>
+
+<code mime="text/python">
+"""
+Salue l’usager (quand un nom est passé en argument), ou le monde.
+"""
+if args:
+    result = "Hello %s" % args[0]
+else:
+    result = "Hello world"
+</code>
+
+<p>
+Dans un champ calculé, cela serait appelé comme <code>script.hello()</code> ou
+<code>script.hello('earth')</code>; dans un gabarit, il n’y a pas de prise en
+charge des arguments, la seule utilisation possible est
+<code>{{script.hello}}</code>.
+</p>
+
+<note>
+<p>
+Il est également possible de placer ces scripts dans un sous-répertoire
+<code>scripts</code> du répertoire général des instances, pour rendre ceux-ci
+disponibles depuis l’ensemble des instances.
+</p>
+</note>
+
+</page>

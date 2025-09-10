@@ -1,0 +1,140 @@
+{% load i18n %}
+{% with section_folded_pref_name="folded-admin-datasources-users" %}
+  <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+       data-section-folded-pref-name="{{ section_folded_pref_name }}">
+    <h2>{% trans "Users Data Sources" %}</h2>
+    {% if user_data_sources %}
+      <ul class="objects-list single-links">
+        {% for data_source in user_data_sources %}
+          <li data-search-text="{{ data_source.name|searchify }}-{{ data_source.slug }}">
+            <a href="{{ data_source.get_admin_url }}">
+              {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=data_source %}{% endif %}
+              {{ data_source.name }} ({{ data_source.slug }})
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div>
+        {% trans "There are no users data sources defined." %}
+      </div>
+    {% endif %}
+  </div>
+{% endwith %}
+
+{% if categories %}
+  {% for category in categories %}
+    {% if category.data_sources %}
+      {% with section_folded_pref_name="folded-admin-datasources-category-"|add:category.id %}
+        <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+             data-section-folded-pref-name="{{ section_folded_pref_name }}">
+          <h2>{{ category.name }}</h2>
+          <ul class="objects-list single-links">
+            {% for data_source in category.data_sources %}
+              <li data-search-text="{{ data_source.name|searchify }}-{{ data_source.slug }}">
+                <a href="{{ data_source.get_admin_url }}">
+                  {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=data_source %}{% endif %}
+                  {{ data_source.name }} ({{ data_source.slug|wbr }})
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% with section_folded_pref_name="folded-admin-datasources-manual" %}
+    <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+         data-section-folded-pref-name="{{ section_folded_pref_name }}">
+      <h2>{% trans "Manually Configured Data Sources" %}</h2>
+      {% if data_sources %}
+        <ul class="objects-list single-links">
+          {% for data_source in data_sources %}
+            <li data-search-text="{{ data_source.name|searchify }}-{{ data_source.slug }}">
+              <a href="{{ data_source.get_admin_url }}">
+                {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=data_source %}{% endif %}
+                {{ data_source.name }} ({{ data_source.slug|wbr }})
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div>
+          {% trans "There are no data sources defined." %}
+        </div>
+      {% endif %}
+    </div>
+  {% endwith %}
+{% endif %}
+
+{% if carddef_categories %}
+  {% for carddef_category in carddef_categories %}
+    {% if carddef_category.generated_data_sources %}
+      {% with section_folded_pref_name="folded-admin-datasources-generated-carddef-category-"|add:carddef_category.id %}
+        <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+             data-section-folded-pref-name="{{ section_folded_pref_name }}">
+          <h2>{% trans "Data Sources from Card Models" %} - {% trans "automatically configured" %} - {{ carddef_category.name }}</h2>
+          <ul class="objects-list single-links">
+            {% for data_source in carddef_category.generated_data_sources %}
+              <li data-search-text="{{ data_source.name|searchify }}-{{ data_source.slug }}">
+                <a href="{{ data_source.0.get_url }}{% if data_source.3 %}{{ data_source.3.get_url_slug }}/{% endif %}">
+                  {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=data_source.0 %}{% endif %}
+                  {{ data_source.1 }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% with section_folded_pref_name="folded-admin-datasources-auto-generated-carddef-category" %}
+    <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+         data-section-folded-pref-name="{{ section_folded_pref_name }}">
+      <h2>{% trans "Data Sources from Card Models" %} - {% trans "automatically configured" %}</h2>
+      {% if generated_data_sources %}
+        <ul class="objects-list single-links">
+          {% for data_source in generated_data_sources %}
+            <li data-search-text="{{ data_source.name|searchify }}-{{ data_source.slug }}">
+              <a href="{{ data_source.0.get_url }}{% if data_source.3 %}{{ data_source.3.get_url_slug }}/{% endif %}">
+                {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=data_source.0 %}{% endif %}
+                {{ data_source.1 }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div>
+          {% trans "There are no data sources from card models." %}
+        </div>
+      {% endif %}
+    </div>
+  {% endwith %}
+{% endif %}
+
+{% if has_chrono %}
+  {% with section_folded_pref_name="folded-admin-datasources-auto-generated-chrono-category" %}
+    <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+         data-section-folded-pref-name="{{ section_folded_pref_name }}">
+      <h2>{% trans "Agendas" %} - {% trans "automatically configured" %}</h2>
+      {% if agenda_data_sources %}
+        <ul class="objects-list single-links">
+          {% for data_source in agenda_data_sources %}
+            <li data-search-text="{{ data_source.name|searchify }}-{{ data_source.slug }}">
+              <a href="{{ data_source.get_admin_url }}">
+                {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=data_source %}{% endif %}
+                {{ data_source.name }} ({{ data_source.slug|wbr }}){% if data_source.external_status == 'not-found' %} - <span class="extra-info">{% trans "not found" %}</span>{% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div>
+          {% trans "There are no agendas." %}
+        </div>
+      {% endif %}
+    </div>
+  {% endwith %}
+{% endif %}

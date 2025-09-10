@@ -1,0 +1,25 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "File Types" %}{% endblock %}
+
+{% block appbar-actions %}
+  <a rel="popup" href="new">{% trans "New file type" %}</a>
+{% endblock %}
+
+{% block content %}
+  {% if file_types %}
+    <ul class="objects-list single-links">
+      {% for file_type in file_types %}
+        <li><a href="{{ file_type.id }}/">{{ file_type.label }}
+          <span class="extra-info">({{ file_type.formatted_mime_type }})</span>
+          {% if file_type.is_default %} — {% trans "default type" %} {% endif %}
+        </a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="infonotice">
+      {% trans "There are no file type defined at the moment." %}
+    </div>
+  {% endif %}
+{% endblock %}

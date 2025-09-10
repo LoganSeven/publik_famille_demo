@@ -1,0 +1,55 @@
+{% extends template_base %}
+{% load i18n %}
+
+{% block body %}
+  <div id="formdata-page"
+       {% if formdata.workflow_processing_timestamp %}data-workflow-processing="true"{% endif %}
+       {% if formdata.workflow_processing_afterjob_id %}data-workflow-processing-afterjob-id="{{ formdata.workflow_processing_afterjob_id }}"{% endif %}>
+    {% block session-message %}
+      {{session_message|safe}}
+    {% endblock %}
+
+    {% if formdata.workflow_processing_timestamp %}
+      <div style="background: #eee; padding: 1em;"><div class="loader"></div><p style="text-align: center;">{% trans "Processing..." %}</p></div>
+    {% endif %}
+
+    {% with workflow_messages=view.workflow_messages %}
+      {% if workflow_messages %}
+        {{ workflow_messages|safe }}
+      {% else %}
+        <div id="receipt-intro">
+          {{ view.recorded_message|safe }}
+          {% if mine %}
+            {{ view.get_handling_role_info_text|safe }}
+          {% endif %}
+          {% if mine and formdata.formdef.enable_tracking_codes and formdata.tracking_code %}
+            <p id="tracking-code">
+              {% trans "You can get back to this page using the following tracking code:" %}
+              <a name="tracking-code-display">{{ formdata.tracking_code }}</a>
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {{ view.receipt|safe }}
+    {% if formdata.evolution %}
+      {{ view.history|safe }}
+    {% endif %}
+
+    {% with workflow_messages=view.bottom_workflow_messages %}
+      {% if workflow_messages or workflow_form %}<span id="action-zone"></span>{% endif %}
+      {{ workflow_messages|safe }}
+    {% endwith %}
+
+    {% if workflow_form and not formdata.workflow_processing_timestamp %}
+      {{ view.actions_workflow_messages|safe }}
+      {{ workflow_form.render|safe }}
+    {% endif %}
+
+    {% if formdata.workflow_processing_timestamp %}
+      <div class="busy-processing"><div class="loader"></div><p>{% trans "Processing..." %}</p></div>
+    {% endif %}
+
+  </div>
+{% endblock %}

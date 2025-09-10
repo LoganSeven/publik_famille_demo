@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<html>
+  <body>
+    <h1>{% trans "This site is currently unavailable." %}</h1>
+    <p>{{ maintenance_message|default:"" }}</p>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+etc/wcs
+usr/lib/wcs
+usr/sbin
+var/lib/wcs
+var/lib/wcs/collectstatic
+var/lib/wcs/spooler
+var/log/wcs

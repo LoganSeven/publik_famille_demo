@@ -1,0 +1,23 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "All changes" context 'studio' %}{% endblock %}
+
+{% block content %}
+  <ul class="objects-list single-links">
+    {% for obj in objects %}
+      {% if obj %}
+        <li>
+          <a href="{{ obj.get_admin_url }}">
+            {{ obj.name }}
+            <span class="extra-info">{{ obj.snapshot_timestamp }}</span>
+            <span class="badge">{{ obj.verbose_name }}</span>
+          </a>
+        </li>
+      {% else %}
+        <li><a><i>{% trans "Recently deleted object" %}</i></a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {{ pagination_links|safe }}
+{% endblock %}

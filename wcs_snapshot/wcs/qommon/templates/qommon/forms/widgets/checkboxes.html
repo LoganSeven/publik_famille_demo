@@ -1,0 +1,23 @@
+{% extends "qommon/forms/widget.html" %}
+
+{% block widget-control %}
+  <ul {% if widget.inline %}class="inline"{% endif %} data-base-for-name="{{ widget.get_name_for_id }}_op_">
+    {% for option in widget.get_options %}
+      {% if option.start_optgroup %}
+        <li><strong>{{ option.start_optgroup }}</strong></li>
+      {% elif option.end_optgroup %}
+      {% else %}
+        <li {% if option.disabled %}class="disabled"{% endif %}><label for="{{ widget.get_name_for_id }}_op_{{ forloop.counter0 }}"><input
+          id="{{ widget.get_name_for_id }}_op_{{ forloop.counter0 }}"
+          {% if option.selected %}checked="checked"
+          {% elif widget.readonly or option.disabled %}disabled{% endif %}
+          {% for attr in widget.attrs.items %}{{attr.0}}="{{attr.1}}" {% endfor %}
+          type="checkbox"
+          {% if widget.readonly %}value="yes" disabled {% else %}name="{{ option.name }}" value="yes"{% endif %}
+        ><span>{{ option.label }}</span></label>
+          {% if widget.readonly and option.selected %}<input type="hidden" name="{{ option.name }}" value="yes">{% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endblock %}

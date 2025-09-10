@@ -1,0 +1,19 @@
+{% extends "wcs/backoffice.html" %}
+
+{% block bodyargs %}class="no-header no-footer"{% endblock %}
+{% block site-header %}{% endblock %}
+{% block user-links %}{% endblock %}
+{% block sidepage %}{% endblock %}
+
+{% block main-content %}
+  <div id="appbar"><h2>{{ view.formdef.name }}</h2></div>
+  {% block form-side %}
+    {{ form_side|default:"" }}
+    {{ publisher.get_request.session.display_message|safe }}
+  {% endblock %}
+
+  {{ html_form.render|safe }}
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+{% block footer %}{% endblock %}

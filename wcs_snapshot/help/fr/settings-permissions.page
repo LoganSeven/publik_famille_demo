@@ -1,0 +1,69 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="settings-permissions" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#system-settings" />
+  <revision docversion="0.1" date="2014-03-23" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Autorisations d’accès spécifiques et accès de secours</desc>
+</info>
+
+<title>Permissions d’administration</title>
+
+<p>
+  Dans le fonctionnement de base un compte d’administration ouvre l’accès à
+  toutes les pages de l’interface d’administration, il est néanmoins possible
+  de paramétrer de manière plus fine l’accès aux différentes sections.
+</p>
+
+<p>
+  Dans l’espace de paramétrage, dans la section « Sécurité », suivez le lien
+  « Permissions d’administration ».  Pour chacune des grandes sections de
+  l’administration (<gui>Formulaires</gui>, <gui>Modèles de fiches</gui>,
+  <gui>Workflows</gui>…) vous pouvez restreindre l’accès aux utilisateurs
+  disposant de rôles particuliers.
+</p>
+
+<section id="failsafe">
+  <title>Accès d’administration de secours</title>
+
+  <p>
+    En cas de mauvaise manipulation et de perte totale de l’accès à l’interface
+    d’administration, le système dispose d’un moyen de secours
+    pour temporairement désactiver la vérification des permissions d’accès.
+  </p>
+
+  <p>
+    Dans le répertoire de l’instance (<file>/var/lib/wcs/tenants/www.example.net/</file>
+    par exemple), un fichier <file>ADMIN_FOR_ALL</file> doit être créé,
+    contenant l’adresse IP qui sera utilisée pour la connexion.
+  </p>
+
+  <screen>
+<output style="prompt"># </output><input>cd /var/lib/wcs/tenants/www.example.net/</input>
+<output style="prompt"># </output><input>echo 77.109.103.99 &gt; ADMIN_FOR_ALL</input>
+</screen>
+
+   <p>
+     L’interface d’administration devient alors accessible pour permettre la
+     correction de l’éventuelle erreur. Dans ce mode elle affiche son bandeau
+     en rouge vif, rappel que celui-ci est exceptionnel et dangereux.  Dès
+     l’accès restauré, il est important de supprimer le fichier
+     <file>ADMIN_FOR_ALL</file>.
+   </p>
+
+   <note style="warning">
+    <p>
+      Pour des raisons de compatibilité, un fichier <file>ADMIN_FOR_ALL</file>
+      vide ouvre l’accès pour toutes les connexions; ce comportement
+      dangereux sera supprimé dans une version à venir, son utilisation est
+      fortement découragée.
+    </p>
+   </note>
+
+</section>
+
+</page>

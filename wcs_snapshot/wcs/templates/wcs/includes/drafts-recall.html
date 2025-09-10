@@ -1,0 +1,24 @@
+{% load i18n %}
+{% if not view.preview_mode and view.initial_drafts %}
+  {% with view.initial_drafts|length as drafts_length %}
+    <div class="drafts-recall">
+      <p>
+        {% blocktrans trimmed %}
+          You already started to fill this form. You can continue it or submit a new
+          one.
+        {% endblocktrans %}
+      </p>
+      {% if drafts_length == 1 %}
+        <p><a class="pk-button" href="{{view.initial_drafts.0.internal_id}}/">{% trans "Continue with draft" %}</a></p>
+      {% elif drafts_length > 1 %}
+        <ul>
+          {% for draft in view.initial_drafts %}
+            <li><a href="{{draft.internal_id}}/">{% trans "continue with draft from " %} {{draft.receipt_date}}
+              {{draft.receipt_time}}{% if draft.digest and "None" not in draft.digest %} ({{ draft.digest }}){% endif %}</a>,
+              {% blocktrans with page_no=draft.page_no|add:1 %}on page {{page_no}}{% endblocktrans %}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endwith %}
+{% endif %}

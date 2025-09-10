@@ -1,0 +1,88 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block content %}
+
+  {% block appbar %}
+    <div id="appbar" class="highlight studio-appbar">
+      <h2>{% trans "Studio" %}</h2>
+      {% if is_global_search_allowed %}
+        <a id="studio-search-button" class="button" href="search"><span class="sr-only">{% trans "Search" %}</span></a>
+      {% endif %}
+    </div>
+  {% endblock %}
+
+  <div id="studio">
+    <div class="fx-grid--t3">
+      <div class="fx-grid--t2">
+        {% if user.can_go_in_backoffice_forms %}
+          <a class="button button-paragraph size--1-1" href="../forms/">{% trans "Forms" context "studio" %}
+            <p>{% trans "Forms are typically used to collect user demands." %}</p>
+          </a>
+        {% endif %}
+        {% if user.can_go_in_backoffice_cards %}
+          <a class="button button-paragraph size--1-1" href="../cards/">{% trans "Cards" context "studio" %}
+            <p>{% trans "Cards are used to store list of structured data." %}</p>
+          </a>
+        {% endif %}
+        {% if user.can_go_in_backoffice_workflows %}
+          <a class="button button-paragraph size--1-1" href="../workflows/">{% trans "Workflows" context "studio" %}
+            <p>{% trans "Workflows are used to add custom behaviours or actions to forms and cards." %}</p>
+          </a>
+        {% endif %}
+        {% for link, label in extra_links %}
+          <a class="button button-paragraph" href="{{ link }}">{{ label }}</a>
+        {% endfor %}
+      </div>
+
+      <div class="paragraph">
+        <h3>{% trans "Recent changes" context "studio" %}</h3>
+        <ul class="recent-changes">
+          {% for obj in recent_objects %}
+            {% if obj %}
+              <li><a href="{{ obj.get_admin_url }}">{{ obj.name }} ({{ obj.verbose_name }})</a>
+                <span class="timestamp">{{ obj.snapshot_timestamp }}</span></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        {% if show_all_changes %}
+          <p><a class="all-changes pk-button" href="all-changes/">{% trans "See all changes" %}</a></p>
+        {% endif %}
+      </div>
+
+      <div class="errors-and-deprecations">
+        {% if ancient_count %}
+          <a class="button button-paragraph ancient-forms-link" href="ancient-forms">
+            {% blocktrans count counter=ancient_count %}
+              {{ ancient_count }} ancient form.
+            {% plural %}
+              {{ ancient_count }} ancient forms.
+            {% endblocktrans %}
+            <br>
+            {% trans "Anonymisation should be configured." %}
+          </a>
+        {% endif %}
+
+        <div class="paragraph recent-errors {% if not recent_errors %}no-recent-errors{% endif %}">
+          <h3>{% trans "Recent errors" context "studio" %}</h3>
+          {% if recent_errors %}
+            <ul>
+              {% for error in recent_errors %}
+                <li><a href="logged-errors/{{ error.id }}/">{{ error.wbr_summary|safe|truncatechars_html:150 }}</a></li>
+              {% endfor %}
+            </ul>
+            <p><a class="logged-errors-all pk-button" href="logged-errors/">{% trans "See all errors" context "studio" %}</a></p>
+          {% else %}
+            <p>{% trans "No errors, congratulations!" %}</p>
+          {% endif %}
+        </div>
+        <div>
+          <p><a class="button button-paragraph" href="deprecations/">{% trans "Deprecations Report" %}</a></p>
+          {% if is_trash_allowed %}
+            <p><a class="button button-paragraph" href="trash/">{% trans "Trash, recently deleted items" %}</a></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

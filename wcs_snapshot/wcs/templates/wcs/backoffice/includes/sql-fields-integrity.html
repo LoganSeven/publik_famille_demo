@@ -1,0 +1,25 @@
+{% load i18n %}
+
+{% if formdef.sql_integrity_errors %}
+  <div class="errornotice">
+    <details><summary>
+      {% blocktrans trimmed %}
+        There are integrity errors in the database column types.
+      {% endblocktrans %}
+    </summary>
+      <ul>
+        {% for error in formdef.sql_integrity_errors.items %}
+          <li>
+            {% with field=formdef.get_all_fields_dict|get:error.0 %}
+              <a href="{{ field.get_admin_url }}">{{ field.ellipsized_label }}</a>,
+              {% blocktrans trimmed with expected=error.1.expected got=error.1.got %}
+                expected: {{ expected }}, got: {{ got }}.
+              {% endblocktrans %}
+            {% endwith %}
+          </li>
+        {% endfor %}
+      </ul>
+    </p>
+  </details>
+  </div>
+{% endif %}

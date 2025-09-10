@@ -1,0 +1,62 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Multilinguism" %}{% endblock %}
+
+{% block appbar-actions %}
+  <a href="scan">{% trans "Rescan site" %}</a>
+  <a href="export?{{query}}" rel="popup">{% trans "Export" %}</a>
+  <a href="import?{{query}}" rel="popup">{% trans "Import" %}</a>
+{% endblock %}
+
+
+{% block content %}
+  {{ block.super }}
+
+  <form action="." class="i18n-filter-form">
+    <span>
+      <label>{% trans "Search:" %} <input type="search" name="q" value="{{q|default:""}}"></label>
+      <select name="formdef">
+        <option value="">{% trans "All forms and card models" %}</option>
+        <optgroup label="{% trans "Forms" %}">
+          {% for formdef in formdefs %}
+            {% with option="forms/"|concat:formdef.id %}
+              <option value="{{ option }}" {% if selected_formdef == option %}selected{% endif %}>{{ formdef.name|truncatechars:60 }}</option>
+            {% endwith %}
+          {% endfor %}
+        </optgroup>
+        <optgroup label="{% trans "Card models" %}">
+          {% for carddef in carddefs %}
+            {% with option="cards/"|concat:carddef.id %}
+              <option value="{{ option }}" {% if selected_formdef == option %}selected{% endif %}>{{ carddef.name|truncatechars:60 }}</option>
+            {% endwith %}
+          {% endfor %}
+        </optgroup>
+      </select>
+      <label><input name="non_translatable" type="checkbox"
+                    {% if non_translatable %}checked{% endif %}
+        >{% trans "Include non-translatable strings" %}</label>
+      <button type="submit">{% trans "Filter" %}</button>
+    </span>
+    <fieldset class="radiogroup"><legend>{% trans "Language:" %}</legend>
+      {% for language in supported_languages %}
+        <input type="radio" name="lang" value="{{language.0}}" id="radio-lang-{{language.0}}"
+               onchange="this.form.submit()"
+               {% if language.0 == selected_language %}checked{% endif %}
+        ><label for="radio-lang-{{language.0}}">{{language.1}}</label>
+      {% endfor %}
+    </fieldset>
+  </form>
+
+  <table class="main">
+    {% for message in messages %}
+      <tr>
+        <td width="50%">{{message.string|truncatechars:100}}</td>
+        <td width="50%">{{message.translations|get:selected_language|default:"-"|truncatechars:100}}</td>
+        <td><a href="{{selected_language}}/{{message.id}}/?{{query}}" data-selector=".popup-content > div" rel="popup" class="pk-button">{% trans "edit" %}</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+  {{ pagination_links|safe }}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "gadjo/base.html" %}
+{% load i18n %}
+
+{% block page-title %}{{ page_title }} | {% firstof global_title site_name %}{% endblock %}
+{% block site-title %}{{ site_name }}{% endblock %}
+
+{% block gadjo-js %}
+  {{script|safe}}
+{% endblock %}
+
+{% block gadjo-css %}
+  <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/qommon.css?{% version_hash %}"/>
+  {{ block.super }}
+  {% block css %}{% endblock %}
+  <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/dc2/admin.css?{% version_hash %}"/>
+{% endblock %}
+
+{% block bodyargs %}class="section-{{backoffice_section}} {% if admin_for_all %}admin-for-all{% endif %}"{% endblock %}
+
+{% block logout-url %}{{ publisher.get_root_url }}logout{% endblock %}
+
+{% block site-header %}
+  <h1 class="breadcrumbs">{% if breadcrumb %}{{ breadcrumb|safe }}{% endif %}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block sidepage %}
+  <div id="sidepage">
+    <span id="applabel">{{app_label}}</span>
+    {{ header_menu|safe }}
+  </div>
+{% endblock %}
+
+{% block main-content %}
+  {% block pre-content %}
+  {% endblock %}
+  {% block content %}
+    {% block appbar %}
+      <div id="appbar">
+        <div>
+          <h2 class="appbar--title">{% block appbar-title %}{% endblock %}</h2>
+          {% block appbar-after-title %}{% endblock %}
+        </div>
+        <span class="actions">{% block appbar-actions %}{% endblock %}</span>
+        {% block appbar-bottom %}{% endblock %}
+      </div>
+    {% endblock %}
+    {% block session-message %}
+      {{session_message|safe}}
+    {% endblock %}
+    {% block form-side %}{% endblock %}
+    {% block body %}{% endblock %}
+  {% endblock %}
+{% endblock %}
+
+{% block sidebar %}
+  {% if sidebar or has_sidebar %}
+    <aside id="sidebar" {% block sidebar-attrs %}{{ sidebar_attrs|default:"" }}{% endblock %}>
+      <button id="sidebar-toggle" aria-label="{% trans "Toggle sidebar" %}">&#8286;</button>
+      <div id="sticky-sidebar">
+        {% block sidebar-content %}
+          {{ sidebar|safe }}
+        {% endblock %}
+        <div class="sidebar-bottom"></div>
+      </div>
+    </aside>
+  {% endif %}
+{% endblock %}

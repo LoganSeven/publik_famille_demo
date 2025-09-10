@@ -1,0 +1,38 @@
+{% load i18n %}
+{% if categories %}
+  {% for category in categories %}
+    {% if category.blocks %}
+      {% with section_folded_pref_name="folded-admin-blocks-category-"|add:category.id %}
+        <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+             data-section-folded-pref-name="{{ section_folded_pref_name }}">
+          <h2>{{ category.name }}</h2>
+          <ul class="objects-list single-links">
+            {% for block in category.blocks %}
+              <li>
+                <a href="{{ block.get_admin_url }}">
+                  {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=block %}{% endif %}
+                  {{ block.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+{% elif blocks %}
+  <ul class="objects-list single-links">
+    {% for block in blocks %}
+      <li>
+        <a href="{{ block.get_admin_url }}">
+          {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=block %}{% endif %}
+          {{ block.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="infonotice">
+    {% trans "There are no field blocks defined." %}
+  </div>
+{% endif %}

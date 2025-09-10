@@ -1,0 +1,91 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="misc-templates" xml:lang="fr">
+
+<info>
+  <revision docversion="0.1" date="2013-07-06" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Mécanique de gabarits</title>
+
+<p>
+De nombreux éléments permettent l’utilisation d’un système simple permettant
+de générer du contenu variant suivant certaines données. L’exemple le plus
+simple peut être le contenu d’un courriel, dans lequel l’utilisateur se voit
+souhaiter la bienvenue.
+</p>
+
+<example>
+<code>
+Bienvenue {{session_user_display_name}},
+
+Toute l’équipe de {{site_name}} vous remercie de votre inscription
+et vous souhaite une agréable visite.
+</code>
+</example>
+
+<p>
+À l’usage, les contenus proposés entre crochets seront substitués, pour donner
+le résultat suivant :
+</p>
+
+<example>
+<code>
+Bienvenue <var>Lætitia</var>,
+
+Toute l’équipe de <var>Quizz du jour</var> vous remercie de votre inscription
+et vous souhaite une agréable visite.
+</code>
+</example>
+
+<p>
+Il est également possible d’afficher du contenu de manière conditionnelle,
+en utilisant la syntaxe <code>{% if variable %}...{% endif %}</code> ou
+<code>{% if variable %}...{% else %}...{% endif %}</code> pour vérifier la présence
+d’une valeur dans <var>variable</var>.
+</p>
+
+<example>
+<code>
+Pour rappel, voici les renseignements que vous nous avez fournis :
+
+{% if form_var_regime_alimentaire %}
+ - Régime alimentaire : {{form_var_regime_alimentaire}}
+{% else %}
+ - Aucun régime alimentaire précisé.
+{% endif %}
+</code>
+</example>
+
+<p>
+Pour tester non pas la présence d’une valeur mais le contenu de celle-ci, la
+syntaxe est <code>{% if variable == valeur %}...{% endif %}</code>, avec également la
+possibilité d’un <code>{% else %}</code>.
+</p>
+
+<example>
+<code>
+Pour toute information complémentaire, n’hésitez pas à nous contacter au
+numéro {% if form_var_pays == "France" %}0800 123 456{% else %}+33 1 1234 5678{% endif %}.
+</code>
+</example>
+
+<note><p>
+Pour plus d’informations la syntaxe utilisée est celle des gabarits Django, il en
+existe une <link href="https://docs.djangoproject.com/fr/1.8/ref/templates/">documentation
+détaillée</link> en ligne.
+</p></note>
+
+<note style="advanced"><p>
+Précemment un autre langage de description des gabarits était utilisé (EZT),
+caractérisé par l’utilisation de crochets (ex: <code>[form_var_email]</code>), il
+est toujours disponible mais désormais déconseillé; pour mémoire sa
+<link href="https://github.com/gstein/ezt/blob/wiki/Syntax.md#directives">référence
+détaillée</link> (en anglais) est toujours en ligne.
+</p></note>
+
+</page>

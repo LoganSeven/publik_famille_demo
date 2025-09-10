@@ -1,0 +1,11 @@
+{% load i18n %}{% spaceless %}
+
+  {% if add_link %}<a href="{{ result.get_admin_url }}">{% endif %}
+  {% if result and result.success %}
+    <span class="test-success" title="{% trans "Success" %}" aria-label="{% trans "Success" %}"></span>
+  {% elif result %}
+    <span class="test-failure" title="{% trans "Failure" %}" aria-label="{% trans "Failure" %}"></span>
+  {% endif %}
+  {% if add_link %}</a>{% endif %}
+
+{% endspaceless %}

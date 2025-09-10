@@ -1,0 +1,96 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ category.name }}{% endblock %}
+
+{% block appbar-actions %}
+  {% if not category.is_readonly %}
+    <a class="extra-actions-menu-opener"></a>
+    <ul class="extra-actions-menu">
+      <li><a href="export">{% trans "Export" %}</a></li>
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    </ul>
+    <a href="edit">{% trans "Edit" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  {% if not category.snapshot_object %}
+    <div class="object--status-infos">
+      {{ view.last_modification_block|safe }}
+    </div>
+  {% endif %}
+
+  <div class="bo-block">
+    <p>{% trans "Identifier:" %} {{ category.slug }}</p>
+    {% if category.description %}
+      {{ category.get_description_html_text|safe }}
+    {% endif %}
+  </div>
+
+  {% if not category.snapshot_object %}
+    <div class="section">
+      <h3>{% trans view.usage_title %}</h3>
+      {% with view.get_formdefs as formdefs %}
+        {% if formdefs %}
+          <ul class="objects-list single-links">
+            {% for formdef in formdefs %}
+              <li><a href="{{ formdef.get_admin_url }}">{{ formdef.name }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div><p>{% trans view.empty_message %}</p></div>
+        {% endif %}
+      {% endwith %}
+    </div>
+  {% endif %}
+
+  {% if category.export_roles or category.statistics_roles or category.management_roles %}
+    <div class="section">
+      <h3>{% trans "Permissions" %}</h3>
+      <div>
+        <ul>
+          {% if category.management_roles %}
+            <li>{% trans "Management roles:" %}
+              <ul>
+                {% for role in category.management_roles %}<li>{{ role.name }}</li>{% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+          {% if category.export_roles %}
+            <li>{% trans "Export roles:" %}
+              <ul>
+                {% for role in category.export_roles %}<li>{{ role.name }}</li>{% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+          {% if category.statistics_roles %}
+            <li>{% trans "Statistics roles:" %}
+              <ul>
+                {% for role in category.statistics_roles %}<li>{{ role.name }}</li>{% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if category.is_readonly %}
+    <div class="infonotice">
+      <p>{% block sidebar-content-readonly-message %}{% trans "This category is readonly." %}{% endblock %}</p>
+    </div>
+    {{ view.snapshot_info_block|safe }}
+  {% else %}
+    <h3>{% trans "Navigation" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="history/">{% trans "History" %}</a></li>
+    </ul>
+
+    {% include 'wcs/backoffice/includes/applications.html' with applications=category.applications prefix='../' %}
+  {% endif %}
+{% endblock %}

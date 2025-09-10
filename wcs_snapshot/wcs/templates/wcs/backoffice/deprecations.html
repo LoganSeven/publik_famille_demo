@@ -1,0 +1,47 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block content %}
+
+  <div id="appbar">
+    <h2>{% trans "Deprecations Report" %}</h2>
+    <span class="actions">
+      <a href="scan">{% trans "Rescan for deprecations" %}</a>
+    </span>
+  </div>
+
+  {% if not report.report_lines %}
+    <div class="no-deprecations">
+      <p>{% trans "No deprecated items were found on this site." %}</p>
+    </div>
+
+  {% else %}
+    <div class="section deprecations">
+
+      {% regroup report.report_lines by category as category_report_lines %}
+      {% for category in category_report_lines %}
+        {% with metadata=view.metadata|get:category.grouper %}
+          <h3>{{ metadata|get:"title" }}</h3>
+          <div class="section--{{ category.grouper }}">
+            <div class="{% if today|add_days:90 > metadata.removal_date %}pk-attention{% else %}pk-information{% endif %}">
+              <p>{{ metadata|get:"short_doc"|default:"" }}
+                <a href="{{ metadata|get:"help_url" }}">{% trans "Read more" %}</a></p>
+              {% if metadata.removal_date %}
+                <p {% if today|add_days:90 > metadata.removal_date %}class="soon"{% endif %}>{% trans "Support will be removed on" %} {{ metadata.removal_date }}.</p>
+              {% endif %}
+            </div>
+            <ul>
+              {% for report_line in category.list %}
+                <li class="{{ report_line.css_class|default:"" }}"><a href="{{ report_line.url }}"
+                  >{{ report_line.location_label }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endwith %}
+      {% endfor %}
+    </div>
+
+    <p>{% trans "Generated on:" %} {{ report.now|datetime }}</p>
+  {% endif %}
+
+{% endblock %}

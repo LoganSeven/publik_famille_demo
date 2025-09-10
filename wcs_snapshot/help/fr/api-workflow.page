@@ -1,0 +1,97 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-workflow" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" />
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Workflow, états, transition, etc.</desc>
+
+</info>
+
+<title>Traitement d’un formulaire</title>
+
+<section>
+  <title>Synchrone</title>
+
+<p>
+Pour faire évoluer un formulaire en fonction de données extérieures, le
+workflow peut contenir une action d’<link xref="wf-wscall">appel à un
+webservice</link> et enchaîner sur une série de sauts automatiques,
+conditionnés par le résultat de l’appel.
+</p>
+
+</section>
+
+
+<section>
+  <title>Asynchrone</title>
+
+<p>
+Pour des traitements asynchrones, w.c.s expose également une API autorisant
+les logiciels tiers à faire progresser le
+traitement d’un formulaire; cela passe par la définition dans le statut du
+workflow d’un élément de type « Changement de statut automatique », dans
+lequel un identifiant de déclencheur est défini.
+</p>
+
+<p>
+La demande d’un changement d’état se fait par une requête <code>POST</code> à
+l’adresse du formulaire en question, suivi de <code>jump/trigger/</code> et de
+la référence à l’identifiant de déclencheur (<code>validate</code> dans
+l’exemple qui suit).
+</p>
+
+<p>
+Lors de cette requête, il est nécessaire d’inclure l’entête
+<code>Accept: application/json</code>.
+</p>
+
+<screen>
+<input>POST https://www.example.net/inscriptions/newsletter/14/jump/trigger/validate/</input>
+<output>{"url": null, "err": 0}</output>
+</screen>
+
+<p>
+Il est également possible d’accompagner le déclenchement d’un changement
+de statut d’une série de données, qui seront enregistrées dans les données de
+workflow du formulaire.
+</p>
+
+<screen>
+<input>POST https://www.example.net/inscriptions/newsletter/14/jump/trigger/validate/
+→ {"reason": "C’est ok."}
+</input>
+<output>{"url": null, "err": 0}</output>
+</screen>
+
+<p>
+Ces données seront accessibles dans des variables nommées
+<code>form_trigger_<var>l’identifiant_du
+déclencheur</var>_content_<var>données</var></code>, l’exemple ci-dessus
+donnerait donc une variable <code>form_trigger_validate_content_reason</code>
+avec le texte <code>C’est ok.</code> comme valeur.
+</p>
+
+<p>
+Des déclencheurs peuvent aussi être définis au niveau des actions
+globales du workflow, ils pourront alors être appelés quel que soit le statut
+de la demande.
+</p>
+
+<p>
+Un tel appel, avec un déclencheur global ici intitulé <code>urgent</code> se
+ferait ainsi :
+</p>
+
+<screen>
+<input>POST https://www.example.net/api/forms/newsletter/14/hooks/urgent/</input>
+<output>{"err": 0}</output>
+</screen>
+
+</section>
+
+</page>

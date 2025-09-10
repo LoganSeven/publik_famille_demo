@@ -1,0 +1,6 @@
+{% if workflow_messages %}
+  <div class="workflow-messages">
+    {% for message in workflow_messages %}{{ message|safe }}{% endfor %}
+  </div>
+{% endif %}
+{{ html_form.render|safe }}

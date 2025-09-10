@@ -1,0 +1,90 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Webservice Call" %} - {{ wscall.name }}{% endblock %}
+
+{% block appbar-actions %}
+  {% if not wscall.is_readonly %}
+    <a class="extra-actions-menu-opener"></a>
+    <ul class="extra-actions-menu">
+      <li><a href="export">{% trans "Export" %}</a></li>
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    </ul>
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=wscall object=wscall %}
+
+  <div class="bo-block">
+    <h3>{% trans "Parameters" %}</h3>
+    <ul>
+      <li>{% trans "Method:" %} {{ wscall.request.method|default:"GET" }}</li>
+      {% if wscall.request.url %}<li>{% trans "URL:" %} {{ wscall.request.url }}</li>{% endif %}
+      {% if wscall.request.qs_data %}
+        <li>{% trans "Query string data:" %}
+          <ul>
+            {% for k, v in wscall.request.qs_data.items %}
+              <li>{% blocktrans %}{{ k }}:{% endblocktrans %} {{ v }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+      {% if wscall.request.post_data and wscall.request.method|default:"GET" != "GET" %}
+        <li>{% trans "POST data:" %}
+          <ul>
+            {% for k, v in wscall.request.post_data.items %}
+              <li>{% blocktrans %}{{ k }}:{% endblocktrans %} {{ v }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+      {% if wscall.request.request_signature_key %}
+        <li>{% trans "Request Signature Key:" %} {{ wscall.request.request_signature_key }}</li>
+      {% endif %}
+      {% if wscall.request.method == 'GET' and wscall.request.cache_duration %}
+        <li>{% trans "Cache duration:" %} {{ wscall.request.cache_duration }}s</li>
+      {% endif %}
+      {% if wscall.request.timeout %}
+        <li>{% trans "Timeout:" %} {{ wscall.request.timeout }}s</li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="bo-block">
+    <ul>
+      <li>{% trans "Notify on errors:" %} {{ wscall.notify_on_errors|default_if_none:False|yesno }}</li>
+      <li>{% trans "Record on errors:" %} {{ wscall.record_on_errors|default_if_none:False|yesno }}</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>{% trans "Usage" %}</h3>
+    <ul class="objects-list single-links" data-async-url="{{ publisher.get_request.get_path }}usage">
+      <li class="loading-list-item"><p>{% trans "Searching..." %}</p></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if wscall.is_readonly %}
+    <div class="infonotice">
+      <p>{% trans "This webservice call is readonly." %}</p>
+    </div>
+    {{ view.snapshot_info_block|safe }}
+  {% else %}
+    <h3>{% trans "Actions" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="edit">{% trans "Edit" %}</a></li>
+      <li><a class="button button-paragraph" href="duplicate" rel="popup">{% trans "Duplicate" %}</a></li>
+      <li><a class="button button-paragraph" rel="popup" href="history/save">{% trans "Save snapshot" %}</a></li>
+    </ul>
+
+    <h3>{% trans "Navigation" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="history/">{% trans "History" %}</a></li>
+    </ul>
+  {% endif %}
+  {% include 'wcs/backoffice/includes/applications.html' with applications=wscall.applications prefix='../' %}
+{% endblock %}

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ns0:EntityDescriptor xmlns:ns0="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ns1="http://www.w3.org/2000/09/xmldsig#" entityID="http://authentic2.example.net/idp/saml2/metadata">
+  <ns0:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <ns0:KeyDescriptor>
+      <ns1:KeyInfo>
+        <ns1:X509Data>
+          <ns1:X509Certificate>MIIDKTCCAhGgAwIBAgIUAZvHckWYsjUA9g5NoWeVThoHiPcwDQYJKoZIhvcNAQEL BQAwJDEiMCAGA1UEAwwZYXV0aGVudGljLmRldi5wdWJsaWsubG92ZTAeFw0yMTEx MDIxMzEwMTRaFw0zMTExMDIxMzEwMTRaMCQxIjAgBgNVBAMMGWF1dGhlbnRpYy5k ZXYucHVibGlrLmxvdmUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC+ vkmsB8DpBfDiwWOmRPD8I5e+Lhi6sb70T1y23ZvZ7PDBmPO0KQ96qp1BANOEWOVV OkCjwXgJg1NqdbnmqEEZyVYFvPw67nzPRaFVSCoBqIheTfY6yfUlFyFHNDXlhhXE FqL2WFUa7ANmPIVQMDo8vXOh8L33Ks5UJXKNpEIlNYJfOpxxo5xrJ+lcmrLqfdzk 7lBRuO1qm9a4jcI5ehwTU76PdMj6PjhH6NO5DfV3Fhe0/ovIXI0cjCUM1jMn4zhb G7hY4uWCYoGtI9czKUoP05++BtEX0hlJm3auHVD6a0iXsa5AXm9QWMfG5OCdRxNx SPsbJrZgSaH3QbRSkXvlAgMBAAGjUzBRMB0GA1UdDgQWBBR1TZp46wgtXoQyEwkX 8gyokc6GtzAfBgNVHSMEGDAWgBR1TZp46wgtXoQyEwkX8gyokc6GtzAPBgNVHRMB Af8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQCZ9EDUHQBZsCk0keM31UO7IvwU dRvcaJwBABfjPl1RbolW1F997qUYjVaZXLRIduGBy9pIdEu9PYdpg4WT/lEa4JCV k7C1QJ6bio1GI0nTzVhbmd2Z1yr87ymEya95irlmdHiLA30CvyhDe6y5IlWiuUKG ol4u40DgzA9jS+qR9RHg4wwxDIixKV3XLQxiChM4sF2SlJdqpPgzlPFH7nqgHP4Q LUtSr0wmKf9DdwiI6QsgN2GLG9n15oU9kmAgezOW0N8p+VBAP+eK4sbVIDfUcvx4 8Nj/JyI1gCNZRTRCLHGs1KnDDQ0EtMCPtWlGO0kDypg4vgwm1lxdW2+xB7ym</ns1:X509Certificate>
+        </ns1:X509Data>
+      </ns1:KeyInfo>
+    </ns0:KeyDescriptor>
+    <ns0:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://authentic2.example.net/idp/saml2/artifact" index="0"/>
+    <ns0:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://authentic2.example.net/idp/saml2/slo" ResponseLocation="http://authentic2.example.net/idp/saml2/slo_return"/>
+    <ns0:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://authentic2.example.net/idp/saml2/slo" ResponseLocation="http://authentic2.example.net/idp/saml2/slo_return"/>
+    <ns0:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://authentic2.example.net/idp/saml2/slo/soap"/>
+    <ns0:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://authentic2.example.net/idp/saml2/sso"/>
+    <ns0:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://authentic2.example.net/idp/saml2/sso"/>
+  </ns0:IDPSSODescriptor>
+</ns0:EntityDescriptor>

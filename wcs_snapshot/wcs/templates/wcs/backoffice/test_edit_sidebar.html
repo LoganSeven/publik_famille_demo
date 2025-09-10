@@ -1,0 +1,110 @@
+{% load i18n %}
+
+<div>
+  <h3>{% trans "Submission" %}</h3>
+  <p>
+    {% blocktrans trimmed with mode=testdef.is_in_backoffice|yesno:_("backoffice,frontoffice") %}
+      Current submission mode is {{ mode }}.
+    {% endblocktrans %}<br/>
+
+    {% if not testdef.user_uuid %}
+      {% trans "No associated user." %}
+    {% else %}
+      {% trans "Associated user:" %} {{ user }}.
+    {% endif %}<br/>
+
+    {% if testdef.is_in_backoffice %}
+      {% if not testdef.submission_agent_uuid %}
+        {% trans "No submission agent." %}
+      {% else %}
+        {% trans "Submission agent:" %} {{ submission_agent }}.
+      {% endif %}<br/>
+    {% endif %}
+
+    <a href="submission-settings" rel="popup">{% trans "Edit submission settings" %}</a>
+  </p>
+
+  <p>
+    {% if not testdef.frozen_submission_datetime %}
+      {% trans "No frozen submission date." %}
+    {% else %}
+      {% trans "Submission date:" %} {{ testdef.frozen_submission_datetime }}.
+    {% endif %}
+    <a href="submission-date" rel="popup">{% trans "Change date" %}</a>
+  </p>
+</div>
+
+<div>
+  <h3>{% trans "Query parameters" %}</h3>
+  {% if testdef.query_parameters %}
+    {% trans "Query parameters:" %}
+    <ul>
+      {% for param, value in testdef.query_parameters.items %}
+        <li>{{ param }}{% trans ":" %} {{ value }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <a href="query-parameters" rel="popup">{% trans "Edit parameters" %}</a>
+</div>
+
+<div id="dependencies">
+  <h3>{% trans "Dependencies" %}</h3>
+  {% if dependencies %}
+    <ul>
+      {% for dependency in dependencies %}
+        <li>
+          <a href="{{ dependency.get_admin_url }}">{{ dependency }}</a>
+          {% if not dependency.has_test_results %}
+            ({% trans "never ran" context "dependency" %})
+          {% endif %}
+          {% if dependency.indirect_dependencies %}
+            <ul>
+              {% for dependency in dependency.indirect_dependencies %}
+                <li>
+                  <a href="{{ dependency.get_admin_url }}">{{ dependency }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <a href="dependencies" rel="popup">{% trans "Edit dependencies" %}</a>
+</div>
+
+{% if testdef.formdef.workflow.variables_formdef %}
+  <div>
+    <h3>{% trans "Form options" %}</h3>
+    {% if testdef.workflow_options %}
+      <p>{% trans "Options are overridden." %}</p>
+      <a href="workflow-options" rel="popup">{% trans "View options" %}</a>
+      <a href="reset-workflow-options">{% trans "Reset options" %}</a>
+    {% else %}
+      <a href="workflow-options" rel="popup">{% trans "Override options" %}</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+<div id="mark-as-failing">
+  <h3>{% trans "Mark test as failing" %}</h3>
+  {% if testdef.expected_error %}
+    <p>
+      {% blocktrans trimmed with error=testdef.expected_error %}
+        This test is expected to fail on error "{{ error }}". Submitting the form will mark it as passing again.
+      {% endblocktrans %}
+    </p>
+  {% elif mark_as_failing_form %}
+    <p>
+      {% blocktrans trimmed with error=mark_as_failing_form.test_error %}
+        If test should fail on error "{{ error }}", click button below.
+      {% endblocktrans %}
+    </p>
+    {{ mark_as_failing_form.render|safe }}
+  {% else %}
+    <p>
+      {% trans "In order to mark test as failing, form must display exactly one error." %}
+      {% trans 'Note that some errors cannot be used, such as "required field" or "invalid value selected".' %}
+    </p>
+  {% endif %}
+</div>

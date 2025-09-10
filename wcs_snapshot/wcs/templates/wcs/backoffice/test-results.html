@@ -1,0 +1,38 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Test results" %}{% endblock %}
+
+{% block appbar-actions %}
+  {% if has_testdefs %}
+    <a href="run">{% trans "Run tests" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% if test_results %}
+    <div class="section">
+      <table class="main">
+        <thead>
+          <th>{% trans "Identifier" %}</th>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Started by" %}</th>
+          <th>{% trans "Status" %}</th>
+        </thead>
+        <tbody>
+          {% for result in test_results %}
+            <tr>
+              <td><a href="{{ result.id }}/">#{{ result.id }}</a></td>
+              <td>{{ result.timestamp }}</td>
+              <td>{{ result.reason }}</td>
+              <td>{% include "wcs/backoffice/includes/test-result-fragment.html" %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {{ pagination_links|safe }}
+    </div>
+  {% else %}
+    <div class="infonotice"><p>{% trans "No test results yet." %}</p></div>
+  {% endif %}
+{% endblock %}

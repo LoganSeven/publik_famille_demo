@@ -1,0 +1,64 @@
+Source: wcs
+Section: web
+Priority: optional
+Maintainer: Frederic Peters <fpeters@debian.org>
+Build-Depends: debhelper-compat (= 12),
+               dh-python,
+               gettext,
+               python3-all,
+               python3-gadjo,
+               python3-quixote,
+               python3-setuptools,
+               sassc,
+Standards-Version: 3.9.6.0
+Homepage: https://dev.entrouvert.org/projects/wcs/
+
+Package: wcs
+Architecture: all
+Depends: graphviz,
+         python3-bleach,
+         python3-distutils,
+         python3-django (>= 2:3.2),
+         python3-django-ckeditor,
+         python3-django-ratelimit,
+         python3-dnspython,
+         python3-emoji,
+         python3-freezegun,
+         python3-hobo,
+         python3-lasso,
+         python3-lxml,
+         python3-pil,
+         python3-psutil,
+         python3-psycopg2,
+         python3-pyproj,
+         python3-quixote,
+         python3-requests,
+         python3-setproctitle,
+         python3-tinycss2,
+         python3-unidecode,
+         python3-uwsgidecorators,
+         python3-vobject,
+         python3-xstatic-godo,
+         python3-xstatic-leaflet,
+         python3-xstatic-leaflet-gesturehandling,
+         python3-xstatic-mapbox-gl-leaflet,
+         python3-xstatic-select2,
+         uwsgi,
+         uwsgi-plugin-python3,
+         ${misc:Depends},
+         ${python3:Depends},
+Recommends: graphicsmagick,
+            libreoffice-writer-nogui | libreoffice-writer,
+            poppler-utils,
+            python3-docutils,
+            python3-langdetect,
+            python3-magic,
+            python3-qrcode,
+            python3-workalendar,
+Suggests: clamdscan,
+          python3-libxml2,
+Description: web application to design and set up online forms
+ w.c.s. is a web application which allows to design and set up online forms.
+ .
+ It gives a user the ability to create web forms easily without requiring
+ any other skill than familiarity with web surfing

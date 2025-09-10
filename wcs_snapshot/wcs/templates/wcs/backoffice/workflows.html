@@ -1,0 +1,34 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Workflows" %}{% endblock %}
+{% block appbar-bottom %}
+  <label class="sr-only" for="appbar-search">{% trans "Search:" %}</label>
+  <input type="search" placeholder="{% trans "Quick search" %}" name="q" id="appbar-search" value="{{q|default:""}}">
+{% endblock %}
+
+{% block pre-content %}
+  {% if is_global_accessible and has_urgent_deprecations %}
+    {% include "wcs/includes/urgent_deprecations.html" %}
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% include 'wcs/backoffice/includes/workflows.html' %}
+{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <a class="button button-paragraph" rel="popup" href="new">{% trans "New Workflow" %}</a>
+  <a class="button button-paragraph" rel="popup" href="import">{% trans "Import" %}</a>
+
+  {% if is_global_accessible %}
+    <h3>{% trans "Navigation" %}</h3>
+    <a class="button button-paragraph" href="categories/">{% trans "Categories" %}</a>
+    <a class="button button-paragraph" href="data-sources/">{% trans "Data sources" %}</a>
+    <a class="button button-paragraph" href="mail-templates/">{% trans "Mail Templates" %}</a>
+    <a class="button button-paragraph" href="comment-templates/">{% trans "Comment Templates" %}</a>
+  {% endif %}
+
+  {% include 'wcs/backoffice/includes/applications.html' %}
+{% endblock %}

@@ -1,0 +1,84 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide" id="index" xml:lang="fr">
+
+<info>
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <license>
+    <p>Ce travail est publié à la fois sous <link href="http://creativecommons.org/licenses/by-sa/3.0/fr/">licence Creatice Commons Paternité - Partage à l’Identique 3.0</link> et sous <link href="http://www.gnu.org/licenses/gpl.html">licence GPL v3.</link></p>
+  </license>
+
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+</info>
+
+<title>w.c.s.</title>
+
+<p>
+w.c.s est un logiciel permettant de générer des formulaires et des
+consultations en ligne et de les intégrer dans un workflow. Configuré par
+défaut pour des besoins basique, il offre une personnalisation poussée
+permettant de l’adapter à de nombreux usages différents.
+</p>
+
+<section id="form" style="2column">
+  <info>
+    <title type="link" role="trail">Atelier de formulaires</title>
+  </info>
+  <title>Atelier de formulaires</title>
+  <p>
+   Le cœur de métier de <app>w.c.s.</app> est la définition de formulaires, des
+   plus simples aux plus complexes; une variété de possibilités et d’options
+   existent.
+  </p>
+</section>
+
+<section id="wf" style="2column">
+  <info>
+    <title type="link" role="trail">Atelier de workflows</title>
+  </info>
+  <title>Atelier de workflows</title>
+  <p>
+   Pour définir des logiques de traitement complexe, w.c.s. intègre un
+   mécanisme de workflow, permettant de définir une série d’états et d’actions
+   associées.
+  </p>
+</section>
+
+<section id="system-settings" style="2column">
+  <info>
+    <title type="link" role="trail">Paramétrage système</title>
+  </info>
+  <title>Paramétrage système</title>
+  <p>
+    Pour l’administration système, <app>w.c.s.</app> dispose d’une série de
+    paramètres concernant son fonctionnement et son intégration dans le système
+    d’information.
+  </p>
+</section>
+
+<section id="api" style="2column">
+  <info>
+    <title type="link" role="trail">API</title>
+  </info>
+  <title>API Web Services</title>
+  <p>
+   Pour les développeurs, découvrez comment intégrer w.c.s. avec des
+   applications tierces en utilisant des <em>web services</em>.
+  </p>
+</section>
+
+<section id="dev" style="2column">
+  <info>
+    <title type="link" role="trail">Développeurs</title>
+  </info>
+  <title>Informations supplémentaires pour les développeurs</title>
+  <p>
+   Au-delà des <em>web services</em>, informations utiles aux développeurs
+   voulant utiliser <app>w.c.s.</app> ou ses données.
+  </p>
+</section>
+
+
+</page>

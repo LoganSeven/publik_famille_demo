@@ -1,0 +1,70 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ mail_template.name }}{% endblock %}
+
+{% block appbar-after-title %}
+  {% if mail_template.category_id %}<p class="appbar--category-subtitle">{{ mail_template.category.name }}</p>{% endif %}
+{% endblock %}
+
+{% block appbar-actions %}
+  {% if not mail_template.is_readonly %}
+    <a class="extra-actions-menu-opener"></a>
+    <ul class="extra-actions-menu">
+      <li><a href="export">{% trans "Export" %}</a></li>
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    </ul>
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=mail_template object=mail_template %}
+
+  {% if mail_template.subject and mail_template.body %}
+    <div class="section">
+      <h3 class="mail-subject"><strong>{% trans "Subject:" %}</strong> <span>{{ mail_template.subject }}</span></h3>
+      <div class="mail-body">{{ mail_template.body }}</div>
+
+      {% if mail_template.attachments %}
+        <ul class="mail-attachments">
+          {% for attachment in mail_template.attachments %}
+            <li>{{ attachment }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="section">
+      <h3>{% trans "Usage" %}</h3>
+      <ul class="objects-list single-links" data-async-url="{{ publisher.get_request.get_path }}usage">
+        <li class="loading-list-item"><p>{% trans "Searching..." %}</p></li>
+      </ul>
+    </div>
+  {% else %}
+    <div class="infonotice">{% trans "This mail template still needs to be configured." %}</div>
+  {% endif %}
+
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if mail_template.is_readonly %}
+    <div class="infonotice">
+      <p>{% trans "This mail template is readonly." %}</p>
+    </div>
+    {{ view.snapshot_info_block|safe }}
+  {% else %}
+    <h3>{% trans "Actions" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="edit">{% trans "Edit" %}</a></li>
+      <li><a class="button button-paragraph" href="duplicate" rel="popup">{% trans "Duplicate" %}</a></li>
+      <li><a class="button button-paragraph" rel="popup" href="history/save">{% trans "Save snapshot" %}</a></li>
+    </ul>
+
+    <h3>{% trans "Navigation" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="history/">{% trans "History" %}</a></li>
+    </ul>
+  {% endif %}
+  {% include 'wcs/backoffice/includes/applications.html' with applications=mail_template.applications prefix='../' %}
+{% endblock %}

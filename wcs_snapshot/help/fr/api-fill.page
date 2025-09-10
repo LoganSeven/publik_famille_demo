@@ -1,0 +1,316 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-fill" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" />
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Transmission de données</desc>
+
+</info>
+
+<title>Complétion et modification d’un formulaire</title>
+
+<p>
+w.c.s expose une API autorisant les logiciels tiers à transmettre des données
+structurées permettant la complétion d’un formulaire ou la modification d’un
+formulaire existant.
+</p>
+
+<note>
+  <p>
+  Il n’y a aucune vérification du format des données reçues, elles sont
+  enregistrée telles quelles. Les contraintes de validation ou les conditions
+  d’affichage ne sont pas prises en compte.
+  </p>
+</note>
+
+<section id="create">
+  <title>Complétion d’un formulaire</title>
+
+  <p>
+   La complétion d’un formulaire se fait par une requête <code>POST</code> à
+   l’adresse <code>/api/formdefs/<var>slug</var>/submit</code>, le contenu de
+   la requête doit être un dictionnaire contenant obligatoirement un attribut
+   <code>data</code> et optionnellement un attribut <code>meta</code> et un
+   attribut <code>context</code>.
+  </p>
+
+  <note>
+    <p>
+    Le <em>slug</em> est l’identifiant non-numérique utilisé dans les URL, il
+    est visible depuis l’écran d’un formulaire, dans la fenêtre de modification
+    du titre.
+    </p>
+  </note>
+
+  <p>
+   L’attribut <code>data</code> est obligatoire et contient un dictionnaire
+   dont les clés sont les noms de variable (remplacé ici par
+   <var>varname</var>) des champs du formulaire et les valeurs le contenu de
+   ces champs.
+  </p>
+
+  <list>
+  <item>
+  <p>
+   Les champs de type simple tels que « Texte », « Texte long » ou
+   « Courriel » sont des chaînes de caractères.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Liste » et « Liste à choix multiples » acceptent
+   différentes valeurs selon leur configuration, ceci est décrit dans
+   <link xref="#fill-list"/>.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Date » sont des chaînes de caractères au format
+   ISO-8601, i.e. <code>YYYY-MM-DD</code>.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Fichier » sont des dictionnaires contenant les clés
+   <code>filename</code> pour le nom de fichier et <code>content</code> pour le
+   contenu de celui-ci, encodé en base64.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Carte » sont des dictionnaires contenant les clés
+   <code>lat</code> pour la latitute en nombre décimal et <code>lon</code>
+   pour la longitude en nombre décimal.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les blocs de champs sont des listes de dictionnaires, avec comme clés les
+   différents champs du blocs, par exemple pour un bloc contenant deux champs,
+   avec les identifiants <code>article</code> et <code>quantite</code> :
+   <code>[{"article": "Pomme", "quantite": "2"}, {"article": "Poire", "quantite": 4}]</code>
+  </p>
+  </item>
+  </list>
+
+  <p>
+   L’attribut <code>user</code> est optionnel et peut contenir un identifiant
+   permettant d’associer la demande à un usager existant; l’identifiant peut
+   être soit l’identifiant unique (UUID/NameID), passé dans une clé
+   <code>NameID</code>, soit l’adresse électronique de l’usager, passée dans
+   une clé <code>email</code>.
+  </p>
+
+  <p>
+   L’attribut <code>meta</code> est optionnel et contient une série de
+   paramètres supplémentaires concernant le formulaire.
+  </p>
+
+  <table shade="rows">
+    <title>Métadonnées</title>
+    <tr>
+      <td><p><code>draft</code></p></td>
+      <td><p><code>true</code> pour enregistrer le formulaire comme étant un
+      brouillon.</p></td>
+    </tr>
+    <tr>
+      <td><p><code>backoffice-submission</code></p></td>
+      <td><p><code>true</code> pour enregistrer le formulaire comme étant
+      saisi depuis le backoffice.</p></td>
+    </tr>
+   </table>
+
+  <p>
+   L’attribut <code>context</code> est également optionnel et contient une
+   série de renseignements supplémentaires sur le contexte de l’envoi du
+   formulaire.  Les attributs reconnus sont <code>channel</code>,
+   <code>thumbnail_url</code>, <code>user_id</code> et <code>comments</code>.
+  </p>
+
+  <p>
+   L’exemple suivant complète un formulaire d’inscription à une newsletter, qui
+   demanderait trois champs : prénom (nom de variable <code>prenom</code>), nom
+   (nom de variable <code>nom</code>) et adresse électronique (nom de variable
+   <code>email</code>).
+  </p>
+
+  <screen>
+<input>POST https://www.example.net/api/formdefs/newsletter/submit</input>
+<output>{"err": 0, "data": {"id": "1"}}</output>
+  </screen>
+
+  <p>
+   Avec les données suivantes en entrée :
+  </p>
+
+  <code mime="application/json">
+{
+  "data": {
+     "prenom": "Marc",
+     "nom": "L.",
+     "email": "marc@example.net"
+  },
+  "user": {
+     "email": "marc@example.net"
+  }
+}
+  </code>
+
+</section>
+
+<section id="edit">
+  <title>Modification d’un formulaire</title>
+
+  <p>
+   Un formulaire qui peut être modifié (par la présence d’une action de workflow
+   de type « Édition ») peut également être modifié via un appel à
+   l’API, en faisant un <code>POST</code> sur l’adresse du formulaire.
+  </p>
+
+  <p>
+   Les données attendues sont similaires à la création d’un nouveau formulaire,
+   seuls les champs présents seront pris en compte.
+  </p>
+
+  <p>
+   Cet appel :
+  </p>
+
+<screen>
+<input>POST https://www.example.net/api/forms/newsletter/1/</input>
+<output>{"err": 0}</output>
+  </screen>
+
+  <p>
+  Avec les données suivantes en entrée, modifiera donc uniquement le champ
+  « email ».
+  </p>
+
+  <code mime="application/json">
+{
+  "data": {
+     "email": "marc@example.org"
+  }
+}
+  </code>
+
+</section>
+
+<section id="fill-list">
+  <title>Transmission des champs « Liste » et « Liste à choix multiple »</title>
+
+  <p>
+   Pour les champs de type « Liste », si le champ est configuré avec une simple
+   liste d’options, la valeur doit être une chaîne tirée de la liste.
+  </p>
+
+   <listing>
+    <code>
+    "data": {
+       "<var>varname</var>": "Libellé 1"
+    }
+    </code>
+   </listing>
+
+   <p>
+    Si le champ est configuré pour tirer ses options depuis une source de
+    données, la valeur peut être l’identifiant d’une donnée structurée ou si la
+    donnée structurée complète est transmise, l’identifiant de la donnée dans
+    une clé suffixée de <code>_raw</code>, le libellé de la donnée dans la clé
+    normale et éventuellement la donnée structurée complète dans une clé
+    suffixée de <code>_structured</code>.
+   </p>
+
+    <listing>
+    <title>Identifiant d’une option</title>
+    <code>
+    "data": {
+       "<var>varname</var>": "1"
+    }
+    </code>
+    </listing>
+
+    <listing>
+    <title>Donnée structurée</title>
+    <code>
+    "data": {
+       "<var>varname</var>": "Libellé 1",
+       "<var>varname</var>_raw": "1",
+       "<var>varname</var>_structured": {
+          "id": "1",
+          "text": "Libellé 1",
+          "foo": "bar"
+       }
+    }
+    </code>
+    </listing>
+
+
+  <p>
+   Pour les champs de type « Liste à choix multiple », si le champ est
+   configuré avec une simple liste d’options, la valeur doit être une
+   liste de chaînes tirées de la liste.
+   </p>
+
+    <listing>
+    <code>
+    "data": {
+       "<var>varname</var>": ["Libellé 1", "Libellé 2"]
+    }
+    </code>
+    </listing>
+
+   <p>
+    Si le champ est configuré pour tirer ses options depuis une source de
+    données, la valeur peut être une liste d’identifiants ou,
+    si la donnée structurée complète est transmise, la liste des identifiants
+    de la donnée dans une clé suffixée de <code>_raw</code>, la liste des
+    libellés de la donnée dans la clé normale et éventuellement la liste des
+    données structurées complètes dans une clé suffixée de
+    <code>_structured</code>.
+   </p>
+
+    <listing>
+    <title>Liste d’identifiants d’options</title>
+    <code>
+    "data": {
+       "<var>varname</var>": ["1", "2"]
+    }
+    </code>
+    </listing>
+
+    <listing>
+    <title>Listes de données structurées</title>
+    <code>
+    "data": {
+       "<var>varname</var>": ["Libellé 1", "Libellé 2"],
+       "<var>varname</var>_raw": ["1", "2"],
+       "<var>varname</var>_structured": [
+         {
+            "id": "1",
+            "text": "Libellé 1",
+            "foo": "bar"
+         },
+         {
+            "id": "2",
+            "text": "Libellé 2",
+            "foo": "bar2"
+         }
+       ]
+    }
+    </code>
+    </listing>
+
+</section>
+
+</page>

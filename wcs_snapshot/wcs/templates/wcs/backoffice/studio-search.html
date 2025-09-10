@@ -1,0 +1,28 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block content %}
+  {% block appbar %}
+    <div id="appbar" class="highlight">
+      <h2>{% trans "Studio Search" %}</h2>
+    </div>
+  {% endblock %}
+
+  <div id="studio">
+
+    <form id="studio-search-form" action="search">
+      <label class="sr-only" for="input-q">{% trans "Query" %}</label>
+      <input id="input-q" type="search" name="q" value="{{ q|default:"" }}" autofocus>
+      <button type="submit">{% trans "Search" %}</button>
+    </form>
+
+    {% if q %}
+      <div id="studio-search-results">
+        <ul class="objects-list single-links" data-async-url="{{ publisher.get_request.get_path }}?q={{ q|urlencode }}&ajax=true">
+          <li class="loading-list-item"><p>{% trans "Searching..." %}</p></li>
+        </ul>
+      </div>
+    {% endif %}
+
+  </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "qommon/forms/widget.html" %}
+{% block widget-control %}
+  <!-- TEST TEMPLATE -->
+  <!-- backoffice: {{ request.is_in_backoffice|pprint }} -->
+  <!-- backoffice compat: {{ request.quixote_request.is_in_backoffice|pprint }} -->
+  <!-- substitution variable: {{ example_url }} -->
+  <select id="form_{{widget.name}}" name="{{widget.name}}"
+          {% for attr in widget.attrs.items %} {{attr.0}}="{{attr.1}}"{% endfor %}>
+    <option value="">---</option>
+    {% for option in widget.get_options %}
+      <option{% for attr in option.attrs.items %} {{attr.0}}="{{attr.1}}"{% endfor %}
+      >{{ option.description }}</option>
+    {% endfor %}
+  </select>
+{% endblock %}

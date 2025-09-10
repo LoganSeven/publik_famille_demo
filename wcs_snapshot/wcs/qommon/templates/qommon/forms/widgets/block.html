@@ -1,0 +1,5 @@
+{% extends "qommon/forms/widget.html" %}
+
+{% block widget-css-classes %}{{ block.super }} {% if widget.had_add_clicked %}wcs-block-add-clicked{% endif %} {% if widget.remove_button %}wcs-block-with-remove-button{% endif %}{% endblock %}
+
+{% block widget-attrs %}id="form_{{ widget.field.id }}" {{ block.super }}{% endblock %}

@@ -1,0 +1,10 @@
+{% extends template_base %}
+{% load i18n %}
+
+{% block body %}
+  <div class="warningnotice">{% trans "There was a temporary error during your authentication, please retry later." %}</div>
+
+  <form method="post">
+    <button>{% trans "Retry" %}</button>
+  </form>
+{% endblock %}

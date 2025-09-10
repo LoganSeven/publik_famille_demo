@@ -1,0 +1,147 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Data Source" %} - {{ datasource.name }}{% endblock %}
+
+{% block appbar-after-title %}
+  {% if datasource.category_id %}<p class="appbar--category-subtitle">{{ datasource.category.name }}</p>{% endif %}
+{% endblock %}
+
+{% block appbar-actions %}
+  {% if not datasource.is_readonly %}
+    <a class="extra-actions-menu-opener"></a>
+    <ul class="extra-actions-menu">
+      {% if datasource.cache_duration %}
+        <li><a href="invalidate-cache">{% trans "Invalidate cache" %}</a></li>
+      {% endif %}
+      <li><a href="export">{% trans "Export" %}</a></li>
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    </ul>
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=datasource object=datasource %}
+
+  {% if datasource.data_source %}
+    <div class="section">
+      <h3>{% trans "Configuration" %}</h3>
+      <ul>
+        <li>{% trans "Identifier:" %} {{ datasource.slug|wbr }}</li>
+        {% if datasource.agenda_ds %}
+          {% with datasource.agenda_ds_origin as origin %}
+            <li>{% trans "Type of source:" %} {% trans "Agenda data" %}{% if origin %} ({% trans "Copy of:" %} <a href="{{ origin.get_admin_url }}">{{ origin.name }}</a>){% endif %}</li>
+            <li>{% trans "URL:" %} <a href="{{ url }}">{{ datasource.data_source.value }}</a></li>
+            {% if datasource.qs_data %}
+              <li>{% trans "Extra query string data:" %}
+                <ul>
+                  {% for k, v in datasource.qs_data.items %}
+                    <li>{% blocktrans %}{{ k }}:{% endblocktrans %} {{ v }}</li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endif %}
+          {% endwith %}
+        {% else %}
+          <li>{% trans "Type of source:" %} {{ datasource.type_label }}</li>
+          {% if datasource.data_source.type == 'json' or datasource.data_source.type == 'jsonp' or datasource.data_source.type == 'geojson' %}
+            <li>{% trans "URL:" %} <a href="{{ url }}">{{ datasource.data_source.value }}</a></li>
+          {% elif datasource.data_source.type == 'jsonvalue' %}
+            <li>{% trans "JSON Expression:" %} {{ datasource.data_source.value }}</li>
+          {% elif datasource.data_source.type == 'wcs:users' %}
+            {% spaceless %}
+              <li>{% trans "Users with roles:" %}
+                <ul>
+                  {% for role in roles %}
+                    {% if role.0 in datasource.users_included_roles %}
+                      <li>{{ role.1 }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </li>
+              <li>{% trans "Users without roles:" %}
+                <ul>
+                  {% for role in roles %}
+                    {% if role.0 in datasource.users_excluded_roles %}
+                      <li>{{ role.1 }}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </li>
+              <li>{% trans "Include disabled users:" %}
+                {% if datasource.include_disabled_users %}
+                  {% trans "Yes" %}
+                {% else %}
+                  {% trans "No" %}
+                {% endif %}
+              </li>
+            {% endspaceless %}
+          {% endif %}
+        {% endif %}
+        {% if datasource.cache_duration %}
+          <li>{% trans "Cache Duration:" %} {{ datasource.humanized_cache_duration }}
+        {% endif %}
+        {% if not datasource.data_source.type == 'wcs:users' %}
+          <li>{% trans "Notify on errors:" %} {{ datasource.notify_on_errors|default_if_none:False|yesno }}</li>
+          <li>{% trans "Record on errors:" %} {{ datasource.record_on_errors|default_if_none:False|yesno }}</li>
+        {% endif %}
+      </ul>
+    </div>
+
+    {% if view.has_preview_block %}
+      <div class="section">
+        <h3>{% trans "Preview (first items only)" %}</h3>
+        <div class="data-source-preview" data-async-url="{{ publisher.get_request.get_path }}preview-block">
+          {% trans "Loading items..." %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% with fields=view.usage_in_formdefs %}
+      {% if fields %}
+        <div class="section usage-in-forms">
+          <h3>{% trans "Usage in forms" %}</h3>
+          <ul class="objects-list single-links">
+            {% for field in fields %}
+              <li><a href="{{ field.get_admin_url }}">{{ field.get_admin_url_label }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+  {% else %}
+    <p class="infonotice">{% trans "Not configured" %}</p>
+  {% endif %}
+
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if datasource.is_readonly %}
+    <div class="infonotice">
+      <p>{% trans "This data source is readonly." %}</p>
+    </div>
+    {{ view.snapshot_info_block|safe }}
+  {% endif %}
+  {% if datasource.external == "agenda" or not datasource.is_readonly %}
+    <h3>{% trans "Actions" %}</h3>
+    <ul class="sidebar--buttons">
+      {% if not datasource.is_readonly %}
+        <li><a class="button button-paragraph" href="edit">{% trans "Edit" %}</a></li>
+      {% endif %}
+      <li><a class="button button-paragraph" href="duplicate" rel="popup">{% trans "Duplicate" %}</a></li>
+      {% if not datasource.is_readonly %}
+        <li><a class="button button-paragraph" rel="popup" href="history/save">{% trans "Save snapshot" %}</a></li>
+      {% endif %}
+    </ul>
+
+    {% if not datasource.is_readonly %}
+      <h3>{% trans "Navigation" %}</h3>
+      <ul class="sidebar--buttons">
+        <li><a class="button button-paragraph" href="history/">{% trans "History" %}</a></li>
+      </ul>
+    {% endif %}
+  {% endif %}
+  {% include 'wcs/backoffice/includes/applications.html' with applications=datasource.applications prefix='../' %}
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}
+  {{ formdef.name }}
+{% endblock %}
+
+{% block appbar-after-title %}
+  {% if formdef.category_id %}<p class="appbar--category-subtitle">{{ formdef.category.name }}</p>{% endif %}
+{% endblock %}
+
+{% block appbar-actions %}
+  {% if not formdef.is_readonly %}
+    <a class="extra-actions-menu-opener"></a>
+    <ul class="extra-actions-menu">
+      {% block actions-menu-extra-links %}
+        <li><a href="public-url" rel="popup" data-selector=".popup-content div">{% trans "Display public URL" %}</a></li>
+        {% if has_qrcode %}
+          <li><a href="qrcode" rel="popup" data-selector=".popup-content div">{% trans "Display QR Code" %}</a></li>
+        {% endif %}
+      {% endblock %}
+      <li><a href="export">{% trans "Export" %}</a></li>
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    </ul>
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+    <a rel="popup" href="title">{% trans "change title" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  <div class="object--status-infos">
+    {{ view.last_modification_block|safe }}
+
+    {% if test_results %}
+      <p class="last-test-result">-
+        <a href="{{ test_results.get_admin_url }}">
+          {% trans "Last tests run:" %} {{ test_results.formatted_timestamp }}
+          {% include "wcs/backoffice/includes/test-result-fragment.html" with result=test_results %}
+        </a>
+      </p>
+    {% endif %}
+  </div>
+
+  {{ publisher.get_request.session.display_message|safe }}
+
+  {% include "wcs/backoffice/includes/sql-fields-integrity.html" %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=formdef object=formdef %}
+
+  <div class="bo-block">
+    <h3>{% trans "Information" %}</h3>
+    <ul class="biglist optionslist">
+      {{ options.description|safe }}
+      {{ options.keywords|safe }}
+      {{ options.category|safe }}
+    </ul>
+  </div>
+
+  <div class="splitcontent-left">
+    <div class="bo-block">
+      <h3>{% trans "Workflow" %}</h3>
+      <ul class="biglist optionslist">
+        {{ options.workflow|safe }}
+        {{ options.workflow_options|safe }}
+        {% for workflow_role_line in options.workflow_roles_list %}{{ workflow_role_line|safe }}{% endfor %}
+        {{ options.workflow_roles|safe }}
+        {{ options.user_roles|safe }}
+        {{ options.backoffice_submission_roles|safe }}
+      </ul>
+    </div>
+  </div>
+
+  <div class="splitcontent-right">
+    <div class="bo-block">
+      <h3>{% trans "Options" %}</h3>
+      <ul class="biglist optionslist">
+        {{ options.confirmation|safe }}
+        {{ options.only_allow_one|safe }}
+        {% if formdef.roles %}{{ options.always_advertise|safe }}{% endif %}
+        {% if formdef.backoffice_submission_roles %}{{ options.backoffice_submission_options|safe }}{% endif %}
+        {{ options.management|safe }}
+        {{ options.tracking_code|safe }}
+        {% if has_captcha_option %}{{ options.captcha|safe }}{% endif %}
+        {% if has_appearance_keywords %}{{ options.appearance|safe }}{% endif %}
+        {{ options.templates|safe }}
+        {{ options.online_status|safe }}
+      </ul>
+    </div>
+  </div>
+
+  <div class="bo-block clear">
+    <h3 class="clear">{% trans "Fields" %}
+      <span class="change"><a class="pk-button" href="fields/">{% trans "edit" %}</a></span></h3>
+    {{ form_preview|safe }}
+  </div>
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if formdef.is_readonly %}
+    <div class="infonotice">
+      <p>{% block sidebar-content-readonly-message %}{% trans "This form is readonly." %}{% endblock %}</p>
+    </div>
+    {{ view.snapshot_info_block|safe }}
+  {% else %}
+    <h3>{% trans "Actions" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" href="duplicate" rel="popup">{% trans "Duplicate" %}</a></li>
+      <li><a class="button button-paragraph" rel="popup" href="history/save">{% trans "Save snapshot" %}</a></li>
+      <li><a class="button button-paragraph" rel="popup" href="overwrite">{% trans "Overwrite with new import" %}</a></li>
+    </ul>
+
+    <h3>{% trans "Navigation" %}</h3>
+    <ul class="sidebar--buttons">
+      {% block sidebar-navigation-extra-links-top %}
+        {% if formdef.is_disabled %}
+          <li><a class="button button-paragraph" href="{{ formdef.get_preview_url }}">{% trans "Preview Online" %}</a></li>
+        {% else %}
+          <li><a class="button button-paragraph" href="{{ formdef.get_url }}">{% trans "Display Online" %}</a></li>
+        {% endif %}
+        {% if include_management_link %}
+          <li><a class="button button-paragraph" href="{{ formdef.get_backoffice_url }}">{% trans "Management view" %}</a></li>
+        {% endif %}
+        {% if include_submission_link %}
+          <li><a class="button button-paragraph" href="{{ formdef.get_backoffice_submission_url }}">{% trans "Backoffice submission" %}</a></li>
+        {% endif %}
+      {% endblock %}
+      <li><a class="button button-paragraph" href="history/">{% trans "History" %}</a></li>
+      <li><a class="button button-paragraph" href="inspect">{% trans "Inspector" %}</a></li>
+      <li><a class="button button-paragraph" href="tests/">{% trans "Tests" %}</a></li>
+    </ul>
+    {{ view.errors_block|safe }}
+
+    {% include 'wcs/backoffice/includes/applications.html' with applications=formdef.applications prefix='../' %}
+  {% endif %}
+{% endblock %}

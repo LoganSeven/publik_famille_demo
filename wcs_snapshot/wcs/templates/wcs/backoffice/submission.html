@@ -1,0 +1,29 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "New submission" %}{% endblock %}
+
+{% block appbar-actions %}
+  <a href="pending">{% trans "Pending submissions" %}</a>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  {% for category in categories %}
+    {% if category.formdefs %}
+      {% with section_folded_pref_name="folded-submission"|add:"-category-"|add:category.id %}
+        <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+             data-section-folded-pref-name="{{ section_folded_pref_name }}">
+          <h2>{{ category.name }}</h2>
+          <ul class="objects-list single-links">
+            {% for formdef in category.formdefs %}
+              <li><a href="{{ formdef.url_name }}/">{{ formdef.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+
+{% endblock %}

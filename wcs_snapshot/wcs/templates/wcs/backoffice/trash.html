@@ -1,0 +1,39 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Trash, recently deleted items" %}{% endblock %}
+
+{% block appbar-actions %}
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <table class="main">
+    <thead>
+      <tr>
+        <th>{% trans "Date/time" %}</th>
+        <th>{% trans "Object Type" %}</th>
+        <th>{% trans "Title" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for snapshot in view.get_snapshots_of_deleted_elements %}
+        <tr>
+          <td>{{ snapshot.timestamp }}</td>
+          <td>{{ snapshot.safe_instance.verbose_name }}</td>
+          <td>{{ snapshot.safe_instance.name }}</td>
+          {% if snapshot.can_restore %}
+            <td><a class="button" data-popup href="{{ snapshot.id }}">{% trans "Restore" %}</a></td>
+          {% endif %}
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">
+          <div class="infonotice"><p>{% trans "There are no recently deleted items." %}</p></div>
+        </td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

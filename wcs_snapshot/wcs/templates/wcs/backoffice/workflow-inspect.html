@@ -1,0 +1,158 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar %}{% endblock %}
+
+{% block content %}
+
+  {% if workflow.documentation %}
+    <div class="bo-block documentation documentation-inspect-top"><div class="ro-documentation">{{ workflow.documentation|safe }}</div></div>
+  {% endif %}
+  <div class="pk-tabs inspect-tabs inspect-workflow-tabs">
+    <div class="pk-tabs--tab-list" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="inspect-statuses" id="tab-statuses" tabindex="0">{% trans "Statuses" %}</button>
+      {% if workflow.global_actions %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-global-actions" id="tab-global-actions" tabindex="-1">{% trans "Global Actions" %}</button>
+      {% endif %}
+      <button role="tab" aria-selected="false" aria-controls="inspect-functions" id="tab-functions" tabindex="-1">{% trans "Functions" %}</button>
+      {% if workflow.variables_formdef %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-variables" id="tab-variables" tabindex="-1">{% trans "Workflow Variables" %}</button>
+      {% endif %}
+      {% if workflow.backoffice_fields_formdef %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-fields" id="tab-fields" tabindex="-1">{% trans "Backoffice Fields" %}</button>
+      {% endif %}
+      {% if workflow.criticality_levels %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-criticality" id="tab-criticality" tabindex="-1">{% trans "Criticality Levels" %}</button>
+      {% endif %}
+      {% if deprecations.report_lines %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-deprecations" id="tab-deprecations" tabindex="-1">{% trans "Deprecations" %}</button>
+      {% endif %}
+    </div>
+    <div class="pk-tabs--container">
+
+      <div id="inspect-statuses" role="tabpanel" tabindex="0" aria-labelledby="tab-statuses">
+        <div class="pk-information"><p>
+          {% blocktrans count status_count=workflow.possible_status|count %}{{ status_count }} status{% plural %}{{ status_count }} statuses{% endblocktrans %}.
+        </p></div>
+        <nav class="inspect--quicknav"><span class="inspect--jumpto">{% trans "Jump to:" %}</span><ul class="inspect--quicklinks">
+          {% for status in workflow.possible_status %}
+            <li><a class="button" href="#status-{{ status.id }}">{{ status.name }}</a></li>
+          {% endfor %}
+        </ul></nav>
+        <div class="expanded-statuses">
+          {% for status in workflow.possible_status %}
+            <div class="section status">
+              <h3 id="status-{{ status.id }}"
+              ><a href="{{ workflow.get_admin_url }}status/{{ status.id }}/" class="inspect-status--link">
+                <span class="inspect-status--colour" style="background-color: {{ status.colour|default:"white" }}"></span>
+                {{ status.name }}</a></h3>
+
+              {% if status.documentation %}
+                <div class="bo-block documentation"><div class="ro-documentation">{{ status.documentation|safe }}</div></div>
+              {% endif %}
+              {% if status.is_endpoint %}
+                <p>
+                  {% if status.forced_endpoint %}
+                    {% trans "This status has been manually set to be considered as terminal." %}
+                  {% elif status.is_endpoint %}
+                    {% trans "This status has been automatically evaluated as being terminal." %}
+                  {% endif %}
+                </p>
+              {% endif %}
+              {% if status.backoffice_info_text %}<div>{{ status.backoffice_info_text|safe }}</div>{% endif %}
+              {% for item in status.items %}
+                <h4><a href="{{ workflow.get_admin_url }}status/{{ status.id }}/items/{{ item.id }}/">{{ item.description }}</a></h4>
+                {% if item.documentation %}
+                  <div class="bo-block documentation"><div class="ro-documentation">{{ item.documentation|safe }}</div></div>
+                {% endif %}
+                {{ item.get_parameters_view|safe }}
+              {% empty %}
+                <p>{% trans "No actions in this status." %}</p>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="inspect-global-actions" role="tabpanel" tabindex="0" aria-labelledby="tab-global-actions" hidden>
+        <nav class="inspect--quicknav"><span class="inspect--jumpto">{% trans "Jump to:" %}</span><ul class="inspect--quicklinks">
+          {% for action in workflow.global_actions %}
+            <li><a class="button" href="#action-{{ action.id }}">{{ action.name }}</a></li>
+          {% endfor %}
+        </ul></nav>
+        <div class="expanded-statuses">
+          {% for action in workflow.global_actions %}
+            <div class="section global-action">
+              <h3><a id="action-{{ action.id }}" href="{{ workflow.get_admin_url }}global-actions/{{ action.id }}/">{{ action.name }}</a></h3>
+              {% if action.documentation %}
+                <div class="bo-block documentation"><div class="ro-documentation">{{ action.documentation|safe }}</div></div>
+              {% endif %}
+              <h4>{% trans "Triggers" %}</h4>
+              <ul>
+                {% for trigger in action.triggers %}
+                  <li>{{ trigger.get_inspect_view|safe }}
+                  </li>
+                {% endfor %}
+              </ul>
+              {% for item in action.items %}
+                <h4><a href="{{ workflow.get_admin_url }}global-actions/{{ action.id }}/items/{{ item.id }}/">{{ item.description }}</a></h4>
+                {{ item.get_parameters_view|safe }}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="inspect-functions" role="tabpanel" tabindex="0" aria-labelledby="tab-functions" hidden>
+        <ul>
+          {% for label in workflow.roles.values %}
+            <li>{{ label }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div id="inspect-variables" role="tabpanel" tabindex="0" aria-labelledby="tab-variables" hidden>
+        {% for field in workflow.variables_formdef.fields %}
+          {% include "wcs/backoffice/includes/inspect-field.html" with path=workflow.get_admin_url|add:"variables/fields/" %}
+        {% endfor %}
+      </div>
+
+      <div id="inspect-fields" role="tabpanel" tabindex="0" aria-labelledby="tab-fields" hidden>
+        {% for field in workflow.backoffice_fields_formdef.fields %}
+          {% include "wcs/backoffice/includes/inspect-field.html" with path=workflow.get_admin_url|add:"backoffice-fields/fields/" %}
+        {% endfor %}
+      </div>
+
+      <div id="inspect-criticality" role="tabpanel" tabindex="0" aria-labelledby="tab-criticality" hidden>
+        <ul>
+          {% for level in workflow.criticality_levels %}<li>{{ level.name }}</li>{% endfor %}
+        </ul>
+      </div>
+
+
+      {% if deprecations %}
+        <div id="inspect-deprecations" role="tabpanel" tabindex="0" aria-labelledby="tab-deprecations" hidden>
+          {% regroup deprecations.report_lines by category as category_report_lines %}
+          {% for category in category_report_lines %}
+            <h4>{{ deprecation_metadata|get:category.grouper|get:"title" }}</h4>
+            <div class="section--{{ category.grouper }}">
+              <ul>
+                {% for report_line in category.list %}
+                  <li class="{{ report_line.css_class|default:"" }}"><a href="{{ report_line.url }}"
+                    >{{ report_line.location_label }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+
+        </div>
+      {% endif %}
+
+
+    </div> <!-- pk-tabs-container -->
+  </div> <!-- pk-tabs -->
+{% endblock %}
+
+{% block sidebar-content %}
+  {{ view.snapshot_info_inspect_block|safe }}
+{% endblock %}

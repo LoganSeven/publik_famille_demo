@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ site_lang }}">
+  <head>
+    <title>{% block page-title %}{{ page_title }}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ css }}"/>
+    {{ script|safe }}
+    {% block extrascripts %}
+    {% endblock %}
+  </head>
+  <body>
+    <div {% if onload %}onload="{{ onload }}"{% endif %}>
+      <div id="page">
+        <div id="top">
+          {% block header %}
+            <h1>{% if title %}{{ title }}{% else %}{{ site_name }}{% endif %}</h1>
+          {% endblock %}
+        </div>
+        <div id="main-content">
+          {% block content %}
+
+            {% if form_side %}
+              <div class="form-content--sidebox">{{ form_side|safe }}</div>
+            {% endif %}
+
+            {% if breadcrumb %}
+              <p id="breadcrumb">{{ breadcrumb|safe }}</p>
+            {% endif %}
+
+            {% block messages %}
+              {{ session_message|safe }}
+            {% endblock %}
+
+            {% block body %}
+              {{ body|safe }}
+            {% endblock %}
+
+          {% endblock %}
+        </div>
+        <div id="footer">{{ footer }}</div>
+      </body>
+    </html>

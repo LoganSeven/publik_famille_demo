@@ -1,0 +1,30 @@
+{% extends "qommon/forms/widget.html" %}
+{% load i18n %}
+{% block widget-control %}
+  <div class="wcs-widget-select2-container">
+    <select id="form_{{widget.get_name_for_id}}" name="{{widget.name}}"
+            data-select2-url="{{widget.get_select2_url}}"
+            {% if widget.value %}data-value="{{ widget.value }}"{% endif %}
+            data-required="{% if widget.is_required %}true{% endif %}"
+            data-initial-display-value="{{widget.get_display_value|default_if_none:''}}"
+            {% if widget.with_related %}data-initial-edit-related-url="{{widget.get_edit_related_url|default_if_none:''}}"{% endif %}
+            {% if widget.with_related %}data-initial-view-related-url="{{widget.get_view_related_url|default_if_none:''}}"{% endif %}>
+      {% if not widget.separate_hint and widget.hint %}
+        <option value="" data-hint="{{ widget.hint }}"></option>
+      {% endif %}
+    </select>
+    {% if widget.add_related_url %}
+      <a class="add-related pk-button" id="add_form_{{ widget.get_name_for_id }}"
+         href="{{ widget.add_related_url }}?_popup=1"
+         title="{% blocktrans with card=widget.get_title %}Add another {{ card }}{% endblocktrans %}">+</a>
+    {% endif %}
+    {% if widget.with_related %}
+      <a class="edit-related pk-button" id="edit_form_{{ widget.get_name_for_id }}"
+         style="display: none"
+         title="{% blocktrans with card=widget.get_title %}Edit selected {{ card }}{% endblocktrans %}"
+      >{% blocktrans with card=widget.get_title %}Edit selected {{ card }}{% endblocktrans %}</a>
+      <a class="view-related pk-button" id="view_form_{{ widget.get_name_for_id }}"
+         style="display: none">{% blocktrans with card=widget.get_title %}See selected {{ card }}{% endblocktrans %}</a>
+    {% endif %}
+  </div>
+{% endblock %}

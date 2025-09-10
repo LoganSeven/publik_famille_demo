@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div style="max-width: 60ex;">
+      <div class="content">
+        {% block content %}
+          {{ content }}
+        {% endblock %}
+      </div>
+      {% block footer %}
+        {% if email_signature %}
+          <div style="font-size: smaller; font-color: #888; margin-top: 2em;">
+            {{ email_signature|linebreaks }}
+          </div>
+        {% endif %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

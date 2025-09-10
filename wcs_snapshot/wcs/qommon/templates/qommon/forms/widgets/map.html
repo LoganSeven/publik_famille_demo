@@ -1,0 +1,18 @@
+{% extends "qommon/forms/widget.html" %}
+
+{% block widget-control %}
+  {% localize off %}
+    <input type="hidden" name="{{widget.name}}$latlng" {% if widget.value %}value="{{widget.value.lat}};{{widget.value.lon}}"{% endif %}>
+    <div id="form_{{widget.get_name_for_id}}" class="qommon-map"
+         {% if widget.readonly %}data-readonly="true"{% endif %}
+         {% if widget.sync_map_and_address_fields %}data-address-sync="true"{% endif %}
+         {% for key, value in widget.map_attributes.items %}{{key}}="{{value}}" {% endfor %}
+         {% if widget.initial_position %}
+           data-init-lat="{{ widget.initial_position.lat }}"
+           data-init-lng="{{ widget.initial_position.lng }}"
+         {% endif %}
+         {% if not widget.readonly %}data-search-url="{% url 'api-geocoding' %}"{% endif %}
+         {% block widget-control-attributes %}{% endblock %}
+    ></div>
+  {% endlocalize %}
+{% endblock %}

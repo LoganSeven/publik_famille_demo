@@ -1,0 +1,13 @@
+{% block appbar %}
+  <div id="appbar">
+    <h2>{% block appbar-title %}{% endblock %}</h2>
+    <span class="actions">{% block appbar-actions %}{% endblock %}</span>
+  </div>
+{% endblock %}
+
+{% block session-message %}
+  {{session_message|safe}}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ action.name }} -
+  {% if ids|length == 1 %}
+    {{ formdata.formdef.item_name }} - {{ formdata.id_display }}
+  {% else %}
+    {% blocktrans with len=ids|length item_name=formdata.formdef.item_name_plural %}{{ len }} selected {{ item_name }}{% endblocktrans %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% include "wcs/includes/global-interactive-action.html" %}
+{% endblock %}

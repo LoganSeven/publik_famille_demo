@@ -1,0 +1,84 @@
+{% extends "wcs/backoffice/formdef.html" %}
+{% load i18n %}
+
+{% block body %}
+  <div class="object--status-infos">
+    {{ view.last_modification_block|safe }}
+
+    {% if test_results %}
+      <p class="last-test-result">-
+        <a href="{{ test_results.get_admin_url }}">
+          {% trans "Last tests run:" %} {{ test_results.formatted_timestamp }}
+          {% include "wcs/backoffice/includes/test-result-fragment.html" with result=test_results %}
+        </a>
+      </p>
+    {% endif %}
+  </div>
+
+  {{ publisher.get_request.session.display_message|safe }}
+  {% include "wcs/backoffice/includes/sql-fields-integrity.html" %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=formdef object=formdef %}
+
+  <div class="bo-block">
+    <h3>{% trans "Information" %}</h3>
+    <ul class="biglist optionslist">
+      {{ options.category|safe }}
+    </ul>
+  </div>
+
+  <div class="splitcontent-left">
+    <div class="bo-block">
+      <h3>{% trans "Workflow" %}</h3>
+      <ul class="biglist optionslist">
+        {{ options.workflow|safe }}
+        {{ options.workflow_options|safe }}
+        {% for workflow_role_line in options.workflow_roles_list %}{{ workflow_role_line|safe }}{% endfor %}
+        {{ options.backoffice_submission_roles|safe }}
+      </ul>
+    </div>
+  </div>
+
+  <div class="splitcontent-right">
+    <div class="bo-block">
+      <h3>{% trans "Options" %}</h3>
+      <ul class="biglist optionslist">
+        {{ options.templates|safe }}
+        {{ options.backoffice_submission_options|safe }}
+        {{ options.management|safe }}
+      </ul>
+    </div>
+  </div>
+
+  <div class="bo-block clear">
+    <h3 class="clear">{% trans "Fields" %}
+      <span class="change"><a class="pk-button" href="fields/">{% trans "edit" %}</a></span></h3>
+    {{ form_preview|safe }}
+  </div>
+
+  {% with usage_in_formdefs=view.get_sorted_usage_in_formdefs %}
+    {% if usage_in_formdefs %}
+      <div class="bo-block">
+        <h3>{% trans "Forms" %}</h3>
+        <p>{% trans "This card model is used as data source in the following forms:" %}
+          {% for usage in usage_in_formdefs %}
+            <a href="{{ usage.get_admin_url }}">{{ usage.name }}</a>{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+{% endblock %}
+
+{% block sidebar-content-readonly-message %}
+  {% trans "This card model is readonly." %}
+{% endblock %}
+
+{% block actions-menu-extra-links %}
+{% endblock %}
+
+{% block sidebar-navigation-extra-links-top %}
+  {% if include_management_link %}
+    <li><a class="button button-paragraph" href="{{ formdef.get_backoffice_url }}">{% trans "List of cards" %}</a></li>
+  {% endif %}
+{% endblock %}

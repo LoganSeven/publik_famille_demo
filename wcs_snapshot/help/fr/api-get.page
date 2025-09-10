@@ -1,0 +1,611 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-get" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" />
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Pull, push, types de données, etc.</desc>
+
+</info>
+
+<title>Récupération des données d’un formulaire</title>
+
+<p>
+Il s’agit ici d’une API permettant à un logiciel tiers de récupérer les données
+associées à un formulaire complété; cet accès peut aussi bien être initié par
+l’application tierce (mode pull) ou par w.c.s., à différents moments du
+traitement d’un formulaire (mode push).
+</p>
+
+<section id="pull">
+<title>Mode « Pull »</title>
+
+<p>
+L’exemple suivant récupère les données d’un formulaire d’inscription à une
+newsletter.
+</p>
+
+  <screen>
+<input>GET https://www.example.net/api/forms/newsletter/16/</input>
+</screen>
+
+<p>
+Le contenu ainsi obtenu est le suivant :
+</p>
+
+  <code mime="application/json">
+{
+    "id": "16",
+    "receipt_time": "2013-01-04T13:39:47",
+    "last_update_time": "2013-01-04T13:41:21",
+    "fields": {
+        "email": "marc@example.net",
+        "nom": "L.",
+        "prenom": "Marc"
+    },
+    "geolocations": {
+        "base": {
+            "lat": 10,
+            "lon": -12,
+        }
+    },
+    "user": {
+        "id": 1,
+        "name": "Fred"
+    },
+    "workflow": {
+        "status": {
+            "id": "1",
+            "name": "New",
+            "endpoint": false
+        },
+        "data": {
+            "creation_status": 200,
+            "creation_response": {
+                "dn": "cn=marc@example.net,ou=people"
+            },
+            "inscription_status": 200,
+            "inscription_response": {
+                "liste": "lalettre@example.com"
+            }
+        }
+    },
+    "roles": {
+      "_receiver": [
+        {
+          "emails_to_members": false,
+          "name": "Agents traitants",
+          "text": "",
+          "emails": [],
+          "slug": "agents-traitants",
+          "details": "",
+          "id": "1",
+          "allows_backoffice_access": true
+        }
+      ],
+      "concerned": [
+        {
+          "emails_to_members": false,
+          "name": "Agents traitants",
+          "text": "",
+          "emails": [],
+          "slug": "agents-traitants",
+          "details": "",
+          "id": "1",
+          "allows_backoffice_access": true
+        }
+      ],
+      "actions": [
+        {
+          "emails_to_members": false,
+          "name": "Agents traitants",
+          "text": "",
+          "emails": [],
+          "slug": "agents-traitants",
+          "details": "",
+          "name": "test",
+          "id": "1",
+          "allows_backoffice_access": true
+        }
+      ]
+    },
+    "submission": {
+      "backoffice": false,
+      "channel": "Web"
+    },
+    "evolution": [
+      {
+        "status": "1",
+        "time": "2013-01-04T13:39:49",
+        "user": {
+            "id": 1,
+            "name": "Fred"
+            "email": "fred@example.com",
+            "NameID": ["123456"]
+        },
+        "parts": [
+          {
+            "type": "wscall-error",
+            "summary": "description de l’erreur",
+            "label": "appel du web-service XYZ",
+            "data": "données reçues jusqu’à 10000 octets..."
+          },
+          {
+            "type": "workflow-comment",
+            "content": "commentaire"
+          }
+        ]
+      },
+    ]
+}
+</code>
+
+<p>
+Seuls les champs ayant un <em>nom de variable</em> sont exportés dans <code>fields</code>.
+</p>
+
+<p>
+Les différentes géolocalisation associées au formulaire sont listées dans l’attribut
+<code>geolocations</code>. Pour l’instant il n’en existe qu’une toujours nommée <code>base</code>.
+</p>
+
+<p>
+Concernant les rôles et fonctions de workflow, les différents intervenants sont
+listés dans l’attribut <code>roles</code>, en différentes séries qui vont
+dépendre de fonctions attachées au workflow.  Deux séries sont particulières,
+la série <code>concerned</code> reprend les rôles concernés par la demande et
+la série <code>actions</code> reprend les rôles disposant d’une capacité
+d’action sur la demande.
+</p>
+
+<p>
+L’information sur l’origine de la demande, si la saisie a eu lieu depuis le
+backoffice et quel était le canal d’origine de la demande, est disponible
+dans l’attribut <code>submission</code>.
+</p>
+
+<p>
+L’historique du formulaire, ses transitions dans différents statuts, est disponible dans l’attribut
+<code>evolution</code>. Cette liste de dictionnaires contient l’instant de la transition
+dans l’attribut <code>time</code>, le code du statut concerné dans <code>status</code> et
+une description de l’utilisateur responsable de la transition dans <code>user</code>. L’attribut
+optionnel <code>parts</code> peut contenir une liste de dictionnaires liés aux actions de workflow,
+comme un commentaire ou une erreur lors de l’appel d’un <em>web service</em>.
+</p>
+
+
+<note>
+ <p>
+  Il est bien sûr nécessaire de disposer des autorisations nécessaires pour
+  accéder ainsi aux données d’un formulaire.
+ </p>
+</note>
+
+</section>
+
+<section id="push">
+<title>Mode « push »</title>
+
+<p>
+Il est également possible pour un workflow d’être configuré pour transmettre
+les données à une URL fournie par une application tierce. Un document JSON
+(tel celui donné plus haut) est alors transmis en utilisant la méthode POST.
+</p>
+
+<p>
+En retour, l’application tierce peut fournir un objet JSON qui sera enregistré
+dans les données du workflow du formulaire (voir le dictionnaire "data" dans
+l’exemple ci-dessus).
+</p>
+
+</section>
+
+
+<section id="datatypes">
+<title>Types de données</title>
+
+<p>
+Les données d’un formulaire sont placées dans le champs <code>fields</code> de
+la réponse. Les champs de type simple tels que « Texte », « Texte long » ou
+« Courriel » sont vus en tant que chaîne de caractères :
+</p>
+
+  <code mime="application/json">
+    (...)
+    "fields": {
+        "email": "marc@example.net",
+        "nom": "L.",
+        "prenom": "Marc"
+    },
+    (...)
+  </code>
+
+<section>
+<title>Représentation d’un champ « Fichier »</title>
+
+<p>
+Les champs de type « Fichier » sont exportés selon le schéma suivant :
+</p>
+
+  <code mime="application/json">
+    (...)
+    "fields": {
+        "photo": {
+            "filename": "exemple.txt",
+            "content_type": "text/plain",
+            "content": "Q2VjaSBuJ2VzdCBwYXMgdW4gZXhlbXBsZS4=",
+            "url": "https://.../"
+        }
+    },
+    (...)
+  </code>
+
+<p>
+La valeur de <code>content</code> est le contenu du fichier, encodé en base64.
+</p>
+
+</section>
+
+<section>
+<title>Représentation d’un bloc de champs</title>
+
+<p>
+Les blocs de champs sont exportés selon le schéma suivant, par exemple pour un
+champ avec l’identifiant <code>livres</code> :
+</p>
+
+  <code mime="application/json">
+    (...)
+    "fields": {
+        "livres": "Bloodless, Cauchemar",
+        "livres_digests": ["Bloodless", "Cauchemar"],
+        "livres_raw": [
+            {"titre": "Bloodless", "auteur": "Valentine Gallardo"},
+            {"titre": "Cauchemar", "auteur": "Pierre Ferrero"}
+        ]
+    },
+    (...)
+  </code>
+
+<p>
+La valeur de <code>livres</code> est la forme textuelle de l’ensemble de la
+sélection, <code>livres_digests</code> reprend les gabarits de résumé des
+différents éléments du bloc et <code>livres_raw</code> contient le détail de
+ces éléments.
+</p>
+
+</section>
+
+</section>
+
+<section id="listing">
+<title>Liste de formulaires</title>
+
+<p>
+La liste des demandes pour un formulaire donné est destinée à être utilisée par
+un système de synchronisation. Elle ne retourne donc pour chaque demande que
+son numéro (id), ses dates de création et de dernière mise à jour.
+</p>
+
+<p>
+Un système de synchronisation vérifiera depuis cette liste si de nouvelles
+demandes existent, ou si certaines ont été mises à jour, sont obsolètes ou
+effacées, puis effectuera pour chacune les actions nécessaires (pull, push,
+etc.).
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict</input>
+</screen>
+
+<code mime="application/json">
+{
+    "err": 0,
+    "count": 2,
+    "data": [
+        {
+            "url": "https://www.example.net/inscriptions/1/",
+            "last_update_time": "2015-03-26T23:08:45",
+            "receipt_time": "2015-03-26T23:08:44",
+            "id": 1
+        },
+        {
+            "url": "https://www.example.net/inscriptions/3/",
+            "last_update_time": "2015-03-27T12:11:21",
+            "receipt_time": "2015-03-27T12:45:19",
+            "id": 3
+        }
+    ]
+}
+</code>
+
+<note>
+ <p>
+  Le paramètre <code>response_type</code> avec comme valeur <code>dict</code>
+  est passé pour obtenir la réponse sous forme d’un dictionnaire, avec la liste
+  des demandes dans la clé <code>data</code> et un total dans la clé
+  <code>count</code>. Si le paramètre est omis la réponse contiendra directement
+  la liste.
+ </p>
+</note>
+
+<p>
+Des paramètres peuvent être envoyés dans la requête pour filtrer le listing
+voulu. Par défaut tout est retourné, indépendamment du statut, pour avoir une
+liste limitée aux demandes non terminées, il faut utiliser
+<code>filter=pending</code> :
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict&amp;filter=pending</input>
+</screen>
+
+<p>
+Il est également possible de filtrer sur le contenu des formulaires, à partir
+des champs associés à un nom de variable et de type « Liste ».  Par exemple sur
+un champ « Type » (nom de variable <code>type</code>) dont une des valeurs
+possibles est « gratuit » :
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict&amp;filter-type=gratuit</input>
+</screen>
+
+<p>
+Les opérateurs sont possibles sur ces filtres, par exemple pour filtrer sur les
+valeurs qui ne seraient pas « gratuit » :
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict&amp;filter-type=gratuit&amp;filter-type-operator=ne</input>
+</screen>
+
+<note>
+  <table shade="rows">
+  <title>Opérateurs</title>
+  <tr> <td><p>eq</p></td> <td><p>=</p></td> <td><p>est égal</p></td> </tr>
+  <tr> <td><p>ne</p></td> <td><p>!=</p></td> <td><p>est différent</p></td> </tr>
+  <tr> <td><p>lt</p></td> <td><p>&lt;</p></td> <td><p>est plus petit</p></td> </tr>
+  <tr> <td><p>lte</p></td> <td><p>&lt;=</p></td> <td><p>est plus petit ou égal</p></td> </tr>
+  <tr> <td><p>gt</p></td> <td><p>&gt;</p></td> <td><p>est plus grand</p></td> </tr>
+  <tr> <td><p>gte</p></td> <td><p>&gt;=</p></td> <td><p>est plus grand ou égal</p></td> </tr>
+  <tr> <td><p>between</p></td> <td><p></p></td> <td><p>est entre</p></td> </tr>
+  <tr> <td><p>absent</p></td> <td><p></p></td> <td><p>n’a pas de valeur</p></td> </tr>
+  <tr> <td><p>existing</p></td> <td><p></p></td> <td><p>a une valeur présente</p></td> </tr>
+  <tr> <td><p>in</p></td> <td><p></p></td> <td><p>est dans</p></td> </tr>
+  <tr> <td><p>not_in</p></td> <td><p></p></td> <td><p>n’est pas dans</p></td> </tr>
+  <tr> <td><p>icontains</p></td> <td><p></p></td> <td><p>contient le texte</p></td> </tr>
+  <tr> <td><p>is_today</p></td> <td><p></p></td> <td><p>correspond à aujourd’hui</p></td> </tr>
+  <tr> <td><p>is_tomorrow</p></td> <td><p></p></td> <td><p>correspond à demain</p></td> </tr>
+  <tr> <td><p>is_yesterday</p></td> <td><p></p></td> <td><p>correspond à hier</p></td> </tr>
+  <tr> <td><p>is_this_week</p></td> <td><p></p></td> <td><p>est dans cette semaine</p></td> </tr>
+  </table>
+  <p>
+  Pour les opérateurs qui demandent plusieurs valeurs (in, not_in, between),
+  les valeurs doivent être passées séparées par le symbole <code>|</code>.
+  </p>
+  </note>
+
+<p>
+D’autres paramètres de filtres existent. Pour filtrer sur les demandes déposées
+après une date donnée
+(<code>?filter-start=on&amp;filter-start-value=2020-01-03</code>),
+ou avant une date donnée
+(<code>?filter-end=on&amp;filter-end-value=2020-01-03</code>) et de la même
+manière sur les demandes modifiées après ou avant une date,
+(<code>?filter-start-mtime=on&amp;filter-start-mtime-value=2020-01-03</code>
+ou <code>?filter-end-mtime=on&amp;filter-end-mtime-value=2020-01-03</code>).
+Pour filtrer selon l’usager associé (<code>?filter-user-uuid=XYZ</code>) ou
+selon l’appartenance d’un usager à une fonction particulière
+(<code>?filter-user-function=_mandataire&amp;filter-user-uuid=XYZ</code>).
+Et pour filtrer selon l’agent qui a fait la saisie en backoffice
+(<code>?filter-submission-agent-uuid=XYZ</code>).
+</p>
+
+<p>
+Afin de faciliter certains traitements <em>batch</em>, il est possible de
+demander que l’ensemble des données associées aux formulaires soient
+retourné, plutôt qu’un jeu réduit adapté aux systèmes de synchronisation.
+Pour ce faire, il suffit de passer un paramètre <code>full=on</code> dans
+l’adresse.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict&amp;full=on</input>
+</screen>
+
+<p>
+À noter que pour ne pas alourdir l’export en mode <code>full=on</code>, le
+contenu des champs de type « Fichier » n’est pas exporté.
+</p>
+
+<p>
+Un paramètre <code>include-actions</code> permet d’inclure (<code>on</code>) ou
+non (<code>off</code>) la liste des actions globales et des déclencheurs de
+sauts automatiques actuellement accessible via l'API à l'utilisateur qui
+effectue la requête.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict&amp;include-actions=on</input>
+</screen>
+
+</section>
+
+<section>
+<title>Données anonymisées</title>
+
+<p>
+Les API « Liste de formulaires » et le mode Pull de récupération d’un formulaire acceptent un
+paramètre supplémentaire <code>anonymise</code>. Quand celui-ci est présent des données anonymisées
+des formulaires sont renvoyées et les contrôles d’accès sont simplifiés à une signature simple, il
+n’est pas nécessaire de préciser l’identifiant d’un utilisateur.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict&amp;full=on&amp;anonymise</input>
+<input>GET https://www.example.net/api/forms/inscriptions/10/?response_type=dict&amp;anonymise</input>
+</screen>
+
+<p>
+Par ailleurs, l’API « Liste de formulaires » accepte un paramètre
+<code>include-anonymised</code> permettant d’inclure (<code>on</code>) ou non
+(<code>off</code>) les demandes anonymisées dans la liste :
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/list?response_type=dict&amp;include-anonymised=on</input>
+</screen>
+
+</section>
+
+<section id="global-data">
+  <title>Données de l’ensemble des formulaires</title>
+
+  <p>
+   De manière similaire à l’API de récupération de la liste des demandes d’un
+   formulaire, il est possible de récupérer l’ensemble des demandes de la
+   plateforme, peu importe leurs types.
+  </p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/</input>
+</screen>
+
+<code mime="application/json">
+{
+    "data": [
+        {
+            "url": "https://www.example.net/inscriptions/1/",
+            "last_update_time": "2015-03-26T23:08:45",
+            "receipt_time": "2015-03-26T23:08:44",
+            "id": 1
+        },
+        {
+            "url": "https://www.example.net/inscriptions/3/",
+            "last_update_time": "2015-03-27T12:11:21",
+            "receipt_time": "2015-03-27T12:45:19",
+            "id": 3
+        },
+        {
+            "url": "https://www.example.net/signalement/1/",
+            "last_update_time": "2015-03-25T14:14:21",
+            "receipt_time": "2015-03-25T14:48:20",
+            "id": 1
+        }
+    ]
+}
+</code>
+
+<p>
+Des paramètres peuvent être envoyés dans la requête pour filtrer les résultats.
+Il s’agit des mêmes paramètres que ceux du tableau global en backoffice.
+Par exemple, pour avoir une liste limitée aux demandes terminées :
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/?status=done</input>
+</screen>
+
+<note><p>
+Le paramètre <code>full</code> n’est pas pris en charge dans cette API; le
+paramètre <code>anonymise</code> non plus, les données l’étant déjà.
+</p></note>
+
+</section>
+
+<section id="geolocation">
+<title>Données géolocalisées</title>
+
+<p>
+Pour les formulaires définissant une prise en charge de la géolocalisation, il
+est possible de récupérer les données au format GeoJSON, en faisant appel au
+webservice <code>/geojson</code>.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/inscriptions/geojson</input>
+<output>{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.23456789,
+          50.1234567
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "url": "http://example.net/backoffice/management/inscriptions/28/"
+      }
+    }
+  ]
+}
+</output>
+</screen>
+
+<p>
+De manière identique aux appels précédents, des filtres peuvent être passés dans l’URL.
+</p>
+
+<note><p>
+Les URL retournées pour les demandes pointent vers l’interface de gestion de celles-ci.
+</p></note>
+
+<p>
+Il est également possible d’obtenir les informations géographiques de
+l’ensemble des demandes :
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/forms/geojson</input>
+</screen>
+
+</section>
+
+<section id="tracking-code">
+<title>Code de suivi</title>
+
+<p>
+Une API existe pour déterminer l’existence d’un code de suivi et, le cas
+échéant, découvrir la demande associée.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/code/QRFPTSLR</input>
+<output>{"url": "...",
+ "load_url": "...",
+ "err": 0}</output>
+</screen>
+
+<p>
+Dans l’attribut <code>url</code> se trouvera l’adresse native de la demande,
+qui demandera authentification de l’utilisateur, et dans l’attribut
+<code>load_url</code> une adresse permettant de charger la demande sur la seule
+foi de l’accès. Il est important d’utiliser cette adresse et de ne pas essayer
+de la construire manuellement avec le code de suivi car elle peut évoluer. Pour
+cette même raison elle devrait être utilisée immédiatement, sans être stockée.
+</p>
+
+<p>
+En cas d’inexistence du code de suivi donné, une réponse avec un code de retour
+404 est retourné.
+</p>
+
+<note>
+ <p>
+  Le cadre d’utilisation des codes de suivi devant être limité car ouvrant
+  un accès important aux demandes associées, cette API est restreinte aux
+  utilisations internes avec identification par signature.
+ </p>
+</note>
+
+</section>
+
+</page>

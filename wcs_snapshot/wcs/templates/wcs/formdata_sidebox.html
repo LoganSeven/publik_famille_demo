@@ -1,0 +1,41 @@
+{% load i18n %}
+<div id="side">
+  {% if view.has_draft_support and data %}
+    {# display tracking code box if they are enabled and there's some data #}
+    {# (e.g. the user is not on a insufficient authenticiation context page). #}
+
+    {% block tracking-code-box %}
+      {% with get_tracking_code as tracking_code %}
+        {% if tracking_code or is_recalled_draft %}
+          <div id="tracking-code" {% if is_recalled_draft %}class="has-discard-button"{% endif %}>
+            {% if view.formdef.enable_tracking_codes %}
+              {% add_javascript "popup.js" %}
+              {% block tracking-code %}
+                <div class="tracking-code-part">
+                  <h3>{% trans "Tracking code" %}</h3>
+                  <a name="tracking-code-display">{{ tracking_code }}</a>
+                  {% standard_text "tracking-code-short-text" %}
+                </div>
+              {% endblock %}
+            {% endif %}
+
+            {% if is_recalled_draft %}
+              {% block recalled-draft %}
+                <form action="removedraft" method="POST">
+                  <input type="hidden" name="magictoken" value="{{ magictoken }}">
+                  <button class="form-discard-draft">{% trans "Discard Draft" %}</button>
+                </form>
+              {% endblock %}
+            {% endif %}
+
+          </div>
+        {% endif %}
+      {% endwith %}
+    {% endblock %} {# tracking-code-box #}
+  {% endif %}
+
+  {% block steps %}
+    {{ step }}
+  {% endblock %}
+
+</div> <!-- #side -->

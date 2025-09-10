@@ -1,0 +1,52 @@
+{% extends "qommon/forms/widget.html" %}
+{% load i18n %}
+
+{% block widget-control %}
+  <div class="file-button {% if widget.is_image %}file-image{% endif %}"
+       {% if widget.has_tempfile_image %}style="--image-preview-url: url({{request.quixote_request.get_scheme}}://{{request.quixote_request.get_server}}/{{ global_context.form_slug }}/tempfile?t={{ widget.tempfile.token }}&thumbnail=1)"{% endif %}
+       {% if widget.automatic_image_resize %}data-image-resize="true"{% endif %}>
+    {% for w in widget.get_widgets %}
+      {{ w.render|safe }}
+    {% endfor %}
+    <div class="widget-message click-to-upload">
+      <p>{% trans "Drop a file or click to select one" %}</p>
+    </div>
+    <div class="widget-message upload-done" role="status">
+      <p>{% trans "Upload done" %}</p>
+    </div>
+    <div class="fileprogress" style="display: none;">
+      <div class="bar"
+           role="progressbar"
+           aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0%"
+           aria-label="" tabindex="-1"
+           data-upload="{% trans "Upload in progress..." %}"
+           data-resize="{% trans "Resizing image..." %}"
+           data-error="{% trans "Error during upload." %}"></div>
+    </div>
+    <div class="fileinfo {% if widget.readonly and widget.has_tempfile_image %}thumbnail{% endif %}">
+      <p class="filename">{% if widget.tempfile and not widget.is_remote_storage %}<a
+        href="tempfile?t={{ widget.tempfile.token }}"
+        download="{{widget.tempfile.base_filename}}"
+      >{{ widget.tempfile.base_filename }}</a>{% elif widget.tempfile %}{{ widget.tempfile.base_filename }}{% endif %}</p>
+      {% if not widget.readonly %}
+        <button role="button" class="remove" data-title-prefix="{% trans "Remove the file:" %}" title="{% trans 'Remove the file:' %} {{ widget.tempfile.base_filename }}"><span class="sr-only">{% trans "remove" %}</span></button>
+      {% elif widget.has_tempfile_image %}
+        <img alt="" src="tempfile?t={{ widget.tempfile.token }}&thumbnail=1"/>
+      {% endif %}
+    </div>
+  </div>
+  {% block portfolio-picker %}
+    {% if not widget.readonly and widget.allow_portfolio_picking and session_user %}
+      <p class="use-file-from-fargo"><span
+        data-src="{{site_url}}/fargo/pick" data-width="500" data-height="400"
+        data-title="{% trans "Pick a file from the portfolio" %}"
+        data-popup>{% trans "Use file from the portfolio" %}</span></p>
+    {% endif %}
+  {% endblock %}
+
+  <script>
+    $(function() {
+      $('[data-widget-name="{{ widget.name }}"]').each($.WcsFileUpload.prepare);
+    });
+  </script>
+{% endblock %}

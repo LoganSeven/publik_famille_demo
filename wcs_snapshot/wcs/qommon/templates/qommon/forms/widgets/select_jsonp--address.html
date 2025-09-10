@@ -1,0 +1,10 @@
+{% extends "qommon/forms/widgets/select_jsonp.html" %}
+{% load i18n %}
+{% block widget-control %}
+  {{ block.super }}
+  {% if not widget.readonly %}
+    <div>
+      <label><input class="wcs-manual-address" type="checkbox"><span>{% trans "If you cannot find this address in the list you can check this box to manually enter it." %}</span></label>
+    </div>
+  {% endif %}
+{% endblock %}

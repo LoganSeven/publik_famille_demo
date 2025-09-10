@@ -1,0 +1,89 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Data Inspector" %}{% endblock %}
+
+{% block appbar-actions %}
+  {% for action in actions %}
+    <a href="{{ action.url }}">{{ action.label }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div id="inspect-test-tools" class="section">
+    <h2>{% trans "Test tools" %}</h2>
+    <div>
+      {{ html_form.render|safe }}
+      <div id="test-tool-result">
+        {{ test_tool_result|default:""|safe }}
+      </div>
+    </div>
+  </div>
+
+  <div class="pk-tabs inspect-tabs">
+    <div class="pk-tabs--tab-list" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="inspect-variables" id="tab-variables" tabindex="0">{% trans "Variables" %}</button>
+      {% if view.formdef.workflow.roles %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-functions" id="tab-functions" tabindex="-1">{% trans "Functions" %}</button>
+      {% endif %}
+      {% if has_tracing %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-timeline" id="tab-timeline" tabindex="-1">{% trans "Actions Tracing" %}</button>
+      {% endif %}
+      {% if has_markers_stack %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-markers" id="tab-markers" tabindex="-1">{% trans "Markers Stack" %}</button>
+      {% endif %}
+      {% if has_relations %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-relations" id="tab-relations" tabindex="-1">{% trans "Related Forms/Cards" %}</button>
+      {% endif %}
+    </div>
+    <div class="pk-tabs--container">
+
+      <div id="inspect-variables" role="tabpanel" tabindex="0" aria-labelledby="tab-variables">
+        <ul class="form-inspector biglist">
+          {{ view.inspect_variables|safe }}
+        </ul>
+      </div>
+
+      {% if view.formdef.workflow.roles %}
+        <div id="inspect-functions" role="tabpanel" tabindex="0" aria-labelledby="tab-functions" hidden>
+          <ul class="form-inspector biglist">
+            {{ view.inspect_functions|safe }}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if has_tracing %}
+        <div id="inspect-timeline" role="tabpanel" tabindex="0" aria-labelledby="tab-timeline" hidden>
+          <div class="pk-attention">
+            <p>{% blocktrans trimmed %}
+              Beware actions, links and details do not represent the workflow as it was
+              at the time it was run but as it is now. There can be inconsistencies.
+            {% endblocktrans %}</p>
+          </div>
+          <ul class="form-inspector biglist">
+            {{ view.inspect_tracing|safe }}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if has_markers_stack %}
+        <div id="inspect-markers" role="tabpanel" tabindex="0" aria-labelledby="tab-markers" hidden>
+          <ul class="form-inspector biglist">
+            {{ view.inspect_markers_stack|safe }}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if has_relations %}
+        <div id="inspect-relations" role="tabpanel" tabindex="0" aria-labelledby="tab-relations" hidden>
+          <ul class="form-inspector biglist">
+            {{ view.inspect_relations|safe }}
+          </ul>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

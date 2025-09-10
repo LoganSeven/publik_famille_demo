@@ -1,0 +1,18 @@
+# trivial: apply black
+4ebe82ef21fed8353ac38f8257c69a1a31322634
+# trivial: reapply black
+a11be8fa590ad3d02a903dacb8393336b989a1a6
+# trivial: apply new isort configuration (#52504)
+08f1431a665aec6586960e78cbfda6da47aa6862
+# misc: apply isort (#52224)
+48470c50c0e9b56e989cfbcdcec433de0cc8479a
+# misc: apply pyupgrade (#55490)
+ff0d3779c024ba3a0109b91d9337aadd06b06788
+# misc: apply black 22.1.0
+877155f01d014e8fc778014c55e6a693247261f7
+# misc: apply djhtml (#69419)
+dfdbaf2b8ab7202643701eb87edbdee1b1a137e4
+# misc: apply django-upgrade (#69799)
+77ad58bf8f16303d19d9f16352bb6ff8ca6d0e98
+# misc: apply double-quote-string-fixer (#80309)
+1e2264dd8c0557353f14e6d38e8b29389cd9bce4

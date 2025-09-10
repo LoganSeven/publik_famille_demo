@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<theme name="django" version="1.0">
+  <label>Django</label>
+  <desc>Test theme for Django port</desc>
+  <author>Frederic Peters</author>
+</theme>

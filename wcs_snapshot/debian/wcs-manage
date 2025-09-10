@@ -1,0 +1,25 @@
+#!/bin/sh
+
+NAME=wcs
+MANAGE=/usr/lib/$NAME/manage.py
+
+# load Debian default configuration
+export WCS_SETTINGS_FILE=/usr/lib/$NAME/debian_config.py
+
+# check user
+if test x$1 = x"--forceuser"
+then
+    shift
+elif test $(id -un) != "$NAME"
+then
+    echo "error: must use $0 with user ${NAME}"
+    exit 1
+fi
+
+if test $# -eq 0
+then
+    python3 ${MANAGE} help
+    exit 1
+fi
+
+python3 ${MANAGE} "$@"

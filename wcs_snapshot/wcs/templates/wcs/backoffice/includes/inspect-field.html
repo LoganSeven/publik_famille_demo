@@ -1,0 +1,14 @@
+<div class="inspect-field inspect-field--{{ field.key }} {% if forloop.first %}inspect-field--first{% endif %}"
+     data-field-id="{{ field.id }}">
+  <h4><a href="{{ path|default:"fields/" }}{% if field.on_page %}pages/{{ field.on_page.id }}/{% endif %}{{ field.id }}/">{{ field.ellipsized_label }}</a>
+    <span class="inspect-field-type">-
+      {% if field.key == 'block' %}<a href="{{ field.block.get_admin_url }}inspect">{% endif %}
+      {{ field.get_type_label }}
+      {% if field.key == 'block' %}</a>{% endif %}
+    </span>
+  </h4>
+  {% if field.documentation %}
+    <div class="bo-block documentation"><div class="ro-documentation">{{ field.documentation|safe }}</div></div>
+  {% endif %}
+  {{ field.get_parameters_view|safe }}
+</div>

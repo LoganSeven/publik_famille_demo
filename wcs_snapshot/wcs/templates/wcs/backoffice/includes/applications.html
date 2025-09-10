@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% if applications %}
+  <h3>{% trans "Applications" %}</h3>
+  {% for application in applications %}
+    <a class="button button-paragraph" href="{{ prefix }}application/{{ application.slug }}/">
+      {% if application.icon %}
+        <img src="{{ prefix }}application/{{ application.slug }}/icon" alt="" class="application-icon" width="16" />
+      {% endif %}
+      {{ application.name }}
+    </a>
+  {% endfor %}
+  {% if not prefix %}{# if prefix is not empty, this template is included on a detail page #}
+    <a class="button button-paragraph" href="application/">
+      {% blocktrans %}{{ elements_label }} outside applications{% endblocktrans %}
+    </a>
+  {% endif %}
+{% endif %}

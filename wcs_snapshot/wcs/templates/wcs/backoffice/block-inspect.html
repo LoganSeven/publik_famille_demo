@@ -1,0 +1,86 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar %}{% endblock %}
+
+{% block content %}
+
+  {% if blockdef.documentation %}
+    <div class="bo-block documentation documentation-inspect-top"><div class="ro-documentation">{{ blockdef.documentation|safe }}</div></div>
+  {% endif %}
+
+  <div class="pk-tabs inspect-tabs inspect-form-tabs">
+    <div class="pk-tabs--tab-list" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="inspect-infos" id="tab-infos" tabindex="0">{% trans "Information" %}</button>
+      <button role="tab" aria-selected="false" aria-controls="inspect-fields" id="tab-fields" tabindex="-1">{% trans "Fields" %}</button>
+      {% if deprecations.report_lines %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-deprecations" id="tab-deprecations" tabindex="-1">{% trans "Deprecations" %}</button>
+      {% endif %}
+      {% if not snapshots_diff %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-usage" id="tab-usage" tabindex="-1">{% trans "Usage" %}</button>
+      {% endif %}
+    </div>
+    <div class="pk-tabs--container">
+
+      <div id="inspect-infos" role="tabpanel" tabindex="0" aria-labelledby="tab-info">
+        <ul>
+          <li><span class="parameter">{% trans "Title" %}{% trans ":" %}</span> {{ blockdef.name|default:"-" }}</li>
+          <li><span class="parameter">{% trans "Category" %}{% trans ":" %}</span> {% if blockdef.category %}<a href="{{ blockdef.category.get_admin_url }}">{{ blockdef.category.name }}</a>{% else %}-{% endif %}</li>
+          <li><span class="parameter">{% trans "Digest Template" %}{% trans ":" %}</span> {{ blockdef.digest_template|default:"-" }}</li>
+        </ul>
+      </div>
+
+      <div id="inspect-fields" role="tabpanel" tabindex="0" aria-labelledby="tab-fields" hidden>
+        <div class="pk-information page-field-counters"><p>
+          {% blocktrans count fields_count=blockdef.fields|count %}{{ fields_count }} field{% plural %}{{ fields_count }} fields{% endblocktrans %}.
+        </p></div>
+        {% for field in blockdef.fields %}
+          {% include "wcs/backoffice/includes/inspect-field.html" with path=blockdef.get_admin_url %}
+        {% endfor %}
+      </div>
+
+      {% if deprecations %}
+        <div id="inspect-deprecations" role="tabpanel" tabindex="0" aria-labelledby="tab-deprecations" hidden>
+          {% regroup deprecations.report_lines by category as category_report_lines %}
+          {% for category in category_report_lines %}
+            <h4>{{ deprecation_metadata|get:category.grouper|get:"title" }}</h4>
+            <div class="section--{{ category.grouper }}">
+              <ul>
+                {% for report_line in category.list %}
+                  <li class="{{ report_line.css_class|default:"" }}"><a href="{{ report_line.url }}"
+                    >{{ report_line.location_label }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+
+        </div>
+      {% endif %}
+
+      {% if not snapshots_diff %}
+        <div id="inspect-usage" role="tabpanel" tabindex="0" aria-labelledby="tab-usage" hidden>
+          <table class="main block-usage">
+            <thead>
+              <tr>
+                <th class="field-column">{% trans "Field" %}</th>
+                <th>{% trans "Maximum number of items" %}</th>
+                <th>{% trans "Include remove button" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for field in blockdef.get_usage_fields %}
+                <tr>
+                  <td><a href="{{ field.formdef.get_admin_url }}">{{ field.label }}</a></td>
+                  <td>{{ field.max_items|default:1 }}</td>
+                  <td>{{ field.remove_button|default_if_none:False|yesno }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ status.name }}{% endblock %}
+
+{% block appbar-actions %}
+  <a class="extra-actions-menu-opener"></a>
+  <ul class="extra-actions-menu">
+    {% if not workflow.is_readonly %}
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    {% endif %}
+  </ul>
+  {% if not workflow.is_readonly %}
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+    <a href="options">{% trans "Options" %}</a>
+    <a rel="popup" href="edit">{% trans "Change Name" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  {% include "wcs/backoffice/includes/documentation.html" with element=status object=workflow %}
+
+  {% with visibility_mode=status.get_visibility_mode %}
+    {% if visibility_mode != 'all' %}
+      <div class="bo-block">
+        {{ status.get_visibility_mode_str }}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% if not status.items %}
+    <div class="infonotice">
+      {% trans "There are not yet any actions in this status." %}
+    </div>
+  {% else %}
+    {% spaceless %}
+      <div class="bo-block">
+        {% if workflow.is_readonly %}
+          <ul id="items-list" class="biglist sortable readonly">
+        {% else %}
+          <p class="hint">{% trans "Use drag and drop with the handles to reorder actions." %}</p>
+          <ul id="items-list" class="biglist sortable">
+        {% endif %}
+        {% for item in status.items %}
+          <li class="biglistitem" data-id="{{ item.id }}">
+            <a class="biglistitem--content" href="items/{{ item.id }}/">{{ item.render_as_line }}</a>
+            <p class="commands">
+              {% with item.get_target_status_url as url %}
+                {% if url %}<span class="jump"><a href="{{ url }}" title="{% trans "Go to Target" %}">{% trans "Go to Target" %}</a></span>{% endif %}
+              {% endwith %}
+              {% if not workflow.is_readonly %}
+                <span class="duplicate"><a href="items/{{ item.id }}/copy" rel="popup" title="{% trans "Copy" %}">{% trans "Copy" %}</a></span>
+                <span class="remove"><a href="items/{{ item.id }}/delete" rel="popup" title="{% trans "Delete" %}">{% trans "Delete" %}</a></span>
+              {% endif %}
+            </p>
+          </li>
+        {% endfor %}
+      </ul>
+      </div>
+    {% endspaceless %}
+  {% endif %}
+
+  {% if status.loop_items_template %}
+    <div class="bo-block workflow-status-loop-infos">
+      <p>
+        {% trans "This status is configured to loop over actions." %}
+        {% if status.after_loop_status and status.after_loop_status != '_previous' %}
+          {% if status.get_loop_target_status %}
+            {% trans "Once done, it will jump to this status:" %}
+            <a href="../{{ status.after_loop_status }}/">{{ status.get_loop_target_status.name }}</a>
+          {% else %}
+            {% trans "It was configured to jump a to a specific status but it doesn't exist anymore." %}
+          {% endif %}
+        {% elif status.after_loop_status == '_previous' %}
+          {% trans "Once done, it will jump to the status that was previously marked." %}
+        {% else %}
+          {% trans "It is not configured to jump to a specific status once done." %}
+        {% endif %}
+      </p>
+    </div>
+  {% endif %}
+
+  {% with source_statuses=view.get_source_statuses source_global_actions=view.get_source_global_actions %}
+    {% if source_statuses or source_global_actions %}
+      <div class="bo-block">
+        <h3>{% trans "Jumps" %}</h3>
+        {% if source_statuses %}
+          <p class="reach-statuses">{% trans "This status is reachable from the following status:" %}
+            {% for source in source_statuses %}
+              <a href="../{{ source.id }}/">{{ source.name }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+        {% endif %}
+        {% if source_global_actions %}
+          <p class="reach-global-actions">{% trans "This status is reachable via the following global actions:" %}
+            {% for source in source_global_actions %}
+              <a href="{{ source.get_admin_url }}">{{ source.name }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <p><a href="../../">{% trans "Back to workflow main page" %}</a></p>
+
+  <div class="bo-block svg-pan-zoom-with-ctrl"
+       data-handling-scroll-warning-text="{% trans "Use ctrl + scroll to zoom the schema" %}"
+       data-handling-scroll-mac-warning-text="{% trans "Use ⌘ + scroll to zoom the schema" %}">
+    {{ view.graphviz|safe }}
+    <ul class="full-screen-links">
+      <li><a download href="schema.svg">{% trans "Download" %}</a></li>
+      <li><a href="fullscreen">{% trans "Full Screen" %}</a></li>
+    </ul>
+  </div>
+
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if workflow.is_default %}
+    <p>
+      {% blocktrans trimmed %}
+        This is the default workflow, you cannot edit it but you can
+        duplicate it to base your own workflow on it.
+      {% endblocktrans %}
+    </p>
+  {% elif workflow.is_readonly %}
+    <div class="infonotice"><p>{% trans "This workflow is readonly." %}</p></div>
+  {% else %}
+
+    {% if status.is_endpoint %}
+      <div class="infonotice">
+        <p>
+          {% if status.forced_endpoint %}
+            {% trans "This status has been manually set to be considered as terminal." %}
+            <br><a href="unset-forced-endpoint">{% trans "Unforce Terminal Status" %}</a>
+          {% elif status.is_endpoint %}
+            {% trans "This status has been automatically evaluated as being terminal." %}
+          {% endif %}
+        </p>
+      </div>
+    {% endif %}
+
+    <div id="new-action">
+      <h3>{% trans "New Action" %}</h3>
+      {{ view.get_new_item_form.render|safe }}
+    </div>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,6300 @@
+# WCS Spanish Translation.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translators: Ramon Tio Bellido <artibi@free.fr>, Rian Lozano 2006.  
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-29 10:32+0200\n"
+"PO-Revision-Date: 2006-06-14 17:39+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../wcs/wf/wscall.py:27
+msgid "Webservice Call"
+msgstr ""
+
+#: ../wcs/wf/wscall.py:42
+msgid "URL"
+msgstr ""
+
+#: ../wcs/wf/wscall.py:43
+msgid "Common substitution variables are available with the [variable] syntax."
+msgstr ""
+
+#: ../wcs/wf/wscall.py:46
+msgid "Post formdata (JSON)"
+msgstr ""
+
+#: ../wcs/wf/wscall.py:50 ../wcs/workflows.py:1124 ../wcs/fields.py:339
+#: ../wcs/wf/form.py:66
+#, fuzzy
+msgid "Variable Name"
+msgstr "Nombre del rol"
+
+#: ../wcs/wf/wscall.py:53
+msgid "Request Signature Key"
+msgstr ""
+
+#: ../wcs/wf/register_comment.py:56
+msgid "Record in Journal"
+msgstr ""
+
+#: ../wcs/wf/register_comment.py:63 ../wcs/workflows.py:1070
+#: ../wcs/workflows.py:1105 ../wcs/fields.py:440
+#: ../wcs/qommon/substitution.py:65
+msgid "Comment"
+msgstr "Comentario"
+
+#: ../wcs/roles.py:53
+msgid "Logged Users"
+msgstr "Utilizadores enregistrados"
+
+#: ../wcs/myspace.py:95
+#, python-format
+msgid "%(name)s #%(id)s (%(status)s)"
+msgstr ""
+
+#: ../wcs/data_sources.py:43 ../wcs/admin/users.py:446
+#: ../wcs/admin/settings.py:133 ../wcs/admin/forms.py:323
+#: ../wcs/admin/forms.py:488 ../wcs/admin/fields.py:43 ../wcs/fields.py:41
+#: ../wcs/fields.py:48 ../wcs/qommon/ident/password.py:737
+#, fuzzy
+msgid "None"
+msgstr "Hecho"
+
+#: ../wcs/data_sources.py:44 ../wcs/fields.py:43
+msgid "Formula (Python)"
+msgstr ""
+
+#: ../wcs/data_sources.py:45
+msgid "JSON URL"
+msgstr ""
+
+#: ../wcs/data_sources.py:47
+msgid "JSONP URL"
+msgstr ""
+
+#: ../wcs/data_sources.py:58 ../wcs/fields.py:90
+msgid "Apply"
+msgstr ""
+
+#: ../wcs/admin/users.py:46 ../wcs/admin/users.py:127
+#: ../wcs/admin/workflows.py:910 ../wcs/admin/workflows.py:927
+#: ../wcs/fields.py:71 ../wcs/qommon/ident/password.py:870
+#: ../wcs/qommon/ident/idp.py:161
+msgid "Name"
+msgstr "Apellido"
+
+#: ../wcs/admin/users.py:49 ../wcs/admin/users.py:131 ../wcs/forms/root.py:160
+#: ../wcs/fields.py:71 ../wcs/fields.py:567
+#: ../wcs/qommon/ident/password.py:202 ../wcs/qommon/ident/password.py:311
+#: ../wcs/qommon/ident/password.py:507 ../wcs/qommon/ident/password.py:872
+#: ../wcs/qommon/ident/password.py:1239 ../wcs/qommon/ident/idp.py:162
+#: ../wcs/qommon/ident/idp.py:295 ../wcs/qommon/admin/emails.py:225
+#: ../wcs/qommon/admin/menu.py:205
+msgid "Email"
+msgstr "Email"
+
+#: ../wcs/admin/users.py:53
+msgid "Administrator Account"
+msgstr "Cuenta del administrador"
+
+#: ../wcs/admin/users.py:57 ../wcs/admin/users.py:159
+#: ../wcs/admin/settings.py:774 ../wcs/admin/forms.py:325
+#: ../wcs/admin/forms.py:442 ../wcs/admin/forms.py:490
+#: ../wcs/admin/forms.py:506 ../wcs/admin/root.py:69 ../wcs/admin/roles.py:204
+#: ../wcs/admin/roles.py:206 ../wcs/admin/roles.py:235
+#: ../wcs/admin/roles.py:257 ../wcs/qommon/ident/password.py:833
+msgid "Roles"
+msgstr "Roles"
+
+#: ../wcs/admin/users.py:59 ../wcs/admin/settings.py:499
+#: ../wcs/admin/forms.py:427 ../wcs/wf/aggregation_email.py:44
+#: ../wcs/workflows.py:1119 ../wcs/workflows.py:1194 ../wcs/workflows.py:1256
+#: ../wcs/workflows.py:1526 ../wcs/workflows.py:1641
+#: ../wcs/wf/attachment.py:125 ../wcs/qommon/ident/password.py:835
+#: ../wcs/wf/form.py:60 ../wcs/wf/jump.py:158
+msgid "Add Role"
+msgstr "Añadir Rol"
+
+#. #-#-#-#-#  tmp.111.fields.py.pot (PACKAGE VERSION)  #-#-#-#-#
+#. form.add(SingleSelectWidget, 'type', title = _('Type'),
+#. value = self.field.type, required=True,
+#. options = [(x, _(y)) for x,y in get_field_types()])
+#. current_type = form.get_widget('type').parse()
+#: ../wcs/admin/users.py:70 ../wcs/admin/users.py:275
+#: ../wcs/admin/settings.py:78 ../wcs/admin/settings.py:148
+#: ../wcs/admin/settings.py:518 ../wcs/admin/settings.py:579
+#: ../wcs/admin/settings.py:703 ../wcs/admin/settings.py:754
+#: ../wcs/admin/settings.py:777 ../wcs/admin/settings.py:828
+#: ../wcs/admin/settings.py:882 ../wcs/admin/settings.py:927
+#: ../wcs/admin/settings.py:968 ../wcs/admin/settings.py:1108
+#: ../wcs/admin/forms.py:78 ../wcs/admin/forms.py:149
+#: ../wcs/admin/forms.py:405 ../wcs/admin/forms.py:433
+#: ../wcs/admin/forms.py:460 ../wcs/admin/forms.py:493
+#: ../wcs/admin/forms.py:518 ../wcs/admin/forms.py:567
+#: ../wcs/admin/forms.py:595 ../wcs/admin/forms.py:635
+#: ../wcs/admin/forms.py:724 ../wcs/admin/forms.py:748
+#: ../wcs/admin/forms.py:944 ../wcs/admin/forms.py:975
+#: ../wcs/admin/forms.py:1101 ../wcs/admin/forms.py:1196
+#: ../wcs/admin/forms.py:1316 ../wcs/admin/forms.py:1357
+#: ../wcs/admin/categories.py:40 ../wcs/admin/categories.py:127
+#: ../wcs/admin/categories.py:148 ../wcs/admin/fields.py:56
+#: ../wcs/admin/fields.py:104 ../wcs/admin/fields.py:289
+#: ../wcs/admin/bounces.py:120 ../wcs/admin/roles.py:50
+#: ../wcs/admin/roles.py:183 ../wcs/admin/workflows.py:167
+#: ../wcs/admin/workflows.py:176 ../wcs/admin/workflows.py:221
+#: ../wcs/admin/workflows.py:245 ../wcs/admin/workflows.py:450
+#: ../wcs/admin/workflows.py:477 ../wcs/admin/workflows.py:511
+#: ../wcs/admin/workflows.py:589 ../wcs/admin/workflows.py:615
+#: ../wcs/admin/workflows.py:634 ../wcs/admin/workflows.py:983
+#: ../wcs/backoffice/root.py:357 ../wcs/forms/root.py:345
+#: ../wcs/forms/root.py:875 ../wcs/root.py:109 ../wcs/root.py:168
+#: ../wcs/root.py:241 ../wcs/qommon/ident/password.py:422
+#: ../wcs/qommon/ident/password.py:745 ../wcs/qommon/ident/password.py:794
+#: ../wcs/qommon/ident/password.py:840 ../wcs/qommon/ident/password.py:1100
+#: ../wcs/qommon/ident/password.py:1303 ../wcs/qommon/ident/password.py:1330
+#: ../wcs/qommon/ident/idp.py:117 ../wcs/qommon/ident/idp.py:314
+#: ../wcs/qommon/ident/idp.py:409 ../wcs/qommon/ident/idp.py:633
+#: ../wcs/qommon/ident/idp.py:862 ../wcs/qommon/ident/idp.py:1022
+#: ../wcs/qommon/admin/emails.py:120 ../wcs/qommon/admin/emails.py:205
+#: ../wcs/qommon/admin/settings.py:37 ../wcs/qommon/admin/settings.py:81
+#: ../wcs/qommon/admin/settings.py:120 ../wcs/qommon/admin/texts.py:145
+#: ../wcs/qommon/admin/logger.py:151 ../wcs/wf/form.py:108
+msgid "Submit"
+msgstr "Mandar"
+
+#: ../wcs/admin/users.py:71 ../wcs/admin/users.py:276
+#: ../wcs/admin/settings.py:79 ../wcs/admin/settings.py:312
+#: ../wcs/admin/settings.py:519 ../wcs/admin/settings.py:621
+#: ../wcs/admin/settings.py:705 ../wcs/admin/settings.py:755
+#: ../wcs/admin/settings.py:778 ../wcs/admin/settings.py:829
+#: ../wcs/admin/settings.py:883 ../wcs/admin/settings.py:928
+#: ../wcs/admin/settings.py:969 ../wcs/admin/settings.py:1109
+#: ../wcs/admin/forms.py:79 ../wcs/admin/forms.py:150
+#: ../wcs/admin/forms.py:406 ../wcs/admin/forms.py:434
+#: ../wcs/admin/forms.py:461 ../wcs/admin/forms.py:494
+#: ../wcs/admin/forms.py:519 ../wcs/admin/forms.py:568
+#: ../wcs/admin/forms.py:596 ../wcs/admin/forms.py:636
+#: ../wcs/admin/forms.py:725 ../wcs/admin/forms.py:749
+#: ../wcs/admin/forms.py:945 ../wcs/admin/forms.py:976
+#: ../wcs/admin/forms.py:1102 ../wcs/admin/forms.py:1197
+#: ../wcs/admin/forms.py:1317 ../wcs/admin/forms.py:1358
+#: ../wcs/admin/forms.py:1494 ../wcs/admin/categories.py:41
+#: ../wcs/admin/categories.py:128 ../wcs/admin/categories.py:149
+#: ../wcs/admin/fields.py:57 ../wcs/admin/fields.py:105
+#: ../wcs/admin/bounces.py:121 ../wcs/admin/roles.py:51
+#: ../wcs/admin/roles.py:184 ../wcs/admin/workflows.py:168
+#: ../wcs/admin/workflows.py:177 ../wcs/admin/workflows.py:222
+#: ../wcs/admin/workflows.py:246 ../wcs/admin/workflows.py:451
+#: ../wcs/admin/workflows.py:478 ../wcs/admin/workflows.py:512
+#: ../wcs/admin/workflows.py:590 ../wcs/admin/workflows.py:616
+#: ../wcs/admin/workflows.py:635 ../wcs/admin/workflows.py:978
+#: ../wcs/admin/workflows.py:984 ../wcs/admin/workflows.py:1076
+#: ../wcs/forms/root.py:162 ../wcs/forms/root.py:393 ../wcs/forms/root.py:876
+#: ../wcs/root.py:242 ../wcs/qommon/ident/password.py:423
+#: ../wcs/qommon/ident/password.py:746 ../wcs/qommon/ident/password.py:795
+#: ../wcs/qommon/ident/password.py:841 ../wcs/qommon/ident/password.py:1101
+#: ../wcs/qommon/ident/password.py:1305 ../wcs/qommon/ident/password.py:1331
+#: ../wcs/qommon/ident/idp.py:118 ../wcs/qommon/ident/idp.py:410
+#: ../wcs/qommon/ident/idp.py:634 ../wcs/qommon/ident/idp.py:863
+#: ../wcs/qommon/ident/idp.py:1023 ../wcs/qommon/myspace.py:113
+#: ../wcs/qommon/myspace.py:150 ../wcs/qommon/myspace.py:182
+#: ../wcs/qommon/admin/emails.py:121 ../wcs/qommon/admin/emails.py:208
+#: ../wcs/qommon/admin/settings.py:38 ../wcs/qommon/admin/settings.py:82
+#: ../wcs/qommon/admin/settings.py:121 ../wcs/qommon/admin/texts.py:148
+msgid "Cancel"
+msgstr "Anular"
+
+#: ../wcs/admin/users.py:113 ../wcs/admin/users.py:115
+#: ../wcs/admin/settings.py:1093 ../wcs/users.py:176 ../wcs/users.py:181
+#: ../wcs/users.py:182 ../wcs/users.py:183 ../wcs/qommon/admin/logger.py:57
+#: ../wcs/qommon/admin/logger.py:180
+msgid "User"
+msgstr "Usuario/a"
+
+#: ../wcs/admin/users.py:122
+#, fuzzy
+msgid "Profile"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/users.py:155 ../wcs/admin/forms.py:425
+#: ../wcs/admin/forms.py:439
+#, fuzzy
+msgid "User Roles"
+msgstr "Email del remitente"
+
+#: ../wcs/admin/users.py:162 ../wcs/admin/users.py:443
+#: ../wcs/qommon/ident/password.py:773 ../wcs/qommon/ident/idp.py:1005
+msgid "Site Administrator"
+msgstr "Administrador del sitio"
+
+#. #-#-#-#-#  tmp.109.forms.py.pot (PACKAGE VERSION)  #-#-#-#-#
+#. removed role ?
+#: ../wcs/admin/users.py:169 ../wcs/admin/forms.py:291
+#: ../wcs/admin/forms.py:312
+#, fuzzy, python-format
+msgid "Unknown role (%s)"
+msgstr "Ficha dezconozida"
+
+#: ../wcs/admin/users.py:182
+#, fuzzy
+msgid "SAML Details"
+msgstr "Detalles del rol"
+
+#: ../wcs/admin/users.py:193
+#, python-format
+msgid "Account federated with %s"
+msgstr "Cuenta federada con %s"
+
+#: ../wcs/admin/users.py:196
+msgid "local: "
+msgstr "local: "
+
+#: ../wcs/admin/users.py:198
+msgid "remote: "
+msgstr "a distancia: "
+
+#: ../wcs/admin/users.py:203
+msgid "Lasso Identity Dump"
+msgstr "Descargo del Lasso Identity"
+
+#: ../wcs/admin/users.py:216
+#, fuzzy
+msgid "Manage Roles"
+msgstr "Email del remitente"
+
+#: ../wcs/admin/users.py:218 ../wcs/admin/users.py:261
+#: ../wcs/admin/categories.py:98 ../wcs/admin/categories.py:116
+#: ../wcs/admin/roles.py:154 ../wcs/admin/roles.py:172
+#: ../wcs/admin/workflows.py:493 ../wcs/admin/workflows.py:967
+#: ../wcs/forms/root.py:1348 ../wcs/qommon/ident/idp.py:601
+#: ../wcs/qommon/admin/menu.py:198
+msgid "Edit"
+msgstr "Imprimir"
+
+#: ../wcs/admin/users.py:219 ../wcs/admin/users.py:280
+#: ../wcs/admin/settings.py:313 ../wcs/admin/forms.py:371
+#: ../wcs/admin/forms.py:729 ../wcs/admin/categories.py:99
+#: ../wcs/admin/categories.py:132 ../wcs/admin/fields.py:112
+#: ../wcs/admin/bounces.py:125 ../wcs/admin/roles.py:155
+#: ../wcs/admin/roles.py:188 ../wcs/admin/workflows.py:250
+#: ../wcs/admin/workflows.py:396 ../wcs/admin/workflows.py:455
+#: ../wcs/admin/workflows.py:880 ../wcs/admin/workflows.py:988
+#, fuzzy
+msgid "Delete"
+msgstr "Borrando"
+
+#: ../wcs/admin/users.py:233 ../wcs/admin/root.py:71
+#: ../wcs/qommon/admin/logger.py:38 ../wcs/qommon/admin/logger.py:39
+#: ../wcs/qommon/admin/logger.py:178
+msgid "Logs"
+msgstr "Ficheros logs"
+
+#: ../wcs/admin/users.py:239
+msgid "Debug"
+msgstr ""
+
+#: ../wcs/admin/users.py:262 ../wcs/admin/users.py:264
+msgid "Edit User"
+msgstr "Imprimatur del usuario"
+
+#: ../wcs/admin/users.py:274
+msgid "You are about to irrevocably delete this user."
+msgstr "Esta a punto de borrar irrevocablamente esto usuario."
+
+#: ../wcs/admin/users.py:281
+msgid "Delete User"
+msgstr "Borrar usuario"
+
+#: ../wcs/admin/users.py:283
+msgid "Deleting User:"
+msgstr "Borrando usuario:"
+
+#: ../wcs/admin/users.py:304 ../wcs/admin/users.py:305
+#: ../wcs/admin/users.py:465 ../wcs/admin/users.py:506
+#: ../wcs/admin/settings.py:208 ../wcs/admin/settings.py:478
+#: ../wcs/admin/root.py:68
+msgid "Users"
+msgstr "Usuarios"
+
+#: ../wcs/admin/users.py:313 ../wcs/admin/users.py:471
+#, fuzzy
+msgid "An authentification system must be configured before creating users."
+msgstr "El soporte Liberty no esta todavia configurado."
+
+#: ../wcs/admin/users.py:315 ../wcs/admin/users.py:474
+#, fuzzy
+msgid "SAML support must be setup before creating users."
+msgstr "El soporte Liberty tiene que estar colocado antes de crear el usuario."
+
+#: ../wcs/admin/users.py:375
+#, fuzzy
+msgid "Total number of users:"
+msgstr "Numero de filas"
+
+#: ../wcs/admin/users.py:378
+#, fuzzy
+msgid "Number of filtered users:"
+msgstr "Numero de consultas rellenadas:"
+
+#: ../wcs/admin/users.py:417 ../wcs/admin/users.py:489
+#: ../wcs/admin/users.py:491
+msgid "New User"
+msgstr "Nuevo usuario"
+
+#: ../wcs/admin/users.py:430 ../wcs/admin/users.py:438
+#: ../wcs/backoffice/root.py:662 ../wcs/backoffice/root.py:670
+msgid "Search"
+msgstr ""
+
+#: ../wcs/admin/users.py:440
+#, fuzzy
+msgid "Filter on Roles"
+msgstr "Borrar rol"
+
+#: ../wcs/admin/users.py:460
+msgid "Filter"
+msgstr ""
+
+#: ../wcs/admin/users.py:466 ../wcs/admin/forms.py:1459
+#: ../wcs/admin/categories.py:216 ../wcs/admin/roles.py:236
+#: ../wcs/admin/workflows.py:1044 ../wcs/workflows.py:407
+#: ../wcs/qommon/ident/idp.py:233 ../wcs/qommon/ident/idp.py:318
+#: ../wcs/qommon/ident/idp.py:499
+msgid "New"
+msgstr "Nueva"
+
+#: ../wcs/admin/users.py:513
+#, fuzzy
+msgid "Identification token"
+msgstr "Ficha de identidad"
+
+#: ../wcs/admin/users.py:514
+msgid "Available variables: token, token_url, sitename"
+msgstr ""
+
+#: ../wcs/admin/users.py:515 ../wcs/admin/settings.py:61
+#: ../wcs/admin/settings.py:94 ../wcs/admin/settings.py:96
+#: ../wcs/admin/settings.py:107 ../wcs/admin/settings.py:408
+#: ../wcs/qommon/ident/password.py:1417 ../wcs/qommon/ident/password.py:1437
+#: ../wcs/qommon/ident/password.py:1458 ../wcs/qommon/ident/password.py:1474
+#: ../wcs/qommon/ident/password.py:1488 ../wcs/qommon/ident/password.py:1497
+#: ../wcs/qommon/ident/password.py:1506 ../wcs/qommon/ident/password.py:1520
+#: ../wcs/qommon/ident/password.py:1531 ../wcs/qommon/ident/password.py:1542
+#: ../wcs/qommon/ident/password.py:1553 ../wcs/qommon/ident/password.py:1562
+#: ../wcs/qommon/ident/password.py:1569 ../wcs/qommon/ident/password.py:1579
+#: ../wcs/qommon/ident/password.py:1588 ../wcs/qommon/ident/password.py:1592
+#: ../wcs/qommon/ident/password.py:1601 ../wcs/qommon/ident/password.py:1610
+#: ../wcs/qommon/ident/password.py:1618 ../wcs/qommon/ident/password.py:1625
+#: ../wcs/qommon/ident/password.py:1629
+#, fuzzy
+msgid "Identification"
+msgstr "Ficha de identidad"
+
+#: ../wcs/admin/users.py:516
+#, fuzzy
+msgid "Access to [sitename]"
+msgstr "Acceso prohibido"
+
+#: ../wcs/admin/users.py:517
+msgid ""
+"Hello,\n"
+"\n"
+"An administrator delivered you access to [sitename].\n"
+"\n"
+"Please visit [token_url] to enable it.\n"
+"\n"
+msgstr ""
+
+#: ../wcs/admin/settings.py:64
+msgid "Simple local username / password"
+msgstr ""
+
+#: ../wcs/admin/settings.py:67
+#, fuzzy
+msgid "Delegated to SAML identity provider"
+msgstr "Fallo de comunicación con su proveador de identitdad."
+
+#: ../wcs/admin/settings.py:68
+msgid "Methods"
+msgstr ""
+
+#: ../wcs/admin/settings.py:74
+msgid "One-way association between user and forms"
+msgstr ""
+
+#: ../wcs/admin/settings.py:101
+msgid ""
+"Delegated to SAML identity provider authentication is unavailable. Lasso "
+"must be installed to use it."
+msgstr ""
+
+#: ../wcs/admin/settings.py:124
+#, fuzzy
+msgid "Fields Mapping"
+msgstr "Campos"
+
+#: ../wcs/admin/settings.py:125
+msgid ""
+"These settings make it possible to assign custom user fields to standard "
+"user fields."
+msgstr ""
+
+#: ../wcs/admin/settings.py:140
+#, fuzzy
+msgid "Field(s) for Name"
+msgstr "Apellido del formulario"
+
+#: ../wcs/admin/settings.py:145
+msgid "Field for Email"
+msgstr ""
+
+#: ../wcs/admin/settings.py:162
+#, fuzzy
+msgid "Custom User Fields"
+msgstr "Añadir un campo"
+
+#: ../wcs/admin/settings.py:218 ../wcs/admin/fields.py:275
+#: ../wcs/admin/fields.py:329 ../wcs/workflows.py:1106
+#: ../wcs/workflows.py:1189 ../wcs/fields.py:335 ../wcs/fields.py:411
+#: ../wcs/fields.py:468 ../wcs/fields.py:1119
+msgid "Label"
+msgstr "Marca"
+
+#: ../wcs/admin/settings.py:220
+msgid "Mime types"
+msgstr ""
+
+#: ../wcs/admin/settings.py:223 ../wcs/forms/root.py:427
+msgid "Save"
+msgstr ""
+
+#: ../wcs/admin/settings.py:259 ../wcs/admin/settings.py:278
+#: ../wcs/admin/settings.py:300 ../wcs/admin/settings.py:331
+#: ../wcs/admin/settings.py:488
+#, fuzzy
+msgid "File Types"
+msgstr "Email"
+
+#: ../wcs/admin/settings.py:291
+msgid "There are no file type defined at the moment."
+msgstr ""
+
+#: ../wcs/admin/settings.py:294
+msgid "New file type"
+msgstr ""
+
+#: ../wcs/admin/settings.py:333
+#, fuzzy
+msgid "File Type"
+msgstr "Email"
+
+#: ../wcs/admin/settings.py:341
+#, fuzzy
+msgid "Invalid URL"
+msgstr "Fecha invalida"
+
+#: ../wcs/admin/settings.py:359
+msgid "The theme preview doesn't support this."
+msgstr ""
+
+#: ../wcs/admin/settings.py:391 ../wcs/admin/settings.py:776
+#: ../wcs/admin/settings.py:860 ../wcs/admin/root.py:73
+#: ../wcs/qommon/admin/settings.py:27
+msgid "Settings"
+msgstr "Establecimientos"
+
+#: ../wcs/admin/settings.py:398
+msgid "Storage"
+msgstr ""
+
+#: ../wcs/admin/settings.py:400 ../wcs/admin/settings.py:1126
+#: ../wcs/admin/settings.py:1127 ../wcs/admin/settings.py:1129
+#, fuzzy
+msgid "PostgreSQL Settings"
+msgstr "Configure instaladores de email"
+
+#: ../wcs/admin/settings.py:401
+msgid "Configure access to PostgreSQL database"
+msgstr ""
+
+#: ../wcs/admin/settings.py:405
+msgid "Security"
+msgstr ""
+
+#: ../wcs/admin/settings.py:408
+#, fuzzy
+msgid "Configure identification parameters"
+msgstr "Configura parametros de Liberty"
+
+#: ../wcs/admin/settings.py:421 ../wcs/qommon/admin/settings.py:59
+#: ../wcs/qommon/admin/settings.py:68
+#, fuzzy
+msgid "Session"
+msgstr "ID-WSF expresión pre-rellenada"
+
+#: ../wcs/admin/settings.py:421
+#, fuzzy
+msgid "Configure session management"
+msgstr "Configure el languaje del sitio"
+
+#: ../wcs/admin/settings.py:426 ../wcs/admin/settings.py:525
+#: ../wcs/admin/settings.py:526 ../wcs/admin/settings.py:528
+#, fuzzy
+msgid "Admin Permissions"
+msgstr "Administración WCS"
+
+#: ../wcs/admin/settings.py:426
+msgid "Configure access to the administration interface"
+msgstr ""
+
+#: ../wcs/admin/settings.py:431
+msgid "Import / Export"
+msgstr "Importe / Exporte"
+
+#: ../wcs/admin/settings.py:435 ../wcs/admin/settings.py:834
+#: ../wcs/admin/settings.py:835 ../wcs/admin/settings.py:837
+#: ../wcs/admin/settings.py:845 ../wcs/admin/settings.py:847
+#: ../wcs/admin/forms.py:1429 ../wcs/admin/forms.py:1506
+#: ../wcs/admin/workflows.py:1038 ../wcs/admin/workflows.py:1088
+msgid "Import"
+msgstr "Importar"
+
+#: ../wcs/admin/settings.py:435
+msgid "Import data from another site"
+msgstr "Importar dato de otro sitio"
+
+#: ../wcs/admin/settings.py:437 ../wcs/admin/settings.py:783
+#: ../wcs/admin/settings.py:784 ../wcs/admin/settings.py:786
+#: ../wcs/admin/forms.py:375 ../wcs/admin/workflows.py:882
+#: ../wcs/qommon/admin/menu.py:204
+msgid "Export"
+msgstr "Exportar"
+
+#: ../wcs/admin/settings.py:437
+msgid "Export data for another site"
+msgstr "Exportar dato para otro sitio"
+
+#: ../wcs/admin/settings.py:442 ../wcs/admin/settings.py:445
+#: ../wcs/admin/settings.py:760 ../wcs/admin/settings.py:761
+#: ../wcs/admin/settings.py:763 ../wcs/admin/forms.py:1417
+#: ../wcs/backoffice/root.py:419 ../wcs/backoffice/root.py:463
+#: ../wcs/forms/root.py:1088
+msgid "Misc"
+msgstr "Diverso"
+
+#: ../wcs/admin/settings.py:445
+msgid "Configure misc options"
+msgstr "Configure opciones misceláneas"
+
+#: ../wcs/admin/settings.py:447 ../wcs/qommon/admin/emails.py:135
+#: ../wcs/qommon/admin/settings.py:127 ../wcs/qommon/admin/settings.py:128
+#: ../wcs/qommon/admin/settings.py:130
+msgid "Debug Options"
+msgstr "Opciones para quitar el bug"
+
+#: ../wcs/admin/settings.py:447
+msgid "Configure options useful for debugging"
+msgstr "Configure las opciones utiles para quitar el bug"
+
+#: ../wcs/admin/settings.py:456
+msgid "Customisation"
+msgstr "Customización"
+
+#: ../wcs/admin/settings.py:461
+msgid ""
+"This site is still using ISO-8859-15 as its character set; it is advised to "
+"update to UTF-8."
+msgstr ""
+
+#: ../wcs/admin/settings.py:464
+msgid "Switch to UTF-8 encoding"
+msgstr ""
+
+#: ../wcs/admin/settings.py:470 ../wcs/admin/settings.py:888
+#: ../wcs/admin/settings.py:889 ../wcs/admin/settings.py:891
+#, fuzzy
+msgid "Site Name and Addresses"
+msgstr "Dirección email"
+
+#: ../wcs/admin/settings.py:470
+#, fuzzy
+msgid "Configure site name and addresses"
+msgstr "Configure el languaje del sitio"
+
+#: ../wcs/admin/settings.py:472 ../wcs/qommon/admin/settings.py:75
+#: ../wcs/qommon/admin/settings.py:87 ../wcs/qommon/admin/settings.py:88
+#: ../wcs/qommon/admin/settings.py:90
+msgid "Language"
+msgstr "Languaje"
+
+#: ../wcs/admin/settings.py:472
+msgid "Configure site language"
+msgstr "Configure el languaje del sitio"
+
+#: ../wcs/admin/settings.py:474
+msgid "Theme"
+msgstr "Tematica"
+
+#: ../wcs/admin/settings.py:474
+msgid "Configure theme"
+msgstr "Configure la tematica"
+
+#: ../wcs/admin/settings.py:476 ../wcs/admin/settings.py:720
+#: ../wcs/admin/settings.py:721 ../wcs/admin/settings.py:723
+msgid "Template"
+msgstr "Calibre"
+
+#: ../wcs/admin/settings.py:476
+msgid "Configure template"
+msgstr "Configure el calibre"
+
+#: ../wcs/admin/settings.py:478
+#, fuzzy
+msgid "Configure users"
+msgstr "Configure la tematica"
+
+#: ../wcs/admin/settings.py:480 ../wcs/qommon/admin/emails.py:126
+#: ../wcs/qommon/admin/emails.py:147 ../wcs/qommon/admin/emails.py:149
+#: ../wcs/qommon/admin/emails.py:223 ../wcs/qommon/admin/emails.py:274
+msgid "Emails"
+msgstr "Emails"
+
+#: ../wcs/admin/settings.py:480
+msgid "Configure email settings"
+msgstr "Configure instaladores de email"
+
+#: ../wcs/admin/settings.py:483 ../wcs/admin/settings.py:899
+#: ../wcs/admin/settings.py:900 ../wcs/admin/settings.py:974
+msgid "SMS"
+msgstr ""
+
+#: ../wcs/admin/settings.py:483
+#, fuzzy
+msgid "Configure SMS settings"
+msgstr "Configure instaladores de email"
+
+#: ../wcs/admin/settings.py:486 ../wcs/qommon/admin/texts.py:93
+#: ../wcs/qommon/admin/texts.py:163 ../wcs/qommon/admin/texts.py:206
+#, fuzzy
+msgid "Texts"
+msgstr "Proximo"
+
+#: ../wcs/admin/settings.py:486
+#, fuzzy
+msgid "Configure text that appears on some pages"
+msgstr "Configure la pagina de inicio"
+
+#: ../wcs/admin/settings.py:488
+#, fuzzy
+msgid "Configure known file types"
+msgstr "Configure la pagina de inicio"
+
+#: ../wcs/admin/settings.py:541 ../wcs/admin/settings.py:542
+#: ../wcs/admin/settings.py:544
+msgid "Themes"
+msgstr "Tematicas"
+
+#: ../wcs/admin/settings.py:548
+#, fuzzy
+msgid "Install New Theme"
+msgstr "Fecha invalida"
+
+#: ../wcs/admin/settings.py:569
+msgid "download"
+msgstr ""
+
+#: ../wcs/admin/settings.py:571
+#, fuzzy
+msgid "preview"
+msgstr "Repaso"
+
+#: ../wcs/admin/settings.py:574 ../wcs/admin/forms.py:219
+#: ../wcs/admin/workflows.py:788
+#, python-format
+msgid "by %s"
+msgstr ""
+
+#: ../wcs/admin/settings.py:617
+#, fuzzy
+msgid "Theme File"
+msgstr "Tematica"
+
+#: ../wcs/admin/settings.py:618
+#, fuzzy
+msgid "Theme Address"
+msgstr "Tematicas"
+
+#: ../wcs/admin/settings.py:620
+msgid "Install"
+msgstr ""
+
+#: ../wcs/admin/settings.py:630
+#, fuzzy
+msgid "Invalid Theme"
+msgstr "Fecha invalida"
+
+#: ../wcs/admin/settings.py:632 ../wcs/admin/settings.py:633
+#: ../wcs/admin/settings.py:635
+#, fuzzy
+msgid "Install Theme"
+msgstr "Fecha invalida"
+
+#: ../wcs/admin/settings.py:637
+msgid ""
+"You can install a new theme by uploading a file or by pointing to the theme "
+"URL."
+msgstr ""
+
+#: ../wcs/admin/settings.py:647 ../wcs/admin/forms.py:785
+#: ../wcs/admin/forms.py:1530 ../wcs/admin/workflows.py:1112
+msgid "You have to enter a file or a URL."
+msgstr ""
+
+#: ../wcs/admin/settings.py:654
+#, python-format
+msgid "Failed to read theme file.  (%s)"
+msgstr ""
+
+#: ../wcs/admin/settings.py:659
+msgid "Empty theme file."
+msgstr ""
+
+#: ../wcs/admin/settings.py:663
+msgid "Theme is missing a desc.xml file."
+msgstr ""
+
+#: ../wcs/admin/settings.py:668
+msgid "desc.xml is missing a name attribute."
+msgstr ""
+
+#: ../wcs/admin/settings.py:687 ../wcs/admin/settings.py:690
+#, python-format
+msgid "Error loading theme (%s)."
+msgstr ""
+
+#: ../wcs/admin/settings.py:701
+msgid "Site Template"
+msgstr "Calibre del sitio"
+
+#: ../wcs/admin/settings.py:704
+msgid "Restore default template"
+msgstr ""
+
+#: ../wcs/admin/settings.py:749
+msgid "Do not show anything about identification tokens"
+msgstr "No enseña nada sobre las fichas de idenftificación"
+
+#: ../wcs/admin/settings.py:752
+#, fuzzy
+msgid "Namespaces for prefilling"
+msgstr "Ningun dato encontrado para pre enregistrar"
+
+#: ../wcs/admin/settings.py:772 ../wcs/admin/forms.py:1392
+#: ../wcs/admin/forms.py:1393 ../wcs/admin/forms.py:1458
+#: ../wcs/admin/forms.py:1484 ../wcs/admin/forms.py:1505
+#: ../wcs/admin/root.py:66 ../wcs/admin/workflows.py:860
+#: ../wcs/backoffice/root.py:248 ../wcs/forms/root.py:56
+#: ../wcs/forms/root.py:1015 ../wcs/forms/root.py:1363
+#: ../wcs/forms/root.py:1369 ../wcs/forms/root.py:1374
+#: ../wcs/forms/root.py:1379 ../wcs/forms/root.py:1384
+#: ../wcs/forms/common.py:80
+msgid "Forms"
+msgstr "Formularios"
+
+#: ../wcs/admin/settings.py:773 ../wcs/admin/root.py:67
+#: ../wcs/admin/workflows.py:1019 ../wcs/admin/workflows.py:1020
+#: ../wcs/admin/workflows.py:1043 ../wcs/admin/workflows.py:1066
+#: ../wcs/admin/workflows.py:1087 ../wcs/backoffice/root.py:249
+#, fuzzy
+msgid "Workflows"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/settings.py:775 ../wcs/admin/categories.py:171
+#: ../wcs/admin/categories.py:175 ../wcs/admin/categories.py:215
+#: ../wcs/admin/categories.py:237 ../wcs/admin/root.py:70
+#: ../wcs/forms/root.py:1286
+msgid "Categories"
+msgstr "Categorias"
+
+#: ../wcs/admin/settings.py:827 ../wcs/admin/forms.py:744
+#: ../wcs/admin/forms.py:1490 ../wcs/admin/workflows.py:1072
+#: ../wcs/qommon/ident/password.py:823
+msgid "File"
+msgstr "Fichero"
+
+#: ../wcs/admin/settings.py:849
+msgid "Imported successfully:"
+msgstr "Importado con exito:"
+
+#: ../wcs/admin/settings.py:852
+msgid "forms"
+msgstr "formularios"
+
+#: ../wcs/admin/settings.py:854
+#, fuzzy
+msgid "workflows"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/settings.py:856
+msgid "roles"
+msgstr "roles"
+
+#: ../wcs/admin/settings.py:858
+msgid "categories"
+msgstr "categorias"
+
+#: ../wcs/admin/settings.py:863
+msgid "Error: Not a valid export file"
+msgstr "Error :  la exportación del fichero no es valida"
+
+#: ../wcs/admin/settings.py:864 ../wcs/admin/forms.py:1174
+#: ../wcs/admin/forms.py:1299 ../wcs/backoffice/root.py:847
+#: ../wcs/backoffice/root.py:1194 ../wcs/forms/root.py:910
+#: ../wcs/qommon/ident/password.py:1029 ../wcs/qommon/admin/emails.py:182
+#: ../wcs/qommon/admin/texts.py:123 ../wcs/qommon/admin/menu.py:238
+msgid "Back"
+msgstr "Vuelta atras"
+
+#: ../wcs/admin/settings.py:873 ../wcs/qommon/publisher.py:974
+#, fuzzy
+msgid "Site Name"
+msgstr "Nombre del rol"
+
+#: ../wcs/admin/settings.py:876
+msgid "Frontoffice base URL"
+msgstr ""
+
+#: ../wcs/admin/settings.py:879
+#, fuzzy
+msgid "Backoffice base URL"
+msgstr "Back Office"
+
+#: ../wcs/admin/settings.py:902
+#, fuzzy
+msgid "SMS Options"
+msgstr "Opciones para quitar el bug"
+
+#: ../wcs/admin/settings.py:910
+msgid "SMS Credit:"
+msgstr ""
+
+#: ../wcs/admin/settings.py:914
+msgid "SMS Left:"
+msgstr ""
+
+#: ../wcs/admin/settings.py:918
+msgid "Connection with SMS provider failed"
+msgstr ""
+
+#: ../wcs/admin/settings.py:922
+msgid "SMS Mode"
+msgstr ""
+
+#: ../wcs/admin/settings.py:924
+#, fuzzy
+msgid "No support"
+msgstr "Exportar"
+
+#: ../wcs/admin/settings.py:958 ../wcs/admin/settings.py:975
+#: ../wcs/admin/settings.py:976 ../wcs/admin/settings.py:978
+msgid "SMS Test"
+msgstr ""
+
+#: ../wcs/admin/settings.py:965
+#, fuzzy
+msgid "Sender"
+msgstr "Email del remitente"
+
+#: ../wcs/admin/settings.py:966
+#, fuzzy
+msgid "Destinations"
+msgstr "Recipiente"
+
+#: ../wcs/admin/settings.py:967 ../wcs/qommon/admin/texts.py:165
+#, fuzzy
+msgid "Text"
+msgstr "Proximo"
+
+#: ../wcs/admin/settings.py:998
+#, fuzzy
+msgid "Success"
+msgstr "Acceso publico"
+
+#: ../wcs/admin/settings.py:1090
+#, fuzzy
+msgid "Database Name"
+msgstr "Estado"
+
+#: ../wcs/admin/settings.py:1095
+msgid "User name used to authenticate"
+msgstr ""
+
+#: ../wcs/admin/settings.py:1097 ../wcs/fields.py:1592 ../wcs/qommon/sms.py:31
+#: ../wcs/qommon/sms.py:101 ../wcs/qommon/ident/password.py:205
+#: ../wcs/qommon/ident/password.py:512 ../wcs/qommon/ident/password.py:873
+#: ../wcs/qommon/ident/password.py:1045
+msgid "Password"
+msgstr ""
+
+#: ../wcs/admin/settings.py:1099
+msgid "Password used to authenticate"
+msgstr ""
+
+#: ../wcs/admin/settings.py:1101
+msgid "Host"
+msgstr ""
+
+#: ../wcs/admin/settings.py:1103
+msgid "Database host address"
+msgstr ""
+
+#: ../wcs/admin/settings.py:1105
+msgid "Port"
+msgstr ""
+
+#: ../wcs/admin/settings.py:1107
+msgid "Connection port number"
+msgstr ""
+
+#: ../wcs/admin/forms.py:66 ../wcs/admin/forms.py:458
+#, fuzzy
+msgid "Form Title"
+msgstr "Titulo"
+
+#: ../wcs/admin/forms.py:70 ../wcs/admin/forms.py:411
+#: ../wcs/admin/forms.py:414 ../wcs/admin/categories.py:70
+#: ../wcs/qommon/substitution.py:65
+msgid "Category"
+msgstr "Categoria"
+
+#: ../wcs/admin/forms.py:75 ../wcs/admin/forms.py:601
+#: ../wcs/admin/forms.py:604 ../wcs/admin/workflows.py:228
+#: ../wcs/admin/workflows.py:301 ../wcs/admin/workflows.py:306
+#: ../wcs/admin/workflows.py:724 ../wcs/admin/workflows.py:771
+#: ../wcs/formdef.py:966 ../wcs/formdef.py:987 ../wcs/formdef.py:1011
+#: ../wcs/formdef.py:1030
+#, fuzzy
+msgid "Workflow"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/forms.py:77 ../wcs/admin/forms.py:594
+#, fuzzy
+msgid "Default Workflow"
+msgstr "Borrar rol"
+
+#: ../wcs/admin/forms.py:91 ../wcs/admin/forms.py:470
+#: ../wcs/admin/categories.py:50 ../wcs/admin/roles.py:63
+#: ../wcs/admin/workflows.py:189
+#, fuzzy
+msgid "This name is already used"
+msgstr "Este formulario ya ha sido sometido."
+
+#: ../wcs/admin/forms.py:122
+#, fuzzy
+msgid "This form is currently disabled."
+msgstr "Este formulario ya ha sido sometido."
+
+#: ../wcs/admin/forms.py:126 ../wcs/admin/forms.py:350
+#: ../wcs/admin/forms.py:1449
+#, fuzzy
+msgid "redirection"
+msgstr "Rechazar"
+
+#: ../wcs/admin/forms.py:128
+#, fuzzy
+msgid "Enable"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/forms.py:155
+#, fuzzy
+msgid "Workflow Role"
+msgstr "Nombre del rol"
+
+#: ../wcs/admin/forms.py:158 ../wcs/admin/roles.py:86
+#, fuzzy
+msgid "Role"
+msgstr "Roles"
+
+#: ../wcs/admin/forms.py:202 ../wcs/admin/fields.py:80
+#: ../wcs/admin/fields.py:190 ../wcs/formdata.py:414 ../wcs/formdata.py:418
+#: ../wcs/formdata.py:578 ../wcs/formdata.py:579 ../wcs/formdata.py:580
+#: ../wcs/formdata.py:581 ../wcs/formdata.py:582 ../wcs/formdata.py:583
+#: ../wcs/formdata.py:584 ../wcs/formdata.py:585 ../wcs/formdata.py:586
+#: ../wcs/formdata.py:587 ../wcs/backoffice/root.py:1116
+#: ../wcs/formdef.py:1046
+msgid "Form"
+msgstr "Forma"
+
+#: ../wcs/admin/forms.py:204 ../wcs/admin/workflows.py:773
+msgid "change title"
+msgstr ""
+
+#: ../wcs/admin/forms.py:213 ../wcs/admin/workflows.py:782
+#, fuzzy
+msgid "Last Modification:"
+msgstr "Ficha de identidad"
+
+#: ../wcs/admin/forms.py:228 ../wcs/admin/forms.py:531
+#: ../wcs/admin/forms.py:534
+#, fuzzy
+msgid "Information"
+msgstr "Consulta"
+
+#: ../wcs/admin/forms.py:230
+msgid "No description or keywords"
+msgstr ""
+
+#: ../wcs/admin/forms.py:231 ../wcs/admin/forms.py:252
+#: ../wcs/admin/forms.py:273 ../wcs/admin/forms.py:296
+#: ../wcs/admin/forms.py:319 ../wcs/admin/forms.py:328
+#: ../wcs/admin/forms.py:336 ../wcs/admin/workflows.py:320
+#: ../wcs/admin/workflows.py:834 ../wcs/backoffice/root.py:579
+msgid "change"
+msgstr ""
+
+#: ../wcs/admin/forms.py:236
+msgid "Keywords:"
+msgstr ""
+
+#: ../wcs/admin/forms.py:241
+#, fuzzy
+msgid "Access"
+msgstr "Acceptar"
+
+#: ../wcs/admin/forms.py:246
+#, fuzzy
+msgid "Category:"
+msgstr "Categoria"
+
+#: ../wcs/admin/forms.py:257
+#, fuzzy
+msgid "Workflow:"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/forms.py:265 ../wcs/admin/forms.py:270
+#, fuzzy
+msgid "options"
+msgstr "opcional"
+
+#: ../wcs/admin/forms.py:277
+#, fuzzy
+msgid "Workflow Roles:"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/forms.py:282 ../wcs/backoffice/root.py:449
+#: ../wcs/formdef.py:726
+#, python-format
+msgid "%s:"
+msgstr ""
+
+#: ../wcs/admin/forms.py:301
+#, fuzzy
+msgid "User Roles:"
+msgstr "Email del remitente"
+
+#: ../wcs/admin/forms.py:315 ../wcs/admin/forms.py:431
+msgid "Always advertise"
+msgstr ""
+
+#: ../wcs/admin/forms.py:322
+msgid "Read Access:"
+msgstr ""
+
+#: ../wcs/admin/forms.py:324 ../wcs/admin/forms.py:489
+msgid "Owner"
+msgstr ""
+
+#: ../wcs/admin/forms.py:326 ../wcs/admin/forms.py:491
+msgid "Everybody"
+msgstr ""
+
+#: ../wcs/admin/forms.py:335 ../wcs/admin/forms.py:582
+#: ../wcs/admin/forms.py:585 ../wcs/admin/forms.py:1311
+#: ../wcs/admin/forms.py:1328 ../wcs/admin/roles.py:105
+#, fuzzy
+msgid "Options"
+msgstr "opcional"
+
+#: ../wcs/admin/forms.py:339 ../wcs/admin/forms.py:540
+msgid "Include confirmation page"
+msgstr "Incluir pagina de confirmación"
+
+#: ../wcs/admin/forms.py:341 ../wcs/admin/forms.py:543
+msgid "Keep workflow status and history private"
+msgstr ""
+
+#: ../wcs/admin/forms.py:343 ../wcs/admin/forms.py:547
+msgid "Only allow one form per user"
+msgstr ""
+
+#: ../wcs/admin/forms.py:345
+msgid "Has support for tracking codes"
+msgstr ""
+
+#: ../wcs/admin/forms.py:347
+#, fuzzy
+msgid "Disabled"
+msgstr "Fallado si vacio"
+
+#: ../wcs/admin/forms.py:352
+#, fuzzy
+msgid "enable"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/forms.py:354
+#, fuzzy, python-format
+msgid "Publication Date: %s"
+msgstr "Administración WCS"
+
+#: ../wcs/admin/forms.py:356
+#, fuzzy, python-format
+msgid "Expiration Date: %s"
+msgstr "Administración WCS"
+
+#: ../wcs/admin/forms.py:363 ../wcs/admin/fields.py:180
+msgid "Fields"
+msgstr "Campos"
+
+#: ../wcs/admin/forms.py:363
+msgid "edit"
+msgstr ""
+
+#: ../wcs/admin/forms.py:372 ../wcs/admin/workflows.py:881
+#: ../wcs/admin/workflows.py:964 ../wcs/qommon/admin/menu.py:200
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: ../wcs/admin/forms.py:374
+msgid "Overwrite with new import"
+msgstr ""
+
+#: ../wcs/admin/forms.py:376
+#, fuzzy
+msgid "Anonymise forms"
+msgstr "Anonimo"
+
+#: ../wcs/admin/forms.py:378 ../wcs/admin/forms.py:982
+#, fuzzy
+msgid "Archive"
+msgstr "Recibo"
+
+#: ../wcs/admin/forms.py:380
+#, fuzzy
+msgid "Invites"
+msgstr "Proveadores de identidad"
+
+#: ../wcs/admin/forms.py:384
+#, fuzzy
+msgid "Display QR Code"
+msgstr "Fijar como texto"
+
+#: ../wcs/admin/forms.py:390 ../wcs/admin/forms.py:392
+msgid "QR Code"
+msgstr ""
+
+#: ../wcs/admin/forms.py:395
+msgid "Download"
+msgstr ""
+
+#: ../wcs/admin/forms.py:415
+msgid "Select a category for this form"
+msgstr ""
+
+#: ../wcs/admin/forms.py:443
+msgid "Select the roles that can access this form."
+msgstr ""
+
+#: ../wcs/admin/forms.py:476 ../wcs/admin/forms.py:479
+#: ../wcs/wf/attachment.py:131 ../wcs/fields.py:399
+msgid "Title"
+msgstr "Titulo"
+
+#: ../wcs/admin/forms.py:480
+msgid "Choose a title for this form"
+msgstr ""
+
+#: ../wcs/admin/forms.py:486 ../wcs/admin/forms.py:503
+msgid "Read Access"
+msgstr ""
+
+#: ../wcs/admin/forms.py:507
+msgid "Select who is granted a read access."
+msgstr ""
+
+#: ../wcs/admin/forms.py:513 ../wcs/admin/categories.py:37
+#: ../wcs/admin/categories.py:146 ../wcs/admin/categories.py:159
+#, fuzzy
+msgid "Description"
+msgstr "Recipiente"
+
+#: ../wcs/admin/forms.py:515
+msgid "Keywords"
+msgstr ""
+
+#: ../wcs/admin/forms.py:544
+msgid "Restrict the possibility to see status and history to the recipients"
+msgstr ""
+
+#: ../wcs/admin/forms.py:550
+msgid "Enable support for tracking codes"
+msgstr ""
+
+#: ../wcs/admin/forms.py:553
+msgid "Disable access to form"
+msgstr "Interumpre acceso a los formularios"
+
+#: ../wcs/admin/forms.py:556
+msgid "If disabled, redirect to this URL"
+msgstr ""
+
+#: ../wcs/admin/forms.py:557
+msgid ""
+"Redirection will only be performed if the form is disabled and a URL is "
+"given. Common substitution variables are available with the [variable] "
+"syntax."
+msgstr ""
+
+#: ../wcs/admin/forms.py:561
+#, fuzzy
+msgid "Publication Date"
+msgstr "Clave publica"
+
+#: ../wcs/admin/forms.py:564
+msgid "Expiration Date"
+msgstr ""
+
+#: ../wcs/admin/forms.py:605
+msgid "Select the workflow that will handle those forms."
+msgstr ""
+
+#: ../wcs/admin/forms.py:641
+#, fuzzy
+msgid "Workflow Status Remapping"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/forms.py:645
+#, python-format
+msgid "From %(here)s to %(there)s"
+msgstr ""
+
+#: ../wcs/admin/forms.py:687
+#, python-format
+msgid "Page %s"
+msgstr ""
+
+#: ../wcs/admin/forms.py:707 ../wcs/admin/workflows.py:1001
+msgid " (copy)"
+msgstr ""
+
+#: ../wcs/admin/forms.py:711 ../wcs/admin/workflows.py:1005
+#, python-format
+msgid "%(name)s (copy %(no)d)"
+msgstr ""
+
+#: ../wcs/admin/forms.py:723
+msgid "You are about to irrevocably delete this form."
+msgstr "Esta a punto de borrar irevocablamente este formulario."
+
+#: ../wcs/admin/forms.py:730
+msgid "Delete Form"
+msgstr "Borrar formulario"
+
+#: ../wcs/admin/forms.py:732
+msgid "Deleting Form:"
+msgstr "Borrando el formulario:"
+
+#: ../wcs/admin/forms.py:745 ../wcs/admin/forms.py:1491
+#: ../wcs/admin/workflows.py:1073
+#, fuzzy
+msgid "Address"
+msgstr "Dirección email"
+
+#: ../wcs/admin/forms.py:759 ../wcs/admin/forms.py:760
+#: ../wcs/admin/forms.py:762 ../wcs/admin/forms.py:846
+#: ../wcs/admin/forms.py:847 ../wcs/admin/forms.py:850
+msgid "Overwrite"
+msgstr ""
+
+#: ../wcs/admin/forms.py:764
+msgid ""
+"You can replace this new form by uploading a file or by pointing to a form "
+"URL."
+msgstr ""
+
+#: ../wcs/admin/forms.py:779 ../wcs/admin/forms.py:782
+#: ../wcs/admin/forms.py:1524 ../wcs/admin/forms.py:1527
+#: ../wcs/admin/workflows.py:1106 ../wcs/admin/workflows.py:1109
+#, python-format
+msgid "Error loading form (%s)."
+msgstr ""
+
+#: ../wcs/admin/forms.py:799 ../wcs/admin/forms.py:1544
+#: ../wcs/admin/workflows.py:1126
+#, fuzzy, python-format
+msgid "Invalid File (%s)"
+msgstr "Fecha invalida"
+
+#: ../wcs/admin/forms.py:801 ../wcs/admin/forms.py:1546
+#: ../wcs/admin/workflows.py:1128
+#, fuzzy
+msgid "Invalid File"
+msgstr "Fecha invalida"
+
+#: ../wcs/admin/forms.py:851
+msgid "Summary of changes"
+msgstr ""
+
+#: ../wcs/admin/forms.py:854
+msgid ""
+"The form removes and changes fields, you should review the changes carefully."
+msgstr ""
+
+#: ../wcs/admin/forms.py:918
+#, fuzzy
+msgid "Added field"
+msgstr "Añadir un campo"
+
+#: ../wcs/admin/forms.py:922
+#, fuzzy
+msgid "Removed field"
+msgstr "campo imperativo"
+
+#: ../wcs/admin/forms.py:926
+#, fuzzy
+msgid "Modified field"
+msgstr "campo imperativo"
+
+#: ../wcs/admin/forms.py:929
+msgid "Incompatible field"
+msgstr ""
+
+#: ../wcs/admin/forms.py:939
+msgid ""
+"The form has incompatible fields, it may cause data corruption and bugs."
+msgstr ""
+
+#: ../wcs/admin/forms.py:940
+msgid "Overwrite nevertheless"
+msgstr ""
+
+#: ../wcs/admin/forms.py:970
+msgid "Archive forms handled before"
+msgstr ""
+
+#: ../wcs/admin/forms.py:971
+msgid "Include forms that have not been handled"
+msgstr ""
+
+#: ../wcs/admin/forms.py:973
+msgid "Do not remove forms"
+msgstr ""
+
+#: ../wcs/admin/forms.py:983 ../wcs/admin/forms.py:985
+msgid "Archive Forms"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1031
+msgid "Archiving forms"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1049
+#, fuzzy
+msgid "Archiving"
+msgstr "Recibo"
+
+#: ../wcs/admin/forms.py:1065
+#, fuzzy
+msgid "Download Archive"
+msgstr "Recibo"
+
+#: ../wcs/admin/forms.py:1093
+msgid "Forms ended before"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1096
+msgid "Status of the forms to anonymise"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1107 ../wcs/wf/anonymise.py:20
+#, fuzzy
+msgid "Anonymise"
+msgstr "Anonimo"
+
+#: ../wcs/admin/forms.py:1108 ../wcs/admin/forms.py:1110
+#, fuzzy
+msgid "Anonymise Forms"
+msgstr "Anonimo"
+
+#: ../wcs/admin/forms.py:1111
+#, fuzzy
+msgid "You are about to irrevocably anonymise forms."
+msgstr "Esta a punto de borrar irevocablamente este formulario."
+
+#: ../wcs/admin/forms.py:1144
+#, fuzzy
+msgid "Anonymising forms"
+msgstr "Consultar formularios pendientes"
+
+#: ../wcs/admin/forms.py:1158
+#, fuzzy
+msgid "Anonymising"
+msgstr "Anonimo"
+
+#: ../wcs/admin/forms.py:1181
+msgid ""
+"Sending invites is limited to forms restricted\n"
+"                             to a set of users."
+msgstr ""
+
+#: ../wcs/admin/forms.py:1188
+msgid "Validity Duration (in days)"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1190
+#, fuzzy
+msgid "Invite Subject"
+msgstr "Mandar"
+
+#: ../wcs/admin/forms.py:1191
+#, fuzzy, python-format
+msgid "Invitation to %s"
+msgstr "Administración WCS"
+
+#: ../wcs/admin/forms.py:1192
+msgid "Invite Text"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1194
+msgid "Hello, connect to [url] and fill the form!"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1226
+#, fuzzy
+msgid "Invite"
+msgstr "Proveadores de identidad"
+
+#: ../wcs/admin/forms.py:1227 ../wcs/admin/forms.py:1283
+msgid "Invitation to Form"
+msgstr ""
+
+#: ../wcs/admin/forms.py:1229
+#, fuzzy, python-format
+msgid "Invitation to \"%s\" Form"
+msgstr "Administración WCS"
+
+#: ../wcs/admin/forms.py:1231
+msgid ""
+"This action allows you to send an invitation to all users\n"
+"             concerned by this form."
+msgstr ""
+
+#: ../wcs/admin/forms.py:1236
+#, fuzzy
+msgid "There is nobody to receive an invite."
+msgstr "Esta a punto de suprimir un campo"
+
+#: ../wcs/admin/forms.py:1240
+#, python-format
+msgid "The invitation will be sent to %d persons."
+msgstr ""
+
+#: ../wcs/admin/forms.py:1274
+#, fuzzy
+msgid "Sending invitation emails"
+msgstr "Envian notificaciones detalladas de los emails"
+
+#: ../wcs/admin/forms.py:1339 ../wcs/admin/forms.py:1368
+#, fuzzy
+msgid "Workflow Options"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/forms.py:1400 ../wcs/admin/forms.py:1461
+msgid "You first have to define roles."
+msgstr "Primero tiene que definir los roles."
+
+#: ../wcs/admin/forms.py:1428 ../wcs/admin/forms.py:1477
+#: ../wcs/admin/forms.py:1479
+msgid "New Form"
+msgstr "Nuevo formulario"
+
+#: ../wcs/admin/forms.py:1493 ../wcs/admin/forms.py:1507
+#: ../wcs/admin/forms.py:1509
+#, fuzzy
+msgid "Import Form"
+msgstr "Importar"
+
+#: ../wcs/admin/forms.py:1511
+msgid ""
+"You can install a new form by uploading a file or by pointing to the form "
+"URL."
+msgstr ""
+
+#: ../wcs/admin/forms.py:1556
+msgid ""
+"This form has been successfully imported. Do note it is disabled by default."
+msgstr ""
+
+#: ../wcs/wf/aggregation_email.py:29
+msgid "Aggregate to summary email"
+msgstr ""
+
+#: ../wcs/wf/aggregation_email.py:36
+#, python-format
+msgid "Aggregate for summary email to %s"
+msgstr ""
+
+#: ../wcs/wf/aggregation_email.py:38
+#, fuzzy
+msgid "Aggregate for summary email (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/wf/aggregation_email.py:42 ../wcs/workflows.py:1253
+#: ../wcs/workflows.py:1398 ../wcs/qommon/ident/password.py:1300
+#: ../wcs/qommon/ident/password.py:1326 ../wcs/wf/form.py:58
+msgid "To"
+msgstr ""
+
+#: ../wcs/wf/aggregation_email.py:130
+msgid "New arrivals"
+msgstr ""
+
+#: ../wcs/admin/categories.py:35 ../wcs/categories.py:178
+msgid "Category Name"
+msgstr "Nombre de la categoria"
+
+#: ../wcs/admin/categories.py:83
+msgid "Forms in this category"
+msgstr ""
+
+#: ../wcs/admin/categories.py:90
+msgid "no form associated to this category"
+msgstr ""
+
+#: ../wcs/admin/categories.py:117 ../wcs/admin/categories.py:119
+msgid "Edit Category"
+msgstr "Edite categoria"
+
+#: ../wcs/admin/categories.py:126
+msgid "You are about to irrevocably delete this category."
+msgstr "Esta a punto de borrar irrevocablamente esta categoria."
+
+#: ../wcs/admin/categories.py:133
+msgid "Delete Category"
+msgstr "Borrar categoria"
+
+#: ../wcs/admin/categories.py:135
+msgid "Deleting Category:"
+msgstr "Borrando categoria:"
+
+#: ../wcs/admin/categories.py:160 ../wcs/admin/categories.py:162
+#, fuzzy
+msgid "Edit Category Description"
+msgstr "Edite categoria"
+
+#: ../wcs/admin/categories.py:193
+msgid "Categories are used to sort the different forms."
+msgstr "Las categorias se usan para repartir los formularios distintos."
+
+#: ../wcs/admin/categories.py:197 ../wcs/admin/categories.py:230
+#: ../wcs/admin/categories.py:232
+msgid "New Category"
+msgstr "Nueva categoria"
+
+#: ../wcs/admin/fields.py:50
+#, fuzzy
+msgid "Additional parameters"
+msgstr "Configura parametros de Liberty"
+
+#: ../wcs/admin/fields.py:103
+msgid "You are about to remove a field."
+msgstr "Esta a punto de suprimir un campo"
+
+#: ../wcs/admin/fields.py:113
+msgid "Delete Field"
+msgstr "Campo borrado"
+
+#: ../wcs/admin/fields.py:115
+msgid "Deleting Field:"
+msgstr "Borrando campo :"
+
+#: ../wcs/admin/fields.py:201
+msgid "In a multipage form, the first field should be of type \"page\"."
+msgstr ""
+
+#: ../wcs/admin/fields.py:204
+msgid "Use drag and drop to reorder fields."
+msgstr "Reordonar los campos por drag'n'drop"
+
+#: ../wcs/admin/fields.py:207
+#, fuzzy
+msgid "Display all pages"
+msgstr "Fijar como texto"
+
+#: ../wcs/admin/fields.py:230 ../wcs/formdata.py:237 ../wcs/workflows.py:394
+#: ../wcs/qommon/admin/logger.py:106 ../wcs/qommon/backoffice/menu.py:35
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: ../wcs/admin/fields.py:250
+msgid "optional"
+msgstr "opcional"
+
+#: ../wcs/admin/fields.py:256
+#, fuzzy
+msgid "Limit display to this page"
+msgstr "Texto a desplazar en la pagina de resultados"
+
+#: ../wcs/admin/fields.py:270
+#, fuzzy
+msgid "New Field"
+msgstr "Añadir un campo"
+
+#: ../wcs/admin/fields.py:277 ../wcs/admin/fields.py:330
+#: ../wcs/admin/workflows.py:415
+msgid "Type"
+msgstr "Tipo"
+
+#: ../wcs/admin/fields.py:280 ../wcs/admin/workflows.py:417
+#: ../wcs/admin/workflows.py:911 ../wcs/qommon/admin/menu.py:197
+msgid "Add"
+msgstr ""
+
+#: ../wcs/admin/fields.py:286 ../wcs/admin/fields.py:333
+msgid "Or import fields from:"
+msgstr ""
+
+#: ../wcs/admin/fields.py:299
+#, python-format
+msgid "page %d"
+msgstr ""
+
+#: ../wcs/admin/fields.py:312
+msgid "There are not yet any fields for this form."
+msgstr ""
+
+#: ../wcs/admin/fields.py:338 ../wcs/admin/fields.py:373
+#: ../wcs/admin/workflows.py:432 ../wcs/admin/workflows.py:438
+#: ../wcs/admin/workflows.py:930 ../wcs/admin/workflows.py:940
+msgid "Submitted form was not filled properly."
+msgstr ""
+
+#: ../wcs/admin/root.py:72 ../wcs/admin/bounces.py:141
+#: ../wcs/admin/bounces.py:145
+msgid "Bounces"
+msgstr ""
+
+#: ../wcs/admin/root.py:74 ../wcs/backoffice/root.py:250
+msgid "WCS Form Server"
+msgstr "formulario servidor WCS"
+
+#: ../wcs/admin/root.py:77 ../wcs/qommon/admin/menu.py:177
+#, fuzzy
+msgid "Administration"
+msgstr "Administración WCS"
+
+#: ../wcs/admin/root.py:106
+msgid ""
+"\n"
+"w.c.s. is a web application which allows to design and set up online forms.\n"
+"It gives users the ability to create web forms easily without requiring any\n"
+"other skill than familiarity with web surfing."
+msgstr ""
+
+#: ../wcs/admin/root.py:132
+msgid "For more information:"
+msgstr ""
+
+#: ../wcs/admin/root.py:135
+msgid "Web site"
+msgstr ""
+
+#: ../wcs/admin/root.py:138
+msgid "Online documentation"
+msgstr ""
+
+#: ../wcs/admin/root.py:151
+#, fuzzy
+msgid "Version:"
+msgstr "ID-WSF expresión pre-rellenada"
+
+#: ../wcs/admin/bounces.py:40
+#, fuzzy
+msgid "bounce"
+msgstr "Hecho"
+
+#: ../wcs/admin/bounces.py:44
+#, fuzzy
+msgid "Bounce"
+msgstr "Hecho"
+
+#: ../wcs/admin/bounces.py:50
+#, fuzzy
+msgid "Email Type"
+msgstr "Email"
+
+#: ../wcs/admin/bounces.py:55
+msgid "Arrival Time"
+msgstr ""
+
+#: ../wcs/admin/bounces.py:61
+#, fuzzy
+msgid "Failed Addresses"
+msgstr "Dirección email"
+
+#: ../wcs/admin/bounces.py:67
+#, fuzzy
+msgid "Original Recipients"
+msgstr "Recipiente"
+
+#: ../wcs/admin/bounces.py:72
+#, fuzzy
+msgid "Bounce Message"
+msgstr "Mensaje"
+
+#: ../wcs/admin/bounces.py:94
+#, fuzzy
+msgid "Original Message"
+msgstr "Mensaje"
+
+#: ../wcs/admin/bounces.py:96
+#, fuzzy
+msgid "Subject: "
+msgstr "Mandar"
+
+#: ../wcs/admin/bounces.py:119
+#, fuzzy
+msgid "You are about to irrevocably delete this bounce."
+msgstr "Esta a punto de borrar irrevocablamente esto usuario."
+
+#: ../wcs/admin/bounces.py:126
+#, fuzzy
+msgid "Delete Bounce"
+msgstr "Borrar rol"
+
+#: ../wcs/admin/bounces.py:128
+#, fuzzy
+msgid "Deleting Bounce"
+msgstr "Borrando rol:"
+
+#: ../wcs/admin/roles.py:36
+msgid "Role Name"
+msgstr "Nombre del rol"
+
+#: ../wcs/admin/roles.py:38
+msgid "Role Details"
+msgstr "Detalles del rol"
+
+#: ../wcs/admin/roles.py:40
+msgid "Role Emails"
+msgstr "Direcciones email del rol"
+
+#: ../wcs/admin/roles.py:42
+msgid "Add Email"
+msgstr "Añadir direccion email"
+
+#: ../wcs/admin/roles.py:45
+msgid "Propage emails to all users holding the role"
+msgstr ""
+
+#: ../wcs/admin/roles.py:48
+msgid "Users holding the role can access to backoffice"
+msgstr ""
+
+#: ../wcs/admin/roles.py:96
+#, fuzzy
+msgid "Emails:"
+msgstr "Emails"
+
+#: ../wcs/admin/roles.py:108
+msgid "Holders of this role will receive all emails adressed to the role."
+msgstr ""
+
+#: ../wcs/admin/roles.py:110
+msgid "Holders of this role are granted access to the backoffice."
+msgstr ""
+
+#: ../wcs/admin/roles.py:124
+msgid "Forms handled by this role"
+msgstr ""
+
+#: ../wcs/admin/roles.py:131 ../wcs/admin/roles.py:145
+msgid "no form associated to this role"
+msgstr ""
+
+#: ../wcs/admin/roles.py:138
+msgid "Forms private to this role"
+msgstr ""
+
+#: ../wcs/admin/roles.py:173 ../wcs/admin/roles.py:175
+msgid "Edit Role"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/roles.py:182
+msgid "You are about to irrevocably delete this role."
+msgstr "Esta a punto de borrar irevocablamente este rol."
+
+#: ../wcs/admin/roles.py:189
+msgid "Delete Role"
+msgstr "Borrar rol"
+
+#: ../wcs/admin/roles.py:191
+msgid "Deleting Role:"
+msgstr "Borrando rol:"
+
+#: ../wcs/admin/roles.py:221
+msgid "Roles are useful for two different things:"
+msgstr "Los roles son utiles en dos casos:"
+
+#: ../wcs/admin/roles.py:223
+msgid "To know who will receive and manage a given type of form."
+msgstr "Conocer quien recibe y cuida un tipo dado de formulario."
+
+#: ../wcs/admin/roles.py:224
+msgid "To know who can fill a given type of form."
+msgstr "Saber quien puede rellenar un tipo dado de formulario."
+
+#: ../wcs/admin/roles.py:230 ../wcs/admin/roles.py:250
+#: ../wcs/admin/roles.py:252
+msgid "New Role"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/workflows.py:128
+msgid "by"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:166 ../wcs/admin/workflows.py:174
+#, fuzzy
+msgid "Workflow Name"
+msgstr "Nombre del rol"
+
+#: ../wcs/admin/workflows.py:234 ../wcs/qommon/admin/emails.py:228
+#: ../wcs/qommon/admin/texts.py:168
+msgid "Substitution Variables"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:244
+#, fuzzy
+msgid "You are about to remove an item."
+msgstr "Esta a punto de suprimir un campo"
+
+#: ../wcs/admin/workflows.py:251
+#, fuzzy
+msgid "Delete Item"
+msgstr "Borrar formulario"
+
+#: ../wcs/admin/workflows.py:253
+#, fuzzy
+msgid "Deleting Item"
+msgstr "Borrando"
+
+#: ../wcs/admin/workflows.py:298
+#, fuzzy, python-format
+msgid "Status: %s"
+msgstr "Estado"
+
+#: ../wcs/admin/workflows.py:311
+#, fuzzy
+msgid "Possible Status:"
+msgstr "Borrar usuario"
+
+#: ../wcs/admin/workflows.py:317
+msgid "This status is hidden from the user."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:325
+msgid "There are not yet any items in this status."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:331
+#, fuzzy
+msgid "Use drag and drop to reorder items."
+msgstr "Reordonar los campos por drag'n'drop"
+
+#: ../wcs/admin/workflows.py:363
+msgid "Jumps"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:364
+msgid "This status is reachable from the following status:"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:369
+msgid "Back to workflow main page"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:387 ../wcs/admin/workflows.py:874
+msgid ""
+"This is the default workflow, you cannot edit it but you can\n"
+"                 duplicate it to base your own workflow on it."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:392
+msgid "Change Status Name"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:393
+msgid "Change Status Visibility"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:394
+msgid "Change Terminal Status"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:395
+#, fuzzy
+msgid "Change Status Colour"
+msgstr "Nuevo usuario"
+
+#: ../wcs/admin/workflows.py:399
+#, fuzzy
+msgid "New Item"
+msgstr "Nuevo formulario"
+
+#: ../wcs/admin/workflows.py:449
+#, fuzzy
+msgid "You are about to remove a status."
+msgstr "Esta a punto de suprimir un campo"
+
+#: ../wcs/admin/workflows.py:456
+#, fuzzy
+msgid "Delete Status"
+msgstr "Borrar usuario"
+
+#: ../wcs/admin/workflows.py:458 ../wcs/admin/workflows.py:524
+#, fuzzy
+msgid "Deleting Status:"
+msgstr "Borrando usuario:"
+
+#: ../wcs/admin/workflows.py:475
+#, fuzzy
+msgid "Status Name"
+msgstr "Estado"
+
+#: ../wcs/admin/workflows.py:486 ../wcs/admin/workflows.py:937
+msgid "There is already a status with that name."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:492 ../wcs/admin/workflows.py:495
+#, fuzzy
+msgid "Edit Workflow Status"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/workflows.py:501
+msgid "Remove these forms"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:506
+#, python-format
+msgid "Change these forms status to \"%s\""
+msgstr ""
+
+#: ../wcs/admin/workflows.py:509
+msgid "Pick an Action"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:521
+#, fuzzy
+msgid "Delete / Reassign"
+msgstr "Borrar rol"
+
+#: ../wcs/admin/workflows.py:522
+#, fuzzy
+msgid "Delete Status / Reassign"
+msgstr "Borrar usuario"
+
+#: ../wcs/admin/workflows.py:526
+msgid ""
+"There are forms set to this status, they need to be changed before\n"
+"                 this status can be deleted."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:536
+#, fuzzy, python-format
+msgid "%s items"
+msgstr "Añadir un campo"
+
+#: ../wcs/admin/workflows.py:565
+#, fuzzy
+msgid "Administrator reassigned status"
+msgstr "Cuenta del administrador"
+
+#: ../wcs/admin/workflows.py:587
+msgid "Hide status from user"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:603 ../wcs/admin/workflows.py:606
+#, fuzzy
+msgid "Edit Workflow Status Visibility"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/workflows.py:604
+msgid "Visibility"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:613
+msgid "Force Terminal Status"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:625
+#, fuzzy
+msgid "Edit Terminal Status"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/workflows.py:626
+#, fuzzy
+msgid "Terminal Status"
+msgstr "Borrando usuario:"
+
+#: ../wcs/admin/workflows.py:632
+msgid "Colour"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:644
+msgid "Edit Status Colour"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:645
+#, fuzzy
+msgid "Status Colour"
+msgstr "Estado"
+
+#: ../wcs/admin/workflows.py:689
+msgid "or you can use this field to directly replace a workflow parameter:"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:692
+msgid "This takes priority over a variable name"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:708 ../wcs/qommon/substitution.py:65
+#, fuzzy
+msgid "Variable"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/workflows.py:725 ../wcs/admin/workflows.py:745
+#, fuzzy
+msgid "Variables"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/workflows.py:728
+msgid "There are not yet any variables."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:767
+#, fuzzy, python-format
+msgid "Workflow - %s"
+msgstr "Nombre del rol"
+
+#: ../wcs/admin/workflows.py:799
+#, fuzzy
+msgid "Possible Status"
+msgstr "Borrar usuario"
+
+#: ../wcs/admin/workflows.py:802
+msgid "There are not yet any status defined in this workflow."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:806
+#, fuzzy
+msgid "Use drag and drop to reorder status."
+msgstr "Reordonar los campos por drag'n'drop"
+
+#: ../wcs/admin/workflows.py:822
+#, fuzzy
+msgid "Workflow Roles"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/workflows.py:833
+#, fuzzy
+msgid "Workflow Variables"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/workflows.py:854
+msgid "Full Screen"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:861
+msgid "This workflow is used for the following forms:"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:908
+#, fuzzy
+msgid "New Status"
+msgstr "Estado"
+
+#: ../wcs/admin/workflows.py:961 ../wcs/admin/workflows.py:968
+#, fuzzy
+msgid "Edit Workflow"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/workflows.py:965
+#, fuzzy
+msgid "Duplicate Workflow"
+msgstr "Duplicar formularios"
+
+#: ../wcs/admin/workflows.py:977
+msgid "This workflow is currently in use, you cannot remove it."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:982
+#, fuzzy
+msgid "You are about to irrevocably delete this workflow."
+msgstr "Esta a punto de borrar irevocablamente este rol."
+
+#: ../wcs/admin/workflows.py:989
+#, fuzzy
+msgid "Delete Workflow"
+msgstr "Borrar rol"
+
+#: ../wcs/admin/workflows.py:991
+#, fuzzy
+msgid "Deleting Workflow:"
+msgstr "Borrando el formulario:"
+
+#: ../wcs/admin/workflows.py:1037 ../wcs/admin/workflows.py:1059
+#: ../wcs/admin/workflows.py:1061
+#, fuzzy
+msgid "New Workflow"
+msgstr "Nuevo rol"
+
+#: ../wcs/admin/workflows.py:1075 ../wcs/admin/workflows.py:1089
+#: ../wcs/admin/workflows.py:1091
+#, fuzzy
+msgid "Import Workflow"
+msgstr "Imprimir rol"
+
+#: ../wcs/admin/workflows.py:1093
+msgid ""
+"You can install a new workflow by uploading a file or by pointing to the "
+"workflow URL."
+msgstr ""
+
+#: ../wcs/admin/workflows.py:1140
+#, python-format
+msgid "Copy of %s"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:1142
+#, python-format
+msgid "Copy of %(name)s (%(no)d)"
+msgstr ""
+
+#: ../wcs/admin/workflows.py:1147
+msgid "This workflow has been successfully imported."
+msgstr ""
+
+#: ../wcs/formdata.py:104 ../wcs/forms/common.py:242
+msgid "Original Submitter"
+msgstr ""
+
+#: ../wcs/formdata.py:415
+#, fuzzy, python-format
+msgid "Form Field: %s"
+msgstr "Campos"
+
+#: ../wcs/formdata.py:418
+msgid "Form Submitter Field"
+msgstr ""
+
+#: ../wcs/formdata.py:510
+#, python-format
+msgid "%(name)s #%(id)s"
+msgstr ""
+
+#: ../wcs/formdata.py:578
+msgid "Form Receipt Date"
+msgstr ""
+
+#: ../wcs/formdata.py:579
+msgid "Form Receipt Time"
+msgstr ""
+
+#: ../wcs/formdata.py:580
+msgid "Form Number"
+msgstr ""
+
+#: ../wcs/formdata.py:581
+#, fuzzy
+msgid "Form Details"
+msgstr "Detalles del rol"
+
+#: ../wcs/formdata.py:582
+#, fuzzy
+msgid "Form URL"
+msgstr "Forma"
+
+#: ../wcs/formdata.py:583
+#, fuzzy
+msgid "Form URL (backoffice)"
+msgstr "Back Office"
+
+#: ../wcs/formdata.py:584
+#, fuzzy
+msgid "Form Status URL"
+msgstr "Cambio del estado del formulario"
+
+#: ../wcs/formdata.py:585
+#, fuzzy
+msgid "Form Submitter"
+msgstr "Mandar"
+
+#: ../wcs/formdata.py:586
+#, fuzzy
+msgid "Form Submitter Name"
+msgstr "Nombre del rol"
+
+#: ../wcs/formdata.py:587
+msgid "Form Submitter Email"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:64
+#, python-format
+msgid "%d day(s)"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:66
+#, python-format
+msgid "%d hour(s)"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:68
+#, python-format
+msgid "%d minute(s)"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:71
+#, python-format
+msgid "%(days)d day(s) and %(hours)d hour(s)"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:74
+#, python-format
+msgid "%(hours)d hour(s) and %(minutes)d minute(s)"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:77
+#, python-format
+msgid "%(minutes)d minute(s) and %(seconds)d seconds"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:79
+#, python-format
+msgid "%d seconds"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:122 ../wcs/qommon/misc.py:215
+msgid "Sunday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:122 ../wcs/qommon/misc.py:214
+msgid "Monday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:122 ../wcs/qommon/misc.py:214
+msgid "Tuesday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:123 ../wcs/qommon/misc.py:214
+msgid "Wednesday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:123 ../wcs/qommon/misc.py:215
+msgid "Thursday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:123 ../wcs/qommon/misc.py:215
+msgid "Friday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:123 ../wcs/qommon/misc.py:215
+msgid "Saturday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:145
+msgid "Submissions by year"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:148
+msgid "Submissions by month"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:150
+msgid "Submissions by weekday"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:152
+msgid "Submissions by hour"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:247 ../wcs/backoffice/root.py:295
+#: ../wcs/backoffice/root.py:296
+msgid "Management"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:253
+msgid "Welcome."
+msgstr ""
+
+#: ../wcs/backoffice/root.py:289 ../wcs/backoffice/root.py:388
+#: ../wcs/backoffice/root.py:389 ../wcs/backoffice/root.py:392
+#, fuzzy
+msgid "Global statistics"
+msgstr "Estadisticas"
+
+#: ../wcs/backoffice/root.py:338
+msgid "Forms in your care"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:344
+#, fuzzy
+msgid "Other Forms"
+msgstr "Borrar formulario"
+
+#: ../wcs/backoffice/root.py:355
+msgid "Start Date"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:356
+#, fuzzy
+msgid "End Date"
+msgstr "Fecha"
+
+#: ../wcs/backoffice/root.py:360
+msgid "Period"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:363
+msgid "Shortcuts"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:367
+msgid "Current Month"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:373
+#, fuzzy
+msgid "Previous Month"
+msgstr "Anterior"
+
+#: ../wcs/backoffice/root.py:377
+#, fuzzy
+msgid "Current Year"
+msgstr "Proximo"
+
+#: ../wcs/backoffice/root.py:382
+#, fuzzy
+msgid "Previous Year"
+msgstr "Anterior"
+
+#: ../wcs/backoffice/root.py:409
+msgid "Total count:"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:443
+msgid "Count:"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:474
+#, python-format
+msgid ": %(pending)s open on %(total)s"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:477
+#, python-format
+msgid ": %(total)s items"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:541
+msgid "Open Document Format Export"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:543
+#, fuzzy
+msgid "CSV Export"
+msgstr "Exportar"
+
+#: ../wcs/backoffice/root.py:546
+#, fuzzy
+msgid "Excel Export"
+msgstr "Exportar"
+
+#: ../wcs/backoffice/root.py:547 ../wcs/backoffice/root.py:1118
+#: ../wcs/backoffice/root.py:1192
+msgid "Statistics"
+msgstr "Estadisticas"
+
+#: ../wcs/backoffice/root.py:556 ../wcs/backoffice/root.py:733
+msgid "Start"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:557 ../wcs/backoffice/root.py:734
+msgid "End"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:579
+#, fuzzy
+msgid "Filters"
+msgstr "Borrar rol"
+
+#: ../wcs/backoffice/root.py:590
+#, fuzzy
+msgid "Status to display"
+msgstr "No fijar"
+
+#: ../wcs/backoffice/root.py:593 ../wcs/forms/backoffice.py:107
+#: ../wcs/forms/backoffice.py:113
+msgid "All"
+msgstr "Todo"
+
+#: ../wcs/backoffice/root.py:594
+#, fuzzy
+msgid "Pending"
+msgstr "Formularios pendientes"
+
+#: ../wcs/backoffice/root.py:595
+msgid "Done"
+msgstr "Hecho"
+
+#: ../wcs/backoffice/root.py:674 ../wcs/backoffice/root.py:1108
+msgid "Refresh"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:676
+#, fuzzy
+msgid "Columns Settings"
+msgstr "Establecimientos"
+
+#: ../wcs/backoffice/root.py:699
+#, fuzzy
+msgid "Identifier"
+msgstr "Proveadores de identidad"
+
+#: ../wcs/backoffice/root.py:700 ../wcs/qommon/admin/logger.py:56
+#: ../wcs/qommon/admin/logger.py:185
+msgid "Time"
+msgstr "Tiempo"
+
+#: ../wcs/backoffice/root.py:701
+#, fuzzy
+msgid "User Label"
+msgstr "Apellido del usuario"
+
+#: ../wcs/backoffice/root.py:703 ../wcs/workflows.py:1008
+#: ../wcs/forms/common.py:383 ../wcs/formdef.py:801
+msgid "Status"
+msgstr "Estado"
+
+#: ../wcs/backoffice/root.py:704
+#, fuzzy
+msgid "Anonymised"
+msgstr "Anonimo"
+
+#: ../wcs/backoffice/root.py:794 ../wcs/backoffice/root.py:796
+#: ../wcs/forms/root.py:899 ../wcs/forms/root.py:900
+msgid "Listing"
+msgstr "Listín"
+
+#: ../wcs/backoffice/root.py:807 ../wcs/backoffice/root.py:808
+#: ../wcs/backoffice/root.py:810
+msgid "Pending Forms"
+msgstr "Formularios pendientes"
+
+#: ../wcs/backoffice/root.py:830
+#, fuzzy, python-format
+msgid "Forms with status \"%s\""
+msgstr "Estado"
+
+#: ../wcs/backoffice/root.py:838
+#, fuzzy
+msgid "unknown user"
+msgstr "Usuario desconocido"
+
+#: ../wcs/backoffice/root.py:911
+msgid "Exporting forms in CSV"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:933
+#, fuzzy
+msgid "Exporting"
+msgstr "Exportar"
+
+#: ../wcs/backoffice/root.py:950
+msgid "Download Export"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:1016
+#, fuzzy
+msgid "Exporting forms in Excel format"
+msgstr "Listín en formato CSV"
+
+#: ../wcs/backoffice/root.py:1074
+msgid "Exporting forms in Open Document format"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:1110
+#, fuzzy
+msgid "Download PDF"
+msgstr "Recibo"
+
+#: ../wcs/backoffice/root.py:1149
+#, fuzzy
+msgid "Total number of records:"
+msgstr "Numero de filas"
+
+#: ../wcs/backoffice/root.py:1248
+#, fuzzy
+msgid "Resolution time"
+msgstr "Nombre de consulta"
+
+#: ../wcs/backoffice/root.py:1259
+#, fuzzy, python-format
+msgid "To Status \"%s\""
+msgstr "Estado"
+
+#: ../wcs/backoffice/root.py:1261
+msgid "Minimum Time:"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:1262
+msgid "Maximum Time:"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:1263
+msgid "Range:"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:1265
+msgid "Mean:"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:1271
+msgid "Median:"
+msgstr ""
+
+#: ../wcs/backoffice/root.py:1286
+msgid "Standard Deviation:"
+msgstr ""
+
+#: ../wcs/workflows.py:109
+#, fuzzy
+msgid "Templating Error"
+msgstr "Borrando el formulario:"
+
+#: ../wcs/workflows.py:176 ../wcs/workflows.py:404
+msgid "Recipient"
+msgstr "Recipiente"
+
+#: ../wcs/workflows.py:331 ../wcs/formdef.py:618
+#, fuzzy
+msgid "Missing name"
+msgstr "Formulando"
+
+#: ../wcs/workflows.py:339
+#, fuzzy
+msgid "Not a workflow"
+msgstr "Nuevo rol"
+
+#: ../wcs/workflows.py:375 ../wcs/workflows.py:1032
+#, fuzzy
+msgid "role|User"
+msgstr "roles"
+
+#: ../wcs/workflows.py:402
+#, fuzzy
+msgid "Default"
+msgstr "Fallo del sistema"
+
+#: ../wcs/workflows.py:405
+#, fuzzy
+msgid "Just Submitted"
+msgstr "Mandar"
+
+#: ../wcs/workflows.py:409
+msgid "Rejected"
+msgstr "Rechazado"
+
+#: ../wcs/workflows.py:411
+msgid "Accepted"
+msgstr "Aceptado"
+
+#: ../wcs/workflows.py:413
+msgid "Finished"
+msgstr "Acabado"
+
+#: ../wcs/workflows.py:500 ../wcs/qommon/ident/password.py:1261
+#: ../wcs/qommon/ident/password.py:1399
+msgid "Accept"
+msgstr "Acceptar"
+
+#: ../wcs/workflows.py:508 ../wcs/qommon/ident/password.py:1263
+#: ../wcs/qommon/ident/password.py:1401
+msgid "Reject"
+msgstr "Rechazar"
+
+#: ../wcs/workflows.py:516
+msgid "Finish"
+msgstr "Acabar"
+
+#: ../wcs/workflows.py:1050
+#, fuzzy
+msgid "Allow Comment"
+msgstr "Añadir comentarios"
+
+#: ../wcs/workflows.py:1063
+#, fuzzy, python-format
+msgid "Allow Comment by %s"
+msgstr "Comentario"
+
+#: ../wcs/workflows.py:1065
+#, fuzzy
+msgid "Allow Comment (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/workflows.py:1077 ../wcs/workflows.py:1109
+msgid "Add Comment"
+msgstr "Añadir comentarios"
+
+#: ../wcs/workflows.py:1110 ../wcs/workflows.py:1536 ../wcs/workflows.py:1649
+#: ../wcs/wf/attachment.py:135
+msgid "Button Label"
+msgstr ""
+
+#: ../wcs/workflows.py:1111
+msgid "(empty to disable the button)"
+msgstr ""
+
+#: ../wcs/workflows.py:1114 ../wcs/wf/attachment.py:140 ../wcs/fields.py:341
+msgid "Hint"
+msgstr "Indice"
+
+#: ../wcs/workflows.py:1116 ../wcs/workflows.py:1192 ../wcs/workflows.py:1524
+#: ../wcs/workflows.py:1639 ../wcs/wf/attachment.py:122
+msgid "By"
+msgstr ""
+
+#: ../wcs/workflows.py:1125
+msgid ""
+"This will make the comment available in a variable named comment_varname."
+msgstr ""
+
+#: ../wcs/workflows.py:1157
+#, fuzzy
+msgid "Change Status"
+msgstr "Estado"
+
+#: ../wcs/workflows.py:1168
+#, python-format
+msgid "Change Status \"%(label)s\" by %(by)s"
+msgstr ""
+
+#: ../wcs/workflows.py:1172
+#, fuzzy, python-format
+msgid "Change Status \"%s\""
+msgstr "Estado"
+
+#: ../wcs/workflows.py:1174
+#, fuzzy
+msgid "Change Status (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/workflows.py:1205
+msgid "Change Status on Submit"
+msgstr ""
+
+#: ../wcs/workflows.py:1211
+#, python-format
+msgid "Change Status on Submit (to %s)"
+msgstr ""
+
+#: ../wcs/workflows.py:1213
+msgid "Change Status on Submit (broken)"
+msgstr ""
+
+#: ../wcs/workflows.py:1215
+#, fuzzy
+msgid "Change Status on Submit (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/workflows.py:1229
+#, fuzzy
+msgid "Send mail"
+msgstr "Mandado por email"
+
+#: ../wcs/workflows.py:1241
+#, fuzzy, python-format
+msgid "Send mail to %s"
+msgstr "Mandado por email"
+
+#: ../wcs/workflows.py:1243
+#, fuzzy
+msgid "Send mail (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/workflows.py:1261 ../wcs/qommon/ident/password.py:1301
+#: ../wcs/qommon/ident/password.py:1327 ../wcs/qommon/ident/idp.py:1104
+#: ../wcs/qommon/admin/emails.py:201
+#, fuzzy
+msgid "Subject"
+msgstr "Mandar"
+
+#: ../wcs/workflows.py:1264 ../wcs/workflows.py:1402
+#: ../wcs/qommon/ident/idp.py:1106
+msgid "Body"
+msgstr ""
+
+#: ../wcs/workflows.py:1266 ../wcs/workflows.py:1403
+msgid ""
+"Available variables: url, url_status, details, name, number, comment, "
+"field_NAME"
+msgstr ""
+
+#: ../wcs/workflows.py:1380 ../wcs/workflows.py:1388
+msgid "Send SMS"
+msgstr ""
+
+#: ../wcs/workflows.py:1399
+#, fuzzy
+msgid "Add Number"
+msgstr "Añadir Rol"
+
+#: ../wcs/workflows.py:1437
+#, fuzzy
+msgid "Display message"
+msgstr "Fijar como texto"
+
+#: ../wcs/workflows.py:1465 ../wcs/qommon/ident/password.py:1302
+#: ../wcs/qommon/ident/password.py:1329 ../wcs/qommon/admin/logger.py:58
+#: ../wcs/qommon/admin/logger.py:186
+msgid "Message"
+msgstr "Mensaje"
+
+#: ../wcs/workflows.py:1475
+msgid "Redirect to Status Page"
+msgstr ""
+
+#: ../wcs/workflows.py:1486
+msgid "Redirect to backoffice page"
+msgstr ""
+
+#: ../wcs/workflows.py:1497
+#, fuzzy
+msgid "Allow Edition"
+msgstr "Permitir discussión"
+
+#: ../wcs/workflows.py:1508
+#, fuzzy, python-format
+msgid "Allow Edition by %s"
+msgstr "Permitir discussión"
+
+#: ../wcs/workflows.py:1510
+#, fuzzy
+msgid "Allow Edition (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/workflows.py:1515
+msgid "Edit Form"
+msgstr "Imprimir formularios"
+
+#. XXX: look into this one, as None is a perfectly valid value, and
+#. it would put this question in the 'workflow options' part.
+#: ../wcs/workflows.py:1532
+msgid "Status After Edit"
+msgstr ""
+
+#: ../wcs/workflows.py:1533
+msgid "Don't select any if you don't want status change processing"
+msgstr ""
+
+#: ../wcs/workflows.py:1552
+msgid "No model defined for this action"
+msgstr ""
+
+#: ../wcs/workflows.py:1579 ../wcs/workflows.py:1609
+#, fuzzy
+msgid "Create Document"
+msgstr "Cuenta del administrador"
+
+#: ../wcs/workflows.py:1595
+#, python-format
+msgid "with model named %(file_name)s of %(size)s bytes"
+msgstr ""
+
+#: ../wcs/workflows.py:1599
+msgid "no model set"
+msgstr ""
+
+#: ../wcs/workflows.py:1600
+#, python-format
+msgid "Create document, labeled %(label)s, %(model)s"
+msgstr ""
+
+#: ../wcs/workflows.py:1604
+#, fuzzy
+msgid "Create document (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/workflows.py:1615
+msgid "Form exported in a model"
+msgstr ""
+
+#: ../wcs/workflows.py:1635
+msgid "Only RTF files can be used"
+msgstr ""
+
+#: ../wcs/workflows.py:1646
+msgid "Attach generated file to the form history"
+msgstr ""
+
+#: ../wcs/workflows.py:1653
+msgid "Available variables"
+msgstr ""
+
+#: ../wcs/workflows.py:1661
+msgid ""
+"You can use variables in your model using the [variable] syntax, available "
+"variables depends on the form."
+msgstr ""
+
+#: ../wcs/workflows.py:1672
+msgid "Current value"
+msgstr ""
+
+#: ../wcs/workflows.py:1674
+msgid "Model"
+msgstr ""
+
+#: ../wcs/workflows.py:1691
+#, python-format
+msgid "Error in the template, reference %s is unknown"
+msgstr ""
+
+#: ../wcs/workflows.py:1695
+#, python-format
+msgid "Unknown error in the template: %s"
+msgstr ""
+
+#: ../wcs/users.py:81
+#, fuzzy
+msgid "Unknown User"
+msgstr "Usuario desconocido"
+
+#: ../wcs/users.py:177
+#, fuzzy, python-format
+msgid "Session User Field: %s"
+msgstr "Añadir un campo"
+
+#: ../wcs/users.py:181
+#, fuzzy
+msgid "Session User"
+msgstr "ID-WSF expresión pre-rellenada"
+
+#: ../wcs/users.py:182
+msgid "Session User Display Name"
+msgstr ""
+
+#: ../wcs/users.py:183
+#, fuzzy
+msgid "Session User Email"
+msgstr "Mandado por email"
+
+#: ../wcs/categories.py:168 ../wcs/qommon/admin/texts.py:64
+msgid "Double click to edit the text"
+msgstr ""
+
+#: ../wcs/categories.py:174 ../wcs/qommon/admin/texts.py:70
+#, fuzzy
+msgid "Edit This Text"
+msgstr "Imprimatur del usuario"
+
+#: ../wcs/categories.py:178 ../wcs/categories.py:179 ../wcs/categories.py:180
+#: ../wcs/qommon/publisher.py:974 ../wcs/qommon/publisher.py:975
+#: ../wcs/qommon/publisher.py:976 ../wcs/qommon/publisher.py:977
+#: ../wcs/qommon/publisher.py:978 ../wcs/qommon/publisher.py:979
+#, fuzzy
+msgid "General"
+msgstr "Genere"
+
+#: ../wcs/categories.py:179
+#, fuzzy
+msgid "Category Description"
+msgstr "Recipiente"
+
+#: ../wcs/categories.py:180
+#, fuzzy
+msgid "Category Identifier"
+msgstr "Categoria Id"
+
+#: ../wcs/forms/root.py:161
+#, fuzzy
+msgid "Send email"
+msgstr "Mandado por email"
+
+#: ../wcs/forms/root.py:180
+msgid "Keep your tracking code"
+msgstr ""
+
+#: ../wcs/forms/root.py:215
+msgid "Filling"
+msgstr "Rellenando"
+
+#: ../wcs/forms/root.py:215
+msgid "Validating"
+msgstr "Validando"
+
+#: ../wcs/forms/root.py:215
+msgid "Receipt"
+msgstr "Recibo"
+
+#: ../wcs/forms/root.py:343
+msgid "Save Changes"
+msgstr ""
+
+#: ../wcs/forms/root.py:347 ../wcs/qommon/admin/menu.py:203
+msgid "Next"
+msgstr "Proximo"
+
+#: ../wcs/forms/root.py:350 ../wcs/forms/root.py:874
+#: ../wcs/qommon/admin/menu.py:202
+msgid "Previous"
+msgstr "Anterior"
+
+#: ../wcs/forms/root.py:370
+msgid "Value has been automatically prefilled."
+msgstr ""
+
+#: ../wcs/forms/root.py:395 ../wcs/forms/root.py:879
+#, fuzzy
+msgid "Save Draft"
+msgstr "Mover"
+
+#: ../wcs/forms/root.py:418 ../wcs/forms/root.py:1045
+msgid "Tracking code"
+msgstr ""
+
+#. the only possible error here is a token error if the form is
+#. submitted a second time
+#: ../wcs/forms/root.py:662
+msgid "This form has already been submitted."
+msgstr "Este formulario ya ha sido sometido."
+
+#: ../wcs/forms/root.py:893 ../wcs/forms/root.py:1336
+#: ../wcs/forms/common.py:214
+msgid "Back Home"
+msgstr "Vuelta a la pagina de inicio"
+
+#: ../wcs/forms/root.py:1047
+msgid "ex: RPQDFVCD"
+msgstr ""
+
+#: ../wcs/forms/root.py:1102 ../wcs/qommon/backoffice/root.py:61
+msgid "Back Office"
+msgstr "Back Office"
+
+#: ../wcs/forms/root.py:1105
+msgid "Enter Identification Token"
+msgstr "Introduzca su ficha de identificación"
+
+#: ../wcs/forms/root.py:1108 ../wcs/forms/root.py:1117 ../wcs/root.py:174
+#, fuzzy
+msgid "Register"
+msgstr "Recibo"
+
+#: ../wcs/forms/root.py:1110
+msgid "Logout"
+msgstr "Deconectarse"
+
+#: ../wcs/forms/root.py:1114 ../wcs/root.py:123
+#: ../wcs/qommon/ident/password.py:212 ../wcs/qommon/ident/password.py:213
+#: ../wcs/qommon/ident/idp.py:128
+msgid "Login"
+msgstr "Conectarse"
+
+#: ../wcs/forms/root.py:1126
+#, fuzzy
+msgid "Your Current Drafts"
+msgstr "Sus formularios actuales"
+
+#: ../wcs/forms/root.py:1145
+#, python-format
+msgid "Your forms with status \"%s\""
+msgstr ""
+
+#: ../wcs/forms/root.py:1183
+msgid "already completed"
+msgstr "rellenado ya"
+
+#: ../wcs/forms/root.py:1184
+msgid "review"
+msgstr "Repaso"
+
+#: ../wcs/forms/root.py:1194
+msgid "(listing)"
+msgstr "(listín)"
+
+#: ../wcs/forms/root.py:1201
+#, fuzzy
+msgid "authentication required"
+msgstr "Fecha invalida"
+
+#: ../wcs/forms/root.py:1292
+#, fuzzy
+msgid "All forms"
+msgstr "formularios"
+
+#: ../wcs/forms/root.py:1355
+#, fuzzy
+msgid "Welcome text on home page for logged users"
+msgstr "Texto para los usuarios con conexión"
+
+#: ../wcs/forms/root.py:1358
+#, fuzzy
+msgid "Welcome text on home page for unlogged users"
+msgstr "Texto para los usuarios sin conexión"
+
+#: ../wcs/forms/root.py:1361
+#, fuzzy
+msgid "Message when a form has been recorded"
+msgstr ""
+"El formulario ha sido enregistrado en %(date)s con el numero %(number)s."
+
+#: ../wcs/forms/root.py:1362
+msgid "Available variables: date, number"
+msgstr ""
+
+#: ../wcs/forms/root.py:1364
+#, fuzzy
+msgid "The form has been recorded on [date] with the number [number]."
+msgstr ""
+"El formulario ha sido enregistrado en %(date)s con el numero %(number)s."
+
+#: ../wcs/forms/root.py:1367
+msgid ""
+"Message when a form has been recorded, and the form is set to only allow one "
+"per user"
+msgstr ""
+
+#: ../wcs/forms/root.py:1368
+msgid "Available variable: date"
+msgstr ""
+
+#: ../wcs/forms/root.py:1370
+#, fuzzy
+msgid "The form has been recorded on [date]."
+msgstr ""
+"El formulario ha sido enregistrado en %(date)s con el numero %(number)s."
+
+#: ../wcs/forms/root.py:1373
+#, fuzzy
+msgid "Message when a form is displayed before validation"
+msgstr ""
+"El formulario ha sido enregistrado en %(date)s con el numero %(number)s."
+
+#: ../wcs/forms/root.py:1375
+msgid "Check values then click submit."
+msgstr "Averiguar valores, luego dar un clic en someter"
+
+#: ../wcs/forms/root.py:1378
+msgid "Message in tracking code popup dialog"
+msgstr ""
+
+#: ../wcs/forms/root.py:1380
+msgid "You can get a reminder of the tracking code by email."
+msgstr ""
+
+#: ../wcs/forms/root.py:1383
+msgid "Short text in the tracking code box"
+msgstr ""
+
+#: ../wcs/forms/root.py:1387
+msgid "Tracking Code"
+msgstr ""
+
+#: ../wcs/forms/root.py:1388
+msgid "Available variables: email, form, tracking_code"
+msgstr ""
+
+#: ../wcs/forms/root.py:1389 ../wcs/qommon/admin/emails.py:162
+#: ../wcs/qommon/admin/texts.py:103
+msgid "Miscellaneous"
+msgstr ""
+
+#: ../wcs/forms/root.py:1390
+#, fuzzy
+msgid "Tracking Code reminder"
+msgstr "Email del remitente"
+
+#: ../wcs/forms/root.py:1391
+msgid ""
+"Hello,\n"
+"\n"
+"As a reminder your tracking code for [form_name] is [tracking_code].\n"
+"\n"
+msgstr ""
+
+#: ../wcs/forms/backoffice.py:238 ../wcs/fields.py:600 ../wcs/fields.py:609
+#: ../wcs/fields.py:635
+msgid "Yes"
+msgstr "Sí"
+
+#: ../wcs/forms/backoffice.py:240 ../wcs/fields.py:602 ../wcs/fields.py:638
+msgid "No"
+msgstr "No"
+
+#: ../wcs/forms/common.py:154
+msgid "Your case is handled by:"
+msgstr "Su situación es seguida por:"
+
+#: ../wcs/forms/common.py:156
+msgid "Your case has been handled by:"
+msgstr "Su situación ha sido seguida por:"
+
+#: ../wcs/forms/common.py:225
+msgid "Log"
+msgstr "Enregistrar"
+
+#: ../wcs/forms/common.py:247
+#, python-format
+msgid "Original Submitter (%s)"
+msgstr ""
+
+#: ../wcs/forms/common.py:316
+msgid "Summary"
+msgstr ""
+
+#: ../wcs/forms/common.py:320 ../wcs/formdef.py:798
+msgid "User name"
+msgstr "Apellido del usuario"
+
+#: ../wcs/forms/common.py:420
+#, python-format
+msgid "The form has been recorded on %(date)s with the number %(number)s."
+msgstr ""
+"El formulario ha sido enregistrado en %(date)s con el numero %(number)s."
+
+#: ../wcs/forms/common.py:426
+#, fuzzy, python-format
+msgid "This form has been anonymised on %(date)s."
+msgstr ""
+"El formulario ha sido enregistrado en %(date)s con el numero %(number)s."
+
+#: ../wcs/forms/common.py:440
+msgid "Back to Listing"
+msgstr "Volver al listín"
+
+#: ../wcs/wf/attachment.py:74
+msgid "Allow Joining a File"
+msgstr ""
+
+#: ../wcs/wf/attachment.py:94
+#, python-format
+msgid "Allow Joining a File, by %s"
+msgstr ""
+
+#: ../wcs/wf/attachment.py:96
+#, fuzzy
+msgid "Allow Joining a File (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/wf/attachment.py:100 ../wcs/wf/attachment.py:106
+#: ../wcs/wf/attachment.py:131 ../wcs/wf/attachment.py:136
+msgid "Upload File"
+msgstr ""
+
+#: ../wcs/wf/attachment.py:113
+#, fuzzy
+msgid "Missing file"
+msgstr "Formulando"
+
+#: ../wcs/wf/attachment.py:129 ../wcs/fields.py:337
+msgid "Required"
+msgstr "Necesitado"
+
+#: ../wcs/wf/attachment.py:133
+#, fuzzy
+msgid "Display Title"
+msgstr "Fijar como texto"
+
+#: ../wcs/wf/attachment.py:138
+#, fuzzy
+msgid "Display Button"
+msgstr "Fijar Excepciones"
+
+#: ../wcs/formdef.py:626
+#, fuzzy
+msgid "Not a form"
+msgstr "Nuevos formularios"
+
+#: ../wcs/formdef.py:711
+#, fuzzy
+msgid "User name:"
+msgstr "Apellido del usuario"
+
+#: ../wcs/formdef.py:964
+#, fuzzy
+msgid "Notification of creation to user"
+msgstr "Ficha de identificación (actualemente: %s)"
+
+#: ../wcs/formdef.py:967 ../wcs/formdef.py:1012
+#, fuzzy
+msgid "New form ([name])"
+msgstr "Nuevo formulario"
+
+#: ../wcs/formdef.py:968
+#, fuzzy
+msgid ""
+"Hello,\n"
+"\n"
+"[if-any user]\n"
+"This mail is a reminder about the form you just submitted; you can consult "
+"it\n"
+"with this link: [url]\n"
+"[else]\n"
+"This mail is a reminder about the form you just submitted.\n"
+"[end]\n"
+"\n"
+"[if-any details]\n"
+"For reference, here are the details:\n"
+"\n"
+"[details]\n"
+"[end]\n"
+msgstr ""
+"Ola,\n"
+"\n"
+"Un nuevo formulario ha sido sometido al sitio web, puede consultarlo,\n"
+"lazo : %(url)s\n"
+
+#: ../wcs/formdef.py:985
+#, fuzzy
+msgid "Notification of change to user"
+msgstr "Ficha de identificación (actualemente: %s)"
+
+#: ../wcs/formdef.py:986
+msgid "Available variables: user, url, before, after, evolution"
+msgstr ""
+
+#: ../wcs/formdef.py:988
+msgid "Form status change"
+msgstr "Cambio del estado del formulario"
+
+#: ../wcs/formdef.py:989
+#, fuzzy
+msgid ""
+"Hello,\n"
+"\n"
+"[if-any form_status_changed]\n"
+"Status of the form you submitted just changed (from \"[before]\" to "
+"\"[after]\").\n"
+"[end]\n"
+"\n"
+"[if-any user]\n"
+"You can consult it with this link:\n"
+"[url]\n"
+"[end]\n"
+"\n"
+"[if-any form_comment]New comment: [form_comment][end]\n"
+"\n"
+"[if-any evolution]\n"
+"[evolution]\n"
+"[end]\n"
+msgstr ""
+"Ola,\n"
+"\n"
+"El estado del formulario que ha sometido acaba de pasar (de \"%(before)s\" a "
+"\"%(after)s\"),\n"
+"puede consultarlo con el lazo :\n"
+"\n"
+"%(url)s\n"
+
+#: ../wcs/formdef.py:1009
+#, fuzzy
+msgid "Notification of creation to receiver"
+msgstr "Ficha de identificación (actualemente: %s)"
+
+#: ../wcs/formdef.py:1010
+msgid "Available variables: name, url, details"
+msgstr ""
+
+#: ../wcs/formdef.py:1013
+#, fuzzy
+msgid ""
+"Hello,\n"
+"\n"
+"A new form has been submitted, you can see it with this link:\n"
+"[form_url_backoffice]\n"
+"\n"
+"[if-any details]\n"
+"For reference, here are the details:\n"
+"\n"
+"[details]\n"
+"[end]\n"
+msgstr ""
+"Ola,\n"
+"\n"
+"Un nuevo formulario ha sido sometido al sitio web, puede consultarlo,\n"
+"lazo : %(url)s\n"
+
+#: ../wcs/formdef.py:1028
+#, fuzzy
+msgid "Notification of change to receiver"
+msgstr "Ficha de identificación (actualemente: %s)"
+
+#: ../wcs/formdef.py:1029
+msgid "Available variables: name, url, before, after, evolution"
+msgstr ""
+
+#: ../wcs/formdef.py:1031
+#, fuzzy
+msgid "Form status change ([name])"
+msgstr "Cambio del estado del formulario (%s)"
+
+#: ../wcs/formdef.py:1032
+#, fuzzy
+msgid ""
+"Hello,\n"
+"\n"
+"A form just changed, you can consult it with this link:\n"
+"\n"
+"[form_url_backoffice]\n"
+"\n"
+"[if-any form_comment]New comment: [form_comment][end]\n"
+"\n"
+"[if-any evolution]\n"
+"[evolution]\n"
+"[end]\n"
+msgstr ""
+"Ola,\n"
+"\n"
+"Un formulario acaba de cambiar, lo puede consultar con el lazo :\n"
+"\n"
+"%(url)s\n"
+
+#: ../wcs/formdef.py:1046
+#, fuzzy
+msgid "Form Name"
+msgstr "Nombre del rol"
+
+#: ../wcs/fields.py:42
+#, fuzzy
+msgid "String"
+msgstr "Establecimientos"
+
+#: ../wcs/fields.py:44
+#, fuzzy
+msgid "User Field"
+msgstr "Añadir un campo"
+
+#: ../wcs/fields.py:45 ../wcs/fields.py:48
+#, fuzzy
+msgid "Geolocation"
+msgstr "Consulta"
+
+#: ../wcs/fields.py:69
+msgid "Email (builtin)"
+msgstr ""
+
+#: ../wcs/fields.py:77
+#, fuzzy
+msgid "Position"
+msgstr "Consulta"
+
+#: ../wcs/fields.py:80
+#, fuzzy
+msgid "Number"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:81
+msgid "Street"
+msgstr ""
+
+#: ../wcs/fields.py:82
+msgid "Number and street"
+msgstr ""
+
+#: ../wcs/fields.py:83
+msgid "Post Code"
+msgstr ""
+
+#: ../wcs/fields.py:84
+msgid "City"
+msgstr ""
+
+#: ../wcs/fields.py:85
+msgid "Country"
+msgstr ""
+
+#: ../wcs/fields.py:106
+#, fuzzy, python-format
+msgid "invalid expression: %s"
+msgstr "Expresión regular invalida"
+
+#: ../wcs/fields.py:343
+msgid "Display in listings"
+msgstr "Fijar en listines"
+
+#: ../wcs/fields.py:345 ../wcs/fields.py:413 ../wcs/fields.py:470
+msgid "Extra class for CSS styling"
+msgstr ""
+
+#: ../wcs/fields.py:353
+msgid "Prefill"
+msgstr "Pre-rellenado"
+
+#: ../wcs/fields.py:424
+msgid "Subtitle"
+msgstr "Subtitulo"
+
+#: ../wcs/fields.py:489
+msgid "Text (line)"
+msgstr "Texto (linea)"
+
+#: ../wcs/fields.py:505 ../wcs/fields.py:535
+msgid "Line length"
+msgstr "Longitud de la linea"
+
+#: ../wcs/fields.py:507
+msgid "Validation regex"
+msgstr "Validación regex"
+
+#: ../wcs/fields.py:511 ../wcs/fields.py:954 ../wcs/fields.py:1029
+msgid "External Data Source"
+msgstr ""
+
+#: ../wcs/fields.py:512
+msgid "This will allow autocompletion from an external source."
+msgstr ""
+
+#: ../wcs/fields.py:524
+#, fuzzy
+msgid "Long Text"
+msgstr "Proximo"
+
+#: ../wcs/fields.py:537
+msgid "Number of rows"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:540
+#, fuzzy
+msgid "Maximum number of characters"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:542
+msgid "Preformatted Text"
+msgstr "Texto preformatado"
+
+#: ../wcs/fields.py:582
+#, fuzzy
+msgid "Check Box (single choice)"
+msgstr "Texto (linea)"
+
+#: ../wcs/fields.py:664
+msgid "File Upload"
+msgstr "Envio de fichero"
+
+#: ../wcs/fields.py:674
+msgid "Sound files"
+msgstr ""
+
+#: ../wcs/fields.py:675
+msgid "Video files"
+msgstr ""
+
+#: ../wcs/fields.py:676
+msgid "Image files"
+msgstr ""
+
+#: ../wcs/fields.py:687
+msgid "File type suggestion"
+msgstr ""
+
+#: ../wcs/fields.py:723
+msgid "Date"
+msgstr "Fecha"
+
+#: ../wcs/fields.py:736
+msgid "Minimum Date"
+msgstr ""
+
+#: ../wcs/fields.py:738
+msgid "Date must be in the future"
+msgstr ""
+
+#: ../wcs/fields.py:739
+msgid "This option is obviously not compatible with setting a minimum date"
+msgstr ""
+
+#: ../wcs/fields.py:740
+msgid "Maximum Date"
+msgstr ""
+
+#: ../wcs/fields.py:742
+msgid "Date must be in the past"
+msgstr ""
+
+#: ../wcs/fields.py:743
+msgid "This option is obviously not compatible with setting a maximum date"
+msgstr ""
+
+#: ../wcs/fields.py:745
+msgid "Date can be present day"
+msgstr ""
+
+#: ../wcs/fields.py:746
+msgid ""
+"This option is only useful combined with one of the previous checkboxes."
+msgstr ""
+
+#: ../wcs/fields.py:839
+msgid "List"
+msgstr "Lista"
+
+#: ../wcs/fields.py:946
+msgid "Show as radio buttons"
+msgstr "Enseñar como botón radio"
+
+#: ../wcs/fields.py:948 ../wcs/fields.py:1020 ../wcs/fields.py:1298
+#: ../wcs/fields.py:1531
+msgid "Items"
+msgstr "Elementos"
+
+#: ../wcs/fields.py:951 ../wcs/fields.py:1023 ../wcs/fields.py:1301
+#: ../wcs/fields.py:1534
+#, fuzzy
+msgid "Add item"
+msgstr "Añadir un campo"
+
+#: ../wcs/fields.py:955 ../wcs/fields.py:1030
+msgid "This will get the available items from an external source."
+msgstr ""
+
+#: ../wcs/fields.py:967 ../wcs/fields.py:1043 ../wcs/fields.py:1318
+#, fuzzy
+msgid "Duplicated Items"
+msgstr "Duplicar formularios"
+
+#: ../wcs/fields.py:986
+msgid "Multiple choice list"
+msgstr ""
+
+#: ../wcs/fields.py:1024
+#, fuzzy
+msgid "Maximum number of choices"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:1114
+msgid "New Page"
+msgstr "Nueva pagina"
+
+#: ../wcs/fields.py:1121
+#, fuzzy
+msgid "Condition"
+msgstr "Consulta"
+
+#: ../wcs/fields.py:1155
+#, fuzzy
+msgid "Table"
+msgstr "Imprimir rol"
+
+#: ../wcs/fields.py:1182
+#, fuzzy
+msgid "Rows"
+msgstr "Roles"
+
+#: ../wcs/fields.py:1185 ../wcs/fields.py:1341 ../wcs/qommon/form.py:1144
+#, fuzzy
+msgid "Add row"
+msgstr "Añadir Rol"
+
+#: ../wcs/fields.py:1186 ../wcs/fields.py:1353
+msgid "Columns"
+msgstr ""
+
+#: ../wcs/fields.py:1189 ../wcs/fields.py:1356
+#, fuzzy
+msgid "Add column"
+msgstr "Añadir Rol"
+
+#: ../wcs/fields.py:1285
+msgid "Table of Lists"
+msgstr ""
+
+#: ../wcs/fields.py:1327
+msgid "Table with rows"
+msgstr ""
+
+#: ../wcs/fields.py:1357
+msgid "Total Row"
+msgstr ""
+
+#: ../wcs/fields.py:1447
+#, fuzzy
+msgid "unimplemented"
+msgstr "rellenado ya"
+
+#: ../wcs/fields.py:1455
+msgid "Map"
+msgstr ""
+
+#: ../wcs/fields.py:1472
+msgid "Whole world"
+msgstr ""
+
+#: ../wcs/fields.py:1473
+msgid "Wide area"
+msgstr ""
+
+#: ../wcs/fields.py:1474
+msgid "Area"
+msgstr ""
+
+#: ../wcs/fields.py:1475
+msgid "Town"
+msgstr ""
+
+#: ../wcs/fields.py:1476
+msgid "Small road"
+msgstr ""
+
+#: ../wcs/fields.py:1477
+msgid "Ant"
+msgstr ""
+
+#: ../wcs/fields.py:1478
+msgid "Initial zoom level"
+msgstr ""
+
+#: ../wcs/fields.py:1480
+msgid "Minimal zoom level"
+msgstr ""
+
+#: ../wcs/fields.py:1482
+msgid "Maximal zoom level"
+msgstr ""
+
+#: ../wcs/fields.py:1484
+#, fuzzy
+msgid "Initial Position"
+msgstr "Ficha de identidad"
+
+#: ../wcs/fields.py:1487
+msgid "Initialize position using device geolocation"
+msgstr ""
+
+#: ../wcs/fields.py:1518
+#, fuzzy
+msgid "Ranked Items"
+msgstr "Nuevo formulario"
+
+#: ../wcs/fields.py:1535
+#, fuzzy
+msgid "Randomize Items"
+msgstr "Nuevo formulario"
+
+#: ../wcs/fields.py:1613
+msgid "Clear text"
+msgstr ""
+
+#: ../wcs/fields.py:1614
+msgid "MD5"
+msgstr ""
+
+#: ../wcs/fields.py:1615
+msgid "SHA1"
+msgstr ""
+
+#: ../wcs/fields.py:1617
+#, fuzzy
+msgid "Storage formats"
+msgstr "Formato equivocado"
+
+#: ../wcs/fields.py:1619
+#, fuzzy
+msgid "Minimum length"
+msgstr "Longitud de la linea"
+
+#: ../wcs/fields.py:1621 ../wcs/qommon/ident/password.py:720
+msgid "Maximum password length"
+msgstr ""
+
+#: ../wcs/fields.py:1623 ../wcs/qommon/ident/password.py:722
+msgid "0 for unlimited length"
+msgstr ""
+
+#: ../wcs/fields.py:1625 ../wcs/qommon/ident/password.py:724
+#, fuzzy
+msgid "Minimum number of uppercase characters"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:1628 ../wcs/qommon/ident/password.py:727
+#, fuzzy
+msgid "Minimum number of lowercase characters"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:1631 ../wcs/qommon/ident/password.py:730
+#, fuzzy
+msgid "Minimum number of digits"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:1634 ../wcs/qommon/ident/password.py:733
+#, fuzzy
+msgid "Minimum number of special characters"
+msgstr "Numero de filas"
+
+#: ../wcs/fields.py:1637
+#, fuzzy
+msgid "Label for confirmation input"
+msgstr "Incluir pagina de confirmación"
+
+#: ../wcs/root.py:86 ../wcs/root.py:151
+#, fuzzy
+msgid "Authentication subsystem is not yet configured."
+msgstr "El soporte Liberty no esta todavia configurado."
+
+#: ../wcs/root.py:125
+#, fuzzy
+msgid "Select the identification method you want to use:"
+msgstr "Seleccione el proveador que quiere utilizar."
+
+#: ../wcs/root.py:176
+#, fuzzy
+msgid "Select the registration method you want to use:"
+msgstr "Seleccione el proveador que quiere utilizar."
+
+#: ../wcs/root.py:239 ../wcs/root.py:248
+msgid "Identification Token"
+msgstr "Ficha de identidad"
+
+#: ../wcs/root.py:251
+msgid "Please enter your identification token."
+msgstr "Por favor, entre su ficha de identidad"
+
+#. #-#-#-#-#  tmp.37.idp.py.pot (PACKAGE VERSION)  #-#-#-#-#
+#. XXX: better error page
+#: ../wcs/root.py:263 ../wcs/qommon/ident/idp.py:210
+msgid "Unknown Token"
+msgstr "Ficha dezconozida"
+
+#: ../wcs/root.py:345
+msgid "Home"
+msgstr "Pagina de inicio"
+
+#: ../wcs/qommon/template.py:215 ../wcs/qommon/admin/menu.py:233
+#: ../wcs/qommon/admin/menu.py:236
+msgid "Error"
+msgstr "Error"
+
+#: ../wcs/qommon/template.py:238
+msgid "It has been sent to the site administrator for analyse."
+msgstr "Ha sido mandado al administrador del sitio por analisis."
+
+#: ../wcs/qommon/template.py:242
+#, fuzzy, python-format
+msgid "Continue to %s"
+msgstr "Nada para enseñar"
+
+#: ../wcs/qommon/template.py:245
+msgid "View Error Details"
+msgstr "Mirar detalles erroneos"
+
+#: ../wcs/qommon/publisher.py:298
+msgid "This feature is not yet implemented."
+msgstr ""
+
+#: ../wcs/qommon/publisher.py:299
+msgid "Sorry"
+msgstr ""
+
+#: ../wcs/qommon/publisher.py:329
+msgid ""
+"The server encountered an internal error and was unable to complete your "
+"request."
+msgstr ""
+"El servidor ha encontrado un error interno y no puede cumplir consu "
+"soliticación"
+
+#: ../wcs/qommon/publisher.py:330
+msgid "Internal Server Error"
+msgstr "Error interno del servidor"
+
+#: ../wcs/qommon/publisher.py:975
+msgid "Current Theme Name"
+msgstr ""
+
+#: ../wcs/qommon/publisher.py:976
+#, fuzzy
+msgid "Site URL"
+msgstr "Base URL"
+
+#: ../wcs/qommon/publisher.py:977
+#, fuzzy
+msgid "Site URL (backoffice)"
+msgstr "Back Office"
+
+#: ../wcs/qommon/publisher.py:978
+#, fuzzy
+msgid "Current Date"
+msgstr "Sus formularios actuales"
+
+#: ../wcs/qommon/publisher.py:979
+#, fuzzy
+msgid "Current Date & Time"
+msgstr "Nombre de consulta"
+
+#: ../wcs/qommon/http_response.py:123
+#, fuzzy
+msgid "registered"
+msgstr "Recibo"
+
+#: ../wcs/qommon/http_response.py:138
+#, fuzzy
+msgid "running"
+msgstr "Establecimientos"
+
+#: ../wcs/qommon/http_response.py:146
+msgid "failed"
+msgstr ""
+
+#: ../wcs/qommon/http_response.py:148
+#, fuzzy
+msgid "completed"
+msgstr "rellenado ya"
+
+#: ../wcs/wf/timeout_jump.py:24
+msgid "Change Status on Timeout"
+msgstr ""
+
+#: ../wcs/wf/timeout_jump.py:38
+#, python-format
+msgid "Change Status on Timeout to \"%(status)s\" after %(time)s"
+msgstr ""
+
+#: ../wcs/wf/timeout_jump.py:41
+#, fuzzy
+msgid "Change Status on Timeout (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/wf/timeout_jump.py:46 ../wcs/wf/jump.py:163
+#, python-format
+msgid ""
+"ex.: 7 days 1 minute<br/> Usable units of time: %(variables)s. <br/><span "
+"class=\"warning\">Minimal duration is %(granularity)s</span>"
+msgstr ""
+
+#: ../wcs/wf/timeout_jump.py:50 ../wcs/wf/jump.py:168 ../wcs/wf/jump.py:171
+#, fuzzy
+msgid "Timeout"
+msgstr "Tiempo"
+
+#: ../wcs/qommon/humantime.py:30
+#, python-format
+msgid "%(first)s and %(second)s"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:30
+msgid ", "
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:32
+msgid "day"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:32
+msgid "days"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:33
+msgid "hour"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:33
+#, fuzzy
+msgid "hours"
+msgstr "Formularios"
+
+#: ../wcs/qommon/humantime.py:34
+#, fuzzy
+msgid "month"
+msgstr "Los dos juntos"
+
+#: ../wcs/qommon/humantime.py:34
+#, fuzzy
+msgid "months"
+msgstr "Los dos juntos"
+
+#: ../wcs/qommon/humantime.py:35
+msgid "year"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:35
+#, fuzzy
+msgid "years"
+msgstr "Trazos"
+
+#: ../wcs/qommon/humantime.py:36
+#, fuzzy
+msgid "minute"
+msgstr "Indice"
+
+#: ../wcs/qommon/humantime.py:36
+msgid "minutes"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:37
+#, fuzzy
+msgid "second"
+msgstr "Usuario/a"
+
+#: ../wcs/qommon/humantime.py:37
+#, fuzzy
+msgid "seconds"
+msgstr "Usuario/a"
+
+#: ../wcs/qommon/humantime.py:77
+#, python-format
+msgid "%s days"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:79
+#, python-format
+msgid "%s hours"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:81
+#, python-format
+msgid "%s minutes"
+msgstr ""
+
+#: ../wcs/qommon/humantime.py:83
+#, python-format
+msgid "%s seconds"
+msgstr ""
+
+#: ../wcs/qommon/sms.py:29
+msgid "Sender (number or name)"
+msgstr ""
+
+#: ../wcs/qommon/sms.py:30 ../wcs/qommon/sms.py:100
+#: ../wcs/qommon/ident/password.py:204 ../wcs/qommon/ident/password.py:313
+#: ../wcs/qommon/ident/password.py:503 ../wcs/qommon/ident/password.py:867
+#: ../wcs/qommon/ident/password.py:1040 ../wcs/qommon/ident/password.py:1235
+#, fuzzy
+msgid "Username"
+msgstr "Apellido del usuario"
+
+#: ../wcs/qommon/sms.py:102 ../wcs/qommon/sms.py:156
+msgid "Default Country Code"
+msgstr ""
+
+#: ../wcs/qommon/sms.py:155
+msgid "Key"
+msgstr ""
+
+#: ../wcs/qommon/sms.py:202
+#, fuzzy
+msgid "Mobyt provider"
+msgstr "Proveador ID"
+
+#: ../wcs/qommon/sms.py:203
+#, fuzzy
+msgid "Oxyd provider"
+msgstr "Proveador ID"
+
+#: ../wcs/qommon/sms.py:204
+#, fuzzy
+msgid "Choosit provider"
+msgstr "Proveador ID"
+
+#: ../wcs/qommon/ident/password.py:96 ../wcs/qommon/form.py:1907
+#, python-format
+msgid "Password is too short.  It must be at least %d characters."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:99 ../wcs/qommon/form.py:1911
+#, python-format
+msgid "Password is too long.  It must be at most %d characters."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:105 ../wcs/qommon/form.py:1916
+#, python-format
+msgid "Password must contain an uppercase character."
+msgid_plural "Password must contain at least %(count)d uppercase characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wcs/qommon/ident/password.py:113 ../wcs/qommon/form.py:1923
+#, python-format
+msgid "Password must contain a lowercase character."
+msgid_plural "Password must contain at least %(count)d lowercase characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wcs/qommon/ident/password.py:121 ../wcs/qommon/form.py:1930
+#, python-format
+msgid "Password must contain a digit."
+msgid_plural "Password must contain at least %(count)d digits."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wcs/qommon/ident/password.py:129 ../wcs/qommon/form.py:1937
+#, python-format
+msgid "Password must contain a special character."
+msgid_plural "Password must contain at least %(count)d special characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../wcs/qommon/ident/password.py:152
+#, fuzzy
+msgid "Invalid Token"
+msgstr "Fecha invalida"
+
+#: ../wcs/qommon/ident/password.py:156
+#, fuzzy
+msgid "Account Creation Confirmed"
+msgstr "Incluir pagina de confirmación"
+
+#: ../wcs/qommon/ident/password.py:206
+#, fuzzy
+msgid "Log in"
+msgstr "Conectarse"
+
+#: ../wcs/qommon/ident/password.py:235
+#, fuzzy
+msgid "Lost Password?"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/ident/password.py:255
+msgid "Invalid credentials"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:268
+msgid "This account is waiting for moderation"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:273
+msgid "This account is waiting for confirmation"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:278
+#, fuzzy
+msgid "This account has been disabled"
+msgstr "Este formulario ya ha sido sometido."
+
+#: ../wcs/qommon/ident/password.py:314
+#, fuzzy
+msgid "Submit Request"
+msgstr "Mandar"
+
+#: ../wcs/qommon/ident/password.py:325 ../wcs/qommon/ident/password.py:326
+msgid "Forgotten password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:347
+msgid "There is no user with that name or it has no email contact."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:370
+msgid "Failed to send email (server error)"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:375
+msgid "Forgotten Password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:393
+msgid ""
+"The token you submitted does not exist, has expired, or has been cancelled."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:394 ../wcs/qommon/ident/password.py:399
+#, fuzzy
+msgid "home page"
+msgstr "Pagina de inicio"
+
+#: ../wcs/qommon/ident/password.py:398
+msgid "The token you submitted is not appropriate for the requested task."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:402 ../wcs/qommon/ident/password.py:444
+msgid "Password Change"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:405
+msgid "Request Cancelled"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:406
+#, fuzzy
+msgid "Your request has been cancelled"
+msgstr "Su situación ha sido seguida por:"
+
+#: ../wcs/qommon/ident/password.py:408
+msgid "Continue to <a href=\"/\">home page</a></p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:419 ../wcs/qommon/myspace.py:144
+#, fuzzy
+msgid "New Password"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/ident/password.py:481
+msgid "New password sent by email"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:504
+msgid "This will be your username to connect to this site."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:517 ../wcs/qommon/ident/idp.py:164
+#, fuzzy
+msgid "Create Account"
+msgstr "Cuenta del administrador"
+
+#: ../wcs/qommon/ident/password.py:524 ../wcs/qommon/ident/password.py:525
+#: ../wcs/qommon/ident/idp.py:171 ../wcs/qommon/ident/idp.py:172
+msgid "New Account"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:549
+msgid "There is already a user with that username"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:552
+msgid "There is already a user with that email address"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:590
+msgid ""
+"Accounts are configured to require confirmation but accounts can be created "
+"without emails"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:608
+msgid ""
+"Accounts are configured to have a generated password but accounts can be "
+"created without emails"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:625
+msgid "Account created, waiting for moderation"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:630
+msgid "A site administrator will now review then activate your account."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:634
+msgid "You will then get your password by email."
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:638
+#, fuzzy
+msgid "Back to home page"
+msgstr "Pagina de inicio"
+
+#: ../wcs/qommon/ident/password.py:647
+#, fuzzy
+msgid "Email sent"
+msgstr "Emails"
+
+#: ../wcs/qommon/ident/password.py:678
+msgid "Username / Password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:682
+#, fuzzy
+msgid "Configure username/password identification method"
+msgstr "Configura parametros de Liberty"
+
+#: ../wcs/qommon/ident/password.py:697 ../wcs/qommon/ident/idp.py:800
+#, fuzzy
+msgid "Identities"
+msgstr "Proveadores de identidad"
+
+#: ../wcs/qommon/ident/password.py:697 ../wcs/qommon/ident/idp.py:800
+#, fuzzy
+msgid "Configure identities creation"
+msgstr "Configura parametros de Liberty"
+
+#: ../wcs/qommon/ident/password.py:699 ../wcs/qommon/ident/password.py:754
+#: ../wcs/qommon/ident/password.py:756
+msgid "Passwords"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:699
+#, fuzzy
+msgid "Configure all password things"
+msgstr "Configure instaladores de email"
+
+#: ../wcs/qommon/ident/password.py:701 ../wcs/qommon/ident/password.py:853
+#: ../wcs/qommon/ident/password.py:857
+#, fuzzy
+msgid "Bulk Import"
+msgstr "Importar"
+
+#: ../wcs/qommon/ident/password.py:701
+#, fuzzy
+msgid "Import accounts from a CSV file"
+msgstr "Importar dato de otro sitio"
+
+#: ../wcs/qommon/ident/password.py:708
+msgid "Users can change their password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:710
+msgid "Generate initial password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:713
+msgid "Lost Password Behaviour"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:715
+msgid "Nothing (contact admin)"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:716
+#, fuzzy
+msgid "Email reminder"
+msgstr "Email del remitente"
+
+#: ../wcs/qommon/ident/password.py:717
+msgid "Question selected by user"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:718
+msgid "Minimum password length"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:735
+msgid "Email address (for questions...)"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:741
+msgid "Password Hashing Algorithm"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:771 ../wcs/qommon/ident/idp.py:1003
+#, fuzzy
+msgid "Identity Creation"
+msgstr "Ficha de identidad"
+
+#: ../wcs/qommon/ident/password.py:774 ../wcs/qommon/ident/idp.py:1006
+msgid "Self-registration"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:775
+msgid "Moderated user registration"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:777 ../wcs/qommon/ident/idp.py:1009
+msgid "Require email confirmation for new accounts"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:780 ../wcs/qommon/ident/idp.py:1013
+msgid "Notify Administrators on Registration"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:782
+msgid "Use email as username"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:785
+msgid "Warn about unused account after so many days"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:786
+msgid "0 for no warning"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:789
+msgid "Removed unused account after so many days"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:790
+msgid "0 for no automatic removal"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:804 ../wcs/qommon/ident/password.py:806
+#: ../wcs/qommon/ident/idp.py:1032 ../wcs/qommon/ident/idp.py:1033
+#: ../wcs/qommon/ident/idp.py:1035
+#, fuzzy
+msgid "Identities Interface"
+msgstr "Cuenta del administrador"
+
+#: ../wcs/qommon/ident/password.py:825
+#, fuzzy
+msgid "Send notifications to users"
+msgstr "Ficha de identidad"
+
+#: ../wcs/qommon/ident/password.py:859
+msgid "The CSV file must strictly adhere to the following structure:"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:862
+#, python-format
+msgid "Charset: %s"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:863
+msgid "Column Separator: ;"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:864
+msgid "Columns:"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:876
+#, python-format
+msgid "(%s hash)"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:878
+msgid "(empty to get an automatically generated password)"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:928
+#, python-format
+msgid "Incorrect number of columns (line: %s)"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:954 ../wcs/qommon/ident/password.py:957
+#, fuzzy, python-format
+msgid "Duplicate username (line: %s)"
+msgstr "Duplicar formularios"
+
+#: ../wcs/qommon/ident/password.py:989
+#, python-format
+msgid "Number of accounts created: %s"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1004
+#, fuzzy
+msgid "Sending subscription emails"
+msgstr "Envian notificaciones detalladas de los emails"
+
+#: ../wcs/qommon/ident/password.py:1013
+#, fuzzy
+msgid "Notifications"
+msgstr "Ficha de identidad"
+
+#: ../wcs/qommon/ident/password.py:1049
+#, fuzzy
+msgid "Awaiting Confirmation"
+msgstr "Borrando consulta:"
+
+#: ../wcs/qommon/ident/password.py:1051
+msgid "Awaiting Moderation"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1053
+#, fuzzy
+msgid "Disabled Account"
+msgstr "Fallado si vacio"
+
+#: ../wcs/qommon/ident/password.py:1079
+#, fuzzy
+msgid "Send new password by email"
+msgstr "Mandado por email"
+
+#: ../wcs/qommon/ident/password.py:1081
+#, fuzzy
+msgid "Send password by email"
+msgstr "Mandado por email"
+
+#: ../wcs/qommon/ident/password.py:1089
+#, fuzzy
+msgid "Email Password"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/ident/password.py:1091
+#, fuzzy
+msgid "Generate new password"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/ident/password.py:1093
+#, fuzzy
+msgid "Use current password"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/ident/password.py:1134
+msgid "Username / password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1150
+#, fuzzy
+msgid "Duplicate user name"
+msgstr "Duplicar formularios"
+
+#: ../wcs/qommon/ident/password.py:1206
+msgid "Accounts"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1228
+#, python-format
+msgid "Account - %s"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1230
+msgid "Moderation of account"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1260 ../wcs/qommon/ident/password.py:1337
+#: ../wcs/qommon/ident/password.py:1338 ../wcs/qommon/ident/password.py:1340
+#: ../wcs/qommon/ident/password.py:1397
+#, fuzzy
+msgid "Reply by email"
+msgstr "Mandado por email"
+
+#: ../wcs/qommon/ident/password.py:1304
+msgid "Submit and don't send email"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1311 ../wcs/qommon/ident/password.py:1312
+#, fuzzy
+msgid "Rejection"
+msgstr "Rechazar"
+
+#: ../wcs/qommon/ident/password.py:1328
+msgid "About your account request"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1361
+msgid "You are not allowed to access Accounts Management"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1364 ../wcs/qommon/ident/password.py:1372
+msgid "Accounts Management"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1374
+msgid "New accounts waiting for moderation"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1389
+#, fuzzy
+msgid "Username:"
+msgstr "Apellido del usuario"
+
+#: ../wcs/qommon/ident/password.py:1415
+msgid "Subscription notification for password account"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1416
+msgid ""
+"Available variables: email, website, token_url, token, admin_email, "
+"username, password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1418
+msgid "Subscription Confirmation"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1419
+msgid ""
+"We have received a request for subscription of your email address,\n"
+"\"[email]\", to the [website] web site.\n"
+"\n"
+"To confirm that you want to be subscribed to the web site, simply\n"
+"visit this web page:\n"
+"\n"
+"[token_url]\n"
+"\n"
+"If you do not wish to be subscribed to the web site, pleasy simply\n"
+"disregard this message.  If you think you are being maliciously\n"
+"subscribed to the web site, or have any other questions, send them\n"
+"to [admin_email].\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1435
+msgid "Request for password change"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1436
+msgid "Available variables: change_url, cancel_url, token, time"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1438
+msgid "Change Password Request"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1439
+msgid ""
+"You have (or someone impersonating you has) requested to change your\n"
+"password. To complete the change, visit the following link:\n"
+"\n"
+"[change_url]\n"
+"\n"
+"If you are not the person who made this request, or you wish to cancel\n"
+"this request, visit the following link:\n"
+"\n"
+"[cancel_url]\n"
+"\n"
+"If you do nothing, the request will lapse after 3 days (precisely on\n"
+"[time]).\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1456
+msgid "New generated password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1457
+msgid "Available variables: username, password, hostname"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1459
+msgid "Your new password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1460
+msgid ""
+"Hello,\n"
+"\n"
+"You have requested a new password for [hostname], here are your new\n"
+"account details:\n"
+"\n"
+"- username: [username]\n"
+"- password: [password]\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1472
+msgid "Approval of new account"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1473
+msgid "Available variables: username, password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1475
+#, fuzzy
+msgid "Your account has been approved"
+msgstr "Su situación ha sido seguida por:"
+
+#: ../wcs/qommon/ident/password.py:1476
+msgid ""
+"Your account has been approved.\n"
+"\n"
+"Account details:\n"
+"\n"
+"- username: [username]\n"
+"[if-any password]- password: [password][end]\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1486
+msgid "Warning about unusued account"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1487 ../wcs/qommon/ident/password.py:1496
+msgid "Available variables: username"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1489
+#, fuzzy
+msgid "Your account is unused"
+msgstr "Su situación ha sido seguida por:"
+
+#: ../wcs/qommon/ident/password.py:1490
+#, fuzzy
+msgid "Your account ([username]) is not being used.\n"
+msgstr "Esta a punto de suprimir un campo"
+
+#: ../wcs/qommon/ident/password.py:1495
+#, fuzzy
+msgid "Notification of removal of unused account"
+msgstr "Ficha de identificación (actualemente: %s)"
+
+#: ../wcs/qommon/ident/password.py:1498
+#, fuzzy
+msgid "Your account has been removed"
+msgstr "Su situación ha sido seguida por:"
+
+#: ../wcs/qommon/ident/password.py:1499
+#, fuzzy
+msgid ""
+"Your account ([username]) was not being used, it has therefore been "
+"removed.\n"
+msgstr "Su situación ha sido seguida por:"
+
+#: ../wcs/qommon/ident/password.py:1504
+#, fuzzy
+msgid "Notification of new registration to administrators"
+msgstr "Ficha de identificación (actualemente: %s)"
+
+#: ../wcs/qommon/ident/password.py:1505
+msgid "Available variables: hostname, email_as_username, username"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1507
+#, fuzzy
+msgid "New Registration"
+msgstr "Nueva consulta"
+
+#: ../wcs/qommon/ident/password.py:1508
+msgid ""
+"Hello,\n"
+"\n"
+"A new account has been created on [hostname].\n"
+"\n"
+" - name: [name]\n"
+" - username: [username]\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1518
+msgid "Welcome email, with generated password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1519
+msgid "Available variables: hostname, username, password, email_as_username"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1521
+#, fuzzy
+msgid "Welcome to [hostname]"
+msgstr "Acceso prohibido"
+
+#: ../wcs/qommon/ident/password.py:1522
+msgid ""
+"Welcome to [hostname],\n"
+"\n"
+"Your password is: [password]\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1529
+msgid "Email with a new password for the user"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1530 ../wcs/qommon/ident/password.py:1541
+msgid "Available variables: hostname, name, username, password"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1532
+msgid "Your new password for [hostname]"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1533
+msgid ""
+"Hello [name],\n"
+"\n"
+"Here is your new password for [hostname]: [password]\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1540
+msgid "Email with current password for the user"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1543
+msgid "Your password for [hostname]"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1544
+msgid ""
+"Hello [name],\n"
+"\n"
+"Here is your password for [hostname]: [password]\n"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1552
+msgid "Text when account confirmed by user but waiting moderator approval"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1554
+msgid ""
+"<p>\n"
+"Your account has been created.  In order to be effective\n"
+"it must be activated by a moderator.  You will receive an\n"
+"email when this is done.\n"
+"</p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1561
+msgid "Text when account confirmed by user"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1563
+#, fuzzy
+msgid ""
+"<p>\n"
+"Your account has been created.\n"
+"</p>"
+msgstr "Su situación ha sido seguida por:"
+
+#: ../wcs/qommon/ident/password.py:1568
+msgid "Text when an email with a change password token has been sent"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1570
+msgid ""
+"<p>\n"
+"A token for changing your password has been emailed to you. Follow the "
+"instructions in that email to change your password.\n"
+"</p>\n"
+"<p>\n"
+" <a href=\"login\">Log In</a>\n"
+"</p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1578
+msgid "Text when new password has been sent"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1580
+msgid ""
+"<p>\n"
+"Your new password has been sent to you by email.\n"
+"</p>\n"
+"<p>\n"
+" <a href=\"login\">Login</a>\n"
+"</p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1587
+msgid "Text on top of registration form"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1591
+msgid "Text on login page, linking to the forgotten password request page"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1593
+#, python-format
+msgid ""
+"<p>\n"
+"If you have an account, but have forgotten your password, you should go\n"
+"to the <a href=\"%(forgotten_url)s\">Lost password page</a> and submit a "
+"request\n"
+"to change your password.\n"
+"</p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1600
+msgid "Text on forgotten password request page"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1602
+msgid ""
+"<p>\n"
+"If you have an account, but have forgotten your password, enter your user "
+"name\n"
+"below and submit a request to change your password.\n"
+"</p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1608
+msgid "Text linking the login page to the account creation page"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1609
+msgid "Available variable: register_url"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1611
+msgid ""
+"<p>\n"
+"If you do not have an account, you should go to the <a href="
+"\"[register_url]\">\n"
+"New Account page</a>.\n"
+"</p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1617
+msgid "Text when an invalid password token is used"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1619
+msgid ""
+"<p>\n"
+"Sorry, the token you used is invalid, or has already been used.\n"
+"</p>"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1624
+msgid "Text on top of the login page"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1628
+msgid "Text when a mail for confirmation of an account creation has been sent"
+msgstr ""
+
+#: ../wcs/qommon/ident/password.py:1630
+msgid "An email has been sent to you so you can confirm your account creation."
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:50
+msgid "SAML2"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:80
+#, fuzzy
+msgid "SSO support is not yet configured"
+msgstr "El soporte Liberty no esta todavia configurado."
+
+#: ../wcs/qommon/ident/idp.py:130
+#, fuzzy
+msgid "Select the identity provider you want to use."
+msgstr "Seleccione el proveador que quiere utilizar."
+
+#: ../wcs/qommon/ident/idp.py:220 ../wcs/qommon/ident/idp.py:231
+#: ../wcs/qommon/ident/idp.py:797
+msgid "Identity Providers"
+msgstr "Proveadores de identidad"
+
+#: ../wcs/qommon/ident/idp.py:234
+msgid "Create new from remote URL"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:255
+msgid "Broken"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:284 ../wcs/qommon/ident/idp.py:589
+msgid "Metadata"
+msgstr "Metadatos"
+
+#: ../wcs/qommon/ident/idp.py:285
+msgid "Public Key"
+msgstr "Clave publica"
+
+#: ../wcs/qommon/ident/idp.py:286
+msgid "CA Certificate Chain"
+msgstr "CA certificado cadena"
+
+#: ../wcs/qommon/ident/idp.py:287
+msgid "Client Key and Certificate"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:288
+msgid "Hide this provider from user lists"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:291
+msgid "Requested NameID format"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:293
+msgid "Persistent"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:294
+msgid "Username (like Google Apps)"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:301
+msgid "Administrator attribute matching rules"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:303
+msgid ""
+"First column match attribute names, second is for matching attribute value. "
+"If no rule is given, admin flag is never set. Flag is set if any rule match."
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:310
+msgid "Attribute mapping"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:313
+msgid ""
+"First column match attribute names, second row is the user field to fill"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:322 ../wcs/qommon/ident/idp.py:324
+#: ../wcs/qommon/ident/idp.py:500 ../wcs/qommon/ident/idp.py:502
+msgid "New Identity Provider"
+msgstr "Nuevo proveador de identidad"
+
+#: ../wcs/qommon/ident/idp.py:349 ../wcs/qommon/ident/idp.py:400
+#: ../wcs/qommon/ident/idp.py:442 ../wcs/qommon/ident/idp.py:473
+#: ../wcs/qommon/ident/idp.py:689 ../wcs/qommon/ident/idp.py:746
+#: ../wcs/qommon/ident/idp.py:759
+msgid "Bad metadata"
+msgstr "Metadato fallado"
+
+#: ../wcs/qommon/ident/idp.py:407
+#, fuzzy
+msgid "URL to metadata"
+msgstr "Metadato fallado"
+
+#: ../wcs/qommon/ident/idp.py:424 ../wcs/qommon/ident/idp.py:452
+#, fuzzy
+msgid "Resource not found"
+msgstr "Pagina no encontrada"
+
+#: ../wcs/qommon/ident/idp.py:426 ../wcs/qommon/ident/idp.py:454
+#, python-format
+msgid "HTTP error on retrieval: %s"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:428 ../wcs/qommon/ident/idp.py:456
+msgid "Failed to retrieve file"
+msgstr ""
+
+#. ok when provided with a public key -> adding it for real
+#: ../wcs/qommon/ident/idp.py:446 ../wcs/qommon/ident/idp.py:489
+msgid "URL to public key"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:467
+msgid "Error in this metadata file"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:486
+msgid "File looks like a bad metadata file"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:491
+msgid "The metadata file does not embed a public key, please provide it here."
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:585 ../wcs/qommon/ident/idp.py:587
+#: ../wcs/qommon/ident/idp.py:638
+msgid "Identity Provider"
+msgstr "Proveador de identidad"
+
+#: ../wcs/qommon/ident/idp.py:603
+msgid "Update from remote URL"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:611 ../wcs/qommon/ident/idp.py:613
+msgid "Edit Identity Provider"
+msgstr "Imprimir proveador de identidad"
+
+#: ../wcs/qommon/ident/idp.py:632
+msgid "You are about to irrevocably remove this identity provider."
+msgstr "Esta a punto de borrar irevocablamente este proveador de identidad."
+
+#: ../wcs/qommon/ident/idp.py:641
+#, fuzzy
+msgid "Deleting"
+msgstr "Borrando"
+
+#: ../wcs/qommon/ident/idp.py:643
+#, fuzzy
+msgid "Deleting Identity Provider"
+msgstr "Nuevo proveador de identidad"
+
+#: ../wcs/qommon/ident/idp.py:748
+msgid "Bad metadata or missing public key"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:771
+#, fuzzy
+msgid "Configure SAML identification method"
+msgstr "Configura parametros de Liberty"
+
+#: ../wcs/qommon/ident/idp.py:786 ../wcs/qommon/ident/idp.py:811
+msgid "Service Provider"
+msgstr "Proveador de Identidad"
+
+#: ../wcs/qommon/ident/idp.py:786
+#, fuzzy
+msgid "Configure SAML 2.0 parameters"
+msgstr "Configura parametros de Liberty"
+
+#: ../wcs/qommon/ident/idp.py:793
+#, fuzzy
+msgid "SAML 2.0 Service Provider Metadata"
+msgstr "Metadatos del proveador de servicios"
+
+#: ../wcs/qommon/ident/idp.py:794
+#, fuzzy
+msgid "Download Service Provider SAML 2.0 Metadata file"
+msgstr "Descargue el fichero de metadatos del proveador de servicios"
+
+#: ../wcs/qommon/ident/idp.py:797
+msgid "Add and remove identity providers"
+msgstr "Añadir y cambiar los proveadores de identidad"
+
+#: ../wcs/qommon/ident/idp.py:820
+#, fuzzy
+msgid "SAML 2.0 Provider ID"
+msgstr "Proveador ID"
+
+#: ../wcs/qommon/ident/idp.py:824
+#, fuzzy
+msgid "SAML 2.0 Base URL"
+msgstr "Base URL"
+
+#: ../wcs/qommon/ident/idp.py:827
+#, fuzzy
+msgid "Organisation Name"
+msgstr "Nombre de la organización"
+
+#: ../wcs/qommon/ident/idp.py:833
+#, fuzzy
+msgid "Signing Private Key"
+msgstr "Clave privada"
+
+#: ../wcs/qommon/ident/idp.py:834
+#, fuzzy
+msgid "Signing Public Key"
+msgstr "Clave publica"
+
+#: ../wcs/qommon/ident/idp.py:834
+msgid "There is no signing key pair configured."
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:835
+#, fuzzy
+msgid "Encryption Private Key"
+msgstr "Clave privada"
+
+#: ../wcs/qommon/ident/idp.py:836
+#, fuzzy
+msgid "Encryption Public Key"
+msgstr "Clave publica"
+
+#: ../wcs/qommon/ident/idp.py:836
+msgid "There is no encryption key pair configured."
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:839
+msgid "Identity Provider Introduction, Common Domain"
+msgstr "Identidad del proveador de Introducción, Dominio Commin"
+
+#: ../wcs/qommon/ident/idp.py:840 ../wcs/qommon/ident/idp.py:845
+msgid "Disabled if empty"
+msgstr "Fallado si vacio"
+
+#: ../wcs/qommon/ident/idp.py:844
+#, fuzzy
+msgid "Identity Provider Introduction, URL of Cookie Getter"
+msgstr "Identidad del proveador de Introducción, Dominio Commin"
+
+#: ../wcs/qommon/ident/idp.py:849
+msgid "Sign authentication request"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:850 ../wcs/qommon/ident/idp.py:855
+msgid "Better to let it checked"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:854
+msgid "IdP must crypt assertions"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:859
+msgid "IdP manage user attributes"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:865
+msgid "Generate signing and encryption key pairs"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:882 ../wcs/qommon/ident/idp.py:884
+msgid "Service Provider Configuration"
+msgstr "Configuración del proveador de servicio"
+
+#: ../wcs/qommon/ident/idp.py:910
+msgid "Signing key pair is invalid"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:912
+msgid "Encryption key pair is invalid"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:995
+msgid "Grab user details with ID-WSF on first logon"
+msgstr "Recojer los detalles del usuario con el primer fichero ID-WSF"
+
+#: ../wcs/qommon/ident/idp.py:999
+msgid "Lasso version is too old for this support."
+msgstr "La versión Lasso es demasiado vieja para este soporte."
+
+#: ../wcs/qommon/ident/idp.py:1017
+#, fuzzy
+msgid "Registration URL"
+msgstr "Nueva consulta"
+
+#: ../wcs/qommon/ident/idp.py:1018
+msgid ""
+"URL on Identity Provider where users can register an account. Available "
+"variable: next_url."
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:1055
+#, fuzzy
+msgid "Send email with identification token"
+msgstr "Introduzca su ficha de identificación"
+
+#: ../wcs/qommon/ident/idp.py:1062 ../wcs/qommon/ident/idp.py:1064
+#, fuzzy
+msgid "Email with Identification Token"
+msgstr "Introduzca su ficha de identificación"
+
+#: ../wcs/qommon/ident/idp.py:1075
+#, fuzzy, python-format
+msgid "The identification token for this user is %s.\n"
+msgstr "Ficha de identificación para %s:"
+
+#: ../wcs/qommon/ident/idp.py:1076
+#, python-format
+msgid "Its token URL is %s"
+msgstr ""
+
+#: ../wcs/qommon/ident/idp.py:1079
+#, fuzzy
+msgid "Sample Email"
+msgstr "Direcciones email del rol"
+
+#: ../wcs/qommon/ident/idp.py:1108
+#, fuzzy
+msgid "Send Email"
+msgstr "Mandado por email"
+
+#: ../wcs/qommon/ident/idp.py:1122
+#, fuzzy
+msgid "SAML identity provider"
+msgstr "Fallo de comunicación con su proveador de identitdad."
+
+#: ../wcs/wf/dispatch.py:22
+msgid "Assign a Function"
+msgstr ""
+
+#: ../wcs/wf/dispatch.py:44
+#, fuzzy
+msgid "Role to Set"
+msgstr "Detalles del rol"
+
+#: ../wcs/wf/dispatch.py:48
+msgid "Value for role"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:189 ../wcs/qommon/saml2.py:214
+#: ../wcs/qommon/saml2.py:234 ../wcs/qommon/saml2.py:407
+#, fuzzy
+msgid "SAML 2.0 support not yet configured."
+msgstr "El soporte Liberty no esta todavia configurado."
+
+#: ../wcs/qommon/saml2.py:243
+msgid "Bad HTTP method on assertionConsumerArtifact endpoint"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:244 ../wcs/qommon/saml2.py:248
+#, fuzzy
+msgid "Invalid authentication response"
+msgstr "Fecha invalida"
+
+#: ../wcs/qommon/saml2.py:257 ../wcs/qommon/saml2.py:580
+#: ../wcs/qommon/saml2.py:736
+msgid "Failure to communicate with identity provider"
+msgstr "Fallo de comunicación con su proveador de identitdad."
+
+#: ../wcs/qommon/saml2.py:267
+msgid "Signature verification failed"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:282
+#, fuzzy, python-format
+msgid "Authentication failure %s"
+msgstr "El soporte Liberty no esta todavia configurado."
+
+#: ../wcs/qommon/saml2.py:284
+msgid "Request from unknown provider ID"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:286
+msgid "Authentication failure; unknown principal"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:288
+msgid "Authentication failure; federation not found"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:290
+#, fuzzy
+msgid "Authentication failure; failed to get response"
+msgstr "El soporte Liberty no esta todavia configurado."
+
+#: ../wcs/qommon/saml2.py:292
+#, fuzzy
+msgid "Unknown error"
+msgstr "Usuario desconocido"
+
+#: ../wcs/qommon/saml2.py:395
+msgid "No SAML Response"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:401
+msgid "No SAML Response in query string"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:570
+#, fuzzy
+msgid "Could not send logout request to the identity provider"
+msgstr "Añadir y cambiar los proveadores de identidad"
+
+#: ../wcs/qommon/saml2.py:746
+msgid "Invalid NameId Management request"
+msgstr ""
+
+#: ../wcs/qommon/saml2.py:834
+msgid "Defederation failed"
+msgstr ""
+
+#: ../wcs/qommon/ctl.py:95
+msgid "use a non default configuration file"
+msgstr ""
+
+#: ../wcs/qommon/ctl.py:98
+#, fuzzy
+msgid "Display this help and exit"
+msgstr "Fijar como texto"
+
+#: ../wcs/qommon/myspace.py:51 ../wcs/qommon/myspace.py:59
+msgid "My Space"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:65
+#, fuzzy
+msgid "back office"
+msgstr "Back Office"
+
+#: ../wcs/qommon/myspace.py:67 ../wcs/qommon/backoffice/menu.py:43
+msgid "admin"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:75
+msgid "My Profile"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:92
+msgid "Empty profile"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:94
+#, fuzzy
+msgid "Edit My Profile"
+msgstr "Imprimir rol"
+
+#: ../wcs/qommon/myspace.py:97
+#, fuzzy
+msgid "Change My Password"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/myspace.py:99
+#, fuzzy
+msgid "Remove My Account"
+msgstr "Cuenta del administrador"
+
+#: ../wcs/qommon/myspace.py:112
+msgid "Apply Changes"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:122
+#, fuzzy
+msgid "Edit Profile"
+msgstr "Imprimir rol"
+
+#: ../wcs/qommon/myspace.py:146
+msgid "New Password (confirm)"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:149 ../wcs/qommon/myspace.py:170
+#, fuzzy
+msgid "Change Password"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/myspace.py:160 ../wcs/qommon/form.py:1942
+msgid "Passwords do not match"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:180
+msgid "Are you really sure you want to remove your account?"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:181
+msgid "Remove my account"
+msgstr ""
+
+#: ../wcs/qommon/myspace.py:197
+#, fuzzy
+msgid "Removing Account"
+msgstr "Cuenta del administrador"
+
+#: ../wcs/qommon/myspace.py:201
+msgid "Text on top of the profile page"
+msgstr ""
+
+#: ../wcs/qommon/form.py:65
+msgid "required field"
+msgstr "campo imperativo"
+
+#: ../wcs/qommon/form.py:230
+#, fuzzy
+msgid ""
+"The form you have submitted is invalid.  Most likely it has been "
+"successfully submitted once already.  Please review the form data and submit "
+"the form again."
+msgstr ""
+"La forma propuesta no es valida. A lo mejor ha sido provado con exito antes."
+"Por favor, mirar de nuevo los datos del formulario y comprobarlo otra vez."
+
+#: ../wcs/qommon/form.py:234
+msgid "There were errors processing your form.  See below for details."
+msgstr ""
+"Ha habido durante el proceso del formulario.Mirar a bajo por mas detalles."
+
+#: ../wcs/qommon/form.py:431
+#, python-format
+msgid "too many characters (limit is %d)"
+msgstr ""
+
+#: ../wcs/qommon/form.py:502
+msgid "Use previous file."
+msgstr ""
+
+#: ../wcs/qommon/form.py:504
+msgid "Or upload a new one"
+msgstr ""
+
+#: ../wcs/qommon/form.py:575
+msgid "Upload in progress..."
+msgstr ""
+
+#: ../wcs/qommon/form.py:580
+msgid "Remove this file"
+msgstr ""
+
+#: ../wcs/qommon/form.py:581
+#, fuzzy
+msgid "remove"
+msgstr "Mover"
+
+#: ../wcs/qommon/form.py:615
+#, python-format
+msgid "over file size limit (%s)"
+msgstr ""
+
+#: ../wcs/qommon/form.py:641
+#, fuzzy
+msgid "invalid file type"
+msgstr "Fecha invalida"
+
+#: ../wcs/qommon/form.py:704 ../wcs/qommon/form.py:706
+#: ../wcs/qommon/form.py:708
+msgid "must be a valid email address"
+msgstr "Tiene que ser una dirección email valida"
+
+#. empty parts in domain, ex: @example..net, or
+#. @.example.net
+#: ../wcs/qommon/form.py:715 ../wcs/qommon/form.py:731
+#, fuzzy
+msgid "invalid address domain"
+msgstr "Fecha invalida"
+
+#: ../wcs/qommon/form.py:751 ../wcs/qommon/form.py:1024
+msgid "wrong format"
+msgstr "Formato equivocado"
+
+#: ../wcs/qommon/form.py:818 ../wcs/qommon/form.py:822
+msgid "invalid date"
+msgstr "Fecha invalida"
+
+#: ../wcs/qommon/form.py:825
+#, python-format
+msgid "invalid date: date must be on or after %s"
+msgstr ""
+
+#: ../wcs/qommon/form.py:829
+#, python-format
+msgid "invalid date; date must be on or before %s"
+msgstr ""
+
+#: ../wcs/qommon/form.py:927
+msgid "invalid regular expression"
+msgstr "Expresión regular invalida"
+
+#: ../wcs/qommon/form.py:981
+#, python-format
+msgid "You must select at most %d answers."
+msgstr ""
+
+#: ../wcs/qommon/form.py:1033
+msgid "must start with http:// or https:// and have a domain name"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1044
+msgid "must only consist of letters, numbers, or underscore"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1070
+#, fuzzy
+msgid "invalid file size"
+msgstr "Fecha invalida"
+
+#: ../wcs/qommon/form.py:1090 ../wcs/qommon/form.py:1092
+msgid "plus"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1090 ../wcs/qommon/form.py:1092
+msgid "minus"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1092
+#, fuzzy
+msgid "times"
+msgstr "Tiempo"
+
+#: ../wcs/qommon/form.py:1101
+#, python-format
+msgid "What is the result of %(a)d %(op)s %(b)d?"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1103
+msgid ""
+"Please answer this simple mathematical question as proof you are not a bot."
+msgstr ""
+
+#: ../wcs/qommon/form.py:1115
+#, fuzzy
+msgid "wrong answer"
+msgstr "Sin respuesta"
+
+#: ../wcs/qommon/form.py:1626
+msgid "No matches found"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1627
+#, fuzzy
+msgid "Please enter more characters"
+msgstr "Numero de filas"
+
+#: ../wcs/qommon/form.py:1628
+msgid "Loading more results..."
+msgstr ""
+
+#: ../wcs/qommon/form.py:1629
+msgid "Searching..."
+msgstr ""
+
+#: ../wcs/qommon/form.py:1839
+#, fuzzy
+msgid "Confirmation"
+msgstr "Consulta"
+
+#: ../wcs/qommon/form.py:1881
+msgid "Very weak"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1882
+msgid "Weak"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1883
+#, fuzzy
+msgid "Moderate"
+msgstr "Genere"
+
+#: ../wcs/qommon/form.py:1884
+msgid "Good"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1885
+msgid "Strong"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1886
+msgid "Very strong"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1887
+msgid "Password strength:"
+msgstr ""
+
+#: ../wcs/qommon/form.py:1888
+msgid "Too short"
+msgstr ""
+
+#: ../wcs/wf/roles.py:23
+#, fuzzy
+msgid "Add Role to User"
+msgstr "Añadir Rol"
+
+#: ../wcs/wf/roles.py:34
+msgid "Role to Add"
+msgstr ""
+
+#: ../wcs/wf/roles.py:66
+msgid "Remove Role from User"
+msgstr ""
+
+#: ../wcs/wf/roles.py:77
+#, fuzzy
+msgid "Role to Remove"
+msgstr "Nombre del rol"
+
+#: ../wcs/qommon/misc.py:192
+msgid "January"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:192
+msgid "February"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:192
+msgid "March"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:192
+msgid "April"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:193
+msgid "May"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:193
+#, fuzzy
+msgid "June"
+msgstr "Hecho"
+
+#: ../wcs/qommon/misc.py:193
+msgid "July"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:193
+msgid "August"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:194
+msgid "September"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:194
+msgid "October"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:194
+msgid "November"
+msgstr ""
+
+#: ../wcs/qommon/misc.py:194
+#, fuzzy
+msgid "December"
+msgstr "Recibo"
+
+#: ../wcs/qommon/admin/emails.py:101
+msgid "SMTP Server"
+msgstr "Servidor SMTP"
+
+#: ../wcs/qommon/admin/emails.py:103
+#, fuzzy
+msgid "SMTP Login"
+msgstr "Conectarse"
+
+#: ../wcs/qommon/admin/emails.py:105
+#, fuzzy
+msgid "SMTP Password"
+msgstr "Nuevo usuario"
+
+#: ../wcs/qommon/admin/emails.py:107
+msgid "Email Sender"
+msgstr "Email del remitente"
+
+#: ../wcs/qommon/admin/emails.py:109
+msgid "Reply-To Address"
+msgstr "Dirección para contestar"
+
+#: ../wcs/qommon/admin/emails.py:111
+#, fuzzy
+msgid "Email Footer"
+msgstr "Email del remitente"
+
+#: ../wcs/qommon/admin/emails.py:113
+msgid "Handle Bounces"
+msgstr ""
+
+#: ../wcs/qommon/admin/emails.py:116
+msgid "Check DNS for domain name"
+msgstr ""
+
+#: ../wcs/qommon/admin/emails.py:118
+msgid "Use a DNS request to check domain names used in email fields"
+msgstr ""
+
+#: ../wcs/qommon/admin/emails.py:127 ../wcs/qommon/admin/emails.py:129
+#: ../wcs/qommon/admin/emails.py:152
+#, fuzzy
+msgid "General Options"
+msgstr "Opciones para quitar el bug"
+
+#: ../wcs/qommon/admin/emails.py:134
+#, python-format
+msgid "Warning: all emails are sent to <%s>"
+msgstr ""
+
+#: ../wcs/qommon/admin/emails.py:199
+#, fuzzy
+msgid "Enabled Email"
+msgstr "Direcciones email del rol"
+
+#: ../wcs/qommon/admin/emails.py:207
+msgid "Restore default email"
+msgstr ""
+
+#: ../wcs/qommon/admin/emails.py:220 ../wcs/qommon/admin/texts.py:160
+#, fuzzy
+msgid "Invalid template"
+msgstr "Fecha invalida"
+
+#: ../wcs/qommon/admin/emails.py:230
+msgid ""
+"The email subject and body can reference [] variables from the table below:"
+msgstr ""
+
+#: ../wcs/qommon/admin/settings.py:63
+msgid "Fix sessions to an IP address"
+msgstr ""
+
+#: ../wcs/qommon/admin/settings.py:77
+msgid "System Default"
+msgstr "Fallo del sistema"
+
+#: ../wcs/qommon/admin/settings.py:78
+msgid "English"
+msgstr "Ingles"
+
+#: ../wcs/qommon/admin/settings.py:79
+msgid "French"
+msgstr "Frances"
+
+#: ../wcs/qommon/admin/settings.py:100
+msgid "Email for Tracebacks"
+msgstr "Email por retroacción"
+
+#: ../wcs/qommon/admin/settings.py:102
+msgid "Display Exceptions"
+msgstr "Fijar Excepciones"
+
+#: ../wcs/qommon/admin/settings.py:104
+msgid "No display"
+msgstr "No fijar"
+
+#: ../wcs/qommon/admin/settings.py:105
+msgid "Display as Text"
+msgstr "Fijar como texto"
+
+#: ../wcs/qommon/admin/settings.py:106
+#, fuzzy
+msgid "Display as Text in an HTML error page"
+msgstr "Fijar como texto en una pagina de error con HTML"
+
+#: ../wcs/qommon/admin/settings.py:107
+msgid "Display as HTML"
+msgstr "Fijar como HTML"
+
+#: ../wcs/qommon/admin/settings.py:108
+msgid "Logger"
+msgstr "Enchufe de conexión"
+
+#: ../wcs/qommon/admin/settings.py:111
+msgid "Sentry DSN"
+msgstr ""
+
+#: ../wcs/qommon/admin/settings.py:115
+#, fuzzy
+msgid "Enable debug mode"
+msgstr "Direcciones email del rol"
+
+#: ../wcs/qommon/admin/settings.py:117
+msgid "Mail redirection"
+msgstr ""
+
+#: ../wcs/qommon/admin/settings.py:119
+msgid "If set, send all emails to that address instead of the real recipients"
+msgstr ""
+
+#: ../wcs/qommon/admin/texts.py:95
+#, fuzzy
+msgid "Custom Texts"
+msgstr "Customización"
+
+#: ../wcs/qommon/admin/texts.py:147
+msgid "Restore default text"
+msgstr ""
+
+#: ../wcs/qommon/admin/texts.py:169
+msgid "The text can reference [] variables from the table below:"
+msgstr ""
+
+#: ../wcs/qommon/admin/logger.py:44 ../wcs/qommon/admin/logger.py:160
+#, python-format
+msgid "Bad log file: %s"
+msgstr "Malo fichero log : %s"
+
+#: ../wcs/qommon/admin/logger.py:48
+msgid "Nothing to show"
+msgstr "Nada para enseñar"
+
+#: ../wcs/qommon/admin/logger.py:89
+msgid "Anonymous"
+msgstr "Anonimo"
+
+#: ../wcs/qommon/admin/logger.py:93
+msgid "Unlogged"
+msgstr ""
+
+#: ../wcs/qommon/admin/logger.py:97
+msgid "Bot"
+msgstr ""
+
+#: ../wcs/qommon/admin/logger.py:122 ../wcs/qommon/admin/logger.py:124
+msgid "Download Raw Log File"
+msgstr "Descargar el fichero log bruto"
+
+#: ../wcs/qommon/admin/logger.py:143
+msgid "Select another logfile:"
+msgstr "Seleccionar otro fichero log"
+
+#: ../wcs/qommon/admin/logger.py:148
+#, python-format
+msgid "Since: %s"
+msgstr "Desde : %s"
+
+#: ../wcs/qommon/admin/menu.py:145
+#, fuzzy
+msgid "backoffice"
+msgstr "Back Office"
+
+#: ../wcs/qommon/admin/menu.py:146 ../wcs/qommon/backoffice/menu.py:44
+msgid "logout"
+msgstr "deconectarze"
+
+#: ../wcs/qommon/admin/menu.py:152 ../wcs/qommon/backoffice/menu.py:51
+msgid "help"
+msgstr ""
+
+#: ../wcs/qommon/admin/menu.py:175
+#, fuzzy, python-format
+msgid "Administration of %s"
+msgstr "Administración WCS"
+
+#: ../wcs/qommon/admin/menu.py:199
+msgid "Remove"
+msgstr "Mover"
+
+#: ../wcs/qommon/admin/menu.py:201
+msgid "View"
+msgstr "Vista"
+
+#: ../wcs/qommon/errors.py:33 ../wcs/qommon/errors.py:37
+msgid "Access Forbidden"
+msgstr "Acceso prohibido"
+
+#: ../wcs/qommon/errors.py:34 ../wcs/qommon/errors.py:38
+#, fuzzy
+msgid "the homepage"
+msgstr "Pagina de inicio"
+
+#: ../wcs/qommon/errors.py:60
+msgid "Oops, the server borked severely"
+msgstr ""
+
+#: ../wcs/qommon/errors.py:64
+msgid ""
+"This is bad bad bad; perhaps you will have more luck if you retry in a few "
+"minutes ? "
+msgstr ""
+
+#: ../wcs/qommon/errors.py:66
+msgid ""
+"Alternatively you could harass the webmaster (who may have been emailed "
+"automatically with this incident but you can't be sure about this."
+msgstr ""
+
+#: ../wcs/qommon/errors.py:104
+msgid "Page not found"
+msgstr "Pagina no encontrada"
+
+#: ../wcs/qommon/errors.py:106
+msgid ""
+"The requested link does not exist on this site.  If you arrived here by "
+"following a link from an external page, please inform that page's maintainer."
+msgstr ""
+"El lazo padido no existe en este sitio. Si ha llegado aqui siguiendoun lazo "
+"de una pagina externa, informe el encargado de dicha pagina, por favor."
+
+#: ../wcs/wf/form.py:30
+#, fuzzy
+msgid "Workflow Form Fields"
+msgstr "Nombre del rol"
+
+#: ../wcs/wf/form.py:49
+#, fuzzy
+msgid "Display a form"
+msgstr "Fijar como texto"
+
+#: ../wcs/wf/form.py:68
+#, fuzzy
+msgid "Edit Fields"
+msgstr "Campos"
+
+#: ../wcs/qommon/backoffice/root.py:68
+msgid ""
+"Access to backoffice is restricted to authorized persons only. Please login."
+msgstr ""
+
+#: ../wcs/qommon/backoffice/root.py:120
+msgid "Updating Backoffice Info Feed"
+msgstr ""
+
+#: ../wcs/qommon/backoffice/menu.py:66
+#, fuzzy, python-format
+msgid "Back Office of %s"
+msgstr "Back Office"
+
+#: ../wcs/qommon/backoffice/listing.py:37
+#: ../wcs/qommon/backoffice/listing.py:39
+#, fuzzy
+msgid "Previous Page"
+msgstr "Anterior"
+
+#: ../wcs/qommon/backoffice/listing.py:50
+#: ../wcs/qommon/backoffice/listing.py:52
+#, fuzzy
+msgid "Next Page"
+msgstr "Nueva pagina"
+
+#: ../wcs/wf/remove.py:21
+#, fuzzy
+msgid "Remove Form"
+msgstr "Mover"
+
+#: ../wcs/wf/remove.py:27
+#, fuzzy
+msgid "The form has been deleted."
+msgstr ""
+"El formulario ha sido enregistrado en %(date)s con el numero %(number)s."
+
+#: ../wcs/wf/jump.py:93
+msgid "Change Status Automatically"
+msgstr ""
+
+#: ../wcs/wf/jump.py:124
+#, fuzzy
+msgid "Change Status Automatically (not completed)"
+msgstr "rellenado ya"
+
+#: ../wcs/wf/jump.py:127
+msgid "Change Status Automatically (broken)"
+msgstr ""
+
+#: ../wcs/wf/jump.py:130
+#, fuzzy
+msgid "condition"
+msgstr "Consulta"
+
+#: ../wcs/wf/jump.py:132
+#, fuzzy
+msgid "trigger"
+msgstr "Enchufe de conexión"
+
+#: ../wcs/wf/jump.py:134
+#, fuzzy
+msgid "timeout"
+msgstr "Tiempo"
+
+#: ../wcs/wf/jump.py:137
+#, python-format
+msgid "Change Status Automatically (to %(name)s) (%(reasons)s)"
+msgstr ""
+
+#: ../wcs/wf/jump.py:141
+#, python-format
+msgid "Change Status Automatically (to %s)"
+msgstr ""
+
+#: ../wcs/wf/jump.py:149
+#, fuzzy
+msgid "Condition (formula)"
+msgstr "Consulta"
+
+#: ../wcs/wf/jump.py:152
+msgid "Trigger (string)"
+msgstr ""
+
+#: ../wcs/wf/jump.py:155
+msgid "Roles allowed to trigger"
+msgstr ""
+
+#~ msgid "Only show this form to the given roles."
+#~ msgstr "Solo enseñar este formulario para los roles repartidos."
+
+#, fuzzy
+#~ msgid "Subject:"
+#~ msgstr "Mandar"
+
+#, fuzzy
+#~ msgid "WSF Expression"
+#~ msgstr "ID-WSF expresión pre-rellenada"
+
+#~ msgid "Needs ID-WSF prefill explicit request"
+#~ msgstr "Explicitar ID-WSF expresión pre-rellenada"
+
+#~ msgid "Text (block)"
+#~ msgstr "Texto (bloque)"
+
+#~ msgid "Check Box"
+#~ msgstr "Averiguar Caja"
+
+#, fuzzy
+#~ msgid "Receiver"
+#~ msgstr "Recibo"
+
+#~ msgid "Liberty Alliance Details"
+#~ msgstr "Detalles de la Liberty Alliance"
+
+#, fuzzy
+#~ msgid "Certificates"
+#~ msgstr "CA certificado cadena"
+
+#, fuzzy
+#~ msgid "Configure certificate authorities"
+#~ msgstr "Configura parametros de Liberty"
+
+#, fuzzy
+#~ msgid "Upload"
+#~ msgstr "Envio de fichero"
+
+#~ msgid "Show user details on public pages"
+#~ msgstr "Enseñar detalles del usuario en las paginas publicas"
+
+#, fuzzy
+#~ msgid "Recipient Role"
+#~ msgstr "Recipiente"
+
+#, fuzzy
+#~ msgid "Edit Options"
+#~ msgstr "Opciones para quitar el bug"
+
+#~ msgid "Duplicate Form"
+#~ msgstr "Duplicar formularios"
+
+#, fuzzy
+#~ msgid "sender"
+#~ msgstr "Usuario/a"
+
+#, fuzzy
+#~ msgid "receiver"
+#~ msgstr "Recibo"
+
+#, fuzzy
+#~ msgid "Commentable"
+#~ msgstr "Comentario"
+
+#, fuzzy
+#~ msgid "Choice"
+#~ msgstr "Desde : %s"
+
+#, fuzzy
+#~ msgid "Choice \"%s\""
+#~ msgstr "Desde : %s"
+
+#, fuzzy
+#~ msgid "Jump on Submit"
+#~ msgstr "Mandar"
+
+#, fuzzy
+#~ msgid "Editable by %s"
+#~ msgstr "Comentario"
+
+#~ msgid "Accepted forms"
+#~ msgstr "Formularios acceptados"
+
+#~ msgid "Listing in CSV format"
+#~ msgstr "Listín en formato CSV"
+
+#, fuzzy
+#~ msgid "time"
+#~ msgstr "Tiempo"
+
+#~ msgid "status"
+#~ msgstr "Estado"
+
+#~ msgid "Liberty support is not yet configured"
+#~ msgstr "El soporte Liberty no esta todavia configurado."
+
+#~ msgid "Identity Provider didn't accept artifact transaction."
+#~ msgstr "El proveador de identidad no acepta una transacción artificial."
+
+#~ msgid "Failed to check single logout request signature."
+#~ msgstr "Fallo para averiguar la firma necesaria en su fichero exterior."
+
+#, fuzzy
+#~ msgid "Choose Date"
+#~ msgstr "Pagina de inicio"
+
+#, fuzzy
+#~ msgid "Signing"
+#~ msgstr "Establecimientos"
+
+#~ msgid "No data found for prefilling"
+#~ msgstr "Ningun dato encontrado para pre enregistrar"
+
+#, fuzzy
+#~ msgid "Signature has been cancelled"
+#~ msgstr "Su situación ha sido seguida por:"
+
+#, fuzzy
+#~ msgid "Signing failled"
+#~ msgstr "Formulando"
+
+#, fuzzy
+#~ msgid "Invalid signature"
+#~ msgstr "Fecha invalida"
+
+#~ msgid "Your case will be handled by:"
+#~ msgstr "Su situación sera seguida por:"
+
+#~ msgid "Your Current Forms"
+#~ msgstr "Sus formularios actuales"
+
+#~ msgid "Your Old Forms"
+#~ msgstr "Sus formularios antiguos"
+
+#~ msgid "Logged in as %s."
+#~ msgstr "Enregistrado como %s."
+
+#, fuzzy
+#~ msgid "Add Attachment"
+#~ msgstr "Añadir comentarios"
+
+#, fuzzy
+#~ msgid "description"
+#~ msgstr "Opciones para quitar el bug"
+
+#, fuzzy
+#~ msgid "hint"
+#~ msgstr "Indice"
+
+#, fuzzy
+#~ msgid "title"
+#~ msgstr "Titulo"
+
+#, fuzzy
+#~ msgid "Proxy port"
+#~ msgstr "Exportar"
+
+#, fuzzy
+#~ msgid "Certificate %s"
+#~ msgstr "CA certificado cadena"
+
+#, fuzzy
+#~ msgid "You are about to delete this certificate."
+#~ msgstr "Esta a punto de borrar irrevocablamente esta categoria."
+
+#, fuzzy
+#~ msgid "certificates"
+#~ msgstr "CA certificado cadena"
+
+#, fuzzy
+#~ msgid "Certificate Authorities"
+#~ msgstr "CA certificado cadena"
+
+#, fuzzy
+#~ msgid "Add Certificate Authority"
+#~ msgstr "CA certificado cadena"
+
+#, fuzzy
+#~ msgid "Certificate"
+#~ msgstr "CA certificado cadena"
+
+#, fuzzy
+#~ msgid "Bad certificate"
+#~ msgstr "CA certificado cadena"
+
+#, fuzzy
+#~ msgid "Configure Liberty parameters"
+#~ msgstr "Configura parametros de Liberty"
+
+#, fuzzy
+#~ msgid "ID-FF 1.2 Service Provider Metadata"
+#~ msgstr "Metadatos del proveador de servicios"
+
+#, fuzzy
+#~ msgid "Download Service Provider ID-FF 1.2 Metadata file"
+#~ msgstr "Descargue el fichero de metadatos del proveador de servicios"
+
+#, fuzzy
+#~ msgid "Liberty Provider ID"
+#~ msgstr "Proveador ID"
+
+#, fuzzy
+#~ msgid "Liberty Base URL"
+#~ msgstr "Base URL"
+
+#~ msgid "Provider ID"
+#~ msgstr "Proveador ID"
+
+#, fuzzy
+#~ msgid ""
+#~ "Hello,\n"
+#~ "\n"
+#~ "A new form has been submitted on the website, you can consult it with "
+#~ "this\n"
+#~ "link: [url]\n"
+#~ "\n"
+#~ "[if-any details]\n"
+#~ "[details]\n"
+#~ "[end]\n"
+#~ msgstr ""
+#~ "Ola,\n"
+#~ "\n"
+#~ "Un nuevo formulario ha sido sometido al sitio web, puede consultarlo,\n"
+#~ "lazo : %(url)s\n"
+
+#, fuzzy
+#~ msgid "Notification of comment to user"
+#~ msgstr "Ficha de identificación para %s:"
+
+#, fuzzy
+#~ msgid ""
+#~ "Hello,\n"
+#~ "\n"
+#~ "New information has been submitted on the form you submitted, you can\n"
+#~ "consult it with this link:\n"
+#~ "\n"
+#~ "[url]\n"
+#~ "\n"
+#~ "[if-any evolution]\n"
+#~ "[evolution]\n"
+#~ "[end]\n"
+#~ msgstr ""
+#~ "Ola,\n"
+#~ "\n"
+#~ "Nuevas informacione han sido propuestas en al formulario que ha sometido."
+#~ "Puede consultarlo con el lazo :\n"
+#~ "\n"
+#~ "%(url)s\n"
+
+#, fuzzy
+#~ msgid "Notification of comment to receiver"
+#~ msgstr "Ficha de identificación para %s:"
+
+#, fuzzy
+#~ msgid "Form status comment [name]"
+#~ msgstr "Cambio del estado del formulario (%s)"
+
+#, fuzzy
+#~ msgid "Unknownn"
+#~ msgstr "Desconocido"
+
+#, fuzzy
+#~ msgid "Custom Email:"
+#~ msgstr "Customización"
+
+#, fuzzy
+#~ msgid "Check values then click sign."
+#~ msgstr "Averiguar valores, luego dar un clic en someter"
+
+#, fuzzy
+#~ msgid "Spanish"
+#~ msgstr "Acabar"
+
+#~ msgid "Note that user has already been issued an identification token: %s"
+#~ msgstr "Note que el usuario ya ha recibido una ficha de identificación: %s"
+
+#, fuzzy
+#~ msgid ""
+#~ "You have been given an identification token.\n"
+#~ "\n"
+#~ "Go to %(url)s to use it.\n"
+#~ "\n"
+#~ "Your token is %(token)s"
+#~ msgstr ""
+#~ "Le han mandado una ficha de indetificación.\n"
+#~ "\n"
+#~ "Log on %s to use it.\n"
+#~ "\n"
+#~ "Su ficha es %s"
+
+#~ msgid "Identification Token (current: %s)"
+#~ msgstr "Ficha de identificación (actualemente: %s)"
+
+#~ msgid "all forms viewable by anynone"
+#~ msgstr "Todos los formularios son visibles por cualquiera"
+
+#, fuzzy
+#~ msgid "Request Denied"
+#~ msgstr "Necesitado"
+
+#~ msgid "ID-WSF prefill expression"
+#~ msgstr "ID-WSF expresión pre-rellenada"
+
+#~ msgid "Home page"
+#~ msgstr "Pagina de inicio"
+
+#, fuzzy
+#~ msgid "access forbidden"
+#~ msgstr "Acceso prohibido"
+
+#, fuzzy
+#~ msgid "page not found"
+#~ msgstr "Pagina no encontrada"
+
+#, fuzzy
+#~ msgid "server error"
+#~ msgstr "Error interno del servidor"
+
+#, fuzzy
+#~ msgid "Log In"
+#~ msgstr "Conectarse"
+
+#~ msgid "Consultations"
+#~ msgstr "Consultas"
+
+#~ msgid "consultations"
+#~ msgstr "consultas"
+
+#~ msgid "User Name"
+#~ msgstr "Apellido del usuario"
+
+#~ msgid "User Id"
+#~ msgstr "ID del usuario"
+
+#~ msgid "Consultation Name"
+#~ msgstr "Nombre de consulta"
+
+#~ msgid "Only show this consultation to the given roles."
+#~ msgstr "Solo enseñar esta consulta a los roles atribuidos."
+
+#, fuzzy
+#~ msgid "Close consultation once completed"
+#~ msgstr "Nombre de consulta"
+
+#~ msgid "Duplicate Consultation"
+#~ msgstr "Consulta duplicada"
+
+#~ msgid "Edit Consultation"
+#~ msgstr "Imprimir consulta"
+
+#~ msgid "You are about to irrevocably delete this consultation."
+#~ msgstr "Esa a punto de borrr irrevocablamente esta consulta."
+
+#~ msgid "Delete Consultation"
+#~ msgstr "Borrar consulta"
+
+#~ msgid "Leave Back Office"
+#~ msgstr "Dejar Back Office"
+
+#~ msgid "Consultation completed; here is a summary of the answers:"
+#~ msgstr "Consulta completa; aqui sigue un sumario de los respuestas:"
+
+#~ msgid "You are logged in as %s."
+#~ msgstr "Ha sido registrado como %s."
+
+#, fuzzy
+#~ msgid "This form has already been filled."
+#~ msgstr "Este formulario ya ha sido sometido."
+
+#, fuzzy
+#~ msgid "New form (%s)"
+#~ msgstr "Nuevos formularios"

@@ -1,0 +1,463 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-cards" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" />
+  <revision docversion="0.1" date="2020-12-06" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Liste de fiches, schémas de données, etc.</desc>
+
+</info>
+
+<title>Gestion des fiches</title>
+
+<p>
+Une application tierce peut créer des fiches, récupérer et modifier les données
+des fiches, et peut également obtenir la liste des modèles de fiche et les
+schémas de données associés.
+</p>
+
+<section id="create">
+  <title>Création d’une fiche</title>
+
+  <p>
+   La création d’une fiche se fait par une requête <code>POST</code> à
+   l’adresse <code>/api/cards/<var>slug</var>/submit</code>, le contenu de
+   la requête doit être un dictionnaire contenant obligatoirement un attribut
+   <code>data</code>.
+  </p>
+
+  <note>
+    <p>
+    Le <em>slug</em> est l’identifiant non-numérique utilisé dans les URL, il
+    est visible depuis l’écran d’un modèle de fiche, dans la fenêtre de
+    modification du titre.
+    </p>
+  </note>
+
+  <p>
+   L’attribut <code>data</code> est obligatoire et contient un dictionnaire
+   dont les clés sont les noms de variable (remplacé ici par
+   <var>varname</var>) des champs de la fiche et les valeurs le contenu de
+   ces champs.
+  </p>
+
+  <list>
+  <item>
+  <p>
+   Les champs de type simple tels que « Texte », « Texte long » ou
+   « Courriel » sont des chaînes de caractères.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Liste » et « Liste à choix multiples » acceptent
+   différentes valeurs selon leur configuration, ceci est décrit dans
+   <link xref="api-fill#fill-list"/>.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Date » sont des chaînes de caractères au format
+   ISO-8601, i.e. <code>YYYY-MM-DD</code>.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Fichier » sont des dictionnaires contenant les clés
+   <code>filename</code> pour le nom de fichier et <code>content</code> pour le
+   contenu de celui-ci, encodé en base64.
+  </p>
+  </item>
+
+  <item>
+  <p>
+   Les champs de type « Carte » sont des dictionnaires contenant les clés
+   <code>lat</code> pour la latitute en nombre décimal et <code>lon</code>
+   pour la longitude en nombre décimal.
+  </p>
+  </item>
+  </list>
+
+  <p>
+   L’exemple suivant crée une fiche « Parking », dont le modèle
+   de fiche a comme identifiant « parkings », qui demanderait trois champs :
+   adresse (nom de variable <code>adresse</code>), date d’ouverture
+   (nom de variable <code>date_ouverture</code>) et nom (nom de variable
+   <code>nom</code>).
+  </p>
+
+  <screen>
+<input>POST https://www.example.net/api/cards/parkings/submit</input>
+<output>{"err": 0, "data": {"id": "5"}}</output>
+  </screen>
+
+  <p>
+   Avec les données suivantes en entrée :
+  </p>
+
+  <code mime="application/json">
+{
+  "data": {
+     "adresse": "rue de l’Opéra",
+     "date_ouverture": "2020-11-12",
+     "nom": "Parking Opéra-Tolozan"
+  }
+}
+  </code>
+
+  <note>
+    <p>
+    Il n’y a aucune vérification du format des données reçues, elles sont
+    enregistrée telles quelles. Les contraintes de validation ou les conditions
+    d’affichage ne sont pas prises en compte.
+    </p>
+  </note>
+
+</section>
+
+<section id="card-import-csv">
+<title>Création d’un ensemble de fiches par import CSV</title>
+
+<p>
+Il est possible de créer un ensemble de fiches par import d’un fichier CSV.
+Cela s’effectue par une requête <code>PUT</code> à l’adresse
+<code>/api/cards/<var>slug</var>/import-csv</code>. Le contenu de la requête
+doit être un fichier CSV (text/csv).
+</p>
+
+<p>
+Chaque ligne du fichier va provoquer la création d’une nouvelle fiche et lancer
+le workflow correspondant.
+</p>
+
+<screen>
+<input>PUT https://www.example.net/api/cards/<var>slug</var>/import-csv</input>
+<output>{"err": 0}</output>
+</screen>
+
+<p>Le fichier CSV doit suivre le même format que celui utilisé lors d’un import
+CSV dans l’interface de gestion.</p>
+
+<p>Quand le modèle de fiche définit un identifiant personnalisé pour les
+fiches, il est possible de définr le comportement à adopter concernant les
+fiches qui auraient le même identifiant : <code>update-mode=update</code> pour faire
+la mise à jour, <code>update-mode=skip</code> pour ignorer ces fiches. Le
+comportement sur les fiches existantes mais absentes du fichier CSV peut
+également être contrôlé, <code>delete-mode=keep</code> pour les conserver,
+<code>delete-mode=delete</code> pour les supprimer.</p>
+
+<section id="card-import-csv-async">
+<title>Import CSV asynchrone (recommandé)</title>
+
+<p>
+En plus de la création des fiches, le workflow va être exécuté pour chacune :
+sur un fichier CSV important le temps d’exécution de l’import peut dépasser la
+limite acceptée par le serveur HTTP (souvent 20 ou 30 secondes). Il est donc
+recommandé d’utiliser l’option asynchrone de l’import CSV.
+</p>
+
+<p>
+Pour faire un import asynchrone, ajouter <code>async=on</code> dans les
+paramètres de l’URL :
+</p>
+
+<screen>
+<input>PUT https://www.example.net/api/cards/<var>slug</var>/import-csv<var>?async=on</var></input>
+<output>{
+    "err": 0,
+    "data": {
+        "job": {
+            "id": "1234",
+            "url": "https://www.example.net/api/jobs/1234/"
+        }
+    }
+}</output>
+</screen>
+
+<p>
+Cet appel envoie le fichier CSV, mais il n’est pas aussitôt importé. Une tâche
+(<em>job</em>) est lancée qui va effectivement faire l’import, et on peut en
+suivre la progression en appellant son URL indiquée en retour de l’appel PUT.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/jobs/1234/</input>
+<output>{
+    "err": 0,
+    "data": {
+        "status": "en cours",
+        "label": "Importation des données dans des fiches",
+        "creation_time": 1634910701,
+        "completion_time": null,
+        "completion_status": "23/46 (50%)"
+}
+}</output>
+</screen>
+
+<p>
+Pour suivre la bonne exécution de l’import, il faut appeler cette URL jusqu’à
+ce que la valeur <code>completion_time</code> soit renseignée. La valeur
+<code>status</code> permet de savoir alors si l’import s'est correctement
+déroulé.
+</p>
+
+</section>
+</section>
+
+<section id="card">
+<title>Récupération des données d’une fiche</title>
+
+<p>
+L’exemple suivant récupère les données d’une fiche « Parking », dont le modèle
+de fiche a comme identifiant « parkings ».
+</p>
+
+  <screen>
+<input>GET https://www.example.net/api/cards/parkings/5/</input>
+</screen>
+
+<p>
+Le contenu ainsi obtenu est le suivant :
+</p>
+
+  <code mime="application/json">
+{
+   "digest" : "Parking Opéra-Tolozan",
+   "display_id" : "31-5",
+   "display_name" : "Parkings - n°31-5",
+   "id" : "5",
+   "last_update_time" : "2020-11-24T14:18:16",
+   "receipt_time" : "2020-11-06T14:48:07",
+   "fields" : { 
+      "adresse" : "rue de l’Opéra",
+      "date_ouverture" : "2020-11-12",
+      "nom" : "Parking Opéra-Tolozan"
+   },
+   "text" : "Parking Opéra-Tolozan",
+   "url" : "https://.../backoffice/data/parkings/5/",
+   "workflow" : {
+      "status" : {
+         "id" : "recorded",
+         "name" : "Recorded",
+         "endpoint": false
+      }
+   },
+   "evolution" : [...],
+   "geolocations": {...},
+   "roles": {...}
+}
+</code>
+
+<p>
+La structure du contenu correspond à celle de l’API de <link xref="#create"/>.
+</p>
+
+</section>
+
+<section id="card-edit">
+<title>Modification des données d’une fiche</title>
+
+<p>
+Sur le même modèle que les formulaires une fiche qui peut être modifiée (par
+la présence d’une action de workflow de type « Édition ») peut également être
+modifiée via un appel à l’API.
+</p>
+
+<p>
+Les données attendues sont similaires à la création d’une nouvelle fiche
+(<link xref="#create"/>), seuls les champs présents seront pris en compte.
+</p>
+
+<screen>
+<input>POST https://www.example.net/api/cards/parkings/5/</input>
+</screen>
+
+</section>
+
+
+<section id="listing">
+<title>Liste de fiches</title>
+
+<p>
+La liste des fiches d’un modèle donné est destinée à être utilisée par
+un système de synchronisation. Elle ne retourne donc pour chaque fiche que
+son numéro (id), ses dates de création et de dernière mise à jour.
+</p>
+
+<p>
+Un système de synchronisation vérifiera depuis cette liste si de nouvelles
+demandes existent, ou si certaines ont été mises à jour, sont obsolètes ou
+effacées, puis effectuera pour chacune les actions nécessaires.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/cards/parkings/list</input>
+<output>{
+    "data": [
+        {
+            "id": 1,
+            "text": "Parking de la place",
+            "url": "https://www.example.net/backoffice/data/parkings/1/",
+            "last_update_time": "2015-03-26T23:08:45",
+            "receipt_time": "2015-03-26T23:08:44",
+            "display_id": "12-1",
+            "display_name": "Parkings - n°12-1"
+        },
+        {
+            "id": 2,
+            "text": "Parking des nénuphars",
+            "url": "https://www.example.net/backoffice/data/parkings/2/",
+            "last_update_time": "2015-03-27T09:03:12",
+            "receipt_time": "2015-03-27T09:03:12",
+            "display_id": "12-2",
+            "display_name": "Parkings - n°12-2"
+        },
+        {
+            "id": 3,
+            "text": "Parking de la rivière",
+            "url": "https://www.example.net/backoffice/data/parkings/3/",
+            "last_update_time": "2015-03-27T12:11:21",
+            "receipt_time": "2015-03-27T12:45:19",
+            "display_id": "12-3",
+            "display_name": "Parkings - n°12-3"
+        }
+    ]
+}</output>
+</screen>
+
+<p>
+Des paramètres peuvent être envoyés dans la requête pour filtrer la liste des
+fiches, ils sont similaires à ceux de l’API de <link
+xref="api-get#listing">récupération d’une liste de formulaires</link>. Les
+autres paramètres de cette API sont également exploitables, pour inclure
+l’ensemble des données (<code>full=on</code>) ou anonymiser celles-ci
+(<code>anonymise</code>).
+</p>
+
+<p>
+Il est également possible de récupérer une liste filtrée correspondant à une
+vue personnalisée, en ajoutant l’identifiant de celle-ci à l’adresse, ex :
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/cards/parkings/list/vue-personnalisee</input>
+<output>{
+    "data": [
+        {
+            "id": 1,
+            "text": "Parking de la place",
+            "url": "https://www.example.net/backoffice/data/parkings/1/",
+            "last_update_time": "2015-03-26T23:08:45",
+            "receipt_time": "2015-03-26T23:08:44",
+            "display_id": "12-1",
+            "display_name": "Parkings - n°12-1"
+        },
+        {
+            "id": 3,
+            "text": "Parking de la rivière",
+            "url": "https://www.example.net/backoffice/data/parkings/3/",
+            "last_update_time": "2015-03-27T12:11:21",
+            "receipt_time": "2015-03-27T12:45:19",
+            "display_id": "12-3",
+            "display_name": "Parkings - n°12-3"
+        }
+    ]
+}</output>
+</screen>
+
+</section>
+
+<section id="card-schema">
+<title>Schéma de données</title>
+
+<p>
+Une API existe pour récupérer le schéma de données d’un modèle de fiches.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/cards/parkings/@schema</input>
+<output>{
+   "always_advertise" : false,
+   "appearance_keywords" : null,
+   "confirmation" : false,
+   "description" : null,
+   "detailed_emails" : true,
+   "digest_template" : "{{form_var_nom}}",
+   "disabled" : false,
+   "disabled_redirection" : null,
+   "discussion" : false,
+   "drafts_lifespan" : null,
+   "drafts_max_per_user" : null,
+   "enable_tracking_codes" : false,
+   "expiration_date" : null,
+   "fields" : [
+      {
+         "anonymise" : true,
+         "data_source" : {},
+         "label" : "Nom",
+         "prefill" : {
+            "type" : "none"
+         },
+         "required" : true,
+         "type" : "string",
+         "validation" : {},
+         "varname" : "nom"
+      },
+      ...
+   ],
+   "workflow" : {
+      "fields" : [],
+      "functions" : {
+         "_editor" : "Editor",
+         "_viewer" : "Viewer"
+      },
+      "name" : "Fiche parking",
+      "statuses" : [
+         {
+            "endpoint" : false,
+            "forced_endpoint" : false,
+            "id" : "recorded",
+            "name" : "Recorded",
+            "waitpoint" : true
+         },
+      ...
+   }
+}</output>
+</screen>
+
+</section>
+
+<section id="card-models">
+<title>Liste des modèles de fiches</title>
+
+<p>Une API permet de récupérer la liste des modèles de fiches.</p>
+
+<screen>
+<input>GET https://www.example.net/api/cards/@list</input>
+<output>{
+   "data" : [
+      {
+         "custom_views" : [],
+         "description" : "",
+         "id" : "parkings",
+         "keywords" : [],
+         "slug" : "parkings",
+         "text" : "Parkings",
+         "title" : "Parkings",
+         "url" : "https://.../backoffice/data/parkings/"
+      },
+      ...
+   }
+}</output>
+</screen>
+
+</section>
+
+</page>

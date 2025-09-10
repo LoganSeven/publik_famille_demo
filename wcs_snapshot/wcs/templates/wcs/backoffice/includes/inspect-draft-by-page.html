@@ -1,0 +1,23 @@
+{% load i18n %}
+{% if num %}
+  <tr data-page-id="{{ page_id }}">
+    <td class="label">
+      {% if page_id == "_unknown" %}
+        {% trans "Unknown" %}
+      {% elif page_id == "_first_page" %}
+        {% trans "Only page" %}
+      {% elif page_id == "_confirmation_page" %}
+        {% trans "Confirmation page" %}
+      {% else %}
+        {{ field.ellipsized_label }}
+      {% endif %}
+    </td>
+    <td class="percent">{{ percent|floatformat }}{% trans "%" %}</td>
+    <td class="total">({{ num }}/{{ den }})</td>
+  </tr>
+  <tr>
+    <td class="bar" colspan="3">
+      <span style="width: {{ percent|floatformat:"3u" }}%"></span>
+    </td>
+  </tr>
+{% endif %}

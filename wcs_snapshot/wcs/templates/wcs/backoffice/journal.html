@@ -1,0 +1,50 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block content %}
+  {% block appbar %}
+    <div id="appbar">
+      <h2>{% trans "Audit Journal" %}</h2>
+    </div>
+  {% endblock %}
+
+  <table id="journal-table" class="main">
+    <thead>
+      <tr>
+        <th>{% trans "Date" %}</th>
+        <th>{% trans "User" %}</th>
+        <th>{% trans "Action" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in lines %}
+        <tr>
+          <td class="journal-table--datetime">{{ line.timestamp|date:"DATETIME_FORMAT" }}</td>
+          <td class="journal-table--user">{{ line.frozen.user_full_name|default:"-" }}</td>
+          <td class="journal-table--description">{{ line.get_action_description }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div id="journal-page-links">
+    <a class="button first-page {% if no_prev%}disabled{% endif %}"
+       title="{% trans "Most recent activity" %}"
+       href="./?{{ extra_qs }}"><span class="sr-only">{% trans "First page" %}</span></a>
+    <a class="button previous-page {% if no_prev%}disabled{% endif %}"
+       title="{% trans "More recent activity" %}"
+       href="./?min={{ last_row_id }}&{{ extra_qs }}"><span class="sr-only">{% trans "Previous page" %}</span></a>
+    <a class="button next-page {% if no_next %}disabled{% endif %}"
+       title="{% trans "More ancient activity" %}"
+       href="./?max={{ first_row_id }}&{{ extra_qs }}"><span class="sr-only">{% trans "Next page" %}</span></a>
+    <a class="button last-page {% if no_next %}disabled{% endif %}"
+       title="{% trans "Most ancient activity" %}"
+       href="./?max={{ latest_page_id }}&{{ extra_qs }}"><span class="sr-only">{% trans "Last page" %}</span></a>
+  </div>
+
+{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Search" %}</h3>
+  {{ html_form.render|safe }}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Compare snapshots" %}{% if has_inspect %} ({% if mode == 'xml' %}{% trans "XML" %}{% else %}{% trans "Inspect" %}{% endif %}){% endif %}{% endblock %}
+{% block appbar-actions %}
+  {% if has_inspect %}
+    <a href="?version1={{ snapshot1.id }}&version2={{ snapshot2.id }}&mode=inspect">{% trans "Compare inspect" %}</a>
+    <a href="?version1={{ snapshot1.id }}&version2={{ snapshot2.id }}&mode=xml">{% trans "Compare XML" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <p class="snapshot-description">{{ fromdesc|safe }} ➔ {{ todesc|safe }}</p>
+  <div class="snapshot-diff">
+    {% if mode == 'xml' %}
+      {{ diff_serialization|safe }}
+    {% else %}
+      <div class="{{ tab_class_names }}">
+        <div class="pk-tabs--tab-list" role="tablist">
+          {% for tab in tabs %}{{ tab|safe }}{% endfor %}
+          {{ tab_list|safe }}
+        </div>
+        <div class="pk-tabs--container">
+          {% for attrs, panel in panels %}
+            <div{% for k, v in attrs.items %} {{ k }}="{{ v }}"{% endfor %}>
+              {{ panel|safe }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

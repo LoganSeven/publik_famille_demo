@@ -1,0 +1,104 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="wf-variables" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#wf" />
+  <revision docversion="0.1" date="2015-05-01" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Variables de workflow</title>
+
+<p>
+Il arrive souvent qu’un même traitement doive être appliqué à différents
+formulaires, à un petit détail près, par exemple le document généré doit être
+basé sur un modèle différent, un webservice externe doit être appelé avec une
+autre donnée, etc.
+</p>
+
+<p>
+Dans ces situations il est bien sûr possible de dupliquer le workflow autant de
+fois qu’il existe de variations mais ça entraîne rapidement un coût d’entretien
+trop élevé.  Les variables de workflow sont une réponse à ce problème, elles
+permettent de déléguer certains éléments du paramétrage d’un workflow aux
+formulaires associés.
+</p>
+
+<p>
+Pratiquement, la définition des variables se rapproche de la définition des
+formulaires destinés aux usagers, il s’agit de définir une série de champs. Il
+y a quand même une différence, lors de la définition d’un champ celui-ci doit
+être associé soit à un nom de variable, qui pourra alors être utilisé dans le
+formulaire, soit directement à un élément du workflow, qui sera alors substitué
+automatiquement.  Les deux usages sont décrits par la suite.
+</p>
+
+<p>
+Une fois les variables définies dans le workflow, un lien <em>options</em>
+apparaît à côté du nom du workflow choisi dans la page du formulaire, et
+cliquer dessus ouvre une fenêtre avec la liste des paramètres à remplir.
+</p>
+
+<section>
+  <title>Option associée à une variable</title>
+
+  <p>
+   Une option peut être associé à un nom de variable, celle-ci deviendra alors
+   accessible dans le formulaire (sous le nom
+   <code>form_option_<var>variable</var></code>), par exemple dans les
+   conditions de page ou pour le préremplissage, et ensuite dans le traitement
+   même, par exemple comme variable à insérer dans un courriel.
+  </p>
+
+  <p>
+   Un workflow de concours pourrait ainsi avoir comme variable la
+   description du prix (nommée <code>description_prix</code>), dans la
+   définition d’un formulaire la variable serait remplie avec "Deux
+   places de cinéma" et dans le traitement, une action d’envoi de courriel
+   pourrait décrire celui-ci ainsi :
+  </p>
+
+  <example>
+   <code>
+Merci de votre participation à notre concours où vous pouvez remporter
+{{form_option_description_prix}}, nous vous enverrons le résultat dès le
+tirage au sort.
+   </code>
+  </example>
+
+  <p>
+   Une autre utilisation pourrait être d’avoir une liste à choix multiple comme
+   option de workflow, reprenant par exemple les types d’envoi possibles
+   (courrier standard, recommandé, recommandé avec accusé de réception…) (sous
+   le nom <code>mode_envoi</code>); du coté des formulaires il pourrait y avoir
+   un champ de type « Liste » qui serait rempli des éléments qui auraient été
+   cochés (en utilisant une expression Python comme source des éléments, et en
+   y mettant une référence à la variable (<code>form_option_mode_envoi</code>).
+  </p>
+
+</section>
+
+<section>
+  <title>Option substituant un élément de workflow</title>
+
+  <p>
+   Dans une variation de l’exemple précédent du coucours, l’entièreté du
+   contenu du courriel pourrait relever d’une option; dans cette situation,
+   plutôt que définir du côté du courriel que son contenu serait
+   <code>[form_option_contenu_courriel]</code>, il est possible de directement
+   associer l’option de workflow à l’élément d’envoi de courriel.
+  </p>
+
+  <p>
+   Dans la liste déroulante, les différents statuts, leurs actions et leurs
+   paramètres sont repris, il suffit alors de choisir « En attente de tirage
+   / Envoi de courriel / Corps ».
+  </p>
+
+</section>
+
+</page>

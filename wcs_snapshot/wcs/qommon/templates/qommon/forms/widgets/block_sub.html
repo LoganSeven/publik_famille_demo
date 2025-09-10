@@ -1,0 +1,15 @@
+{% extends "qommon/forms/widget.html" %}
+{% load i18n %}
+
+{% block widget-attrs %}
+  {{ block.super }} data-block-row="element{{ widget.index }}"
+{% endblock %}
+
+{% block widget-content %}
+  {% for subwidget in widget.get_widgets %}
+    {% if widget.readonly and not subwidget.field.include_in_validation_page %}<div style="display: none">{% endif %}
+    {{ subwidget.render|safe }}
+    {% if widget.readonly and not subwidget.field.include_in_validation_page %}</div>{% endif %}
+  {% endfor %}
+  {% if not widget.readonly and widget.error and not widget.is_required_error %}<div class="error block-subwidget-error"><p>{{ widget.error }}</p></div>{% endif %}
+  {% if not widget.readonly and widget.remove_button %}<button type="button" class="remove-button" title="{{ widget.remove_element_label }}"><span>-</span></button>{% endif %} {% endblock %}

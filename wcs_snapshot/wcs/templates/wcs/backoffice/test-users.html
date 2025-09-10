@@ -1,0 +1,29 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Test users" %}{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <a class="button button-paragraph" href="new" rel="popup">{% trans "New" %}</a>
+  <a class="button button-paragraph" href="import" rel="popup">{% trans "Import" %}</a>
+  <a class="button button-paragraph" href="export">{% trans "Export" %}</a>
+{% endblock %}
+
+{% block body %}
+  <div class="infonotice">{% trans "Test users are shared between all tests." %}</div>
+  <div class="section">
+    {% if users %}
+      <ul class="objects-list single-links">
+        {% for user in users %}
+          <li>
+            <a href="{{ user.id }}/">{{ user }}</a>
+            <a rel="popup" class="delete" href="{{ user.id }}/delete">{% trans "Remove" %}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div><p>{% trans "There are no test users yet." %}<p></div>
+    {% endif %}
+  </div>
+{% endblock %}

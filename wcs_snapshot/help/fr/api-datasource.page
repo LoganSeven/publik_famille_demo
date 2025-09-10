@@ -1,0 +1,120 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-datasource" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" />
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Bases de données, autocomplétion, etc.</desc>
+
+</info>
+
+<title>Accès à des référentiels externe</title>
+
+<p>
+w.c.s. peut utiliser des référentiels externes pour par exemple alimenter la
+liste des choix possibles dans un champ; pour ce faire w.c.s. utilise le
+format JSON.
+L’adresse appelée doit répondre aux exigences suivantes :
+</p>
+
+<list>
+ <item><p>retourner les données, triées, dans un attribut nommé
+          <code>data</code> ;</p></item>
+ <item><p>présenter chaque élément des données dans un dictionnaire contenant
+          deux éléments, <code>id</code> contenant un identifiant unique et
+          <code>text</code> contenant le texte de la valeur ;</p></item>
+</list>
+
+<example>
+<title>Exemple JSON</title>
+<screen>
+<input>GET https://www.example.net/data/fruits</input>
+<output>{
+    "data": [
+        {
+            "text": "Poire",
+            "id": "1"
+        },
+        {
+            "text": "Pomme",
+            "id": "2"
+        }
+    ]
+}</output></screen>
+</example>
+
+<p>
+Quand il y a besoin de filtrer dynamiquement les données
+(autocomplétion, recherche dans un champ liste), l’adresse appellée
+doit respecter les exigences supplémentaires suivantes :
+</p>
+
+<list>
+ <item><p>accepter un paramètre, usuellement <code>id</code>,
+          permettant de retourner un seul élément en le désignant par son identifiant ;</p></item>
+ <item><p>accepter un paramètre, usuellement <code>q</code>,
+          permettant de filtrer les éléments en fonction de leur contenu.</p></item>
+</list>
+
+<example>
+<title>Exemple JSON d’un élément unique désigné par son identifiant</title>
+  <screen>
+<input>GET https://www.example.net/data/fruits?id=1</input>
+<output>{
+    "data": [
+        {
+            "text": "Poire",
+            "id": "1"
+        }
+    ]
+}</output></screen>
+</example>
+
+<example>
+<title>Exemple JSON filtré par contenu</title>
+  <screen>
+<input>GET https://www.example.net/data/fruits?q=pom</input>
+<output>{
+    "data": [
+        {
+            "text": "Pomme",
+            "id": "2"
+        }
+    ]
+}</output></screen>
+</example>
+
+<note><p>
+En plus des clés <code>id</code> et <code>text</code> qui sont obligatoires,
+les différents éléments peuvent contenir des clés supplémentaires, pour des
+informations annexes. Celles-ci seront alors accessibles dans les variables
+de contexte du formulaire.
+</p></note>
+
+<example>
+<title>Exemple JSON enrichi</title>
+<screen>
+<input>GET https://www.example.net/data/fruits</input>
+<output>{
+    "data": [
+        {
+            "text": "Poire",
+            "id": "1",
+            "saison": "automne",
+            "prix": "1"
+        },
+        {
+            "text": "Pomme",
+            "id": "2",
+            "saison": "automne",
+            "prix": "2"
+        }
+    ]
+}</output></screen>
+</example>
+
+</page>

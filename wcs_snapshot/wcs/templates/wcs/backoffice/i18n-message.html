@@ -1,0 +1,17 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <div id="appbar">
+    <h2>{% trans "Translation" %}</h2>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div>
+    <div class="i18n-orig-string">{{ msg.string }}</div>
+
+    {{ html_form.render|safe }}
+  </div>
+
+{% endblock %}

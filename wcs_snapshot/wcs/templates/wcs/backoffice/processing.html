@@ -1,0 +1,27 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Executing task..." %}{% endblock %}
+{% block appbar-actions %}
+  {% if job.can_be_aborted %}
+    <button role="button" id="abort-job-button" {% if job.abort_requested %}disabled{% endif %}>{% trans "Abort job" %}</button>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <dl class="job-status">
+      <dt>{{ job.label }}</dt>
+      <dd><span class="afterjob" id="{{ job.id }}">{% if job.failure_label %}{{ job.failure_label }}{% else %}{% trans job.status %}{% endif %}</span></dd>
+    </dl>
+  </div>
+
+  {% with url=job.done_action_url %}
+    {% if url %}
+      <div class="done" style="display: none">
+        <a {% for attr in job.done_button_attributes.items %}{{ attr.0 }}="{{ attr.1 }}"{% endfor %}
+           class="button" href="{{ job.done_action_url }}">{{ job.done_action_label }}</a>
+      </div>
+    {% endif %}
+  {% endwith %}
+{% endblock %}

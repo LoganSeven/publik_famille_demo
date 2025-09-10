@@ -1,0 +1,130 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="wf-wscall" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#wf" />
+  <revision docversion="0.1" date="2015-05-01" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Appel à un webservice</title>
+
+<p>
+Cette action permet d’appeler un système tiers et d’éventuellement lui
+transmettre des données, dont celles du formulaire en cours.
+</p>
+
+<p>
+Le champ URL est obligatoire, il doit contenir l’adresse qui sera appelée,
+celle-ci peut contenir des <link xref="misc-substvars">variables</link>, pour
+par exemple transmettre une information particulière.
+</p>
+
+<example>
+ <code>https://www.example.net/notify?email={{session_user_email}}</code>
+</example>
+
+<p>
+Le tableau « Données à envoyer en paramètre » permet de décrire des données qui
+seront transmises sous la forme de paramètres d’URL.  Sur chaque ligne, la
+colonne de gauche est le nom de la clé, celle de droite la valeur. La valeur
+peut être une expression Python, pour cela elle doit commencer par le signe
+« = ». Les paramètres d’URL ne peuvent être que des chaînes, si ce n’est pas le
+cas la donnée sera transformée en chaîne de force.
+</p>
+
+<p>
+La case à cocher « Envoyer le formulaire (POST, en JSON) » indique que
+l’ensemble des données du formulaire doivent être transmises, avec un appel de
+type <code>POST</code>, dont le contenu correspondra au formulaire encodé au
+format JSON, comme décrit dans cette <link xref="api-get#pull">page sur
+l’API</link>.
+</p>
+
+<p>
+Le tableau « Données à envoyer en POST » permet de décrire des données qui
+seront transmises sous la forme d’un dictionnaire clé-valeur au format JSON.
+Sur chaque ligne, la colonne de gauche est le nom de la clé, celle de droite la
+valeur. La valeur peut être une expression Python, pour cela elle doit
+commencer par le signe « = ».
+</p>
+
+<example>
+
+<p>Ce tableau de valeurs :</p>
+<table>
+  <tr>
+    <td><p><code>code_appel</code></p></td>
+    <td><p><code>w.c.s.</code></p></td>
+  </tr>
+  <tr>
+    <td><p><code>form_number</code></p></td>
+    <td><p><code>=form_number</code></p></td>
+  </tr>
+</table>
+
+<p>formera ce JSON :</p>
+<code>
+  {
+    "code_appel": "w.c.s.",
+    "form_number": "4"
+  }
+</code>
+</example>
+
+<note>
+<list>
+  <item><p>
+    Si la case  « Envoyer le formulaire (POST, en JSON) » est cochée et que des
+    « Données à envoyer en POST » sont indiquées, alors ces dernières sont ajoutées
+    dans le JSON du formulaire, dans une clé « extra ».
+  </p></item>
+  <item><p>
+    Si aucune donnée n’est indiquée et que le formulaire ne doit pas être transmis,
+    alors la requête HTTP effectuée est un GET sur l’URL.
+  </p></item>
+</list>
+</note>
+
+<p>
+Le paramètre « Nom de variable » permet d’enregistrer le résultat retourné
+par le webservice, le retour HTTP de celui-ci sera enregistré dans
+<code><var>variable</var>_status</code> (voir plus loin, le traitement des
+erreurs) et le contenu même de la réponse, si elle est au format JSON,
+sera enregistré dans <code><var>variable</var>_response</code>.
+</p>
+
+<p>
+Le paramètre « Clé de signature de la requête » permet de signer la requête
+avant de l’envoyer au webservice, avec la valeur du champ comme clé de
+signature.
+</p>
+
+<section>
+ <title>Traitement des erreurs</title>
+
+ <p>
+  En précisant un nom de variable (exemple : <code>webservice</code>), il est
+  possible de placer derrière l’appel au webservice une action de <link
+  xref="wf-jump">changement de statut automatique</link> faisant référence
+  à la variable.
+ </p>
+
+ <p>
+  Par exemple, pour s’assurer que le retour fait par le webservice était bien
+  un code HTTP 200 et que le contenu de la réponse contenait bien un
+  dictionnaire <code>data</code> dont la clé <code>result</code> valait
+  <code>OK</code> :
+ </p>
+
+ <example>
+  <code>webservice_status != 200 or webservice_response_data_result != 'OK'</code>
+ </example>
+
+</section>
+
+</page>

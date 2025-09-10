@@ -1,0 +1,37 @@
+{% load i18n %}
+
+{% block body %}
+  <div id="appbar">
+    <h2>{% trans "API access" %} - {{ api_access.name }}</h2>
+    {% if not api_access.idp_api_client %}
+      <span class="actions">
+        <a href="delete" rel="popup">{% trans "Delete" %}</a>
+        <a href="edit">{% trans "Edit" %}</a>
+      </span>
+    {% endif %}
+  </div>
+
+  {% if api_access.description %}
+    <div class="bo-block">{{ api_access.description }}</div>
+  {% endif %}
+
+  <div class="bo-block">
+    <h3>{% trans "Parameters" %}</h3>
+    <ul>
+      {% if not api_access.idp_api_client %}
+        <li>{% trans "Access identifier:" %} {{ api_access.access_identifier }}</li>
+        <li>{% trans "Access key:" %} {{ api_access.access_key }}</li>
+      {% else %}
+        <li>{% trans "API client from identity provider, identifier:" %} {{ api_access.access_identifier|removeprefix:"_idp_" }}</li>
+      {% endif %}
+      {% if api_access.restrict_to_anonymised_data %}<li>{% trans "Restricted to anonymised data" %}</li>{% endif %}
+      {% if api_access.get_roles %}
+        <li>{% trans "Roles:" %}
+          <ul>
+            {% for role in api_access.get_roles %}<li>{{ role.name }}</li>{% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}

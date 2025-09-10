@@ -1,0 +1,64 @@
+{% extends template_base %}
+{% load i18n %}
+
+{% block form-side %}
+  {{ form_side|default:"" }}
+{% endblock %}
+
+{% block messages %}{% endblock %}
+
+{% block body %}
+
+  {{ session_message|safe }}
+
+  {% block form-main %}
+
+    {% block drafts-recall %}{% include "wcs/includes/drafts-recall.html" %}{% endblock %}
+
+    {% block backoffice-only-one-info %}
+      {% if not view.edit_mode and page_no == 1 and publisher.get_request.is_in_backoffice and user_has_already_one_such_form %}
+        <div class="warningnotice">
+          {% blocktrans trimmed %}
+            This form is limited to one per user and the associated user has already one.
+          {% endblocktrans %}
+        </div>
+      {% endif %}
+    {% endblock %}
+
+    {% block form-pre %}{% endblock %}
+    {{ html_form.render|safe }}
+    {% if debug_computed_data or debug_http_requests %}
+      <details class="debug-information">
+        <summary>{% trans "Debug information" %}</summary>
+        <div>
+          {% if debug_computed_data %}
+            <h3>{% trans "Computed data" context "plural" %}</h3>
+            <table class="pk-data-table">
+              {% for line in debug_computed_data %}
+                <tr>
+                  <td class="debug-information--varname">
+                    <tt>form_var_{{ line.field.varname }}</tt>
+                    <a href="{{ line.field.get_admin_url }}" class="debug-information--var-link"><span class="sr-only">{% trans "open field page" %}</span></a>
+                  </td>
+                  <td class="value">{{ line.value|default_if_none:"" }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
+          {% if debug_http_requests %}
+            <h3>{% trans "HTTP requests" %}</h3>
+            <ul class="debug-information--http-requests">
+              {% for line in debug_http_requests %}
+                <li>{% if line.source_url and line.source_label %}
+                  <a href="{{ line.source_url }}">{{ line.source_label }}</a> - {% endif %}
+                  {{ line.method }} {{ line.url }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      </details>
+    {% endif %}
+    {% block form-post %}{% endblock %}
+  {% endblock %}
+
+{% endblock %}

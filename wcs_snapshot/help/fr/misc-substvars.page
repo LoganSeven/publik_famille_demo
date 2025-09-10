@@ -1,0 +1,330 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="misc-substvars" xml:lang="fr">
+
+<info>
+  <link type="seealso" xref="misc-templates" />
+  <revision docversion="0.1" date="2013-07-06" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Variables de substitution</title>
+
+<p>
+<app>w.c.s.</app> dispose d’un système générique appelé « variables de
+substitutions » qui permet de faire référence à des données internes,
+provenant du système, d’un formulaire, d’un champ, etc.
+</p>
+
+<p>
+Ce système est particulièrement utile dans le paramétrage du contenu d’un
+courriel ou dans la définition d’une logique de traitement d’un formulaire,
+mais est également accessible depuis le thème, pour le préremplissage de
+champs, etc.
+</p>
+
+<section id="system-variables">
+  <title>Variables système</title>
+
+  <p>
+  Ces variables sont accessibles à tout endroit du site.
+  </p>
+
+  <table shade="rows">
+    <tr>
+      <td><p><code>site_name</code></p></td>
+      <td><p>Le titre du site</p></td>
+    </tr>
+    <tr>
+      <td><p><code>site_url</code></p></td>
+      <td><p>L’adresse du site</p></td>
+    </tr>
+    <tr>
+      <td><p><code>site_url_backoffice</code></p></td>
+      <td><p>L’adresse vers le backoffice du site</p></td>
+    </tr>
+    <tr>
+      <td><p><code>site_lang</code></p></td>
+      <td><p>Le code de la langue utilisée par le site</p></td>
+    </tr>
+    <tr>
+      <td><p><code>today</code></p></td>
+      <td><p>La date du jour</p></td>
+    </tr>
+    <tr>
+      <td><p><code>now</code></p></td>
+      <td><p>La date et l’heure du jour</p></td>
+    </tr>
+    <tr>
+      <td><p><code>session_user_display_name</code></p></td>
+      <td><p>Le nom de l’utilisateur connecté</p></td>
+    </tr>
+    <tr>
+      <td><p><code>session_user_email</code></p></td>
+      <td><p>L’adresse électronique de l’utilisateur connecté</p></td>
+    </tr>
+    <tr>
+      <td><p><code>is_in_backoffice</code></p></td>
+      <td><p>Vrai si la requête en cours a lieu dans le backoffice</p></td>
+    </tr>
+  </table>
+
+  <p>
+  À l’intérieur d’une catégorie, les variables suivantes sont également
+  définies :
+  </p>
+
+  <table shade="rows">
+    <tr>
+      <td><p><code>category_name</code></p></td>
+      <td><p>L’intitulé de la catégorie</p></td>
+    </tr>
+    <tr>
+      <td><p><code>category_description</code></p></td>
+      <td><p>La description de la catégorie</p></td>
+    </tr>
+    <tr>
+      <td><p><code>category_id</code></p></td>
+      <td><p>L’identifiant de la catégorie</p></td>
+    </tr>
+  </table>
+
+  <note><p>
+  Des variables supplémentaires peuvent également être définies par
+  l’administrateur système, via des variables d’environnement ou la
+  configuration de l’instance de w.c.s.
+  </p></note>
+
+</section>
+
+<section id="form-variables">
+  <title>Variables de formulaire</title>
+
+  <section id="general-info">
+    <title>Informations générales</title>
+
+    <table shade="rows">
+    <tr>
+      <td><p><code>form_receipt_date</code></p></td>
+      <td><p>La date de réception du formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_receipt_time</code></p></td>
+      <td><p>La date et l’heure de réception du formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_name</code></p></td>
+      <td><p>Le titre du formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_number</code></p></td>
+      <td><p>Le numéro attribué au formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_slug</code></p></td>
+      <td><p>Le « slug » (partie d’adresse) du formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_url</code></p></td>
+      <td><p>L’adresse vers la vue du formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_url_backoffice</code></p></td>
+      <td><p>L’adresse vers le formulaire dans le backoffice</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_tracking_code</code></p></td>
+      <td><p>Le code de suivi du formulaire, s’il existe</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_criticality_level</code></p></td>
+      <td><p>Le niveau de criticité, 0 pour le niveau le plus bas, 101, 102, 103, etc. pour les suivants.</p></td>
+    </tr>
+    </table>
+  </section>
+
+  <section id="user-info">
+    <title>Informations sur l’utilisateur (demandeur)</title>
+
+    <p>
+    Les données contiennent aussi des informations sur l’utilisateur ayant
+    complété le formulaire.
+    </p>
+
+    <table shade="rows">
+    <tr>
+      <td><p><code>form_user_display_name</code></p></td>
+      <td><p>Le nom de l’utilisateur</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_user_email</code></p></td>
+      <td><p>L’adresse électronique de l’utilisateur</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_user_name_identifier_<var>n</var></code></p></td>
+      <td><p>Identifiant SAML de l’utilisateur (NameID), pour le fournisseur
+      d’identités numéro n (n commençant à 0)</p></td> </tr>
+    </table>
+
+    <p>
+    Si un champ utilisateur personnalisé dispose d’un nom de variable, alors
+    il est accessible sous la forme <code>form_user_var_<var>variable du
+    champ</var></code>, par exemple <code>form_user_var_prenom</code>.
+    </p>
+
+  </section>
+
+  <section id="form-data">
+    <title>Données du formulaire</title>
+
+    <table shade="rows">
+    <tr>
+      <td><p><code>form_details</code></p></td>
+      <td><p>L’ensemble des champs et de leur valeurs</p></td>
+    </tr>
+    </table>
+
+    <p>
+    Il est également possible au moment de la définition d’un champ, de lui
+    affecter un nom de variable, cela rendra la valeur associée à ce champ
+    accessible via une variable de la forme <code>form_var_<var>variable du
+    champ</var></code> (par exemple : <code>form_var_courriel</code>).
+    </p>
+
+    <p>
+    Pour les champs de type « Liste » dont les éléments contiendraient à la
+    fois un libellé et un identifiant (ce qui arrive pour les champs alimentés
+    depuis une source de données), le libellé se trouvera dans <code>form_var_<var>variable
+    du champ</var></code> et l’identifiant dans <code>form_var_<var>variable du
+    champ</var>_raw</code>.
+    </p>
+
+    <p>
+    Aussi, si la source de données contient des clés supplémentaires, elles
+    se trouveront dans <code>form_var_<var>variable du champ</var>_<var>clé
+    supplémentaire</var></code>, par exemple pour une clé <code>cout</code>,
+    <code>form_var_document_cout</code>.
+    </p>
+
+  </section>
+
+  <section id="workflow-data">
+    <title>Statut et données relatives au traitement</title>
+
+    <table shade="rows">
+    <tr>
+      <td><p><code>form_status</code></p></td>
+      <td><p>Le statut actuel du formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_previous_status</code></p></td>
+      <td><p>Le statut précédent du formulaire</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_status_changed</code></p></td>
+      <td><p>Un booléen précisant que le formulaire vient de changer de statut</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_evolution</code></p></td>
+      <td><p>Informations sur le dernier statut</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_role_receiver_name</code></p></td>
+      <td><p>Le nom du rôle en charge du traitement</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_role_receiver_emails</code></p></td>
+      <td><p>Les adresses électroniques associées au rôle en charge du traitement</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_role_receiver_details</code></p></td>
+      <td><p>La description (« détail du rôle ») associée au rôle en charge du traitement</p></td>
+    </tr>
+  </table>
+  </section>
+
+  <section id="submission-info">
+    <title>Informations sur la saisie</title>
+
+    <p>
+    Les données contiennent aussi des informations sur le contexte de saisie de
+    la demande.
+    </p>
+
+    <table shade="rows">
+    <tr>
+      <td><p><code>form_submission_backoffice</code></p></td>
+      <td><p>Vrai si la saisie a eu lui depuis le backoffice</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_submission_channel</code></p></td>
+      <td><p>Identifiant du canal de saisie (ex: mail)</p></td>
+    </tr>
+    <tr>
+      <td><p><code>form_submission_channel_label</code></p></td>
+      <td><p>Libellé du canal de saisie (ex: Courrier)</p></td>
+    </tr>
+    </table>
+
+    <p>
+    Si d’autres informations ont été fournies sur le contexte de la saisie
+    elles sont disponibles dans des variables de la forme
+    <code>form_submission_context_<var>foobar</var></code>.
+    </p>
+
+  </section>
+
+</section>
+
+<section id="session-variables">
+  <title>Variables de session</title>
+
+  <p>
+   La session de l’usager contient une série d’informations fixes (par exemple
+   le <code>session_user_display_name</code> décrit en haut de page), il est
+   aussi possible d’y ajouter de nouvelles données par l’intermédiaire de
+   liens contenant des paramètres. Cela permet par exemple d’inclure une URL
+   personnalisée dans un courriel vers l’usager qui assurera le
+   préremplissage automatique de champs.
+  </p>
+
+  <p>
+   Le fonctionnement est simple, si le site reçoit une adresse avec des
+   paramètres de la forme <code>session_var_<var>nom</var></code>, une
+   variable du même nom (<code>session_var_<var>nom</var></code>) est rendue
+   disponible.
+  </p>
+
+  <p>
+   Un autre exemple pourrait être de faire varier le thème en fonction du site
+   extérieur ayant pointé vers le formulaire, une URL serait par exemple
+   <code>https://www.example.net/?session_var_departement=42</code> et le
+   squelette du site pourrait avoir le code suivant :
+  </p>
+
+  <example>
+   <code>
+   {% if session_var_departement %}
+     &lt;link rel="stylesheet" type="text/css" href="extra/{{session_var_departement}}.css"/&gt;
+   {% endif %}
+   </code>
+  </example>
+
+  <note style="important">
+   <p>
+    Ce fonctionnement doit explicitement être autorisé par
+    l’administrateur système, la liste des variables permises doit être ajoutée
+    au fichier <code>site_options.cfg</code>, dans la section
+    <code>[options]</code>, par exemple :
+   </p>
+   <example>
+    <code>query_string_allowed_vars = departement,une_autre_variable</code>
+   </example>
+  </note>
+
+</section>
+
+</page>

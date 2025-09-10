@@ -1,0 +1,26 @@
+[Unit]
+Description=w.c.s.
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+SyslogIdentifier=uwsgi/wcs
+Environment=WCS_SETTINGS_FILE=/usr/lib/%p/debian_config.py
+Environment=LANG=C.UTF-8
+User=%p
+Group=%p
+ExecStartPre=/usr/bin/wcs-manage migrate
+ExecStartPre=/usr/bin/wcs-manage collectstatic
+ExecStartPre=/bin/mkdir -p /var/lib/wcs/spooler/%m/
+ExecStart=/usr/bin/uwsgi --ini /etc/%p/uwsgi.ini --spooler /var/lib/wcs/spooler/%m/
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGQUIT
+TimeoutStartSec=0
+PrivateTmp=true
+Restart=on-failure
+RuntimeDirectory=wcs
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,194 @@
+{% extends "qommon/forms/widget.html" %}
+{% load qommon i18n %}
+{% block widget-control %}
+  <select style="display: none" id="form_{{widget.get_name_for_id}}" name="{{widget.name}}"
+          {% for attr in widget.attrs.items %} {{attr.0}}="{{attr.1}}"{% endfor %}>
+    <option value="">---</option>
+    {% for option in widget.get_options %}
+      {% with datetime=option.options.datetime|parse_datetime %}
+        <option{% for attr in option.attrs.items %} {{attr.0}}="{{attr.1}}"{% endfor %}
+                data-weekday="{{ datetime|date:"l" }}"
+                data-date="{{ datetime|date:"Y-m-d" }}"
+                data-time="{{ datetime|date:"H:i" }}"
+        >{{ option.description }}</option>
+      {% endwith %}
+    {% endfor %}
+  </select>
+  <div id="form_{{widget.get_name_for_id}}_table" class="timetable-widget meetings_table">
+  </div>
+  <script>
+    $(function() {
+      var ALIGN_DATE = null;
+      {% with widget.field.get_initial_date_alignment as alignment_date %}
+        {% if alignment_date %}var ALIGN_DATE = "{{ alignment_date|date:"Y-m-d" }}";{% endif %}
+      {% endwith %}
+      var WEEKDAYS = ["{% trans "Sunday" %}", "{% trans "Monday" %}",
+        "{% trans "Tuesday" %}", "{% trans "Wednesday" %}",
+        "{% trans "Thursday" %}", "{% trans "Friday" %}",
+        "{% trans "Saturday" %}"];
+      var $select = $('#form_{{widget.get_name_for_id}}');
+      var $table = $('#form_{{widget.get_name_for_id}}_table');
+      var column_count = 5;
+
+      function fill_with_items(items) {
+        $select.empty();
+        $('<option value=""></option>').appendTo($select);
+        for (var i=0; i<items.length; i++) {
+          var date = new Date(items[i].datetime.slice(0, 10));
+          var $option = $('<option></option>', {
+            value: items[i].id,
+            text: items[i].text,
+            'data-weekday': WEEKDAYS[date.getDay()],
+            'data-date': items[i].datetime.slice(0, 10),
+            'data-time': items[i].datetime.slice(11, 16)
+          });
+          if (items[i].disabled) {
+            $option.prop('disabled', true);
+          }
+          if (items[i].selected) {
+            $option.attr('selected', true);
+          }
+          $option.appendTo($select);
+        }
+      }
+
+      $select.on('wcs:options-change', function(ev, data) {
+        if (data !== undefined) {
+          fill_with_items(data.items);
+        }
+        $table.empty();
+        var options = $select.find('option');
+        var current_date = null;
+        var current_day_div = null;
+        var current_offset = null;
+        var alignment_offset = null;
+        var nb_days = 0;
+        var has_timeslots = false;
+
+        var day_label = null;
+        for (var i=0; i<options.length; i++) {
+          var $option = $(options[i]);
+          if ($option.attr('value') == '') continue;
+          has_timeslots = true;
+          var option_date = $option.data('date');
+          if (option_date !== current_date) {
+            day_label = $option.text().split(' ', 3).join(' ');
+            if (Intl && Intl.DateTimeFormat) {
+              // create day label from actual date, this works for event agendas.
+              var date = new Date(option_date);
+              var month = new Intl.DateTimeFormat('fr', {month: 'long'}).format(date);
+              day_label = date.getDate() + ' ' + month + ' ' + date.getFullYear();
+            }
+            var weekday = $option.data('weekday');
+            nb_days += 1;
+            current_day_div = $('<div><div class="head"><h5>' + weekday + '<br>' + day_label + '</h5></div></div>');
+            current_day_div.appendTo($table);
+            current_date = option_date;
+          }
+          var day_time = $option.data('time');
+          var option_span = $(
+            '<span class="timetable-cell selectable" tabindex="0" role="button" data-idx="' + i + '">' +
+            '<span class="sr-only">' + day_label + '</span>' +
+            '<span>' + day_time + '</span></span>').appendTo(current_day_div);
+          if ($option.attr('disabled')) {
+            $(option_span).addClass('disabled').removeClass('selectable');
+          }
+          if ($option.attr('selected')) {
+            current_offset = nb_days - 1;
+            $(option_span).addClass('on');
+          }
+          if (current_offset === null && ALIGN_DATE !== null && alignment_offset === null && option_date >= ALIGN_DATE) {
+            alignment_offset = nb_days - 1;
+          }
+        }
+        if (current_offset === null && ALIGN_DATE !== null && alignment_offset === null) {
+          alignment_offset = nb_days - 1;
+        }
+        if (current_offset === null && alignment_offset !== null) {
+          current_offset = Math.max(Math.min(alignment_offset, nb_days-column_count), 0);
+        } else if (current_offset === null) {
+          current_offset = 0;
+        }
+        if (! has_timeslots) {
+          $('<p class="timetable-widget--nothing">{% trans "No available timeslots." %}</p>').appendTo($table);
+        }
+        var go_prev = $('<button class="prev" title="{% trans "Previous days" %}">' +
+          '<span aria-hidden="true">←</span>' +
+          '<span class="sr-only">{% trans "Previous days" %}</span></button>');
+        var go_next = $('<button class="next" title="{% trans "Next days" %}">' +
+          '<span aria-hidden="true">→</span>' +
+          '<span class="sr-only">{% trans "Next days" %}</span></button>');
+        go_prev.prependTo($table);
+        go_next.appendTo($table);
+        go_prev.on('click', function() {
+          current_offset = Math.max(0, current_offset - 1);
+          display(current_offset);
+          $table.find('span.selectable:visible').first().focus();
+          return false;
+        });
+        go_next.on('click', function() {
+          current_offset = Math.min(current_offset + 1, Math.max(0, nb_days-column_count));
+          display(current_offset);
+          $table.find('span.selectable:visible').first().focus();
+          return false;
+        });
+
+        function display(offset) {
+          $table.children('div').each(function(idx, elem) {
+            if (idx >= offset && idx < offset+column_count) {
+              $(elem).show();
+            } else {
+              $(elem).hide();
+            }
+          });
+          if (go_prev.next().is(':visible')) {
+            go_prev.prop('disabled', true);
+          } else {
+            go_prev.prop('disabled', null);
+          }
+          if (go_next.prev().is(':visible')) {
+            go_next.prop('disabled', true);
+          } else {
+            go_next.prop('disabled', null);
+          }
+          current_offset = offset;
+        }
+
+        function set_layout() {
+          if ($select.parents('form').width() > 600) {
+            // desktop layout
+            column_count = 5;
+            $table.removeClass('mobile');
+          } else {
+            // mobile layout
+            column_count = 1;
+            $table.addClass('mobile');
+          }
+          display(current_offset);
+          t1 = new Date();
+        }
+        set_layout();
+        var layout_change_timeout_id = null;
+        $(window).on('resize', function() {
+          clearTimeout(layout_change_timeout_id);
+          layout_change_timeout_id = setTimeout(set_layout, 200);
+        });
+
+        $table.find('span.selectable').on('keypress click', function(e) {
+          if (e.type === 'keypress' && !(e.key === ' ' || e.key === 'Enter')) {
+            return;
+          }
+          e.preventDefault();
+          $table.find('span.timetable-cell').removeClass('on');
+          $table.find('span.timetable-cell').attr('aria-current', 'false');
+          $(this).addClass('on');
+          $(this).attr('aria-current', 'true');
+          $select.val($(options[$(this).data('idx')]).attr('value'));
+          $select.parents('div.widget-prefilled').removeClass('widget-prefilled');
+          $select.trigger('change');
+        });
+      });
+      $select.trigger('wcs:options-change');
+    });
+  </script>
+{% endblock %}

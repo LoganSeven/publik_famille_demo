@@ -1,0 +1,273 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ workflow.name }}{% endblock %}
+
+{% block appbar-after-title %}
+  {% if workflow.category_id %}<p class="appbar--category-subtitle">{{ workflow.category.name }}</p>{% endif %}
+{% endblock %}
+
+{% block appbar-actions %}
+  <a class="extra-actions-menu-opener"></a>
+  <ul class="extra-actions-menu">
+    <li><a href="export">{% trans "Export" %}</a></li>
+    {% if not workflow.is_readonly %}
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    {% endif %}
+  </ul>
+  {% if not workflow.is_readonly %}
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+    <a rel="popup" href="category">{% trans "change category" %}</a>
+    <a rel="popup" href="edit">{% trans "change title" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  <div class="object--status-infos">
+    {{ view.last_modification_block|safe }}
+  </div>
+
+  {% include "wcs/backoffice/includes/documentation.html" with element=workflow object=workflow %}
+
+  <div class="splitcontent-left">
+    <div class="bo-block">
+      <h3>{% trans "Possible Status" %}
+        {% if not workflow.is_readonly %}
+          <span class="change"><a class="pk-button" rel="popup" href="status/new-status">{% trans "add status" %}</a></span>
+        {% endif %}
+      </h3>
+      {% if not workflow.possible_status %}
+        <p>{% trans "There are not yet any status defined in this workflow." %}</p>
+      {% else %}
+        {% if workflow.is_readonly %}
+          <ul id="status-list" class="biglist">
+        {% else %}
+          <p class="hint">{% trans "Use drag and drop with the handles to reorder status." %}</p>
+          <ul id="status-list" class="biglist sortable">
+        {% endif %}
+        {% spaceless %}
+          {% for status in workflow.possible_status %}
+            <li class="biglistitem {{ status.get_visibility_mode }}-status
+                       status-type-{% if status.is_endpoint %}endpoint{% elif status.is_waitpoint %}waitpoint{% else %}transition{% endif %}"
+                data-id="{{ status.id }}">
+              <a class="biglistitem--content" href="status/{{ status.id }}/"
+                 {% if status.colour %}style="border-color: {{status.colour}}"{% endif %}
+              >{{ status.name }}
+                <span class="status-icons">
+                  {% if status.loop_items_template %}
+                    <span class="status-type status-type--loop" title="{% trans "with loop" %}"
+                    ><span class="sr-only">({% trans "with loop" %}) </span></span>
+                  {% endif %}
+                  {% if status.is_endpoint %}<span class="status-type status-type--endpoint" title="{% trans "final status" %}"
+                    ><span class="sr-only">({% trans "final status" %})</span></span>
+                  {% elif status.is_waitpoint %}<span class="status-type status-type--waitpoint" title="{% trans "pause status" %}"
+                    ><span class="sr-only">({% trans "pause status" %})</span></span>
+                  {% else %}<span class="status-type status-type--transition" title="{% trans "transition status" %}"
+                    ><span class="sr-only">({% trans "transition status" %})</span></span>{% endif %}
+                </span>
+              </a></li>
+          {% endfor %}
+        {% endspaceless %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="splitcontent-right">
+    <div class="bo-block">
+      <h3>{% trans "Workflow Functions" %}
+        {% if not workflow.is_readonly %}
+          <span class="change"><a class="pk-button" rel="popup" href="functions/new">{% trans "add function" %}</a></span>
+        {% endif %}
+      </h3>
+      {% with workflow_roles=view.workflow.get_sorted_functions %}
+        {% if workflow_roles %}
+          <ul id="roles-list" class="biglist">
+            {% for workflow_role in workflow_roles %}
+              <li class="biglistitem">
+                {% if not workflow.is_readonly %}
+                  <a class="biglistitem--content" rel="popup" href="functions/{{ workflow_role.0|slice:"1:" }}">{{ workflow_role.1 }}</a>
+                {% else %}
+                  <a class="biglistitem--content">{{ workflow_role.1 }}</a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    {% if not workflow.is_default %}
+      <div class="bo-block variables-fields">
+        <h3>{% trans "Workflow Variables" %}
+          {% if not workflow.is_readonly %}
+            <span class="change"><a class="pk-button" href="variables/">{% trans "change" %}</a></span>
+          {% endif %}
+        </h3>
+        {% if workflow.variables_formdef %}
+          <ul class="biglist">
+            {% for field in workflow.variables_formdef.fields %}
+              {% if field.varname %}
+                <li><a href="variables/fields/{{ field.id }}/">{{ field.ellipsized_label }}
+                  <span class="details">{{ field.get_type_label }}</span>
+                  {% if '*' not in field.varname %}
+                    <code class="varname">{{ "{{" }} form_<wbr/>option_<wbr/>{{ field.varname|wbr }} }}</code>
+                  {% endif %}
+                </a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="bo-block">
+        <h3>{% trans "Global Actions" %}
+          {% if not workflow.is_readonly %}
+            <span class="change"><a class="pk-button" rel="popup" href="global-actions/new">{% trans "add global action" %}</a></span>
+          {% endif %}
+        </h3>
+        {% if workflow.global_actions %}
+          <ul
+            {% if workflow.is_readonly %}
+              class="biglist"
+            {% else %}
+              id="status-list" class="biglist sortable" data-order-function="update_actions_order"
+            {% endif %}
+          >
+            {% for action in workflow.global_actions %}
+              <li class="biglistitem" data-id="{{ action.id }}"><a class="biglistitem--content" href="global-actions/{{ action.id }}/">{{ action.name }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="bo-block">
+        <h3>{% trans "Criticality Levels" %}
+          {% if not workflow.is_readonly %}
+            <span class="change"><a class="pk-button" rel="popup" href="criticality-levels/new">{% trans "add criticality level" %}</a></span>
+          {% endif %}
+        </h3>
+        {% if workflow.criticality_levels %}
+          <ul
+            {% if workflow.is_readonly %}
+              class="biglist"
+            {% else %}
+              class="biglist sortable criticality-levels" data-order-function="update_criticality_levels_order"
+            {% endif %}
+          >
+            {% spaceless %}
+              {% for level in workflow.criticality_levels %}
+                <li class="biglistitem" data-id="{{ level.id }}"
+                    {% if level.colour %}style="border-left-color: {{ level.colour }}"{% endif %}>
+                  <a class="biglistitem--content" rel="popup" href="criticality-levels/{{ level.id }}">{{ level.name }}</a>
+                </li>
+              {% endfor %}
+            {% endspaceless %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="bo-block backoffice-fields">
+        <h3>{% trans "Backoffice Fields" %}
+          {% if not workflow.is_readonly %}
+            <span class="change"><a class="pk-button" href="backoffice-fields/">{% trans "change" %}</a></span>
+          {% endif %}
+        </h3>
+        {% if workflow.backoffice_fields_formdef %}
+          <ul class="biglist">
+            {% for field in workflow.backoffice_fields_formdef.fields %}
+              <li class="biglistitem"><a class="biglistitem--content" href="backoffice-fields/fields/{{ field.id }}/">{{ field.ellipsized_label }}
+                <span class="details">{{ field.get_type_label }}</span>
+                {% if field.varname %}
+                  <code class="varname">{{ "{{" }} form_<wbr/>var_<wbr/>{{ field.varname|wbr }} }}</code>
+                {% endif %}
+              </a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endif %} {# not workflow.is_default #}
+  </div>
+
+  <br style="clear:both;"/>
+
+  {% if workflow.possible_status %}
+    <div class="bo-block svg-pan-zoom-with-ctrl"
+         data-handling-scroll-warning-text="{% trans "Use ctrl + scroll to zoom the schema" %}"
+         data-handling-scroll-mac-warning-text="{% trans "Use ⌘ + scroll to zoom the schema" %}">
+      {{ view.graphviz|safe }}
+      <ul class="full-screen-links">
+        <li><a download href="schema.svg">{% trans "Download" %}</a></li>
+        <li><a href="fullscreen">{% trans "Full Screen" %}</a></li>
+      </ul>
+    </div>
+  {% endif %}
+
+  {% with formdefs=workflow.formdefs carddefs=workflow.carddefs mail_templates=workflow.mail_templates %}
+    {% if formdefs or carddefs or mail_templates %}
+      <div class="section">
+        <h3>{% trans "Usage" %}</h3>
+        <div>
+          {% if formdefs %}
+            <p>{% trans "This workflow is used for the following forms:" %}
+              <ul class="objects-list single-links">
+                {% for formdef in formdefs %}
+                  <li><a href="{{ formdef.get_admin_url }}">{{ formdef.name }}</a></li>
+                {% endfor %}
+              </ul>
+          {% endif %}
+          {% if carddefs %}
+            <p>{% trans "This workflow is used for the following card models:" %}
+              <ul class="objects-list single-links">
+                {% for carddef in carddefs %}
+                  <li><a href="{{ carddef.get_admin_url }}">{{ carddef.name }}</a></li>
+                {% endfor %}
+              </ul>
+          {% endif %}
+          {% if mail_templates %}
+            <p>{% trans "The following mail templates are used in this workflow:" %}
+              <ul class="objects-list single-links">
+                {% for mail_template in mail_templates %}
+                  <li><a href="{{ mail_template.get_admin_url }}">{{ mail_template.name }}</a></li>
+                {% endfor %}
+              </ul>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if workflow.is_default %}
+    <p>
+      {% blocktrans trimmed %}
+        This is the default workflow, you cannot edit it but you can
+        duplicate it to base your own workflow on it.
+      {% endblocktrans %}
+    </p>
+  {% elif workflow.is_readonly %}
+    <div class="infonotice"><p>{% trans "This workflow is readonly." %}</p></div>
+    {{ view.snapshot_info_block|safe }}
+  {% endif %}
+  {% if not workflow.is_readonly or workflow.is_default %}
+    <h3>{% trans "Actions" %}</h3>
+    <ul class="sidebar--buttons">
+      <li><a class="button button-paragraph" rel="popup" href="duplicate">{% trans "Duplicate" %}</a></li>
+      {% if not workflow.is_default %}
+        <li><a class="button button-paragraph" rel="popup" href="history/save">{% trans "Save snapshot" %}</a></li>
+      {% endif %}
+    </ul>
+    <h3>{% trans "Navigation" %}</h3>
+    <ul class="sidebar--buttons">
+      {% if not workflow.is_default %}
+        <li><a class="button button-paragraph" href="history/">{% trans "History" %}</a></li>
+      {% endif %}
+      <li><a class="button button-paragraph" href="inspect">{% trans "Inspector" %}</a></li>
+    </ul>
+    {{ view.errors_block|safe }}
+
+    {% include 'wcs/backoffice/includes/applications.html' with applications=workflow.applications prefix='../' %}
+  {% endif %}
+{% endblock %}

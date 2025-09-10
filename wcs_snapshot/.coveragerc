@@ -1,0 +1,12 @@
+[run]
+omit =
+        manage.py
+        noxfile.py
+        setup.py
+        wcs/qommon/vendor/*.py
+
+[report]
+omit = wcs/qommon/vendor/*.py
+
+[html]
+show_contexts = True

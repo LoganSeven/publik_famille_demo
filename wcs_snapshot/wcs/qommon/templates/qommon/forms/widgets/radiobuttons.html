@@ -1,0 +1,23 @@
+{% extends "qommon/forms/widget.html" %}
+
+{% block widget-css-classes %}{{ block.super }} {% if widget.field.inline %} widget-inline-radio{% endif %} widget-radio-orientation-{{ widget.field.radio_orientation }}{% endblock %}
+
+{% block widget-control %}
+  <ul
+    data-base-for-name="{{ widget.get_name_for_id }}_op_"
+    class="RadiobuttonsWidget--list {% if widget.list_css_class %}{{ widget.list_css_class }}{% endif %}"
+  >
+    {% for option in widget.get_options %}
+      <li {% if option.disabled %}class="disabled"{% endif %}><label for="{{ widget.get_name_for_id }}_op_{{ forloop.counter0 }}"><input
+        id="{{ widget.get_name_for_id }}_op_{{ forloop.counter0 }}"
+        {% if option.selected %}checked="checked"
+        {% elif widget.readonly or option.disabled %}disabled="disabled"{% endif %}
+        {% for attr in widget.attrs.items %}{{attr.0}}="{{attr.1}}" {% endfor %}
+        {% for attr in widget.option_data_attributes %}data-{{attr}}="{{option.options|get:attr}}" {% endfor %}
+        type="radio" name="{{ widget.name }}"
+        value="{{ option.value }}"
+      ><span>{{ option.label }}</span></label>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

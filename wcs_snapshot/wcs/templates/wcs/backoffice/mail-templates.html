@@ -1,0 +1,21 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Mail Templates" %}{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <a class="button button-paragraph" rel="popup" href="new">{% trans "New mail template" %}</a>
+  <a class="button button-paragraph" rel="popup" href="import">{% trans "Import" %}</a>
+
+  {% if is_global_accessible_categories %}
+    <h3>{% trans "Navigation" %}</h3>
+    <a class="button button-paragraph" href="categories/">{% trans "Categories" %}</a>
+  {% endif %}
+
+  {% include 'wcs/backoffice/includes/applications.html' %}
+{% endblock %}
+
+{% block body %}
+  {% include 'wcs/backoffice/includes/mail-templates.html' %}
+{% endblock %}

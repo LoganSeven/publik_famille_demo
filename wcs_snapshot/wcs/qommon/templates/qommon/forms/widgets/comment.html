@@ -1,0 +1,7 @@
+<div {% if widget.field.id %}data-field-id="{{ widget.field.id }}"{% endif %}
+     {% if widget.is_hidden %}style="display: none"{% endif %}
+     class="comment-field {{widget.extra_css_class|default_if_none:"" }}">
+  {% block widget-content %}
+    {{ widget.content|safe }}
+  {% endblock %}
+</div>

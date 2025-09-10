@@ -1,0 +1,31 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Data Sources" %}{% endblock %}
+{% block appbar-bottom %}
+  <label class="sr-only" for="appbar-search">{% trans "Search:" %}</label>
+  <input type="search" placeholder="{% trans "Quick search" %}" name="q" id="appbar-search" value="{{q|default:""}}">
+{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <a class="button button-paragraph" href="new">{% trans "New Data Source" %}</a>
+  {% if has_users %}
+    <a class="button button-paragraph" href="new-users">{% trans "New User Data Source" %}</a>
+  {% endif %}
+  <a class="button button-paragraph" data-popup href="import">{% trans "Import" %}</a>
+  {% if has_chrono %}
+    <a class="button button-paragraph" href="sync-agendas">{% trans "Refresh agendas" %}</a>
+  {% endif %}
+
+  {% if is_global_accessible_categories %}
+    <h3>{% trans "Navigation" %}</h3>
+    <a class="button button-paragraph" href="categories/">{% trans "Categories" %}</a>
+  {% endif %}
+
+  {% include 'wcs/backoffice/includes/applications.html' %}
+{% endblock %}
+
+{% block body %}
+  {% include 'wcs/backoffice/includes/data-sources.html' %}
+{% endblock %}

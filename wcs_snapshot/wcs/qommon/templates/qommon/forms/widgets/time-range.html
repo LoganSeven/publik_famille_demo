@@ -1,0 +1,56 @@
+{% extends "qommon/forms/widget.html" %}
+{% load qommon i18n %}
+
+{% block widget-control %}
+  <div class="TimeRange" {% for attr in widget.attrs.items %} {{attr.0}}="{{attr.1}}"{% endfor %}>
+    <p class="TimeRange--no-days-message pk-attention" hidden>
+      {% trans "No available timeslots." %}
+    </p>
+
+    <div class="TimeRange--days-group" role="group" aria-labelledby="TimeRange_days_group_label_{{ widget.field.id }}" hidden>
+      <p id="TimeRange_days_group_label_{{ widget.field.id }}">{% trans "Select a day" %}</p>
+      <div class="TimeRange--slider">
+        {{ widget.widgets.0.render }}
+
+        <button type="button" class="TimeRange--slider-control next">
+          <span class="control-icon icon-next" aria-hidden="true"></span>
+          <span class="sr-only">{% trans "Scroll to the right" %}</span>
+        </button>
+        <button type="button" class="TimeRange--slider-control prev">
+          <span class="control-icon icon-prev" aria-hidden="true">
+          </span>
+          <span class="sr-only">{% trans "Scroll to the left" %}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="TimeRange--slots-group" role="group" aria-labelledby="TimeRange_slots_group_label_{{ widget.field.id }}" hidden>
+      <p id="TimeRang_slots_group_label_{{ widget.field.id }}">
+        {% trans "Select start and end hours for a booking on" %} <strong class="TimeRange--slots-day"></strong>. <br>
+      </p>
+
+      <p>{% trans "Available times" %}</p>
+      <ul class="bare-list TimeRange--slots-list"></ul>
+
+      <div class="fx-grid TimeRange--time-selects">
+        {{ widget.widgets.1.render }}
+        {{ widget.widgets.2.render }}
+      </div>
+
+      <template class="TimeRange--slot-item-template">
+        <li class="TimeRange--slot-item" data-start="" data-end="">
+          <p
+            class="TimeRange--slot-label"
+            title="{% blocktrans with start="__start__" end="__end__" %}from {{ start }} to {{ end }}{% endblocktrans %}"
+          ></p>
+        </li>
+      </template>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        new TimeRangeWidget('{{ widget.field.id }}')
+      });
+    </script>
+  </div>
+{% endblock %}

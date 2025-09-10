@@ -1,0 +1,56 @@
+{% load i18n %}
+<div class="section foldable {% if view.should_fold_history %}folded{% endif %}" id="evolution-log">
+  {% block log-section-title %}
+    <h2><span role="button" aria-expanded="{{ view.should_fold_history|yesno:'false,true' }}"
+              aria-controls="sect-evolutions" id="sect-evolutions-label">{% trans "Log" %}</span></h2>
+  {% endblock %}
+  <div id="sect-evolutions" role="region" aria-labelledby="sect-evolutions-label">
+    <ul id="evolutions">
+      {% for evolution in formdata.get_visible_evolution_parts %}
+        {% with status=evolution.get_status display_parts=evolution.display_parts %}
+          <li class="{% if evolution.who == '_submitter' %}msg-in{% elif evolution.who %}msg-out{% else %}msg-system{% endif %}
+                     {% if status.is_endpoint %}endpoint{% endif %}
+                     {{ status.extra_css_class|default:"" }}">
+            <span class="item {% if not evolution.status %}no-status-change{% endif %}" style="background: {{ status.colour }}; color: {{ status.get_contrast_color}}"></span>
+            <div>
+              {% if evolution.status %}
+                <div class="evolution-metadata">
+                  <span class="status">{{evolution.get_status_label}}
+                    {% with visibility_mode_str=status.get_visibility_mode_str %}
+                      {% if visibility_mode_str %}
+                        <span title="{{ visibility_mode_str }}" class="visibility-off"></span>
+                      {% endif %}
+                    {% endwith %}
+                  </span>
+                  <span class="time">{{evolution.datetime}}
+                    {% if evolution.last_jump_datetime and user.is_admin %}
+                      <span class="last-jump">({% trans "last check:" %} {{ evolution.last_jump_datetime }})</span>
+                    {% endif %}
+                  </span>
+                </div>
+              {% endif %}
+              <div class="msg">
+                {% if evolution.who and include_authors %}
+                  <span class="user">{{evolution.get_author_name|default_if_none:""}}
+                    <span>{% if evolution.get_author_qualification %}({{evolution.get_author_qualification}}){% endif %}</span>
+                  </span>
+                {% endif %}
+                {% if not evolution.status %}
+                  <span class="time">{{evolution.datetime}}</span>
+                {% endif %}
+                {% if evolution.comment %}
+                  <div class="comment">
+                    {{evolution.comment|linebreaks}}
+                  </div>
+                {% endif %}
+                {% for part in display_parts %}
+                  {{part|safe}}
+                {% endfor %}
+              </div>
+            </div>
+          </li>
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>

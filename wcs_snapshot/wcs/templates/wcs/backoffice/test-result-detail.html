@@ -1,0 +1,98 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}
+  {% blocktrans with test_name=result.test_name %}Details of {{ test_name }}{% endblocktrans %}
+{% endblock %}
+
+{% block body %}
+  <div class="section">
+    <ul>
+      {% if result.error_field_id %}
+        <li>
+          {% trans "Field linked to error:" %}
+          {% if error_field %}
+            <a href="{{ error_field.url }}">{{ error_field.label }}</a>
+          {% else %}
+            {% trans "deleted" %}
+          {% endif %}
+        </li>
+      {% endif %}
+      {% if result.workflow_test_action_uuid %}
+        <li id='test-action'>
+          {% trans "Test action:" %}
+          {% if workflow_test_action %}
+            <a href="{{ workflow_test_action.url }}">{{ workflow_test_action.label }}</a>
+          {% else %}
+            {% trans "deleted" %}
+          {% endif %}
+        </li>
+      {% endif %}
+      {% for line in result.error_details %}
+        <li>{{ line }}</li>
+      {% endfor %}
+      {% if result.recorded_errors %}
+        <li>{% trans "Recorded errors:" %}</li>
+        <ul>
+          {% for error in result.recorded_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if result.missing_required_fields %}
+        <li>
+          {% trans "Missing required fields:" %} {{ result.missing_required_fields|join:"," }}
+        </li>
+      {% endif %}
+      {% if result.dependency %}
+        <li>
+          {% trans "Dependency with error:" %} <a href="{{ result.dependency.get_admin_url }}">{{ result.dependency }}</a>
+        </li>
+      {% endif %}
+      {% if result.sent_requests %}
+        <li>{% trans "Sent requests:" %}</li>
+        <ul>
+          {% for request in result.sent_requests %}
+            <li>
+              {{ request.method }} {{ request.url }}
+              <ul>
+                {% if request.webservice_response_id %}
+                  <li>
+                    {% trans "Used webservice response:" %}
+                    {% if request.webservice_response %}
+                      <a href="{{ testdef.get_admin_url }}webservice-responses/{{ request.webservice_response.id }}/">
+                        {{ request.webservice_response.name }}
+                      </a>
+                    {% else %}
+                      {% trans "deleted" %}
+                    {% endif %}
+                  </li>
+                {% elif request.response_mismatch_reasons %}
+                  <li>
+                    {% trans "Request was not mocked. Responses exist with matching URL, but they were not used:" %}
+                    <ul>
+                      {% for response, reason in request.response_mismatch_reasons.items %}
+                        <li>
+                          <a
+                            href="{{ testdef.get_admin_url }}webservice-responses/{{ response.id }}/"
+                          >{{ response.name }}</a>{% trans ":" %} {{ reason }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% elif request.forbidden_method %}
+                  <li>
+                    {% trans "Request was blocked since it is not a GET request." %}
+                    <a href="{{ testdef.get_admin_url }}webservice-responses/">
+                      {% trans "You can create corresponding webservice response here." %}
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ action.name }}{% endblock %}
+
+{% block appbar-actions %}
+  <a class="extra-actions-menu-opener"></a>
+  <ul class="extra-actions-menu">
+    {% if not workflow.is_readonly %}
+      <li><a href="delete" rel="popup">{% trans "Delete" %}</a></li>
+    {% endif %}
+  </ul>
+  {% if not workflow.is_readonly %}
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+    <a rel="popup" href="options">{% trans "Options" %}</a>
+    <a rel="popup" href="edit">{% trans "Change Name" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=action object=workflow %}
+
+  <div class="bo-block">
+    <h2>{% trans "Actions" %}</h2>
+    {% if not action.items %}
+      <p>{% trans "There are not yet any actions." %}</p>
+    {% else %}
+      {% if not workflow.is_readonly %}
+        <p class="items">
+          {% trans "Use drag and drop with the handles to reorder actions." %}
+        </p>
+      {% endif %}
+    {% endif %}
+    <ul id="items-list" class="biglist sortable {% if workflow.is_readonly %}readonly{% endif %}">
+      {% for item in action.items %}
+        <li class="biglistitem" data-id="{{ item.id }}">
+          <a class="biglistitem--content" href="items/{{ item.id }}/">{{ item.render_as_line }}</a>
+          {% if not workflow.is_readonly %}
+            <p class="commands">
+              <span class="remove"><a rel="popup" href="items/{{ item.id }}/delete" title="{% trans "Remove" %}">{% trans "Remove" %}</a></span>
+            </p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="bo-block">
+    <h2>{% trans "Triggers" %}</h2>
+    <ul id="triggers-list" class="biglist sortable {% if workflow.is_readonly %}readonly{% endif %}"
+        data-order-function="update_triggers_order">
+      {% for trigger in action.triggers %}
+        <li class="biglistitem" id="trigId_{{ trigger.id }}/" data-id="{{ trigger.id }}">
+          <a rel="popup" href="triggers/{{ trigger.id }}/">{{ trigger.render_as_line }}</a>
+          {% if not workflow.is_readonly %}
+            <p class="commands">
+              <span class="remove"><a rel="popup" href="triggers/{{ trigger.id }}/delete" title="{% trans "Remove" %}">{% trans "Remove" %}</a></span>
+            </p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <p><a href="../../">{% trans "Back to workflow main page" %}</a></p>
+
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if workflow.is_default %}
+    <p>
+      {% blocktrans trimmed %}
+        This is the default workflow, you cannot edit it but you can
+        duplicate it to base your own workflow on it.
+      {% endblocktrans %}
+    </p>
+  {% elif workflow.is_readonly %}
+    <div class="infonotice"><p>{% trans "This workflow is readonly." %}</div>
+      {{ view.snapshot_info_block|safe }}
+  {% else %}
+    <div id="new-action">
+      <h3>{% trans "New Action" %}</h3>
+      {{ view.get_new_item_form.render|safe }}
+    </div>
+    <div id="new-trigger">
+      <h3>{% trans "New Trigger" %}</h3>
+      {{ view.get_new_trigger_form.render|safe }}
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% load i18n %}
+
+{% for category in categories %}
+  {% if category.objects %}
+    {% with section_folded_pref_name="folded-admin-workflows-category-"|add:category.id %}
+      <div class="section foldable {% if user|get_preference:section_folded_pref_name %}folded{% endif %}"
+           data-section-folded-pref-name="{{ section_folded_pref_name }}">
+        {% if category.name %}<h2>{{ category.name }}</h2>{% endif %}
+        <ul class="objects-list single-links">
+          {% for item in category.objects %}
+            <li class="{{ item.css_class }}" data-search-text="{{ item.name|searchify }}-{{ item.slug }}">
+              <a href="{{ item.get_admin_url }}">
+                {% if not application %}{% include 'wcs/backoffice/includes/application_icons.html' with object=item %}{% endif %}
+                {{ item.name }}
+                {% if item.usage_label %}<span class="badge">{{ item.usage_label }}</span>{% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endwith %}
+  {% endif %}
+{% endfor %}

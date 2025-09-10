@@ -1,0 +1,25 @@
+{% load i18n %}
+<fieldset class="evolution--content-diff foldable folded" data-datetime="{{datetime.isoformat}}">
+  <legend class="evolution--content-diff-legend">
+    <span class="evolution--content-diff-legend-datetime">
+      {% if old_data %}
+        {% blocktrans with timestamp=localtime %}changed at {{timestamp}}{% endblocktrans %}
+      {% else %}
+        {% blocktrans %}initial data{% endblocktrans %}
+      {% endif %}
+    </span>
+    {% if user %}<span class="evolution--content-diff-user">({{ user }})</span>{% endif %}
+  </legend>
+  <table data-datetime="{{datetime.isoformat}}" class="main">
+    <thead>
+      <tr>
+        <th>{% trans "Field" %}</th>
+        <th>{% trans "Old value" %}</th>
+        <th>{% trans "New value" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{value_diffs|safe}}
+    </tbody>
+  </table>
+</fieldset>

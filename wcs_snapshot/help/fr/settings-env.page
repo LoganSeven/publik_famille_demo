@@ -1,0 +1,49 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="settings-env" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#system-settings" />
+  <revision docversion="0.1" date="2016-08-01" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Quelques options</desc>
+</info>
+
+<title>Variables d’environnement</title>
+
+<p>
+La majeure partie du paramétrage est accessible via les écrans de paramétrage
+ou via le fichier <code>site-options.cfg</code>; pour faciliter le travail de
+configuration quand il s’agit d’informations proches de l’administration
+système, il existe également la possibilité d’utiliser des variables
+d’environnement.
+</p>
+
+<section>
+  <title>Redirection des emails</title>
+
+  <p>
+    Accessible dans l’écran de paramétrage des options de debug, il est
+    aussi possible de forcer les emails générés par la plateforme à être
+    envoyés vers une adresse unique, en positionnant la variable
+    d’environnement <code>QOMMON_MAIL_REDIRECTION</code>.
+  </p>
+</section>
+
+<section>
+  <title>Fréquence de vérification des expirations des sauts</title>
+
+  <p>
+   Par défaut les sauts de workflow sont évalués trois fois par heure, toutes
+   les vingt minutes.  Il est possible de définir une autre fréquence dans la
+   variable d’environnement <code>WCS_JUMP_TIMEOUT_CHECKS</code>.  Cette
+   variable doit contenir le nombre de vérifications à réaliser par heure, le
+   maximum est d’une vérification toutes les minutes (i.e.
+   <code>WCS_JUMP_TIMEOUT_CHECKS=60</code>).
+  </p>
+</section>
+
+</page>
+

@@ -1,0 +1,80 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="form-multipages" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#form" />
+  <revision docversion="0.1" date="2015-05-01" status="draft"/>
+  <link type="seealso" xref="misc-conditions" />
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Composition de formulaires comprenant plusieurs pages</desc>
+</info>
+
+<title>Multi-pages</title>
+
+<p>
+Dans bien des situations il est nécessaire de structurer un formulaire en
+plusieurs pages, pour ce faire un type de champ spécial existe, il s’agit de
+« Page ».  Il permet de définir un titre aux pages, qui sera affiché à
+l’usager dans l’indicateur de progression.
+</p>
+
+<p>
+Pour créer un formulaire multi-pages, il est important que toutes les pages
+soient nommées, cela implique particulièrement que le formulaire doit
+absolument commencer par un champ de ce type, que les premiers champs ne se
+trouvent pas à <em>flotter</em> en-dehors de la structure de pages.
+</p>
+
+<note>
+ <p>
+  Afin de rappeler l’importance de la définition d’une page comme premier
+  élément de formulaire, un message d’information est affiché en haut de la
+  définition des champs quand ce n’est pas le cas.
+ </p>
+</note>
+
+<section>
+  <title>Pages conditionnelles</title>
+
+  <p>
+   Dans certaines situations toutes les pages d’un formulaire n’ont pas à être
+   présentées dans toutes les situations, inutile par exemple de présenter une
+   page précisant les modalités d’accès à un parking si l’usager a noté dans
+   une page précédente qu’il viendrait en tant que piéton.
+  </p>
+
+  <p>
+   Pour répondre à ce besoin, en plus du libellé de la page, les champs de type
+   « Page » disposent d’une option permettant d’en conditionner
+   l’affichage.
+  </p>
+
+  <p>
+   Une condition s’exprime sous forme d’une <em>expression Python</em>, qui peut
+   faire référence à des informations concernant le formulaire en cours de
+   remplissage mais aussi à l’usager occupé à le remplir.
+  </p>
+
+  <p>
+   Pour partir sur la situation du premier paragraphe, le champ « mode de
+   transport » pourrait avoir comme nom de variable associé
+   <code>mode_de_transport</code>, la page sur l’accès au parking ne devrait
+   pas être affichée pour les personnes ayant précisés qu’elles venaient à
+   pieds, le champ serait complété avec l’expression suivante :
+   <code>form_var_mode_de_transport != "Piéton"</code> (où le <code>!=</code>
+   correspond à la syntaxe Python signifiant « différent de »).
+  </p>
+
+  <note>
+   <p>
+    D’autres exemples de condition sont présentés dans la page <link
+    xref="misc-conditions"/>.
+   </p>
+  </note>
+
+</section>
+
+</page>

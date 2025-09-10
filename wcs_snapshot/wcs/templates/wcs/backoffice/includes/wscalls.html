@@ -1,0 +1,11 @@
+{% load i18n %}
+<ul class="objects-list single-links">
+  {% for wscall in wscalls %}
+    <li data-search-text="{{ wscall.name|searchify }}-{{ wscall.slug }}">
+      <a href="{{ wscall.get_admin_url }}">
+        {% include 'wcs/backoffice/includes/application_icons.html' with object=wscall %}
+        {{ wscall.name }} ({{ wscall.slug }})
+      </a>
+    </li>
+  {% endfor %}
+</ul>

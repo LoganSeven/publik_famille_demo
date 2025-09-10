@@ -1,0 +1,8 @@
+{% block content %}
+{{ content }}
+{% endblock %}
+
+{% block footer %}
+{% if email_signature %}-- 
+{{ email_signature|safe }}{% endif %}
+{% endblock %}

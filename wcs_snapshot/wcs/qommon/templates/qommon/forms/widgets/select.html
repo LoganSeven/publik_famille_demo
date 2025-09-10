@@ -1,0 +1,21 @@
+{% extends "qommon/forms/widget.html" %}
+{% block widget-control %}
+  <select id="form_{{widget.get_name_for_id}}" name="{{widget.name}}"
+          {% if widget.select2 %}data-autocomplete="true"{% endif %}
+          {% if widget.required %}required data-required="true"{% endif %}
+          {% for attr in widget.attrs.items %}{% if attr.0 != 'readonly' %} {{attr.0}}="{{attr.1}}"{% endif %}{% endfor %}>
+    {% if not widget.separate_hint and widget.hint %}
+      <option value="" data-hint="{{ widget.hint }}">{% if not widget.select2 %}{{ widget.hint }}{% endif %}</option>
+    {% endif %}
+    {% for option in widget.get_options %}
+      {% if option.start_optgroup %}<optgroup label="{{ option.start_optgroup }}">
+      {% elif option.end_optgroup %}</optgroup>{% else %}
+        <option{% for attr in option.attrs.items %} {{attr.0}}="{{attr.1}}"{% endfor %}>{{ option.description }}</option>
+      {% endif %}
+    {% empty %}
+      {% if widget.separate_hint or not widget.hint %}
+        <option value="">---</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+{% endblock %}

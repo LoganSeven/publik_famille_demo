@@ -1,0 +1,26 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Webservice Calls" %}{% endblock %}
+{% block appbar-bottom %}
+  <label class="sr-only" for="appbar-search">{% trans "Search:" %}</label>
+  <input type="search" placeholder="{% trans "Quick search" %}" name="q" id="appbar-search" value="{{q|default:""}}">
+{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <a class="button button-paragraph" href="new">{% trans "New webservice call" %}</a>
+  <a class="button button-paragraph" rel="popup" href="import">{% trans "Import" %}</a>
+
+  {% include 'wcs/backoffice/includes/applications.html' %}
+{% endblock %}
+
+{% block body %}
+  {% if wscalls %}
+    {% include 'wcs/backoffice/includes/wscalls.html' %}
+  {% else %}
+    <div class="infonotice">
+      {% trans "There are no webservice calls defined." %}
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+export PYBUILD_NAME=wcs
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_install:
+	dh_install
+	mv $(CURDIR)/debian/wcs/usr/bin/manage.py \
+		$(CURDIR)/debian/wcs/usr/lib/wcs/
+	install -d $(CURDIR)/debian/wcs/etc/wcs
+	install -m 644 wcs.cfg-sample $(CURDIR)/debian/wcs/etc/wcs/wcs.cfg
+
+override_dh_auto_test:
+	# skip upstream tests

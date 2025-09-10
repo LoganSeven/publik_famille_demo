@@ -1,0 +1,17 @@
+**/*.css.map
+**/django.mo
+*.pyc
+.coverage
+/wcs/qommon/static/css/dc2/admin.css
+/wcs/qommon/static/css/qommon.css
+/wcs/qommon/static/css/item-with-image.css
+/wcs/qommon/static/css/time-range-widget.css
+MANIFEST
+build/
+coverage.xml
+data/themes/publik-base
+htmlcov/
+junit-*.xml
+local_settings.py
+pylint.out
+wcs.egg-info/

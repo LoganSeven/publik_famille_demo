@@ -1,0 +1,76 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="wf-geolocate" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#wf" />
+  <revision docversion="0.1" date="2016-05-01" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+
+</info>
+
+<title>Géolocalisation</title>
+
+<p>
+Une fois la géolocalisation activée pour un formulaire, le workflow associé
+peut faire appel à l’action de géolocalisation pour attacher des coordonnées
+géographiques à la demande.
+</p>
+
+<p>
+Ces coordonnées peuvent être obtenues par géocodage à partir d’une adresse ou
+en les extrayant d’un champ « Carte » ou des métadonnées attachées à une
+photographie qui aurait été transférée via un champ de type « Fichier ».
+</p>
+
+<p>
+Si les coordonnées peuvent être tirées de différentes sources, il est possible
+de faire se succéder plusieurs appels à une action de géolocalisation, en les
+paramétrant pour ne pas écraser des coordonnées précédemment acquises.
+</p>
+
+<p>
+Une fois le géocodage réussi, l’information est mise à disposition dans les
+variables <code>form_geoloc_base_lat</code> pour la latitude et
+<code>form_geoloc_base_lon</code> pour la longitude.
+</p>
+
+<section>
+  <title>Géocodage à partir d’une adresse</title>
+
+  <p>
+  Le paramétrage se fait en renseignant une chaîne de caractère produisant une
+  adresse, généralement en utilisant le mécanisme de substitution pour
+  concaténer plusieurs champs.
+  </p>
+
+  <example><code>{{form_var_numero}} {{form_var_voie}}, {{form_var_commune}}</code></example>
+</section>
+
+<section>
+  <title>Extraction d’un champ « Carte »</title>
+
+  <p>
+  Le paramètre est une expression faisant référence à une variable tirée d’un
+  champ « Carte ».
+  </p>
+
+  <example><code>=form_var_carte</code></example>
+</section>
+
+<section>
+  <title>Extraction d’une photographie</title>
+
+  <p>
+  Le paramètre est une expression pointant une variable tirée d’un champ de
+  type « Fichier »; le fichier ainsi pointé doit être une image contenant des
+  métadonnées EXIF, renseignant la localisation de la prise de vue.
+  </p>
+
+  <example><code>=form_var_photo</code></example>
+</section>
+
+</page>
+

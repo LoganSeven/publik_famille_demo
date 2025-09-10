@@ -1,0 +1,32 @@
+{% extends "qommon/forms/widget.html" %}
+{% load i18n %}
+
+{% block widget-css-classes %}{{ block.super }} WidgetDict{% endblock %}
+
+{% block widget-content %}
+  {{ block.super }}
+  <div class="preview-payload-structure" hidden>
+    <a class="pk-button">{% trans "Preview payload structure" %}</a>
+    <dialog>
+      <div class="preview-payload-structure--content">
+      </div>
+      <div class="buttons">
+        <button class="dialog-close-button">{% trans "Close" %}</button>
+      </div>
+    </dialog>
+  </div>
+{% endblock %}
+
+{% block widget-hint %}
+  <div class="hint"><p>
+    {% blocktrans trimmed %}
+      The / in parameter name allows to generate complex objects.  Thus a parameter
+      named "element/child" containing "value" will generate the payload "element":
+      {"child": "value"}. If the subkey, i.e. "child", is an integer it will become a
+      list index and two elements "element/0", "element/1" (indexes should start from
+      zero) containing "value1" and "value2" will generate the payload "element":
+      ["value1", "value2"]. It is possible to combine the two types, for example
+      "element/0/key1" to generate a list of objects.
+    {% endblocktrans %}
+  </p></div>
+{% endblock %}

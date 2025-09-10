@@ -1,0 +1,53 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Fields coverage" %}{% endblock %}
+
+{% block body %}
+  <div class="section">
+    {% for field in fields %}
+      <details class="coverage">
+        <summary class="{{ field.css_class }} {% if field.key != "page" %}field{% endif %}">
+          {{ field.label }}
+          <a href="{{ field.get_admin_url }}"></a>
+        </summary>
+
+        <div class="coverage--info">
+          {% if field.condition %}
+            {% if field.visible_in_tests %}
+              <p>{% trans "Displayed in tests:" %}</p>
+              <ul>
+                {% for test in field.visible_in_tests %}
+                  {% if test %}
+                    <li><a href="{{ test.get_admin_url }}">{{ test }}</a></li>
+                  {% else %}
+                    <li><i>{% trans "deleted test" %}</i></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>{% trans "Never displayed." %}</p>
+            {% endif %}
+
+            {% if field.hidden_in_tests %}
+              <p>{% trans "Hidden in tests:" %}</p>
+              <ul>
+                {% for test in field.hidden_in_tests %}
+                  {% if test %}
+                    <li><a href="{{ test.get_admin_url }}">{{ test }}</a></li>
+                  {% else %}
+                    <li><i>{% trans "deleted test" %}</i></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>{% trans "Never hidden." %}</p>
+            {% endif %}
+          {% else %}
+            <p>{% trans "No condition, always displayed." %}</p>
+          {% endif %}
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+{% endblock %}

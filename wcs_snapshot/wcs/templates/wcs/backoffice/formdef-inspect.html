@@ -1,0 +1,197 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar %}{% endblock %}
+
+{% block content %}
+
+  {% if formdef.documentation %}
+    <div class="bo-block documentation documentation-inspect-top"><div class="ro-documentation">{{ formdef.documentation|safe }}</div></div>
+  {% endif %}
+
+  <div class="pk-tabs inspect-tabs inspect-form-tabs">
+    <div class="pk-tabs--tab-list" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="inspect-infos" id="tab-infos" tabindex="0">{% trans "Information" %}</button>
+      <button role="tab" aria-selected="false" aria-controls="inspect-workflow" id="tab-workflow" tabindex="-1">{% trans "Workflow" %}</button>
+      <button role="tab" aria-selected="false" aria-controls="inspect-options" id="tab-options" tabindex="-1">{% trans "Options" %}</button>
+      <button role="tab" aria-selected="false" aria-controls="inspect-fields" id="tab-fields" tabindex="-1">{% trans "Fields" %}</button>
+      {% if not snapshots_diff and not is_carddef %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-drafts" id="tab-drafts" tabindex="-1">{% trans "Drafts" %}</button>
+      {% endif %}
+      {% if custom_views %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-customviews" id="tab-customviews" tabindex="-1">{% trans "Custom views" %}</button>
+      {% endif %}
+      {% if deprecations.report_lines %}
+        <button role="tab" aria-selected="false" aria-controls="inspect-deprecations" id="tab-deprecations" tabindex="-1">{% trans "Deprecations" %}</button>
+      {% endif %}
+    </div>
+    <div class="pk-tabs--container">
+
+      <div id="inspect-infos" role="tabpanel" tabindex="0" aria-labelledby="tab-info">
+        <ul>
+          <li><span class="parameter">{% trans "Title" %}{% trans ":" %}</span> {{ formdef.name|default:"-" }}</li>
+          <li><span class="parameter">{% trans "Description" %}{% trans ":" %}</span> {{ formdef.description|default:"-"|safe }}</li>
+          <li><span class="parameter">{% trans "Keywords" %}{% trans ":" %}</span> {{ formdef.keywords|default:"-" }}</li>
+          <li><span class="parameter">{% trans "Category" %}{% trans ":" %}</span> {% if formdef.category %}<a href="{{ formdef.category.get_admin_url }}">{{ formdef.category.name }}</a>{% else %}-{% endif %}</li>
+        </ul>
+      </div>
+
+      <div id="inspect-workflow" role="tabpanel" tabindex="0" aria-labelledby="tab-workflow" hidden>
+        <ul>
+          <li><span class="parameter">{% trans "Workflow" %}{% trans ":" %}</span> <a href="{{ formdef.workflow.get_admin_url }}">{{ formdef.workflow.name }}</a></li>
+          <li><span class="parameter">{% trans "Options" %}{% trans ":" %}</span> {% if not workflow_options %}-{% else %}<ul>
+            {% for label, value in workflow_options.items %}
+              {% if value == '__title__' or value == '__subtitle__' %}<li><strong>{{ label }}</strong></li>
+              {% elif value == '__comment__' %}<li>{{ label }}</li>
+              {% else %}
+                <li>{{ label }} → {{ value|safe|default:"-" }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>{% endif %}</li>
+          {% for wf_role_id, wf_role_label, role_label in workflow_roles %}
+            <li><span class="parameter">{{ wf_role_label }}{% trans ":" %}</span> {{ role_label|default:"-" }}</li>
+          {% endfor %}
+          <li><span class="parameter">{% trans "User Roles" %}{% trans ":" %}</span> {{ view.get_roles_label_and_auth_context|default:"-" }}</li>
+          <li><span class="parameter">{% trans "Backoffice Submission Role" %}{% trans ":" %}</span> {{ backoffice_submission_roles|default:"-" }}</li>
+        </ul>
+      </div>
+
+      <div id="inspect-options" role="tabpanel" tabindex="0" aria-labelledby="tab-options" hidden>
+        <ul>
+          <li><span class="parameter">{% trans "Confirmation Page" %}{% trans ":" %}</span> {{ formdef.confirmation|default_if_none:False|yesno }}</li>
+          <li><span class="parameter">{% trans "Limit to one form" %}{% trans ":" %}</span> {{ formdef.only_allow_one|default_if_none:False|yesno }}</li>
+          {% if formdef.roles %}
+            <li><span class="parameter">{% trans "Display to unlogged users" %}{% trans ":" %}</span> {{ formdef.always_advertise|default_if_none:False|yesno }}</li>
+          {% endif %}
+          <li><span class="parameter">{% trans "Management sidebar elements" %}{% trans ":" %}</span>
+            <ul>
+              {% for label in formdef.management_sidebar_items_labels %} <li>{{ label }}</li>{% endfor %}
+            </ul>
+          </li>
+          <li><span class="parameter">{% trans "Skip from per user view" %}{% trans ":" %}</span> {{ formdef.skip_from_360_view|default_if_none:False|yesno }}</li>
+          <li><span class="parameter">{% trans "Tracking codes" %}{% trans ":" %}</span> {{ formdef.enable_tracking_codes|default_if_none:False|yesno }}</li>
+          {% if formdef.enable_tracking_codes %}
+            <li><span class="parameter">{% trans "Fields to check after entering the tracking code" %}{% trans ":" %}</span> {{ tracking_code_verify_fields_labels|default:"-" }}</li>
+          {% endif %}
+          <li><span class="parameter">{% trans "Lifespan of drafts (in days)" %}{% trans ":" %}</span> {{ formdef.get_drafts_lifespan }}</li>
+          <li><span class="parameter">{% trans "Maximum number of drafts per user" %}{% trans ":" %}</span> {{ formdef.get_drafts_max_per_user }}</li>
+          <li><span class="parameter">{% trans "Templates" %}</span>
+            <ul>
+              <li><span class="parameter">{% trans "Digest" %}{% trans ":" %}</span> {{ formdef.default_digest_template|default:"-" }}</li>
+              <li><span class="parameter">{% trans "Lateral Block" %}{% trans ":" %}</span> {{ formdef.lateral_template|default:"-" }}</li>
+              <li><span class="parameter">{% trans "Submission Lateral Block" %}{% trans ":" %}</span> {{ formdef.submission_lateral_template|default:"-" }}</li>
+            </ul>
+          </li>
+          <li><span class="parameter">{% trans "Disable access to form" %}{% trans ":" %}</span> {{ formdef.disabled|default_if_none:False|yesno }}</li>
+          <li><span class="parameter">{% trans "Redirection when disabled" %}{% trans ":" %}</span> {{ formdef.disabled_redirection|default:"-" }}</li>
+          <li><span class="parameter">{% trans "Publication date" %}{% trans ":" %}</span> {{ formdef.publication_date|default:"-" }}</li>
+          <li><span class="parameter">{% trans "Expiration date" %}{% trans ":" %}</span> {{ formdef.expiration_date|default:"-" }}</li>
+
+        </ul>
+      </div>
+
+      <div id="inspect-fields" role="tabpanel" tabindex="0" aria-labelledby="tab-fields" hidden>
+        <div class="pk-information page-field-counters"><p>
+          {% blocktrans count page_count=formdef.page_count %}{{ page_count }} page{% plural %}{{ page_count }} pages{% endblocktrans %},
+          {% blocktrans count fields_count=formdef.fields|count %}{{ fields_count }} field{% plural %}{{ fields_count }} fields{% endblocktrans %}.
+        </p></div>
+        {% for field in formdef.fields %}
+          {% include "wcs/backoffice/includes/inspect-field.html" with path=formdef.get_admin_url|add:"fields/" %}
+        {% endfor %}
+      </div>
+
+      {% if not snapshots_diff and not is_carddef %}
+        <div id="inspect-drafts" role="tabpanel" tabindex="0" aria-labelledby="tab-drafts" hidden>
+          {% if total_drafts %}
+            <h2>{% trans "Key indicators on existing drafts" %}</h2>
+            <div class="infonotice">
+              <p>
+                {% blocktrans trimmed with count=formdef.get_drafts_lifespan %}
+                  Covered period: last {{ count }} days.
+                {% endblocktrans %}
+              </p>
+            </div>
+            <h3>{% trans "Rate for in-progress forms, by page" %}</h3>
+            <table class="stats" data-table-id="rate-among-drafts">
+              <tbody>
+                {% for page_drafts in drafts %}
+                  {% include "wcs/backoffice/includes/inspect-draft-by-page.html" with page_id=page_drafts.0 field=page_drafts.1.field percent=page_drafts.1.percent num=page_drafts.1.total den=total_drafts %}
+                {% endfor %}
+              </tbody>
+            </table>
+            <h3>{% trans "Completion rate: count of submitted forms, against count of drafts" %}</h2>
+            <table class="stats completion-rate">
+              <tbody>
+                <tr>
+                  <td class="label"></td>
+                  <td class="percent">{{ percent_submitted_formdata|floatformat }}{% trans "%" %}</td>
+                  <td class="total">({{ total_formdata|subtract:total_drafts }}/{{ total_formdata }})</td>
+                </tr>
+                <tr>
+                  <td class="bar" colspan="3">
+                    <span style="width: {{ percent_submitted_formdata|floatformat:"3u" }}%"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          {% else %}
+            <p>{% trans "There are currently no drafts for this form." %}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div id="inspect-customviews" role="tabpanel" tabindex="0" aria-labelledby="tab-customviews" hidden>
+        <div>
+          {% for custom_view in custom_views %}
+            <h4 id="inspect-customviews--{{ custom_view.id }}">{{ custom_view.title }}</h4>
+            <ul>
+              {% with author=custom_view.author %}
+                {% if author %}<li class="parameter--author"><span class='parameter'>{% trans "Author" %}{% trans ":" %}</span> {{ author }}</li>{% endif %}
+              {% endwith %}
+              <li>
+                <span class='parameter'>{% trans "Visibility" %}{% trans ":" %}</span>
+                {% if custom_view.visibility == 'any' %}
+                  {% trans "to any users" %}
+                {% elif custom_view.visibility == 'datasource' %}
+                  {% trans "as data source" %}
+                {% elif custom_view.visibility == 'role' %}
+                  {% trans "to role" %} ({{ custom_view.role|default:'-' }})
+                {% endif %}</li>
+              <li><span class='parameter'>{% trans "Default view" %}{% trans ":" %}</span> {{ custom_view.is_default|default_if_none:False|yesno }}</li>
+              <li><span class='parameter'>{% trans "Digest" %}{% trans ":" %}</span> {{ custom_view.digest_template|default:'-' }}</li>
+              <li><span class='parameter'>{% trans "Columns" %}{% trans ":" %}</span> {{ custom_view.columns|default:'-' }}</li>
+              <li><span class='parameter'>{% trans "Filters" %}{% trans ":" %}</span> {{ custom_view.filters|default:'-' }}</li>
+              <li><span class='parameter'>{% trans "Order by" %}{% trans ":" %}</span> {{ custom_view.order_by|default:'-' }}</li>
+              {% if custom_view.visibility == 'datasource' %}
+                <li><span class='parameter'>{% trans "Group by" %}{% trans ":" %}</span> {{ custom_view.group_by|default:'-' }}</li>
+              {% endif %}
+            </ul>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if deprecations %}
+        <div id="inspect-deprecations" role="tabpanel" tabindex="0" aria-labelledby="tab-deprecations" hidden>
+          {% regroup deprecations.report_lines by category as category_report_lines %}
+          {% for category in category_report_lines %}
+            <h4>{{ deprecation_metadata|get:category.grouper|get:"title" }}</h4>
+            <div class="section--{{ category.grouper }}">
+              <ul>
+                {% for report_line in category.list %}
+                  <li class="{{ report_line.css_class|default:"" }}"><a href="{{ report_line.url }}"
+                    >{{ report_line.location_label }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block sidebar-content %}
+  {{ view.snapshot_info_inspect_block|safe }}
+{% endblock %}

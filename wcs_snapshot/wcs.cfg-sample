@@ -1,0 +1,7 @@
+[main]
+app_dir = /var/lib/wcs
+data_dir = /usr/share/wcs
+use_long_traces = true
+#error_log = /var/lib/wcs/error.log
+# Redirect on unknown virtual host
+#missing_appdir_redirect = http://www.mysite.com

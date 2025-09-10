@@ -1,0 +1,30 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ action.description }}{% endblock %}
+
+{% block appbar-actions %}
+  {% if not workflow.is_readonly %}
+    {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  {{ view.get_common_varnames|json_script:"common-varnames" }}
+  {{ html_form.render|safe }}
+
+  {% if action.support_substitution_variables %}
+    {{ get_substitution_html_table|safe }}
+  {% endif %}
+
+{% endblock %}
+
+{% block sidebar-attrs %}
+  {% if not action.documentation %}style="display: none"{% endif %}
+{% endblock %}
+
+{% block sidebar-content %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=action object=workflow %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends template_base %}
+
+{% block form-side %}
+  {{ form_side|default:"" }}
+{% endblock %}
+
+{% block body %}
+  <div class="form-validation">
+    <div class="infonotice">
+      {% standard_text "check-before-submit" %}
+    </div>
+    {{ html_form.render|safe }}
+  </div>
+{% endblock %}

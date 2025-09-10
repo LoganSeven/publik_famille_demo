@@ -1,0 +1,32 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Categories" %}{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <a class="button button-paragraph" rel="popup" href="new">{% trans "New Category" %}</a>
+  <a class="button button-paragraph" rel="popup" href="import">{% trans "Import" %}</a>
+
+  {% include 'wcs/backoffice/includes/applications.html' %}
+{% endblock %}
+
+{% block body %}
+  <div class="explanation bo-block"><p>{{ view.category_explanation }}</p></div>
+  {% if categories %}
+    <ul class="biglist sortable" id="category-list">
+      {% for category in categories %}
+        <li class="biglistitem" data-id="{{ category.id }}">
+          <a class="biglistitem--content" href="{{ category.id }}/">
+            {% include 'wcs/backoffice/includes/application_icons.html' with object=category %}
+            {{ category.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="infonotice">
+      {% trans "There are no categories defined." %}
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,142 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-user" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" />
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Demandes et brouillons d’un usager</desc>
+
+</info>
+
+<title>Récupération des données d’un usager</title>
+
+<p>
+Il s’agit ici des API permettant à un logiciel tiers de récupérer les données
+associées aux usagers enregistrés.
+</p>
+
+  <section id="forms">
+    <title>Demandes</title>
+
+    <p>
+    La liste des demandes transmises par un usager est accessible à l’URL
+    <code>/api/users/<var>uuid</var>/forms</code>, elle reprend un ensemble
+    minimal d’informations concernant chacune de celles-ci.
+    </p>
+
+<screen>
+<input>GET https://www.example.net/api/users/<var>uuid</var>/forms</input>
+<output>{
+    "err": 0,
+    "data": [
+        {
+            "category_id": "1",
+            "category_name": "Divers",
+            "datetime": "2014-03-28 15:36:52",
+            "form_name": "Demande d’inscription",
+            "form_slug": "demande-d-inscription",
+            "form_number": "123",
+            "form_number_raw": "123",
+            "form_receipt_date": "28/03/2014",
+            "form_receipt_time": "15:36",
+            "form_status": "Nouveau",
+            "form_status_is_endpoint": false,
+            "form_uri": "demande-d-inscription/123/",
+            "form_url": "http://www.example.net/demande-d-inscription/123/",
+            "form_url_backoffice": "http://www.example.net/backoffice/demande-d-inscription/123/",
+            "name": "Demande d’inscription",
+            "status": "Nouveau",
+            "title": "Demande d’inscription #123 (Nouveau)",
+            "url": "http://www.example.net/demande-d-inscription/123/",
+        },
+        {
+            "category_id": "2",
+            "category_name": "Prise de rendez-vous",
+            "datetime": "2014-03-17 10:39:52",
+            "form_name": "Rendez-vous avec le service B",
+            "form_slug": "rendez-vous-service-b",
+            "form_number": "456",
+            "form_number_raw": "456",
+            "form_receipt_date": "17/03/2014",
+            "form_receipt_time": "10:39",
+            "form_status": "En cours",
+            "form_status_is_endpoint": false,
+            "form_uri": "rendez-vous-service-b/456/",
+            "form_url": "http://www.example.net/rendez-vous-service-b/456/",
+            "form_url_backoffice": "http://www.example.net/backoffice/rendez-vous-service-b/456/",
+            "name": "Rendez-vous avec le service B"",
+            "status": "Nouveau",
+            "title": "Rendez-vous avec le service B #456 (En cours)",
+            "url": "http://www.example.net/rendez-vous-service-b/456/",
+        },
+        {
+            "category_id": "3",
+            "category_name": "Modification de vos coordonn\u00e9es",
+            "datetime": "2014-03-17 10:42:17",
+            "form_name": "Changement d’adresse",
+            "form_slug": "changement-d-adresse",
+            "form_number": "424",
+            "form_number_raw": "424",
+            "form_receipt_date": "17/03/2014",
+            "form_receipt_time": "10:42",
+            "form_status": "Traitement de la demande termin\u00e9",
+            "form_status_is_endpoint": true,
+            "form_uri": "changement-d-adresse/424/",
+            "form_url": "http://www.example.net/changement-d-adresse/424/",
+            "form_url_backoffice": "http://www.example.net/backoffice/changement-d-adresse/424/",
+            "name": "Changement d’adresse",
+            "status": "Traitement de la demande termin\u00e9",
+            "title": "Changement d’adresse #424 (Traitement de la demande termin\u00e9)",
+            "url": "http://www.example.net/changement-d-adresse/424/",
+        }
+    ]
+}</output></screen>
+
+<note><p>
+Le même résultat peut être obtenu en utilisant <code>/api/user/forms</code>
+mais cet endpoint ne fonctionne pas avec l’authentification HTTP Basique;
+elle demande la mise en place de l’algorithme de signature.
+</p></note>
+
+<p>
+Il est possible de recevoir un ensemble plus complet de données en passant un
+paramètre <code>full=on</code> à l’adresse.  Pour inclure également les
+brouillons, un paramètre <code>include-drafts=true</code> peut être passé.
+</p>
+
+<p>
+Par ailleurs le filtre <code>?filter-user-uuid=</code> peut s’appliquer sur
+les API de récupérations de demandes et de fiches pour filtrer sur un usager
+particulier.
+</p>
+
+  </section>
+  <section>
+    <title>Brouillons</title>
+
+    <p>
+    La liste des brouillons de l’usager est accessible à l’adresse
+    <code>/api/users/<var>uuid</var>/drafts</code>.
+    </p>
+
+<screen>
+<input>GET https://www.example.net/api/user/<var>uuid</var>/drafts</input>
+<output>{
+    "err": 0,
+    "data": [
+        {
+            "datetime": "2014-07-21 10:15:21",
+            "name": "Demande de relecture",
+            "title": "Demande de relecture, brouillon enregistré le 21/07/2014 10:15",
+            "url": "http://www.example.net/demande-de-relecture/164"
+        }
+    ]
+}</output></screen>
+
+  </section>
+
+</page>

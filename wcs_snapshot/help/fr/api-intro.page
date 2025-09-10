@@ -1,0 +1,41 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-intro" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" group="#first" />
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Public cible, principes généraux, etc.</desc>
+
+</info>
+
+<title>Introduction aux API de w.c.s.</title>
+
+<p>
+Cette section de la documentation s’adresse aux développeurs
+d’applications tierces désirant interfacer celles-ci avec w.c.s.
+</p>
+
+<section id="tech">
+<title>Aspects techniques</title>
+
+<p>
+L’API est constituée d’appels REST, qui sont effectués
+en HTTPS, pour assurer la sécurité et la confidentialité des échanges. Le
+format d’échange des données est JSON. Ces deux propriétés la rendent
+accessible facilement à tous les langages et environnements de programmation
+modernes.
+</p>
+
+<p>
+Cette documentation se veut facile à lire, avec beaucoup de notes et
+d’exemples.  Les différentes pages détaillent les points d’accès à
+utiliser pour réaliser les différentes opérations.
+</p>
+
+</section>
+
+</page>

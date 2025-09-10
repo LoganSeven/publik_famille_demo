@@ -1,0 +1,27 @@
+{% load i18n gadjo static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>{{ workflow.name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/qommon.css?{% version_hash %}"/>
+    <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/dc2/admin.css?{% version_hash %}"/>
+    {{script|safe}}
+  </head>
+  <body>
+    <div id="workflow-fullscreen-schema"
+         class="svg-pan-zoom-with-ctrl"
+         data-handling-scroll-warning-text="{% trans "Use ctrl + scroll to zoom the schema" %}"
+         data-handling-scroll-mac-warning-text="{% trans "Use ⌘ + scroll to zoom the schema" %}"
+    >
+      {{ view.graphviz|safe }}
+      <ul class="full-screen-links">
+        <li><a download href="schema.svg">{% trans "Download" %}</a></li>
+        <li><a href="{{ back_url }}">{% trans "Back to page" %}</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% load i18n %}
+<div class="{% block widget-css-classes %}widget {{widget.class_name}} {{widget.extra_css_class}}
+              {% if widget.readonly %}widget-readonly{% endif %}
+              {% if widget.get_error %}widget-with-error{% endif %}
+              {% if widget.is_required %}widget-required{% else %}widget-optional{% endif %}
+              {% if widget.is_prefilled %}widget-prefilled{% endif %}{% endblock %}"
+     {% block widget-attrs %}
+       style="{% block widget-style-attributes %}{% if widget.is_hidden %}display: none{% endif %}{% endblock %}"
+       {% if widget.field %}data-field-id="{{ widget.field.id }}"{% endif %}
+       {% if not widget.readonly %}
+         {% if widget.field.validation.type %}data-validation-type="{{ widget.field.validation.type }}"{% endif %}
+         {% if widget.use_live_server_validation %}data-use-live-server-validation="true"{% endif %}
+       {% endif %}
+       data-widget-name="{{ widget.name }}"
+       data-widget-name-for-id="{{ widget.get_name_for_id }}"
+       {% if widget.div_id %}id="{{widget.div_id}}" data-valuecontainerid="form_{{widget.name}}"{% endif %}
+       {% if widget.a11y_role %}role="{{ widget.a11y_role }}"{% endif %}
+       {% if widget.a11y_labelledby %}aria-labelledby="form_label_{{widget.name}}"{% endif %}
+       {% for attr in widget.prefill_attributes %}
+         data-{{attr}}="{{widget.prefill_attributes|get:attr}}"
+       {% endfor %}
+       {% if "data-dynamic-display-child-of" in widget.attrs %}
+         data-dynamic-display-child-of="{{widget.attrs|get:"data-dynamic-display-child-of"}}"
+       {% endif %}
+       {% if "data-dynamic-display-value" in widget.attrs %}
+         data-dynamic-display-value="{{widget.attrs|get:"data-dynamic-display-value"}}"
+       {% endif %}
+       {% if "data-dynamic-display-value-in" in widget.attrs %}
+         data-dynamic-display-value-in="{{widget.attrs|get:"data-dynamic-display-value-in"}}"
+       {% endif %}
+       {% if "data-dynamic-display-checked" in widget.attrs %}
+         data-dynamic-display-checked="{{widget.attrs|get:"data-dynamic-display-checked"}}"
+       {% endif %}
+       {% if widget.live_condition_source %}data-live-source="true"{% endif %}
+     {% endblock %}
+>
+  {% block widget-title %}
+    {{widget.rendered_title}}
+  {% endblock %}
+  {% if widget.display_too_many_choices_warning %}
+    <div class="warningnotice">
+      <p>
+        {% trans "Warning: this field has too many choices, it will slow down the display." %}
+      </p>
+    </div>
+  {% endif %}
+  {% block widget-content %}
+    <div class="content {{widget.content.content_extra_css_class}}"
+         {% for attr, value in widget.content_extra_attributes.items %}
+           {{attr}}="{{value}}"
+         {% endfor %}
+    >
+      {% block widget-hint %}{{widget.rendered_hint}}{% endblock %}
+      {% block widget-control %}{{widget.render_content|safe}}{% endblock %}
+      {% block widget-error %}{{widget.rendered_error}}{% endblock %}
+    </div>
+  {% endblock %}
+  {% if widget.render_br %}
+    <br class="content {{widget.content.content_extra_css_class}}">
+  {% endif %}
+  {% if not widget.readonly %}
+    {% block widget-error-templates %}
+      {% for error_message in widget.get_error_messages %}
+        <template id="error_{{ widget.get_name_for_id }}_{{ error_message.camel_code }}"><p id="error_{{ widget.get_name_for_id }}_{{ error_message.camel_code }}_message">{{ error_message.message }}</p></template>
+      {% endfor %}
+    {% endblock %}
+  {% endif %}
+</div>

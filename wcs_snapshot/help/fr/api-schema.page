@@ -1,0 +1,213 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" id="api-schema" xml:lang="fr">
+
+<info>
+  <link type="guide" xref="index#api" />
+  <revision docversion="0.1" date="2013-01-04" status="draft"/>
+  <credit type="author">
+    <name>Frédéric Péters</name>
+    <email>fpeters@entrouvert.com</email>
+  </credit>
+  <desc>Formulaires, profils utilisateur, etc.</desc>
+
+</info>
+
+<title>Accès aux listes et schémas de données</title>
+
+<p>
+w.c.s expose une API permettant aux logiciels tiers de connaître les différents
+formulaires et leurs schémas de données.
+</p>
+
+<section id="forms">
+  <title>Formulaires</title>
+
+<p>
+La liste des formulaires accessibles à un utilisateur est disponible à
+l’URL <code>/api/formdefs/</code>.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/formdefs/</input>
+<output>
+[{"url": "https://www.example.net/inscriptions/newsletter",
+  "title": "Newsletter",
+  "slug": "newsletter",
+  "authentication_required": false,
+  "redirection": false,
+  "description": "",
+  "keywords": [],
+  "category": "Inscriptions",
+  "category_slug": "inscriptions"},
+ {"url": "https://www.example.net/inscriptions/piscine",
+  "title": "Piscine",
+  "slug": "piscine",
+  "authentication_required": true,
+  "redirection": false,
+  "description": "La piscine est ouverte du lundi au samedi.",
+  "keywords": ["sport"],
+  "category": "Inscriptions",
+  "category_slug": "inscriptions"}
+]
+</output>
+</screen>
+
+<note>
+<p>
+Note de compatibilité : la même information est disponible à la racine du site,
+quand un entête <code>Accept: application/json</code> est transmis, ou à une
+URL <code>/json</code> autrement.
+</p>
+</note>
+
+<p>
+La liste des formulaires accessibles à un utilisateur dans le but de faire une
+saisie backoffice est disponible, sous le même format, via l’URL
+<code>/api/formdefs/?backoffice-submission=on</code>.
+</p>
+
+<p>
+Il est également possible d’obtenir un nombre permettant de trier les résultats
+par « popularité » en ajoutant un paramètre <code>include-count=on</code>. Les
+différentes entrées disposeront alors d’une clé <code>count</code>.
+</p>
+
+<note style="important">
+<p>L’information <code>count</code> n’est <em>pas</em> le décompte intégral des
+demandes, c’est un indice composite donnant davantage de poids aux demandes
+récentes.</p>
+</note>
+
+<p>
+La liste retournée inclura les formulaires désactivés en ajoutant le paramètre
+<code>include-disabled=on</code>.
+</p>
+
+</section>
+
+
+<section id="categories">
+   <title>Catégories</title>
+
+<p>
+La liste des catégories est disponible à l’URL <code>/api/categories/</code>.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/categories/</input>
+<output>
+{"data":
+  [
+   {"url": "https://www.example.net/inscriptions/",
+    "slug": "inscriptions",
+    "title": "Inscriptions",
+     "description": "&lt;p&gt;Pour vous et vos enfants...&lt;/p&gt;" },
+   {"url": "https://www.example.net/etat-civil/",
+    "slug": "etat-civil",
+    "title": "État civil"}
+  ]
+}
+</output>
+</screen>
+
+<p>
+Il est possible de passer un paramètre <code>full=on</code> dans l’adresse pour
+obtenir pour chacune des catégories la liste des formulaires qu’elle contient,
+dans une clé supplémentaire, <code>forms</code>.
+</p>
+
+<p>
+Les formulaires d’une catégorie précise sont disponibles à l’URL
+<code>/api/categories/<var>slug</var>/formdefs/</code>.
+</p>
+
+<screen>
+<input>GET https://www.example.net/api/categories/inscriptions/formdefs/</input>
+</screen>
+
+<p>
+Comme pour la liste des formulaires en général, on peut ajouter l’argument
+<code>?backoffice-submission=on</code> à cette URL, pour n’obtenir que les
+formulaires de la catégorie accessibles en saisie backoffice.
+</p>
+
+
+</section>
+
+
+<section id="data-schema">
+  <title>Schéma de données d’un formulaire</title>
+
+<p>
+Le schéma de données d’un formulaire est accessible à l’adresse
+<code>/api/formdefs/<em>slug</em>/schema</code>; l’appel doit obligatoirement
+être signé ou réalisé avec un accès disposant des rôles de gestion sur le
+formulaire.
+</p>
+
+<code mime="application/json">
+{
+    "name": "Newsletter",
+    "only_allow_one": false,
+    "enable_tracking_codes": true,
+    "tracking_code_verify_fields": ["1"],
+    "confirmation": true,
+    "discussion": false,
+    "fields": [
+        {
+            "label": "Nom",
+            "required": true,
+            "type": "string",
+            "varname": "nom"
+        },
+        {
+            "label": "Pr\u00e9nom",
+            "required": false,
+            "type": "string",
+            "varname": "prenom"
+        },
+        {
+            "label": "Adresse \u00e9lectronique",
+            "required": true,
+            "type": "email",
+            "varname": "email"
+        }
+    ],
+    "workflow": {
+        "name": "Workflow Newsletter",
+        "id": "1",
+        "last_modification_time": "2015-12-12T10:20:45",
+        "statuses": [
+            {
+                "id": "1",
+                "name": "Nouveau",
+                "forced_endpoint": false
+            },
+            {
+                "id": "2",
+                "name": "En cours",
+                "forced_endpoint": false
+            },
+            {
+                "id": "3",
+                "name": "Terminé",
+                "forced_endpoint": false
+            }
+        ]
+    }
+}
+</code>
+
+
+<note>
+<p>
+Note de compatibilité : la même information est disponible en ajoutant
+<code>/schema</code> à l’adresse publique du formulaire, par exemple
+<code>http://www.example.net/inscriptions/newsletter<em>/schema</em></code>.
+</p>
+</note>
+
+</section>
+
+
+</page>

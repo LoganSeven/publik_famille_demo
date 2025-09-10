@@ -1,0 +1,67 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Import report" %}{% endblock %}
+
+{% block content %}
+  <div class="bo-block">
+    <p>{% trans "Imported successfully:" %}</p>
+    <ul>
+      {% if results.formdefs %}
+        <li>{% blocktrans count counter=results.formdefs %}1 form{% plural %}{{ counter }} forms{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.carddefs %}
+        <li>{% blocktrans count counter=results.carddefs %}1 card{% plural %}{{ counter }} cards{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.blockdefs %}
+        <li>{% blocktrans count counter=results.blockdefs %}1 block of fields{% plural %}{{ counter }} blocks of fields{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.workflows %}
+        <li>{% blocktrans count counter=results.workflows %}1 workflow{% plural %}{{ counter }} workflows{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.roles %}
+        <li>{% blocktrans count counter=results.roles %}1 role{% plural %}{{ counter }} roles{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.categories %}
+        <li>{% blocktrans count counter=results.categories %}1 category{% plural %}{{ counter }} categories{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.carddef_categories %}
+        <li>{% blocktrans count counter=results.carddef_categories %}1 card category{% plural %}{{ counter }} card categories{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.workflow_categories %}
+        <li>{% blocktrans count counter=results.workflow_categories %}1 workflow category{% plural %}{{ counter }} workflow categories{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.block_categories %}
+        <li>{% blocktrans count counter=results.block_categories %}1 block category{% plural %}{{ counter }} block categories{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.mail_template_categories %}
+        <li>{% blocktrans count counter=results.mail_template_categories %}1 mail template category{% plural %}{{ counter }} mail template categories{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.comment_template_categories %}
+        <li>{% blocktrans count counter=results.comment_template_categories %}1 comment template category{% plural %}{{ counter }} comment template categories{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.data_source_categories %}
+        <li>{% blocktrans count counter=results.data_source_categories %}1 data source category{% plural %}{{ counter }} data source categories{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.datasources %}
+        <li>{% blocktrans count counter=results.datasources %}1 data source{% plural %}{{ counter }} data sources{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.mail_templates %}
+        <li>{% blocktrans count counter=results.mail_templates %}1 mail template{% plural %}{{ counter }} mail templates{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.comment_templates %}
+        <li>{% blocktrans count counter=results.comment_templates %}1 comment template{% plural %}{{ counter }} comment templates{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.wscalls %}
+        <li>{% blocktrans count counter=results.wscalls %}1 webservice call{% plural %}{{ counter }} webservice calls{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.apiaccess %}
+        <li>{% blocktrans count counter=results.apiaccess %}1 API access{% plural %}{{ counter }} API accesses{% endblocktrans %}</li>
+      {% endif %}
+      {% if results.settings %}
+        <li>{% trans "Settings" %}</li>
+      {% endif %}
+    </ul>
+  </div>
+  <p><a href=".">{% trans "Back" %}</a></p>
+{% endblock %}

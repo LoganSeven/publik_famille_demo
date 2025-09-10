@@ -1,0 +1,22 @@
+recursive-include wcs/locale *.po *.mo
+recursive-include data/web *.html *.css *.png
+recursive-include wcs/qommon/static *.css *.scss *.png *.gif *.jpg *.js *.eot *.svg *.ttf *.txt *.woff *.map
+recursive-include wcs/templates *.html *.txt
+recursive-include wcs/qommon/templates *.html *.txt
+
+recursive-include help *.page
+recursive-include tests *.heic *.html *.jpeg *.json *.ods *.odt *.xml *.zip
+
+prune debian
+
+include MANIFEST.in
+include VERSION
+include INSTALL
+include NEWS
+include wcs.cfg-sample
+include .coveragerc
+include *.py
+include *.rc
+include *.yaml
+
+exclude .git-blame-ignore-revs

@@ -1,0 +1,25 @@
+{% extends template_base %}
+{% load i18n %}
+
+{% block body %}
+  <div class="email-action">
+    {% if done %}
+      <p>
+        {% if done_message %}
+          {{ done_message }}
+        {% else %}
+          {% trans "The action has been confirmed.  You can now close this window." %}
+        {% endif %}
+      </p>
+    {% else %}
+      <p>
+        {% if message %}
+          {{ message }}
+        {% else %}
+          {% trans "Please confirm action." %}
+        {% endif %}
+      </p>
+      {{ html_form.render|safe }}
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="section foldable {% if should_fold_summary %}folded{% endif %}"
+     {% if div_id %}id="{{ div_id }}"{% endif %}>
+  <h2><span role="button" aria-expanded="{{ should_fold_summary|yesno:'false,true' }}"
+            aria-controls="{{ section_id }}" id="{{ section_id }}-label">{{ section_title }}</span>
+    {% if not publisher.get_request.is_in_backoffice %}
+      <span class="disclose-message">({% trans "display form details" %})</span>
+    {% endif %}
+  </h2>
+  <div id="{{ section_id }}" role="region" aria-labelledby="{{ section_id }}-label"
+       class="dataview {% if enable_compact_dataview and publisher.get_request.is_in_backoffice and publisher.get_request.user|get_preference:"use-compact-table-dataview" %}compact-dataview{% endif %}">
+    {% block compact-table-dataview-switch %}
+      {% if enable_compact_dataview and publisher.get_request.is_in_backoffice %}
+        <div id="compact-table-dataview-switch">
+          <label><input type="checkbox"
+                        {% if publisher.get_request.user|get_preference:"use-compact-table-dataview" %}checked{% endif %}
+            >{% trans "Compact table view" %}</label>
+        </div>
+      {% endif %}
+    {% endblock %}
+    {% block field-user %}
+      {% if user %}
+        <div class="field username">
+          <p class="label">{% trans "User name" %}</p>
+          <span class="value">{{ user.display_name }}</span>
+        </div>
+      {% endif %}
+    {% endblock %}
+
+    {{ fields|safe }}
+
+  </div> <!-- .dataview -->
+</div> <!-- .section -->

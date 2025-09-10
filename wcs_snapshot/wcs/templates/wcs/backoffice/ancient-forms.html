@@ -1,0 +1,27 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block content %}
+
+  {% block appbar %}
+    <div id="appbar">
+      <h2>{% trans "Ancient forms" %}</h2>
+    </div>
+  {% endblock %}
+
+  <div class="errornotice">
+    <p>
+      {% blocktrans trimmed %}
+        These forms have ancient data. Their workflows should be reviewed so
+        they are anonymised or deleted.
+      {% endblocktrans %}
+    </p>
+  </div>
+
+  <table class="main ancient-forms-table">
+    {% for formdef_count in formdef_counts.items %}
+      <tr><td><a href="{{ formdef_count.0.get_admin_url }}">{{ formdef_count.0.name }}</a></td>
+        <td class="ancient-forms-table--count">{{ formdef_count.1 }}</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

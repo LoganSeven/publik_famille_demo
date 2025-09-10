@@ -1,0 +1,41 @@
+{% extends "wcs/backoffice/forms.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "Card Models" %}{% endblock %}
+{% block appbar-bottom %}
+  <label class="sr-only" for="appbar-search">{% trans "Search:" %}</label>
+  <input type="search" placeholder="{% trans "Quick search" %}" name="q" id="appbar-search" value="{{q|default:""}}">
+{% endblock %}
+
+{% block sidebar-content %}
+  {% if has_roles %}
+    <h3>{% trans "Actions" %}</h3>
+    <a class="button button-paragraph" rel="popup" href="new">{% trans "New Card Model" %}</a>
+    <a class="button button-paragraph" rel="popup" href="import">{% trans "Import" %}</a>
+
+    <h3>{% trans "Navigation" %}</h3>
+    {% if is_global_accessible_cards %}
+      <a class="button button-paragraph" href="categories/">{% trans "Categories" %}</a>
+    {% endif %}
+    {% if publisher.get_backoffice_root.forms.is_accessible %}
+      {% if publisher.get_backoffice_root.forms.blocks.is_accessible %}
+        <a class="button button-paragraph" href="../forms/blocks/">{% trans "Blocks of fields" %}</a>
+      {% endif %}
+      {% if publisher.get_backoffice_root.forms.data_sources.is_accessible %}
+        <a class="button button-paragraph" href="../forms/data-sources/">{% trans "Data sources" %}</a>
+      {% endif %}
+    {% endif %}
+
+    {% include 'wcs/backoffice/includes/applications.html' %}
+  {% endif %}
+{% endblock %}
+
+{% block no-objects %}
+  {% trans "There are no card models defined." %}
+{% endblock %}
+
+{% block pre-content %}
+  {% if is_global_accessible_cards and has_urgent_deprecations %}
+    {% include "wcs/includes/urgent_deprecations.html" %}
+  {% endif %}
+{% endblock %}

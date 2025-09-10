@@ -1,0 +1,10 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="error-page pk-error">
+    <h2>{{ title }}</h2>
+    <p>{{ error_message }}</p>
+    <p><a href="javascript: window.history.back();">{% trans "Go back" %}</a></p>
+  </div>
+{% endblock %}

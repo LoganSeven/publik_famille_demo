@@ -1,0 +1,87 @@
+{% extends "wcs/backoffice.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{{ error.summary }}{% endblock %}
+
+{% block appbar-actions %}
+  {% include "wcs/backoffice/includes/documentation-editor-link.html" %}
+{% endblock %}
+
+{% block body %}
+  {% include "wcs/backoffice/includes/documentation.html" with element=error object=error %}
+
+  <div class="pk-tabs logged-error-tabs">
+    <div class="pk-tabs--tab-list" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="panel-general" id="tab-general" tabindex="0">{% trans "General" %}</button>
+      {% for tab in tabs %}
+        <button role="tab" aria-selected="false" aria-controls="panel-{{ tab.slug }}" id="tab-{{ tab.slug }}" tabindex="-1">{{ tab.label }}</button>
+      {% endfor %}
+    </div>
+    <div class="pk-tabs--container">
+
+      <div id="panel-general" role="tabpanel" tabindex="0" aria-labelledby="tab-general">
+        <ul>
+          <li>{% trans "First occurence:" %} {{ error.first_occurence_timestamp }}</li>
+          <li>{% trans "Latest occurence:" %} {{ error.latest_occurence_timestamp }}</li>
+          <li>{% trans "Count:" %} {{ error.formatted_occurences_count }}</li>
+          {% if formdef %}
+            <li>{{ formdef.verbose_name }}{% trans ":" %} <a href="{{ formdef.get_admin_url }}">{{ formdef.name }}</a>
+              (<a href="{{ formdef.get_admin_url }}inspect">{% trans "inspector" %}</a>)</li>
+          {% endif %}
+          {% if workflow %}
+            <li>{% trans "Workflow:" %} <a href="{{ workflow.get_admin_url }}">{{ workflow.name }}</a>
+              (<a href="{{ workflow.get_admin_url }}inspect">{% trans "inspector" %}</a>)
+              {% if status %}
+                <ul>
+                  <li>{% trans "Status:" %} <a href="{{ workflow.get_admin_url }}status/{{ status.id }}/">{{ status.name }}</a></li>
+                  {% if status_item %}
+                    <li>{% trans "Action:" %} <a href="{{ workflow.get_admin_url }}status/{{ status.id }}/items/{{ status_item.id }}/">{% trans status_item.description %}</a></li>
+                  {% endif %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endif %}
+          {% if formdata %}
+            <li>{% trans "Data:" %} <a href="{{ formdata.get_backoffice_url }}">{{ formdata.get_display_name }}</a>
+              (<a href="{{ formdata.get_backoffice_url }}inspect">{% trans "inspector" %}</a>)</li>
+          {% endif %}
+          {% if error.expression or error.expression_type %}
+            <li>{{ view.error_expression_type_label }}{% trans ":" %} <code>{{ error.expression }}</code></li>
+          {% endif %}
+          {% if error.context.stack %}
+            <li><ul class="logged-error-frames">
+              {% for frame in view.get_context_frames %}
+                <li>{% if frame.source %}<a href="{{ frame.source.url }}">{{ frame.source.label }}</a>{% endif %}
+                  <ul class="logged-error-frames--context">
+                    {% for frame_context in frame.get_frame_lines %}
+                      <li>{{ frame_context.label }}{% trans ":" %} <code>{{ frame_context.value }}</code></li>
+                    {% endfor %}
+                  </ul></li>
+              {% endfor %}</ul></li>
+          {% endif %}
+          {% if error.exception_class or error.exception_message %}
+            <li>{% trans "Error message:" %} <code>{{ error.exception_class }}: {{ error.exception_message }}</code></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      {% for tab in tabs %}
+        <div id="panel-{{ tab.slug }}" role="tabpanel" tabindex="0" aria-labelledby="tab-{{ tab.slug }}" hidden>
+          {{ tab.content|safe }}
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block sidebar-content %}
+  <h3>{% trans "Actions" %}</h3>
+  <ul class="sidebar--buttons">
+    <li><a class="button button-paragraph {% if error.deleted_timestamp %}disabled{% endif %}" href="delete">{% trans "Delete" %}</a></li>
+  </ul>
+  {% if error.deleted_timestamp %}
+    <p>{% trans "This error has already been marked for deletion." %}</p>
+  {% endif %}
+{% endblock %}

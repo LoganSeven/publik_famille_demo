@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="bo-block documentation" {% if not element.documentation %}hidden{% endif %}>
+  {% if object.is_readonly %}
+    <div class="ro-documentation">{{ element.documentation|safe }}</div>
+  {% else %}
+    <script type="module" src="/static/xstatic/js/godo.js?{{version_hash}}"></script>
+    <div class="documentation-save-marks">
+      <span class="mark-error">✘</span>
+      <span class="mark-success">✔</span>
+      <span class="mark-sent">✔</span>
+    </div>
+    <div id="div-godo-source" >{{ element.documentation|default:"<p></p>"|safe }}</div>
+    <godo-editor
+      tabindex="0"
+      linked-source="div-godo-source"
+      heading-levels="3,4"
+      rows="1"
+      id="documentation-editor"
+    ></godo-editor>
+    <button class="save">{% trans "Save" %}</button>
+  {% endif %}
+</div>

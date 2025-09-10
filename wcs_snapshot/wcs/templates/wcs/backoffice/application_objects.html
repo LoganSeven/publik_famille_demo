@@ -1,0 +1,23 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}
+  {% if application %}
+    {% if application.icon %}
+      <img src="logo" alt="" class="application-logo" />
+    {% endif %}
+    {{ application.name }}
+  {% else %}
+    {% blocktrans %}{{ elements_label }} outside applications{% endblocktrans %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <ul class="objects-list single-links">
+    {% for item in objects %}
+      <li>
+        <a href="{{ item.get_admin_url }}">{{ item.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

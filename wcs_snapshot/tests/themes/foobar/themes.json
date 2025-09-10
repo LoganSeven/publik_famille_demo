@@ -1,0 +1,18 @@
+[
+  {"id": "foobar",
+   "label": "Foobar",
+   "module": "publik-base",
+   "variables": {
+     "css_variant": "foobar",
+     "theme_color": "#D8297B"
+   },
+   "overlay": "foobar"
+  },
+  {"id": "foobar2",
+   "label": "Foobar2",
+   "variables": {
+     "css_variant": "foobar2",
+     "theme_color": "#D8297B"
+   }
+  }
+]

@@ -1,0 +1,35 @@
+{% extends "wcs/backoffice/base.html" %}
+{% load i18n %}
+
+{% block appbar-title %}{% trans "API access" %}{% endblock %}
+
+{% block appbar-actions %}
+  {% if not api_manage_url %}
+    <a rel="popup" href="new">{% trans "New API access" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if api_manage_url %}
+    <div class="infonotice">
+      <p>
+        {% blocktrans %}
+          API accesses are now globally managed on the identity provider.
+        {% endblocktrans %}
+      </p>
+      <a class="pk-button" href="{{ api_manage_url }}">{% trans "Manage API clients" %}</a>
+    </div>
+  {% endif %}
+
+  {% if api_accesses %}
+    <ul class="objects-list single-links">
+      {% for api_access in api_accesses %}
+        <li><a href="{{ api_access.id }}/">{{ api_access.name }} ({{ api_access.access_identifier }})</a></li>
+      {% endfor %}
+    </ul>
+  {% elif not api_manage_url %}
+    <div class="infonotice">
+      {% trans "There are no API access defined." %}
+    </div>
+  {% endif %}
+{% endblock %}
