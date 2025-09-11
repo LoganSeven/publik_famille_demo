@@ -95,3 +95,7 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Email de reset mot de passe (console)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# lecture des variables WCS
+WCS_BASE_URL = os.getenv("WCS_BASE_URL")
+WCS_API_TOKEN = os.getenv("WCS_API_TOKEN")

@@ -1,11 +1,11 @@
 # activities/tests.py
-from django.test import TestCase, Client
+# activities/tests.py
+from django.test import TestCase, Client, override_settings
 from django.contrib.auth.models import User
 from django.urls import reverse
 from families.models import Child
 from activities.models import Activity, Enrollment
 from billing.models import Invoice
-from django.test import override_settings
 from unittest.mock import patch
 from billing.gateways import get_billing_gateway
 
@@ -40,15 +40,15 @@ class FluxInscriptionPaiementTest(TestCase):
 
     def test_user_cannot_pay_others_invoice(self):
         other = User.objects.create_user(username='q', password='q')
-        other_child = Child.objects.create(parent=other, first_name='X', last_name='Y', birth_date='2015-01-01')
+        other_child = Child.create(parent=other, first_name='X', last_name='Y', birth_date='2015-01-01')  # type: ignore[attr-defined]
         enroll = Enrollment.objects.create(child=other_child, activity=self.activity)
-        inv = Invoice.objects.create(enrollment=enroll, amount=self.activity.fee)
         self.client.login(username='p', password='p')
-        url = reverse('billing:pay_invoice', args=[inv.pk])
+        url = reverse('billing:pay_invoice', args=[enroll.invoice.pk])  # type: ignore[attr-defined]
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 302)
         enroll.refresh_from_db()
         self.assertEqual(enroll.status, Enrollment.Status.PENDING_PAYMENT)
+
 
 class GatewayModesTests(TestCase):
     def setUp(self):
@@ -56,26 +56,30 @@ class GatewayModesTests(TestCase):
         self.child = Child.objects.create(parent=self.parent, first_name='X', last_name='Y', birth_date='2016-01-01')
         self.activity = Activity.objects.create(title='Act2', fee=12.34, is_active=True)
 
-    @override_settings(BILLING_BACKEND='lingo', ENROLLMENT_BACKEND='wcs', BILLING_LINGO_BASE_URL='http://l')
-    def test_gateways_simulated_modes(self):
+    @override_settings(BILLING_BACKEND='lingo', ENROLLMENT_BACKEND='wcs', WCS_BASE_URL='http://wcs', WCS_API_TOKEN='t', BILLING_LINGO_BASE_URL='http://l')
+    def test_enroll_via_wcs_then_pay_via_lingo(self):
         self.client.login(username='pp', password='pp')
-        with patch('billing.gateways.requests.post') as post:
-            post.return_value.json.return_value = {'id': 'L1'}
-            post.return_value.raise_for_status.return_value = None
+        # WCS create enrollment
+        with patch('activities.gateways.requests.post') as wcs_post:
+            wcs_post.return_value.json.return_value = {'id': 'W1'}
+            wcs_post.return_value.raise_for_status.return_value = None
             resp = self.client.post(f"/activities/{self.activity.pk}/inscrire/", {'child': self.child.pk}, follow=True)
         self.assertEqual(resp.status_code, 200)
         enroll = Enrollment.objects.get(child=self.child, activity=self.activity)
-        inv = Invoice.objects.get(enrollment=enroll)
-        with patch('billing.gateways.requests.post') as post:
-            post.return_value.json.return_value = {'status': Invoice.Status.PAID, 'paid_on': '2024-01-02T03:04:05Z'}
-            post.return_value.raise_for_status.return_value = None
-            pay = self.client.post(f"/billing/payer/{inv.pk}/", follow=True)
+        # Lingo payment
+        with patch('billing.gateways.requests.post') as lingo_post:
+            lingo_post.return_value.json.return_value = {'status': Invoice.Status.PAID, 'paid_on': '2024-01-02T03:04:05Z'}
+            lingo_post.return_value.raise_for_status.return_value = None
+            pay = self.client.post(f"/billing/payer/{enroll.invoice.pk}/", follow=True)  # type: ignore[attr-defined]
         self.assertEqual(pay.status_code, 200)
-        inv.refresh_from_db()
-        self.assertEqual(inv.status, Invoice.Status.PAID)
+        enroll.refresh_from_db()
+        self.assertEqual(enroll.status, Enrollment.Status.CONFIRMED)
 
-    @override_settings(BILLING_BACKEND='lingo', BILLING_LINGO_BASE_URL=None)
-    def test_lingo_missing_base_url_raises(self):
-        gw = get_billing_gateway()
+    @override_settings(ENROLLMENT_BACKEND='wcs', WCS_BASE_URL=None)
+    def test_wcs_missing_base_url_raises(self):
+        # Direct instantiation to check behavior
+        from activities.gateways import get_enrollment_gateway
+        gw = get_enrollment_gateway()
         with self.assertRaises(Exception):
-            gw.create_invoice(Enrollment.objects.create(child=self.child, activity=self.activity), 10)
+            gw.create_enrollment(activity=Activity.objects.create(title='Tmp', fee=1, is_active=True),
+                                 child=self.child)

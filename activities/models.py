@@ -29,6 +29,7 @@ class Enrollment(models.Model):
     status = models.CharField('Statut', max_length=32, choices=Status.choices, default=Status.PENDING_PAYMENT)
     requested_on = models.DateTimeField('Demandée le', default=timezone.now)
     approved_on = models.DateTimeField('Approuvée le', null=True, blank=True)
+    wcs_id = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
         unique_together = ('child', 'activity')
