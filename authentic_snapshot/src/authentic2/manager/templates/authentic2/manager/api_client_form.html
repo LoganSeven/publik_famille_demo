@@ -1,0 +1,48 @@
+{% extends "authentic2/manager/api_client_common.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="#"></a>
+{% endblock %}
+
+{% block content %}
+  <script>
+    function apiclient_random_password(length)
+    {
+      const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const lower = 'abcdefghijklmnopqrstuvwxyz';
+      const digits = '0123456789';
+      const charset = upper + lower + digits;
+      const charsetLen = charset.length;
+      let new_pass = [];
+
+      while (new_pass.length < length - 3)
+      {
+        new_pass.push(charset.charAt(Math.floor(Math.random() * charsetLen)));
+      }
+      new_pass.splice(Math.floor(Math.random() * new_pass.length), 0,
+        upper.charAt(Math.floor(Math.random() * upper.length)))
+      new_pass.splice(Math.floor(Math.random() * new_pass.length), 0,
+        lower.charAt(Math.floor(Math.random() * lower.length)))
+      new_pass.splice(Math.floor(Math.random() * new_pass.length), 0,
+        digits.charAt(Math.floor(Math.random() * digits.length)))
+
+      document.getElementById('id_apiclient_password').value = new_pass.join('');
+      const visible_checkbox = document.getElementById('password-visibility-checkbox-id_apiclient_password');
+      if(!visible_checkbox.checked)
+      {
+        visible_checkbox.click();
+      }
+      return false;
+    }
+  </script>
+  <form method="post" enctype="multipart/form-data" autocomplete="off">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button>{% trans "Submit" %}</button>
+      <a class="cancel" href="{{cancel_url}}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

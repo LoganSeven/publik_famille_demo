@@ -1,0 +1,10 @@
+{% load i18n %}{% blocktrans with hostname=request.get_host context "api" %}A new account was created for you on {{ hostname }}{% endblocktrans %}
+{% if data.username %}
+	{% trans "Username" %} : {{ data.username }}{% endif %}
+	{% trans "Email" %} : {{ data.email }}
+	{% trans "First name" %} : {{ data.first_name }}
+	{% trans "Last name" %} : {{ data.last_name }}
+
+{% blocktrans %}Please click on the following link to set your password:{% endblocktrans %}
+
+	{{ reset_url }}

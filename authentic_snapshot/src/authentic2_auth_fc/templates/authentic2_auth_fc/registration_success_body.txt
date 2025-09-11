@@ -1,0 +1,7 @@
+{% extends "emails/body_base.txt" %}{% load i18n %}{% block content %}{% autoescape off %}{% blocktrans %}Hi {{ user }},{% endblocktrans %}
+
+{% trans "You have just created an account using FranceConnect." %}
+
+{% trans "You can login by clicking on the link below:" %}
+  {{ login_url }}
+{% endautoescape %}{% endblock %}

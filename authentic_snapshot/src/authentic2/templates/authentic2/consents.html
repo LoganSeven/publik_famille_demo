@@ -1,0 +1,83 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %}
+  {{ view.title }}
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="..">{% trans "Your account" %}</a>
+  <a href="">{{ view.title }}</a>
+{% endblock %}
+
+{% block content %}
+  {% block consents-pre %}{% endblock %}
+  <div class="consents">
+    {% block consents-top %}
+      <p class="consents--top">
+        {% if consents|length_is:0 %}
+          {% trans "You have not given any authorization to access your account profile data." %}
+        {% else %}
+          {% trans "You have given authorizations to access your account profile data." %}
+        {% endif %}
+      </p>
+    {% endblock %}
+    <ul class="consents--list">
+      {% for auth in consents %}
+        <li class="consents--item">
+          <form method="post" class="consents--form" action="{% url "consent-delete" pk=auth.pk %}">
+            {% csrf_token %}
+            {% block consent %}
+              <div class="consents--infos">
+                {% block consent-top %}{% endblock %}
+                <span class="consents--client">
+                  {{ auth.client }}
+                </span>
+                <span class="consents--dates">
+                  <span class="consents-dates--since">
+                    <span class="label">{% trans "Allowed since:" %}</span>
+                    <span class="time">{{ auth.created }}</span>
+                  </span>
+                  <span class="consents--separator">/</span>
+                  <span class="consents--expired">
+                    <span class="label">{% trans "Expire on:" %}</span>
+                    <span class="time">{{ auth.expired }}</span>
+                  </span>
+                </span>
+              </div>
+              <div class="consents--actions">
+                <button class="consents--revoke-button">{% trans 'Revoke' %}</button>
+              </div>
+            {% endblock %}
+          </form>
+          {% block consent-bottom %}
+            {% block consent-scopes %}
+              <div class="consents--scopes">
+                {% trans "The following information is shared:" context "OIDC consents page" %}
+                <ul>
+                  {% if "profile" in auth.scope_set %}
+                    <li>{% trans "Your first and last name, your username" %}</li>
+                  {% endif %}
+                  {% if "email" in auth.scope_set %}
+                    <li>{% blocktranslate with email=user.email %}Your email: {{ email }}{% endblocktranslate %}</li>
+                  {% endif %}
+                  {% for scope in auth.scope_set %}
+                    {% if scope != "openid" and scope != "email" and scope != "profile" and scope != "offline_access" %}
+                      <li>{% blocktranslate %}Other information: {{scope}}{% endblocktranslate %}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+                {% if "offline_access" in auth.scope_set %}
+                  {% translate "Additionally, you gave this service access to the aforementioned information at any time including while you are logged out." %}
+                {% endif %}
+              </div>
+            {% endblock %}
+          {% endblock %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% block consents-bottom %}{% endblock %}
+  </div>
+  {% block consents-post %}{% endblock %}
+{% endblock %}

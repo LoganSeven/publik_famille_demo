@@ -1,0 +1,45 @@
+{% extends "authentic2/authenticators/authenticator_common.html" %}
+{% load gadjo i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="#"></a>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+
+    {% for authenticator in form.authenticators.values %}
+      {% if authenticator.manager_idp_info_template_name %}
+        <div class="infonotice {{ authenticator.type }} idp-info">
+          {% include authenticator.manager_idp_info_template_name %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div class="buttons">
+      <button>{% trans "Add" %}</button>
+      <a class="cancel" href="{% url 'a2-manager-authenticators' %}">{% trans 'Cancel' %}</a>
+    </div>
+    <script>
+      $(function () {
+        $('div#authenticator span.required').remove();
+        name_field = $('div#id_name_p');
+        $('select#id_authenticator').change(function() {
+          $('div.idp-info').hide();
+          $('div.idp-info.' + this.value).show();
+          if(this.value == 'saml' || this.value == 'oidc') {
+            name_field.show();
+            $('div#' + this.value + '-idp-info').show();
+            $('input#id_name').prop('required', true);
+          } else {
+            name_field.hide();
+            $('input#id_name').prop('required', false);
+          }
+        }).change();
+      });
+    </script>
+  </form>
+{% endblock %}

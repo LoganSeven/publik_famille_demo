@@ -1,0 +1,39 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Consent page for attribute propagation" %} {% endblock %}
+
+{% block content %}
+
+
+  {% load i18n %}
+  <div id="consent">
+    <form method="post">
+      {% csrf_token %}
+      <p>
+        {% trans "Choose attributes to send to " %} <strong>{{ provider_id }}</strong> ?
+
+        <ul>
+          {% for i, name, values in attributes %}
+            <li>
+              {% if allow_selection %}
+                <input type="checkbox" name="attribute_nb_{{ i }}" value="{{ i }}" checked="checked"/>
+              {% endif %}
+              {{ name }} : <strong>{% for v in values %}{{ v }} {% endfor %}</strong></li>
+          {% endfor %}
+        </ul>
+
+      </p>
+
+      <input type="hidden" name="next" value="{{ next }}" />
+      <input type="hidden" name="nonce" value="{{ nonce }}" />
+      {% if allow_selection %}
+        <button name="accept">{% trans 'Send selected' %}</button>
+      {% else %}
+        <button name="accept">{% trans 'Send all' %}</button>
+      {% endif %}
+      <button name="refuse">{% trans 'Refuse all' %}</button>
+    </form>
+  </div>
+
+{% endblock %}

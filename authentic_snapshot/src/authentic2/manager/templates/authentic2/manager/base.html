@@ -1,0 +1,43 @@
+{% extends "gadjo/base.html" %}
+{% load i18n static %}
+
+{% block gadjo-js %}{% endblock %}
+{% block bodyargs %} class="{% block bodyclasses %}{% endblock %}"{% endblock %}
+
+{% block page-title %}{% firstof global_title manager_site_title site_title "Authentic2" %}{% endblock %}
+{% block site-title %}{% firstof manager_site_title site_title "Authentic2" %}{% endblock %}
+
+{% block logout-url %}{% url 'auth_logout' %}?next={{ request.get_full_path|urlencode }}{% endblock %}
+
+{% block appbar %}
+  <h2>{% block page_title %}{{ title }}{% endblock %}</h2>
+{% endblock %}
+
+{% block css %}
+  {# don't use gadjo default behaviour of loading $static/css/style.css #}
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script>
+    window.csrf_token = '{{ csrf_token }}';
+  </script>
+{% endblock %}
+
+{% block homepage-url %}{% url 'auth_homepage' as default_homepage_url %}{% firstof manager_homepage_url default_homepage_url %}{% endblock %}
+
+{% block homepage-title %}{% trans 'Homepage' as default_homepage_title %}{% firstof manager_homepage_title default_homepage_title %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if not manager_homepage_url %}
+    <a href="{% url 'a2-manager-homepage' %}">{% trans 'Administration' as default_site_title %}{% firstof manager_site_title default_site_title %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    {% block main %}
+    {% endblock %}
+  </div>
+{% endblock %}

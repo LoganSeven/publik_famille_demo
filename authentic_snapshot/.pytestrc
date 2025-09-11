@@ -1,0 +1,9 @@
+[pytest]
+filterwarnings =
+  ignore
+  once:::authentic2.*
+  error:.*please use dns.resolver.resolve:DeprecationWarning:
+  error:.*Passing None for the middleware get_response argument is deprecated.*::
+  error:.*ANTIALIAS is deprecated and will be removed in Pillow 10::
+  error:.*LANCZOS.*Pillow 10::
+junit_family=xunit2

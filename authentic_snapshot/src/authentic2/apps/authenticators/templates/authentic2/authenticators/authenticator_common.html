@@ -1,0 +1,11 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n %}
+
+{% block page-title %}{% if object %}{{ object }}{% else %}{% trans "Authenticators" %}{% endif %} | {{ block.super }}{% endblock %}
+
+{% block title %}{{ block.super }} - {% trans "Authenticators" %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-authenticators' %}">{% trans "Authenticators" %}</a>
+{% endblock %}

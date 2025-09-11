@@ -1,0 +1,1 @@
+{% load i18n %}{% if existing_accounts %}{% blocktrans trimmed with value=code.value %}You already have an account for this phone number, use code {{ value }} to retrieve it.{% endblocktrans %}{% else %}{% blocktrans trimmed with value=code.value %}Your code is {{ value }}{% endblocktrans %}{% endif %}

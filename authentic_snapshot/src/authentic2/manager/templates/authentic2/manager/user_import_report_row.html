@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<td class="created">
+  {% if report.state != report.STATE_RUNNING %}
+    <a href="{% url "a2-manager-users-import-report" import_uuid=user_import.uuid report_uuid=report.uuid %}">{{ report.created }}</a>
+  {% else %}
+    {{ report.created }}
+  {% endif %}
+</td>
+<td>{{ report.user }}</td>
+<td class="state{% if report.state == report.STATE_RUNNING %} running{% endif %}">{{ report.state_display }}</td>
+<td class="applied">{% if not report.simulate %}<span class="icon-check"></span>{% endif %}</td>
+<td class="delete-action">{% if report.simulate %}<form method="post" id="delete-form-{{ report.uuid }}">{% csrf_token %}<button name="delete" value="{{ report.uuid }}">{% trans "Delete" %}</button></form>{% endif %}</td>

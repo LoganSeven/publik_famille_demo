@@ -1,0 +1,21 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n gadjo %}
+
+{% block title %}{% trans "Error" %}{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% xstatic 'jquery' 'jquery.min.js' %}?{% start_timestamp %}"></script>
+  <script>$(function () {
+    setTimeout(function () {
+      window.location='{{ next_page|escapejs }}'
+    }, {{ redir_timeout }});
+  });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+  {{ msg }}
+  <p><a href="{{ back }}">{% trans "Back" %}</a></p>
+{% endblock %}

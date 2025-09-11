@@ -1,0 +1,100 @@
+{% extends "authentic2/manager/role_common.html" %}
+{% load i18n static %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-role-members' pk=object.pk%}">{{ object }}</a>
+  <a href="#">{{ object }}</a>
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Usage summary" %}</h3>
+{% endblock %}
+
+{% block main %}
+  {% if summary_data_error %}
+    <div class="errornotice">
+      <p>{{ summary_data_error }}</p>
+    </div>
+  {% endif %}
+  <div class="fx-grid--d2">
+    <div>
+      <div class="section" id="parents">
+        <h3>{% trans "Contains permissions of roles:" %}</h3>
+        <div>
+          {% if parents %}
+            <ul class="objects-list single-links">
+              {% for parent in parents %}
+                <li>
+                  <a class="role-inheritance-parent" href="{% url "a2-manager-role-members" pk=parent.pk %}">{% if parent.ou and has_multiple_ou %}{{ parent.ou }} - {% endif %}{{ parent }}</a>
+                  {% if not parent.direct %}
+                    <span class="badge">{% trans "Indirect" %}</span>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>{% trans "This role doesn't contain permissions of any other role." %}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section" id="administred">
+        <h3>{% trans "Is administered by roles:" %}</h3>
+        <div>
+          {% if admin_roles %}
+            <ul class="objects-list single-links">
+              {% for role in admin_roles %}
+                <li>
+                  <a class="role-inheritance-parent" href="{% url "a2-manager-role-members" pk=role.pk %}">{{ role }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>{% trans "This role is not administred by any other role." %}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section">
+        <h3>{% trans "Direct usage" %}</h3>
+        <div id="direct-usage">
+          {% for type_object in summary_data.type_objects %}
+            <details id="direct-usage-{{ type_object.id }}" class="gadjo-remember-open-status">
+              <summary>{{ type_object.text }}</summary>
+              <ul class="objects-list single-links">
+                {% for hit in type_object.hit %}
+                  <li><a href="{{ hit.urls.redirect }}">{{ hit.text }}</a></li>
+                {% endfor %}
+              </ul>
+            </details>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section">
+        <h3>{% trans "Included roles usage" %}</h3>
+        <div id="indirect-usage">
+          {% for type_object in summary_data.parents_type_objects %}
+            <details id="indirect-usage-{{ type_object.id }}" class="gadjo-remember-open-status">
+              <summary>{{ type_object.text }}</summary>
+              <ul class="objects-list single-links">
+                {% for hit in type_object.hit %}
+                  <li><a href="{{ hit.urls.redirect }}">{{ hit.text }}</a></li>
+                {% endfor %}
+              </ul>
+            </details>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktrans trimmed %}Alert: {{ user }}, your account is inactive and is pending deletion{% endblocktrans %}

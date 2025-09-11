@@ -1,0 +1,13 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Error: authentication failure" %} {% endblock %}
+
+{% block content %}
+
+  <h2>{% trans "Authentication failure" %}</h2>
+
+  <p>{% trans "The SSL authentication has failed" %}</p>
+  <a href="/">Back</a>
+
+{% endblock %}

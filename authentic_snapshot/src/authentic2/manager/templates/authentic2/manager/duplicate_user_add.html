@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<li>
+  <a href="{% url 'a2-manager-user-detail' pk=user.pk %}">{{ user.get_full_name }}</a>
+  {% if user.email %}- {{ user.email }}{% endif %}
+  {% for attribute in user.attribute_values.all %}
+    {% if attribute.content and attribute.attribute.name != "first_name" and attribute.attribute.name != "last_name" %}
+      - {{ attribute.content }}
+    {% endif %}
+  {% endfor %}
+  - {% blocktrans with date=user.date_joined %}Created on {{ date }}{% endblocktrans %}
+  {% if user.last_login %}
+    - {% blocktrans with date=user.last_login %}Last login on {{ date }}{% endblocktrans %}
+  {% else %}
+    - {% trans "Never logged in" %}
+  {% endif %}
+</li>

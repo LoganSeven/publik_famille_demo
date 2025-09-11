@@ -1,0 +1,43 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Registration in progress" %}
+{% endblock %}
+
+{% block content %}
+  {% if 'robot' in request.GET %}
+    <p><strong>{% trans "Your registration request has been refused." %}</strong>{% trans "Indeed your browser checked a hidden anti-robot checkbox on the registration form. A browser extension may produce this behaviour, in this case disable such extensions and try again." %}</p>
+  {% else %}
+    {% block instructions %}
+      <div role="status"><p><strong>
+        {% blocktrans trimmed with email=request.session.registered_email %}
+          An email was sent to {{ email }}.
+        {% endblocktrans %}
+      </strong></p>
+        <p><strong>
+          {% blocktrans trimmed %}
+            Follow the instructions in that email to continue your registration.
+          {% endblocktrans %}
+        </strong></p></div>
+    {% endblock %}
+    {% block advice %}
+      <p>
+        {% blocktrans trimmed %}
+          The email may take several minutes to be received. It can also be
+          considered as spam: please look in your "junk mail" folder.
+        {% endblocktrans %}
+      </p>
+      <p>
+        {% blocktrans trimmed with from_email=from_email %}
+          If you still have not received the instructions, add "{{from_email_address}}"
+          to your address book or authorized sender list, and then repeat the
+          registration process.
+        {% endblocktrans %}
+      </p>
+    {% endblock %}
+  {% endif %}
+  {% block back %}
+    <p><a href="{{ next_url }}">{% trans "Back" %}</a></p>
+  {% endblock %}
+{% endblock %}

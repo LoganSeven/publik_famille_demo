@@ -1,0 +1,11 @@
+{% load i18n %}
+{% include "django/forms/widgets/email.html" %}
+{% if domains_suggested %}
+  <div class="field-live-hint" style="display: none">
+    <p class="message" data-hint-prefix="{% trans "Did you want to write" %}"></p>
+    <button class="action" type="button">{% trans "Apply fix" %}</button>
+    <button class="close" type="button">
+      <span class="sr-only">{% trans "Close input help" %}</span>
+    </button>
+  </div>
+{% endif %}

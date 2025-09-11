@@ -1,0 +1,32 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n static django_tables2 %}
+
+{% block page-title %}{% trans "Services" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-services' %}">{% trans 'Services' %}</a>
+{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a href="{% url "oidc-openid-configuration" %}">{% trans "OIDC metadata" %}</a>
+    {% if view.can_add %}
+      <a href="{% url "a2-manager-add-oidc-service" %}">{% trans "Add OIDC service" %}</a>
+    {% endif %}
+    <a rel="popup" href="{% url "a2-manager-services-settings" %}">{% trans "Settings" %}</a>
+  </span>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% include "authentic2/manager/search_form.html" %}
+  </aside>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=1 %}
+    {% render_table table "authentic2/manager/table.html" %}
+  {% endwith %}
+{% endblock %}

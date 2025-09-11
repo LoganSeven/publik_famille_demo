@@ -1,0 +1,30 @@
+{% extends "authentic2/manager/form.html" %}
+{% load i18n %}
+
+{% block page-title %}{% trans "Organizational unit" %} - {{ object }} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-ous' %}">{% trans 'Organizational unit' %}</a>
+  <a href="#">{{ object }}</a>
+{% endblock %}
+
+{% block buttons %}
+{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    {% if view.can_delete %}
+      <a rel="popup" href="{% url "a2-manager-ou-delete" pk=object.pk %}">{% trans "Delete" %}</a>
+    {% else %}
+      <a class="disabled" title="{% trans "You do not have the rights to delete this organizational unit." %}" href="#">{% trans "Delete" %}</a>
+    {% endif %}
+
+    {% if view.can_change %}
+      <a href="{% url "a2-manager-ou-edit" pk=object.pk %}">{% trans "Edit" %}</a>
+    {% else %}
+      <a class="disabled" title="{% trans "You do not have the rights to edit this organizational unit." %}" href="#">{% trans "Edit" %}</a>
+    {% endif %}
+  </span>
+{% endblock %}

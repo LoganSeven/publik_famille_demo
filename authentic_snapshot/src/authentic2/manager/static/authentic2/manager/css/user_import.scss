@@ -1,0 +1,59 @@
+#import-report-table {
+	color: black;
+}
+
+#import-report-table tr.row-valid td, .legend-row-valid {
+    background-color: #d5f5e3 ;
+}
+
+#import-report-table tr.row-invalid td, .legend-row-invalid {
+    background-color: #e00;
+}
+
+#import-report-table tr td.cell-action-updated, .legend-cell-action-updated {
+    background-color: #abebc6;
+}
+
+#import-report-table tr td.cell-errors, .legend-cell-errors {
+    background-color: #cd6155;
+}
+.header-flag-key::after {
+        content: "\f084"; /* fa-key */
+        font-family: FontAwesome;
+        padding-left: 1ex;
+}
+
+.header-flag-unique::after,
+.header-flag-globally-unique::after
+{
+        content: "\f0cd"; /* fa-underline */
+        font-family: FontAwesome;
+        padding-left: 1ex;
+}
+
+.header-flag-create::after {
+        content: "\f0fe"; /* fa-plus-square */
+        font-family: FontAwesome;
+        padding-left: 1ex;
+}
+
+.header-flag-update::after {
+        content: "\f040"; /* fa-pencil */
+        font-family: FontAwesome;
+        padding-left: 1ex;
+}
+
+.header-flag-verified::after {
+        content: "\f023"; /* fa-lock */
+        font-family: FontAwesome;
+        padding-left: 1ex;
+}
+
+table.main .cell {
+        text-align: center;
+}
+
+span.icon-check::after {
+    content: "\f00c";
+    font-family: FontAwesome;
+}

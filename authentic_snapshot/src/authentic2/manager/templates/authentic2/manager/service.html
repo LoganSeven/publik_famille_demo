@@ -1,0 +1,71 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n static django_tables2 %}
+
+{% block page-title %}{{ object }} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-services' %}">{% trans 'Services' %}</a>
+  <a href="{% url 'a2-manager-service' service_pk=view.kwargs.service_pk %}">{{ view.service.name }}</a>
+{% endblock %}
+
+{% block buttons %}
+{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  {% if view.service.home_url %}
+    <span class="meta">
+      <a href="{{view.service.home_url}}">({% trans "Homepage" %})</a>
+    </span>
+  {% endif %}
+  <span class="actions">
+    {% if view.can_delete %}
+      <a rel="popup" href="{% url "a2-manager-service-delete" service_pk=view.kwargs.service_pk %}">{% trans "Delete" %}</a>
+    {% endif %}
+    <a href="{% url "a2-manager-service-settings" service_pk=view.kwargs.service_pk %}">{% trans "Settings" %}</a>
+  </span>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% include "authentic2/manager/search_form.html" %}
+    <div id="details">
+      <dl>
+        {% if multiple_ou and object.ou %}
+          <dt>{% trans "Organizational unit" %}</dt>
+          <dd>{{ object.ou }}</dd>
+        {% endif %}
+        <dt>{% trans "Slug" %}</dt>
+        <dd>{{ object.slug }}</dd>
+      </dl>
+    </div>
+  </aside>
+{% endblock %}
+
+{% block main %}
+
+  <div class="section">
+    <h3>{% trans "Roles of users allowed on this service" %}</h3>
+    <div id="authorized-roles">
+      {% with row_link=1 %}
+        {% render_table table "authentic2/manager/service_roles_table.html" %}
+      {% endwith %}
+      <form method="post" class="manager-m2m-add-form">
+        {% csrf_token %}
+        {{ form }}
+        <button>{% trans "Add" %}</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>{% trans "Roles solely visible from this service" %}</h3>
+    <div id="restricted-roles">
+      {% with row_link=1 table=roles_table %}
+        {% render_table table "authentic2/manager/table.html" %}
+      {% endwith %}
+    </div>
+  </div>
+
+{% endblock %}

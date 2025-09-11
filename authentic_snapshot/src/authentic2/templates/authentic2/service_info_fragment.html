@@ -1,0 +1,46 @@
+{% load i18n %}
+{% if service %}
+  {% firstof generic_service_colour service_colour service_ou_colour as colour %}
+  {% firstof generic_service_name service.name service.ou.name as name %}
+
+
+  {% if show_service_infos %}
+    {% block service-colour %}
+      {% if colour %}
+        <style>
+          a.service-message--link, .service-message--text {
+            color: {{ colour }};
+          }
+        </style>
+      {% endif %}
+    {% endblock %}
+
+    <div class="service-message">
+      {% firstof service_logo_url service_ou_logo_url generic_service_logo_url as logo_url %}
+      {% block service-logo %}
+        {% if logo_url %}
+          <picture>
+            {% if service.home_url or generic_service_home_url %}
+              <a href="{% firstof service.home_url generic_service_home_url %}">
+            {% endif %}
+            <img src="{{ logo_url }}" alt="{{ name }}" class="service-message--logo" />
+            {% if service.home_url or generic_service_home_url %}
+              </a>
+            {% endif %}
+          </picture>
+        {% endif %}
+      {% endblock %}
+
+      <div class="service-message--paragraph">
+        {% block service-text %}
+          {% if service.home_url or generic_service_home_url %}
+            <a href="{% firstof service.home_url generic_service_home_url %}" class="service-message--link">{{ name }}</a>
+          {% else %}
+            <span class="service-message--text">{{ name }}</span>
+          {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+  {% endif %}
+
+{% endif %}

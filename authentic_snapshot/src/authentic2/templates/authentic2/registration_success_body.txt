@@ -1,0 +1,12 @@
+{% load i18n %}{% blocktrans %}Hi {{ user }} !
+
+Your registration on {{ site }} was successful!
+
+You can login on:
+
+	{{ login_url }}
+{% endblocktrans %}{% if user.username %}
+	{% trans "Username:" %} {{ user.username %}{% endif %}
+	{% trans "Email:" %} {{ user.email }}{% if user.first_name %}
+	{% trans "First name:" %} {{ user.first_name }}{% endif %}{% if user.last_name %}
+	{% trans "Last name:" %} {{ user.last_name }}{% endif %}

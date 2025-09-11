@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="section">
+  <h3>{% trans "OIDC Claims" %}<a href="{% url "a2-manager-oidc-claim-add" service_pk=object.pk %}" class="button" rel="popup">{% trans "Add claim" %}</a></h3>
+  {% if claims %}
+    <table class="main claims-table" id="oidc-claims">
+      <thead>
+        <tr><th>{% trans "Name" %}</th><th>{% trans "Value" %}</th><th>{% trans "Scopes" %}</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for claim in claims %}
+          <tr>
+            <td>{{ claim.name }}</td>
+            <td>{{ claim.value }}</td>
+            <td>{{ claim.scopes }}</td>
+            <td class="actions">
+              <a class="edit" href="{% url "a2-manager-oidc-claim-edit" service_pk=object.pk claim_pk=claim.pk %}" rel="popup" title="{% trans "Edit" %}">{% trans "Edit" %}</a>
+              <a class="delete" href="{% url "a2-manager-oidc-claim-delete" service_pk=object.pk claim_pk=claim.pk %}" rel="popup" title="{% trans "Delete" %}">{% trans "Delete" %}</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>

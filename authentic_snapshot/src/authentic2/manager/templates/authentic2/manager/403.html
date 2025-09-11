@@ -1,0 +1,13 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <h2>{% blocktrans %}Identity management{% endblocktrans %}</h2>
+{% endblock %}
+
+{% block content %}
+  <p>{% trans "You are not authorized to see this page." %}</p>
+  <p>
+    <a onclick="window.history.back()" class="button">{% trans "Back" %}</a>
+  </p>
+{% endblock %}

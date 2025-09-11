@@ -1,0 +1,76 @@
+{% extends "authentic2/authenticators/authenticator_common.html" %}
+{% load i18n gadjo %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a class="extra-actions-menu-opener"></a>
+
+    {% if object.has_valid_configuration and not object.protected %}
+      <a href="{% url 'a2-manager-authenticator-toggle' pk=object.pk %}">{{ object.enabled|yesno:_("Disable,Enable") }}</a>
+    {% endif %}
+    <a href="{% url 'a2-manager-authenticator-edit' pk=object.pk %}">{% trans "Edit" %}</a>
+    <ul class="extra-actions-menu">
+      <li><a href="{% url 'a2-manager-authenticator-export' pk=object.pk %}">{% trans "Export" %}</a></li>
+      <li><a href="{% url 'a2-manager-authenticator-journal' pk=object.pk %}">{% trans "Journal of edits" %}</a></li>
+      <li><a href="{% url 'a2-manager-authenticator-login-journal' pk=object.pk %}">{% trans "Journal of logins" %}</a></li>
+      {% if not object.protected %}
+        <li><a rel="popup" href="{% url 'a2-manager-authenticator-delete' pk=object.pk %}">{% trans "Delete" %}</a></li>
+      {% endif %}
+    </ul>
+  </span>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="#"></a>
+{% endblock %}
+
+{% block content %}
+  {% if not object.has_valid_configuration %}
+    <div class="warningnotice">
+      {% trans "This authenticator cannot be enabled because configuration is not complete." %}
+    </div>
+  {% endif %}
+
+  <div class="authenticator-detail">
+    <div class="pk-tabs">
+      <div class="pk-tabs--tab-list" role="tablist">
+        <button aria-controls="panel-description" aria-selected="true" id="tab-description" role="tab" tabindex="0">{% trans "Description" %}</button>
+        {% if object.manager_idp_info_template_name %}
+          <button aria-controls="panel-config-info" aria-selected="false" id="tab-config-info" role="tab" tabindex="0">{% trans "Information for configuration" %}</button>
+        {% endif %}
+        {% for model in object.related_models %}
+          <button aria-controls="panel-{{ model.model_name }}" aria-selected="false" id="tab-{{ model.model_name }}" role="tab" tabindex="-1">{{ model.verbose_name_plural }}</button>
+        {% endfor %}
+        {% block extra-tab-buttons %}
+        {% endblock %}
+      </div>
+
+      <div class="pk-tabs--container">
+        <div aria-labelledby="tab-description" id="panel-description" role="tabpanel" tabindex="0">
+          <ul>
+            {% for line in object.get_full_description %}
+              <li>{{ line }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {% if object.manager_idp_info_template_name %}
+          <div aria-labelledby="tab-config-info" hidden="" id="panel-config-info" role="tabpanel" tabindex="0">
+            {% include object.manager_idp_info_template_name %}
+          </div>
+        {% endif %}
+
+        {% for model, objects in object.related_models.items %}
+          <div aria-labelledby="tab-{{ model.model_name }}" hidden="" id="panel-{{ model.model_name }}" role="tabpanel" tabindex="0">
+            <p>{{ model.description }}</p>
+            {% include 'authentic2/authenticators/related_object_list.html' with object_list=objects model_name=model.model_name %}
+          </div>
+        {% endfor %}
+        {% block extra-tab-list %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

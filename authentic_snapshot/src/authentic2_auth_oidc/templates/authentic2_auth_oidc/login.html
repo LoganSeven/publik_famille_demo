@@ -1,0 +1,28 @@
+{% block login %}
+  <div class="cell--body">
+    {% if provider.button_description %}
+      <p>{{ provider.button_description }}</p>
+    {% endif %}
+
+    <p id="oidc-p-{% firstof provider.slug provider.name|slugify %}">
+      {% if provider.button_image %}
+        <a
+          id="oidc-a-{% firstof provider.slug  provider.name|slugify %}"
+          class="oidc-link-img"
+          href="{{ login_url }}" >
+          <img
+            id="oidc-img-{% firstof provider.slug provider.name|slugify %}"
+            class="oidc-login-img"
+            src="{{ provider.button_image.url }}"
+            alt="{{ provider.button_label }}"/>
+        </a>
+      {% else %}
+        <a
+          id="oidc-a-{% firstof provider.slug  provider.name|slugify %}"
+          href="{{ login_url }}" class="pk-button">
+          {{ provider.button_label }}
+        </a>
+      {% endif %}
+    </p>
+  </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load i18n %}
+{% if user.oidc_account %}
+  <p>
+    {% blocktrans trimmed with created=user.oidc_account.created name=user.oidc_account.provider.name sub=user.oidc_account.sub %}
+      Link with OIDC provider {{ name }} created on {{ created }} (sub {{ sub }}).
+    {% endblocktrans %}
+  </p>
+{% endif %}

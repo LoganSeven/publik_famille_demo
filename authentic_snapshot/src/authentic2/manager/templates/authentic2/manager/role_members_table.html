@@ -1,0 +1,10 @@
+{% extends "authentic2/manager/table.html" %}
+
+{% load i18n %}
+
+{% block table.head.last.column %}
+  <th></th>
+{% endblock %}
+{% block table.tbody.last.column %}
+  <td class="remove-icon-column">{% if table.context.view.can_manage_members and row.record.direct %}<a class="js-remove-object" data-confirm="{% blocktrans with record=row.record role=table.context.object %}Do you really want to remove &quot;{{ record }}&quot; from role &quot;{{ role }}&quot;?{% endblocktrans %}" href="#" data-pk-arg="user_or_role"><span class="icon-remove-sign"></span></a>{% endif %}</td>
+{% endblock %}

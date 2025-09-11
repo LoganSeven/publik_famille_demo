@@ -1,0 +1,14 @@
+{% load i18n %}
+<p class="paginator">
+  {% if not page.is_first_page %}
+    <a href="{{ page.first_page_url }}">{% trans "First page" %}</a>
+    <a href="{{ page.previous_page_url }}">{% trans "Previous page" %}</a>
+  {% endif %}
+  {% if not page.is_first_page and not page.is_last_page %}
+    …
+  {% endif %}
+  {% if not page.is_last_page %}
+    <a href="{{ page.next_page_url }}">{% trans "Next page" %}</a>
+    <a href="{{ page.last_page_url }}">{% trans "Last page" %}</a>
+  {% endif %}
+</p>

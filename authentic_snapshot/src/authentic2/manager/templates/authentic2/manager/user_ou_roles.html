@@ -1,0 +1,13 @@
+{% extends "authentic2/manager/user_common_roles.html" %}
+{% load gadjo static django_tables2 %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "authentic2/manager/js/roles_ajax_checkbox.js" %}?{% start_timestamp %}"></script>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=0 %}
+    {% render_table table "authentic2/manager/table.html" %}
+  {% endwith %}
+{% endblock %}

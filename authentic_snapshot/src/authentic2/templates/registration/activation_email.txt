@@ -1,0 +1,15 @@
+{% load i18n %}{% if not existing_accounts %}{% blocktrans %}You requested registration on {{ site }}.
+To finish your registration, please go to:
+
+  {{ registration_url }}
+
+{% endblocktrans %}{% else %}{% blocktrans %}You requested registration on {{ site }}.
+You already have an account. To login please go to:
+
+  {{ registration_url }}
+
+{% endblocktrans %}{% endif %}
+{% if expiration_days > 1 %}{% blocktrans %}Link is valid for {{ expiration_days }} days.{% endblocktrans %}
+{% else %}{% blocktrans %}Link is valid for 24 hours.{% endblocktrans %}{% endif %}
+
+{% blocktrans %}If you did not register on {{ site }}, ignore this email.{% endblocktrans %}

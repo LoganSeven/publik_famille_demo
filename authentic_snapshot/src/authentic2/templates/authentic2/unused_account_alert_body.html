@@ -1,0 +1,6 @@
+{% load i18n %}
+<p>{% blocktrans %}Hi {{ user }},{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Your account is inactive and is pending deletion.{% endblocktrans %}</p>
+<p>{% blocktrans %}In order to keep your account, you must <a href="{{ login_url }}">log in</a> within {{ days_to_deletion }} days.{% endblocktrans %}</p>
+<p>{% trans "Past this delay, it will be deleted." %}</p>

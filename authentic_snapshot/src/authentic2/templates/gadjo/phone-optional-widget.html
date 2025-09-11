@@ -1,0 +1,7 @@
+{% extends "gadjo/widget.html" %}
+{% load i18n %}
+
+{% block widget-wrapper %}
+  <p>{% trans "Or" %}</p>
+  {{ block.super }}
+{% endblock %}

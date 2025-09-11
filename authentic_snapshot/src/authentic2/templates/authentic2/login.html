@@ -1,0 +1,40 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n gadjo static %}
+
+{% block gadjo-jquery %}{% endblock %}
+
+{% block title %}
+  {% trans "Login" %}
+{% endblock %}
+
+{% block breadcrumb %}{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "authentic2/css/css-tabs.css" %}?{% start_timestamp %}">
+{% endblock %}
+
+{% block content %}
+
+  {% include "authentic2/service_info_fragment.html" %}
+
+  <div id="a2-login-forms">
+    {% for id, login_block in blocks.items %}
+      <span id="css-tab{{ forloop.counter }}"></span>
+    {% endfor %}
+
+    {% if blocks|length != 1 %}
+      {% for id, login_block in blocks.items %}
+        <a class="css-tab-link css-tab{{ forloop.counter }} {% if forloop.first %}css-tab-default{% endif %} {{ login_block.extra_css_class }}" href="#css-tab{{ forloop.counter }}">
+          {{ login_block.name }}
+        </a>
+      {% endfor %}
+    {% endif %}
+
+    {% for id, login_block in blocks.items %}
+      <div class="css-tab-content css-tab{{ forloop.counter }} {% if forloop.first %}css-tab-default{% endif %} {{ login_block.extra_css_class }}">
+        {{ login_block.content|safe }}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

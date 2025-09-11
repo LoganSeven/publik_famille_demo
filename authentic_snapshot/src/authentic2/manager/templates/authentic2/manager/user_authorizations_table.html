@@ -1,0 +1,18 @@
+{% extends "authentic2/manager/table.html" %}
+{% load django_tables2 %}
+{% load i18n %}
+
+{% block table.head.last.column %}
+  <th></th>
+{% endblock %}
+
+{% block table.tbody.last.column %}
+  <td class="remove-icon-column">
+    <a class="{% if not table.context.view.can_manage_authorizations %} disabled {% else %} js-remove-object {% endif %}"
+       data-confirm="{% blocktrans with client=row.record.client user=table.context.object %}Do you really want to remove &quot;{{ client }}&quot; service granted access to &quot;{{ user }}&quot; profile data?{% endblocktrans %}"
+       href="#" data-pk-arg="authorization">
+      <span class="icon-remove-sign"></span>
+    </a>
+  </td>
+{% endblock %}
+

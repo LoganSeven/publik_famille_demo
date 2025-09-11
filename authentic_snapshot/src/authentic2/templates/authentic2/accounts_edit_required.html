@@ -1,0 +1,10 @@
+{% extends "authentic2/accounts_edit.html" %}
+{% load i18n %}
+
+{% block content %}
+  {% block required-attributes-message %}
+    <div class="infonotice">{% trans "The following informations are required if you want to use this service:"%} {% for attribute in view.missing_attributes %}{{ attribute.label }}{% if not forloop.last %}, {% endif %}{% endfor %}
+    </div>
+  {% endblock %}
+  {{ block.super }}
+{% endblock %}

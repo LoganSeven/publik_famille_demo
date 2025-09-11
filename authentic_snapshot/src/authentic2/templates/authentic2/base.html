@@ -1,0 +1,45 @@
+{% extends "gadjo/base.html" %}
+{% load gadjo i18n %}
+
+{% block page-title %}Authentic2 - {{ request.get_host }} - {% block title %}{% endblock %}{% if form.errors %} : {% trans "there are errors in the form" %}{% endif %}{% endblock %}
+
+{% block site-title %}Authentic2 - {{ request.get_host }}{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{{ STATIC_URL }}authentic2/css/style.css?{% start_timestamp %}" />
+  {{ form.media.css }}
+{% endblock %}
+
+{% block bodyargs %}
+  {% if home_url %}data-home-url="{{ home_url }}"{% endif %}
+  {% if home_service %}data-home-service-slug="{{ home_service.slug }}" data-home-service-name="{{ home_service.name }}"{% endif %}
+  {% if home_ou %}data-home-ou-slug="{{ home_ou.slug }}" data-home-ou-name="{{ home_ou.name }}"{% endif %}
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  {{ form.media.js }}
+  {% comment %}block extra_scripts is kept for compatibility with old themes{% endcomment %}
+  {% block extra_scripts %}
+  {% endblock %}
+{% endblock %}
+
+{% block sidepage %}
+{% endblock %}
+
+{% block user-links %}
+  <ul class="user-info">
+    {% if user.is_authenticated %}
+      <li class="ui-name" title="{% blocktrans %}Last login {{ LAST_LOGIN }}{% endblocktrans %}">{{ user }}</li>
+      <li class="ui-logout"><a href="{% block logout-url %}{% url 'auth_logout' %}{% endblock %}">{% trans "Logout" %}</a></li>
+    {% endif %}
+  </ul>
+{% endblock %}
+
+{% block footer %}
+  Copyright &copy; 2013 Entr'ouvert
+{% endblock %}
+
+{% block page-end %}
+{% endblock %}

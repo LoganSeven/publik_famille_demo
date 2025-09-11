@@ -1,0 +1,25 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n gadjo %}
+
+{% block title %}
+  {% trans "Registration" %}
+{% endblock %}
+
+{% block content %}
+  {% block registration-completion-form-pre %}
+    <h2>{% trans "Registration" %}</h2>
+    <p>{% trans "Please fill the form to complete your registration" %}</p>
+  {% endblock %}
+  <form method="post" class="a2-registration-completion-form pk-mark-optional-fields">
+    {% block registration-completion-form-top %}{% endblock %}
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button">{% trans 'Submit' %}</button>
+    </div>
+    {% block registration-completion-form-bottom %}{% endblock %}
+    {% csrf_token %}
+  </form>
+  {% block registration-completion-form-post %}{% endblock %}
+
+{% endblock %}

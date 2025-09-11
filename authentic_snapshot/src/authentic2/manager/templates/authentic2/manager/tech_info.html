@@ -1,0 +1,16 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n %}
+
+{% block appbar %}
+  <h2>{{ title }}</h2>
+{% endblock %}
+
+{% block content %}
+  {% if ldap_list %}
+    <div id="a2-manager-tech-info-ldap-list">
+      {% for ldap in ldap_list %}
+        {% include "authentic2/manager/ldap_details.html" with ldap=ldap %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

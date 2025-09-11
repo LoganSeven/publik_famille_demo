@@ -1,0 +1,382 @@
+$mobile-limit: 760px;
+
+#sidebar label {
+        display: inline;
+}
+
+#sidebar input,
+#sidebar select,
+#sidebar button {
+       width: 100%;
+}
+
+#sidebar .buttons button {
+       width: auto;
+}
+
+#sidebar input[type="checkbox"] {
+       width: auto;
+}
+
+#sidebar ul.roles {
+	padding: 0;
+	text-align: left;
+	list-style: none;
+}
+
+#sidebar ul.roles li {
+	margin-bottom: 1ex;
+}
+
+#sidebar ul.roles li a {
+	text-decoration: none;
+}
+
+#sidebar ul.roles a.active {
+	font-weight: bold;
+}
+
+div.role-info h3 {
+}
+
+.manager-m2m-add-form {
+	margin-top: 2em;
+	margin-bottom: 2em;
+	display: flex;
+	align-items: center;
+}
+
+table#user-table td {
+	word-break: break-word;
+}
+
+table td span.verified::after {
+	content: "✔";
+	color: #0a0;
+	font-weight: bold;
+}
+
+table.main th.name, table.main td.name, #user-table .link, #user-table .username, #user-table
+.email, #user-table .first_name, #user-table .last_name, #user-table .ou {
+        text-align: left;
+}
+table.main.left {
+	padding-left: 1rem;
+}
+table.main.left td,
+table.main.left th {
+	text-align: left;
+}
+
+table.main {
+	height: 100%;
+}
+
+table.main td.remove-icon-column {
+	padding: 0;
+	height: 100%;
+}
+
+table.main td.remove-icon-column a {
+	height: 100%;
+	display: flex;
+	border: none;
+}
+
+table.main td.remove-icon-column a span {
+	display: block;
+	margin: auto;
+	padding: 0 0.5em;
+}
+
+table.feeds td.url {
+	text-align: left;
+	padding-left: 1em;
+}
+
+table.users tbody tr td:nth-child(2) {
+	color: #FF7800;
+}
+
+table.users tbody tr td:nth-child(2):hover {
+	text-decoration: underline;
+	border-bottom: 1px solid transparent;
+}
+
+.paginator > span, .paginator a {
+  margin: 0px 2px;
+
+}
+
+
+#delete-form {
+  float: right;
+}
+
+#details {
+	margin-top: 2em;
+}
+
+.form-inner-container {
+  width: 100%;
+}
+
+.with-actions #main .form-inner-container {
+  width: 70%;
+  float: left;
+}
+
+.other_actions {
+  margin-left: 70%;
+  width: 30%;
+}
+
+.other_actions button {
+  display: block;
+  margin: 5px;
+  width: 100%;
+  white-space: normal;
+}
+
+.other_actions .user-roles button {
+  display: inline-block;
+  width: auto;
+}
+
+.user-roles ul {
+	margin-left: 2rem;
+	padding-left: 0;
+}
+
+.user-roles ul ul {
+	margin-left: 1rem;
+	margin-bottom: 1ex;
+}
+
+li#roles a { background-image: url(icon-personnes.png); }
+li#roles a:hover { background-image: url(icon-personnes-hover.png); }
+
+li#users a { background-image: url(icon-user.png); }
+li#users a:hover { background-image: url(icon-user-hover.png); }
+
+.warning-box {
+	padding: 1ex;
+	margin: 1ex;
+	border-size: 0px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	border-radius:7px;
+	border: none;
+  background: orange;
+  display: inline-block;
+  max-width: 50%;
+}
+
+.warning-box button {
+  float: right;
+}
+
+th:first-letter {
+   text-transform: uppercase;
+}
+th {
+   text-transform: lowercase;
+}
+
+/* pad ordering indicator on the left */
+th.asc:after, th.desc:after {
+  padding-left: 5px;
+  color: #0066cc;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+th.asc:after {
+  content: "\f175";
+}
+th.desc:after {
+  content: "\f176";
+}
+
+td.uuid {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 6ex;
+    max-width: 6ex;
+}
+
+#s2id_id_permissions {
+  width: 100%;
+}
+form table tr th {
+        text-align: right;
+}
+
+form .widget input, form .widget textarea, form .widget select {
+  width: 100%;
+}
+
+form .widget input[type="checkbox"],
+form .widget input[type="radio"] {
+  width: auto;
+}
+
+.waiting {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.5;
+}
+
+.disabled-badge {
+	background: #cecece;
+	border-radius: 10px;
+	font-size: 50%;
+	padding: 3px 8px;
+	line-height: 1em;
+}
+
+/* role members */
+.role-add {
+    margin-left: 1ex; 
+}
+.role-remove {
+    margin-left: 0.5ex;
+    margin-right: 1ex;
+}
+.role-inheritance { margin: 1em 0px; }
+
+/* Select2 styling */
+
+span.select2-container {
+	width: auto !important;
+	flex-grow: 1;
+	margin-right: 1em;
+}
+
+.ui-dialog-content span.select2-container,
+form .widget span.select2-container {
+	width: 100% !important;
+}
+
+.content table {
+	transition: opacity 200ms linear;
+}
+
+.refreshing .content table {
+	opacity: 0.5;
+}
+
+.journal-list--timestamp-column {
+	white-space: pre;
+}
+
+span.activity {
+	background: url(indicator.gif) no-repeat top right;
+	padding-right: 30px;
+}
+
+a.role-inheritance-view-all {
+    font-style: italic;
+}
+
+.a2-manager-ldapsearch {
+	background: black;
+	color: white;
+	padding: .3em;
+	overflow-x: auto;
+}
+
+.section.user-csv-import-help pre {
+	max-width: 100%;
+	overflow-y: auto;
+}
+
+ul#id_scopes,
+ul#id_scopes li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      -moz-column-width: 20em;
+      -webkit-column-width: 20em;
+      column-width: 20em;
+}
+
+table.claims-table td.actions {
+	position: relative;
+	width: 80px;
+	a {
+		display: inline-block;
+		border: none;
+		overflow: hidden;
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		&::before {
+			font-family: FontAwesome;
+			padding-right: 3em;
+		}
+		&.delete::before {
+			content: "\f057"; /* remove-sign */
+		}
+		&.edit::before {
+			content: "\f044"; /* edit-sign */
+		}
+	}
+}
+
+.service-field {
+	&--name {
+		font-weight: bold;
+	}
+	&--value {
+		margin-left: 1rem;
+	}
+}
+
+span.handle {
+	cursor: move;
+	display: inline-block;
+	padding: 0.5ex;
+	text-align: center;
+	width: 1em;
+}
+
+div.a2-manager-main {
+	background: none bottom right no-repeat;
+	&.random-bg-1 { background-image: url(people1.svg); }
+	&.random-bg-2 { background-image: url(people2.svg); }
+	&.random-bg-3 { background-image: url(people3.svg); }
+	&.random-bg-4 { background-image: url(people4.svg); }
+	&.random-bg-5 { background-image: url(people5.svg); }
+	&.random-bg-6 { background-image: url(people6.svg); }
+	&.random-bg-7 { background-image: url(people7.svg); }
+	&.random-bg-8 { background-image: url(people8.svg); }
+	min-height: 80vh;
+	background-size: 600px auto;
+	@media screen and (max-width: 1200px) {
+		background-size: 100% auto;
+	}
+	width: 99%;
+	height: 90%;
+	@media screen and (max-width: $mobile-limit) {
+		background: none !important;
+		min-height: 0;
+		height: auto;
+	}
+}
+
+div.django-phone-widget div.content {
+	select {
+		width: 50%;
+		max-width: 20em;
+	}
+	input {
+		width: 50%;
+		max-width: 12em;
+	}
+}

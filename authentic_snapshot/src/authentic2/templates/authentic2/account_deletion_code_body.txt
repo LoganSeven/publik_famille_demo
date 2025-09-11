@@ -1,0 +1,9 @@
+{% load i18n %}{% blocktrans %}{{ full_name }},{% endblocktrans %}
+
+{% blocktrans %}
+Please click on {{ deletion_url }}
+if you want to validate your account deletion request on
+{{ site }}.
+If so, all related data will be deleted in the next few hours.
+You won't be able to log in with this account anymore.
+{% endblocktrans %}

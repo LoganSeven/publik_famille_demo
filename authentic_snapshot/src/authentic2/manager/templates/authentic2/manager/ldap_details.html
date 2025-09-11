@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="section manager-ldap">
+  <h3>{% trans "LDAP information, realm:" %} {{ ldap.realm }}</h3>
+  <div class="a2-manager-ldap-{{ ldap.realm }}">
+    {% if ldap.error %}
+      <div class="errornotice">
+        <p>{% blocktrans %}Error while attempting to connect to LDAP server, base ldapsearch command is still displayed but won’t work as such.{% endblocktrans %}</p>
+        {% if ldap.errmsg %}
+          <p>{% blocktrans with errmsg=ldap.errmsg %}Server error: {{ errmsg }}{% endblocktrans %}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    <h4>{% blocktrans %}Base ldapsearch command{% endblocktrans %}</h4>
+    <pre class="a2-manager-ldapsearch">{% if ldap.require_cert != 'demand' %}LDAPTLS_REQCERT={{ldap.require_cert}} {% endif %}ldapsearch -v -H {{ ldap.ldap_uri }} \
+    -D "{{ ldap.binddn }}" \
+    -w "{{ ldap.bindpw }}" \
+    -b "{{ ldap.basedn }}"{% if ldap.user_filter or ldap.sync_ldap_users_filter %} \
+    "{% firstof ldap.sync_ldap_users_filter ldap.user_filter %}"{% endif %}</pre>
+    <h4>{% trans "Configuration" %}</h4>
+    <pre>{{ ldap.block }}</pre>
+  </div>
+</div>

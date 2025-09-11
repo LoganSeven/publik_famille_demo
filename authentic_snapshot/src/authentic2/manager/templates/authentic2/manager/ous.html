@@ -1,0 +1,37 @@
+{% extends "authentic2/manager/ou_common.html" %}
+{% load i18n static django_tables2 %}
+
+{% block page-title %}{% trans "Organizational units" %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a class="extra-actions-menu-opener"></a>
+    {% if view.can_add %}
+      <a href="{% url "a2-manager-ou-add" %}" rel="popup">{% trans "Add organizational unit" %}</a>
+    {% endif %}
+    <ul class="extra-actions-menu">
+      <li><a download href="{% url 'a2-manager-ou-export' format="json" %}?{{ request.GET.urlencode }}">{% trans 'Export' %}</a></li>
+      {% if view.can_add %}
+        <li><a href="{% url 'a2-manager-ous-import' %}" rel="popup">{% trans 'Import' %}</a></li>
+      {% endif %}
+    </ul>
+  </span>
+  </span>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% include "authentic2/manager/search_form.html" %}
+  </aside>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=1 %}
+    {% render_table table "authentic2/manager/table.html" %}
+  {% endwith %}
+{% endblock %}

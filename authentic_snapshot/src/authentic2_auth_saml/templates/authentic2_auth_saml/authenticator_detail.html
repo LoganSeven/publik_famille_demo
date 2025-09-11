@@ -1,0 +1,12 @@
+{% extends 'authentic2/authenticators/authenticator_detail.html' %}
+{% load i18n %}
+
+{% block content %}
+  {% if not object.has_signing_key %}
+    <div class="warningnotice">
+      {% trans "Signing key is missing. You need to set MELLON_PUBLIC_KEYS and MELLON_PRIVATE_KEY settings, otherwise assertions will not be signed." %}
+    </div>
+  {% endif %}
+
+  {{ block.super }}
+{% endblock %}

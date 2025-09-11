@@ -1,0 +1,32 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Consent page for federation" %} {% endblock %}
+
+{% block content %}
+
+
+  {% load i18n %}
+  <div id="consent">
+    <p>
+      {% if provider_id %}
+        {% blocktrans trimmed with provider_id=provider_id %}
+          Do you accept to federate your account with <strong>{{ provider_id }}</strong>?
+        {% endblocktrans %}
+      {% else %}
+        {% trans "Do you accept to federate your account?" %}
+      {% endif %}
+      {{ provider_id2 }}
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <input type="hidden" name="nonce" value="{{ nonce }}" />
+      <div class="buttons">
+        <button name="accept">{% trans 'Accept' %}</button>
+        <button name="refuse">{% trans 'Refuse' %}</button>
+      </div>
+    </form>
+  </div>
+
+{% endblock %}

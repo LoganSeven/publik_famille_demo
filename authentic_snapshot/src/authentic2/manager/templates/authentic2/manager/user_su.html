@@ -1,0 +1,19 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <form>
+    <p>
+      {% blocktrans trimmed %}
+        To switch to user {{ user }}, open the following link in a private window
+        (it expires after <span class="js-seconds-until" data-target="#su-link" data-replace="Expired!">{{ duration }}</span> seconds).
+      {% endblocktrans %}
+    </p>
+    <p>
+      <a id='su-link' href="{{ su_url }}">{{ su_url }}</a>
+    </p>
+    <script>
+      $(function() { window.a2_js_seconds_until(); });
+    </script>
+  </form>
+{% endblock %}

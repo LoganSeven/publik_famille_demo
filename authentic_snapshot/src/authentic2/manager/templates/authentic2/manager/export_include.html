@@ -1,0 +1,2 @@
+{% load i18n %}
+<p><a class="export-format" href="{% if object %}{% url export_view_name pk=object.pk format="csv" %}{% else %}{% url export_view_name format="csv" %}{% endif %}?{{ request.GET.urlencode }}">{% trans "Download list as CSV" %}</a></p>

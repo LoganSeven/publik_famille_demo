@@ -1,0 +1,12 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Error: page not found" %} {% endblock %}
+
+{% block content %}
+
+  <h2>{% trans "Error: page not found" %}</h2>
+
+  <p>{% trans "The page you requested has not been found on this server." %}
+
+{% endblock %}

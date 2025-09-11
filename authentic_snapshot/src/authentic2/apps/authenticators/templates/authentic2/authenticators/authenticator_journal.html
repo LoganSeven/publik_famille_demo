@@ -1,0 +1,7 @@
+{% extends "authentic2/manager/journal.html" %}
+{% load i18n %}
+
+{% block breadcrumb-before-title %}
+  <a href="{% url 'a2-manager-authenticators' %}">{% trans "Authenticators" %}</a>
+  <a href="{% url 'a2-manager-authenticator-detail' pk=object.pk %}">{{ object }}</a>
+{% endblock %}

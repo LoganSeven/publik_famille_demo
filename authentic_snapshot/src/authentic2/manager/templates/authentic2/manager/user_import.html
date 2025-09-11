@@ -1,0 +1,86 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n gadjo static %}
+
+{% block page-title %}{% trans "Import Users" %} | {{ block.super }}{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "authentic2/manager/css/user_import.css" %}?{% start_timestamp %}">
+{% endblock %}
+
+{% block page_title %}{% trans "Users Import" %} - {{ user_import.created }} - {{ user_import.user }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+  <a href="{% url 'a2-manager-users-imports' %}">{% trans 'Imports' %}</a>
+  <a href="{% url 'a2-manager-users-import' uuid=user_import.uuid %}">{% trans "Users Import" %} {{ user_import.created }}</a>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    <div>
+      <h3>{% trans "Actions" %}</h3>
+      <form method="post" id="action-form">
+        {% csrf_token %}
+        <div class="buttons">
+          <button name="simulate">{% trans "Simulate import" %}</button>
+        </div>
+        <div class="buttons">
+          <button name="execute">{% trans "Execute import" %}</button>
+        </div>
+      </form>
+    </div>
+    <div>
+      <form action="download/{{ user_import.filename }}" id="download-form">
+        <div class="buttons">
+          <button>{% trans "Download CSV file" %}</button>
+        </div>
+      </form>
+    </div>
+  </aside>
+{% endblock %}
+
+{% block main %}
+  <p>{% trans "Encoding:" %} {{ encoding }}</p>
+  <p>{% trans "Rows count:" %} {{ user_import.rows_count }}</p>
+  <p>{% trans "Target Organizational Unit:" %} {{ user_import.ou }}</p>
+  <h2>{% trans "Reports" %}</h2>
+  <table class="main">
+    <thead>
+      <tr>
+        <th>{% trans "Creation date" %}</th>
+        <th>{% trans "By" %}</th>
+        <th>{% trans "State" %}</th>
+        <th>{% trans "Imported" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for report in reports %}
+        <tr data-uuid="{{ report.uuid }}" data-url="{% url "a2-manager-users-import-report" import_uuid=user_import.uuid report_uuid=report.uuid %}">
+          {% include "authentic2/manager/user_import_report_row.html" %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <script>
+    function autorefresh(el) {
+      $.ajax({
+        url: $(el).data('url'),
+        success: function(html) {
+          $(el).html(html);
+        },
+      });
+    }
+
+    function scheduleRefreshes() {
+      $('tbody tr').each(function() {
+        if($(this).children('td.state.running').length > 0)
+          setInterval(autorefresh, 2000, this);
+      });
+    }
+
+    $(document).ready(scheduleRefreshes);
+  </script>
+{% endblock %}

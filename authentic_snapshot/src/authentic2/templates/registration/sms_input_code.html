@@ -1,0 +1,25 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n gadjo %}
+
+{% block title %}
+  {{ view.title }}
+{% endblock %}
+
+{% block content %}
+  <form method="post" action=".">
+    <p>{% blocktrans trimmed %}Input the code you received by SMS.{% endblocktrans %}</p>
+    <p>
+      {% blocktrans count counter=duration %}
+        Your code is valid for the next minute.
+      {% plural %}
+        Your code is valid for the next {{ duration }} minutes.
+      {% endblocktrans %}
+    </p>
+    {% csrf_token %}
+    {{ form }}
+    <div class="buttons">
+      <button class="submit-button">{% trans 'Submit' %}</button>
+      <button class="cancel-button" name="cancel" formnovalidate>{% trans "Cancel" %}</button>
+    </div>
+  </form>
+{% endblock %}

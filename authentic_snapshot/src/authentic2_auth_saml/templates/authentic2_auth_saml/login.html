@@ -1,0 +1,38 @@
+{% load i18n %}
+
+{% block login-block-title %}
+{% endblock %}
+
+{% block content %}
+  <div class="cell--body">
+    {% block before-login %}
+      {% if authenticator.button_description %}
+        <p>{{ authenticator.button_description }}</p>
+      {% endif %}
+    {% endblock %}
+
+    {% block login %}
+      <form method="post" class="saml-login--form">
+        <div class="buttons">
+          {% if authenticator.button_image %}
+            <input type="image"
+                   class="submit-button-img saml-login-img saml-login--submit-button-img-{{ authenticator.slug }}"
+                   name="{{ submit_name }}"
+                   src="{{ authenticator.button_image.url }}"
+                   alt="{{ authenticator.button_label }}" />
+          {% else %}
+            <button class="submit-button saml-login--submit-button-{{ authenticator.slug }}" name="{{ submit_name }}">
+              {{ authenticator.button_label }}
+            </button>
+          {% endif %}
+          {% if cancel %}
+            <button class="cancel-button" name="cancel" formnovalidate>{% trans 'Cancel' %}</button>
+          {% endif %}
+        </div>
+      </form>
+    {% endblock %}
+
+    {% block after-login %}
+    {% endblock %}
+  </div>
+{% endblock %}

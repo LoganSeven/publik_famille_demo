@@ -1,0 +1,25 @@
+{% load i18n authenticator_extras %}
+
+<strong>{% trans "Configuration information for your identity provider" %}</strong>
+<ul>
+  {% filter urlize %}
+    <li>{% trans "Metadata URL:" %}<br>{% absolute_url 'mellon_metadata' %}</li>
+  {% endfilter %}
+  {% if object and object.set_attribute_actions.all %}
+    <li>{% trans "Expected attributes:" %}
+      <ul>
+        {% for attribute in object.set_attribute_actions.all %}
+          <li>{{ attribute.saml_attribute }}{% if attribute.mandatory %} ({% trans "mandatory" %}){% endif %}</li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% else %}
+    <li>{% trans "Commonly expected attributes:" %}
+      <ul>
+        <li>{% trans "Email (email)" %}</li>
+        <li>{% trans "First name (first_name)" %}</li>
+        <li>{% trans "Last name (last_name)" %}</li>
+      </ul>
+    </li>
+  {% endif %}
+  <ul>

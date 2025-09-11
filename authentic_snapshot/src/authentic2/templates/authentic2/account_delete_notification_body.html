@@ -1,0 +1,13 @@
+{% load i18n %}
+<html>
+  <body style="max-width: 90ex">
+    <p>{% blocktrans trimmed %}{{ full_name }},{% endblocktrans %}</p>
+    <p>
+      {% blocktrans trimmed %}
+        Your account on {{ site }} has been deleted.
+        All related data will be deleted today.
+        You cannot log in with it anymore.
+      {% endblocktrans %}
+    </p>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktrans %}Your account is inactive, please log in within {{ days_to_deletion }} days to {{ login_url }} to prevent its deletion.{% endblocktrans %}

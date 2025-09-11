@@ -1,0 +1,7 @@
+{% load i18n %}
+{% include "django/forms/widgets/select.html" %}
+{% if not 'disabled' in widget.attrs %}
+  <div>
+    <label><input id="manual-address" type="checkbox">{% trans "Manually enter the address" %}</label>
+  </div>
+{% endif %}

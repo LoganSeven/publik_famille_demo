@@ -1,0 +1,7 @@
+{% load i18n %}{% blocktrans %}{{ full_name }},{% endblocktrans %}
+
+{% blocktrans %}
+Your account on {{ site }} has been deleted.
+All related data will be deleted today.
+You cannot log in with it anymore.
+{% endblocktrans %}

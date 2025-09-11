@@ -1,0 +1,23 @@
+{% load i18n %}
+<html>
+  <body style="max-width: 90ex">
+    {% blocktrans %}
+      <p> Hi {{ user }}!</p>
+      <p>Your registration on {{ site }} was successful!</p>
+
+      <p><a href="{{ login_url }}">Login!</a></p>
+    {% endblocktrans %}
+    <ul>
+      {% if user.username %}
+        <li>{% trans "Username:" %} {{ user.username }}</li>
+      {% endif %}
+      <li>{% trans "Email:" %} {{ user.email }}</li>
+      {% if user.first_name %}
+        <li>{% trans "First name:" %} {{ user.first_name }}</li>
+      {% endif %}
+      {% if user.last_name %}
+        <li>{% trans "Last name:" %} {{ user.last_name }}</li>
+      {% endif %}
+    </ul>
+  </body>
+</html>

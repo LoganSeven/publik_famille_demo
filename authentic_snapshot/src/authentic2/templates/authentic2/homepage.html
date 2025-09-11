@@ -1,0 +1,47 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Home" %}{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  {% if perms.any.a2_rbac.search_organizationalunit or perms.any.custom_user.search_user or perms.any.a2_rbac.search_role or perms.any.authentic2.search_service %}
+    <a href="{% url "a2-manager-homepage" %}">{% trans "Administration" %}</a>
+  {% endif %}
+  {% if account_management %}
+    <a href="{% url 'account_management' %}">{% trans "Your account" %}</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if authorized_services %}
+    <div id="login-actions">
+      <h2>{% trans "Services" %}</h2>
+      <ul>
+        {% for service in authorized_services %}
+          {% if service.actions %}
+            <li>{% if service.url %}<a href="{{ service.url }}">{% endif %}{{ service.name }}{% if service.url %}</a>{% endif %}
+              <div class="actions">
+                {% for action in service.actions %}
+                  {% if action.0 == "template" %}
+                    {% include action.1 %}
+                  {% else %}
+                    <form action="{{ action.2 }}" method="{{ action.1 }}">
+                      {% if action.3 %}
+                        {% for key, value in action.3 %}
+                          <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                        {% endfor %}
+                      {% endif %}
+                      <input type="hidden" name="next" value="/"/>
+                      <button class="submit-link">{{ action.0 }}</button>
+                    </form>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}

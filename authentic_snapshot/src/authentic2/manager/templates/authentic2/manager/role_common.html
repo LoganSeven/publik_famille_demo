@@ -1,0 +1,14 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n static %}
+
+{% block page-title %}{% if object %}{{ object }} | {% endif %}{{ block.super }}{% endblock %}
+
+{% block title %}{{ block.super }} - {% trans "Roles" %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-roles' %}">{% trans 'Roles' %}</a>
+  {% if multiple_ou and ou %}
+    <a href="{% url 'a2-manager-roles' %}?search-ou={{ ou.pk }}">{{ ou }}</a>
+  {% endif %}
+{% endblock %}

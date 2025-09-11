@@ -1,0 +1,273 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n gadjo static %}
+
+{% block page-title %}{% trans "Import Users" %} | {{ block.super }}{% endblock %}
+
+{% block page_title %}{% trans "Imports" %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+  <a href="{% url 'a2-manager-users-imports' %}">{% trans 'Import Users' %}</a>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    <h3>{% trans "Create new import" %}</h3>
+    <form method="post" enctype="multipart/form-data" action="#">
+      {% csrf_token %}
+      {{ form|with_template }}
+      <button name="create">{% trans "Create" %}</button>
+    </form>
+  </aside>
+{% endblock %}
+
+{% block content %}
+  <div class="section">
+    <h3>{% trans "Imports" %}</h3>
+    <table class="main left">
+      <thead>
+        <tr>
+          <th>{% trans "Filename" %}</th>
+          <th>{% trans "Creation date" %}</th>
+          <th>{% trans "By" %}</th>
+          <th>{% trans "Rows" %}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if imports %}
+          {% for import in imports %}
+            <tr data-uuid="{{ import.uuid }}">
+              <td><a href="{% url "a2-manager-users-import" uuid=import.uuid %}">{{ import.filename }}</a></td>
+              <td>{{ import.created }}</td>
+              <td>{{ import.user }}</td>
+              <td>{{ import.rows_count }}</td>
+              <td><form method="post" action="#">{% csrf_token %}<button name="delete" value="{{ import.uuid }}">{% trans "Delete" %}</button></form></td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr><td colspan="5" style="text-align: center;">{% trans "None" %}</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section user-csv-import-help">
+    <h3>{% trans "Help" %}</h3>
+    <div>
+      <p>
+        {% blocktrans trimmed %}
+          The first line of your CSV file must be a header <a href="#help-attributes">mapping columns to user's attributes identifier</a>.
+          Each user attribute name can be followed by <a href="#help-flags">flags</a> separated by spaces.
+          You can also import an <a href="#help-external-identifier">external identifier</a> to prevent creating duplicates when doing multiple import from the same source.
+        {% endblocktrans %}
+      </p>
+      <h4 id="help-attributes">{% trans "Attributes" %}</h4>
+      <table class="main left">
+        <thead>
+          <tr>
+            <th>{% trans "Label" %}</th>
+            <th>{% trans "Identifier" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for column in help_columns %}
+            <tr>
+              <td>{{ column.label }}</td>
+              <td><var>{{ column.name }}</var></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <h4 id="help-flags">{% trans "Flags" %}</h4>
+      <p>{% blocktrans trimmed %}Each column can receive flags after its name, separated by spaces. Each modifier can be prefixed by <var>no-</var> to set its value to false.{% endblocktrans %}</p>
+      <table class="main left">
+        <thead>
+          <tr>
+            <th>{% trans "Flag" %}</th>
+            <th>{% trans "Meaning" %}</th>
+            <th>{% trans "Default value" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>key</td>
+            <td>
+              {% blocktrans trimmed %}
+                The column is an import key, it is used to match the row with an existing user. Only one column can be an import key.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "False" %}</td>
+          </tr>
+          <tr>
+            <td>create</td>
+            <td>
+              {% blocktrans trimmed %}
+                Values will be used when creating a new user.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "True" %}</td>
+          </tr>
+          <tr>
+            <td>update</td>
+            <td>
+              {% blocktrans trimmed %}
+                Values will be used when updating an existing user.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "True" %}</td>
+          </tr>
+          <tr>
+            <td>unique</td>
+            <td>
+              {% blocktrans trimmed %}
+                Values must be unique in the target organizational unit.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "False" %} {% blocktrans trimmed %}
+              (default is True for the <var>email</var> and <var>username</var> columns if they are configured to be unique in the target organizational unit)
+            {% endblocktrans %}
+            </td>
+          </tr>
+          <tr>
+            <td>globally-unique</td>
+            <td>
+              {% blocktrans trimmed %}
+                Values must be unique among all users.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "False" %} {% blocktrans trimmed %}
+              (default is True for the <var>email</var> and <var>username</var> columns if they are configured to be globally unique)
+            {% endblocktrans %}</td>
+          </tr>
+          <tr>
+            <td>verified</td>
+            <td>
+              {% blocktrans trimmed %}
+                Values are verified. User's attribute will be locked.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "False" %} {% blocktrans %}(default is True for the <var>email</var> column){% endblocktrans %}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="help-external-identifier">{% trans "External identifier" %}</h4>
+      <p>
+        {% blocktrans trimmed %}
+          You can also use two special columns <var>_source_name</var> and
+          <var>_source_id</var>. <var>_source_name</var> must be the name of the
+          source directory from which the users are exported, it must not
+          change between imports. <var>_source_id</var> is the unique identifier
+          from the source directory from which the users are extracted, it must
+          not change between imports and should never be reused for different
+          users. <var>_source_id</var> is automatically the key column, and you
+          cannot use another key column.
+        {% endblocktrans %}
+      </p>
+      <h4 id="help-roles">{% trans "Role operations" %}</h4>
+      <p>
+        {% blocktrans trimmed %}
+          Adding existing roles to users is supported. Use either
+          <var>_role_name</var> or <var>_role_slug</var> special columns to
+          specify the names or the slugs that should be added to the user. In
+          order to add multiple roles, simply add a new line, identical to the
+          first one, except for the value of the role cell. These columns also
+          accept special flags, as listed below.
+        {% endblocktrans %}
+      </p>
+      <table class="main left">
+        <thead>
+          <tr>
+            <th>{% trans "Flag" %}</th>
+            <th>{% trans "Meaning" %}</th>
+            <th>{% trans "Default value" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>delete</td>
+            <td>
+              {% blocktrans trimmed %}
+                Remove role from user instead of adding it.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "False" %}</td>
+          </tr>
+          <tr>
+            <td>clear</td>
+            <td>
+              {% blocktrans trimmed %}
+                Clear user roles beforehand, so that they will have no more roles
+                than those specified in the import file.
+              {% endblocktrans %}
+            </td>
+            <td>{% trans "False" %}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 id="help-external-identifier">{% trans "Registration options" %}</h4>
+      <p>
+        {% blocktrans trimmed %}
+          When a user is created by the import, they will have to use the "forgotten password" feature
+          in order to log in for the first time. An alternative is to use the special column
+          <var>@registration</var> with the value <var>send-email</var>. In this case, newly created
+          users will receive an email, inviting them to set their password.
+        {% endblocktrans %}
+      </p>
+      <h4>{% trans "Force Password Reset" %}</h4>
+      <p>
+        {% blocktrans trimmed %}
+          If you want to set a default password but make the user change it after next login, you can
+          add a <var>@force-password-reset</var> column in the CSV. A value of 'true' in this column will
+          ask the user to change password after the next login.
+        {% endblocktrans %}
+      </p>
+      <h4>{% trans "Examples" %}</h4>
+      <p>{% blocktrans trimmed %}Importing first and last name of users keyed by email{% endblocktrans %}</p>
+      <blockquote>
+        <pre>"email key",first_name,last_name
+john.doe@example.com,John,Doe
+        </pre>
+      </blockquote>
+      <p>{% blocktrans trimmed %}Importing verified first and last name of users keyed by email{% endblocktrans %}</p>
+      <blockquote>
+        <pre>"email key","first_name verified","last_name verified"
+john.doe@example.com,John,Doe
+        </pre>
+      </blockquote>
+      <p>{% blocktrans trimmed %}Importing email, family_reference, first and last name of users from application <var>app1</var>, ensuring family_reference is unique.{% endblocktrans %}</p>
+      <blockquote>
+        <pre>_source_name,_source_id,email,"family_reference unique",first_name,last_name
+app1,1,john.doe@example.com,1234,John,Doe
+        </pre>
+      </blockquote>
+      <p>{% blocktrans trimmed %}Importing email, first and last name of users
+        while adding roles.{% endblocktrans %}</p>
+      <blockquote>
+        <pre>email key,first_name,last_name,_role_name
+john.doe@example.com,John,Doe,Role1
+john.doe@example.com,John,Doe,Role2
+        </pre>
+      </blockquote>
+      <p>{% blocktrans trimmed %}Importing email, first and last name of users
+        and sending a password reset email to John (only if the account is created
+        by the import).{% endblocktrans %}</p>
+      <blockquote>
+        <pre>email key,first_name,last_name,@registration
+john.doe@example.com,John,Doe,send-email
+jane.doe@example.com,Jane,Doe,
+        </pre>
+      </blockquote>
+      <p>{% blocktrans trimmed %}Importing email, first and last name of users
+        and setting a password using hash in standard Django format. Forcing password change for Jane after next login.{% endblocktrans %}</p>
+      <blockquote>
+        <pre>email key,first_name,last_name,password_hash,@force-password-reset
+john.doe@example.com,John,Doe,pbkdf2_sha256$36000$oTHdVaoMjnCp$uTkpF7Ne6KV/L5gAerS7mngXM96DOEaLsLMZ251HJ/M=,
+jane.doe@example.com,Jane,Doe,pbkdf2_sha256$36000$oTHdVaoMjnCp$uTkpF7Ne6KV/L5gAerS7mngXM96DOEaLsLMZ251HJ/M=,true
+        </pre>
+      </blockquote>
+    </div>
+  </div>
+{% endblock %}

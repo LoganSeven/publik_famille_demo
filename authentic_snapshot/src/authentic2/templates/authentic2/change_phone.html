@@ -1,0 +1,33 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n gadjo %}
+
+{% block title %}
+  {{ view.title }}
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="..">{% trans "Your account" %}</a>
+  <a href="">{{ view.title }}</a>
+{% endblock %}
+
+{% block content %}
+  {% if phone_verification_only %}
+    <p>{% blocktranslate trimmed %}Your current unverified phone number is {{ phone }}.
+      A text message will be sent in order to verify it.{% endblocktranslate %}</p>
+  {% elif phone %}
+    <p>{% blocktrans trimmed %}Your current phone number is {{ phone }}.
+      A text message will be sent to validate the new one.{% endblocktrans %}</p>
+  {% else %}
+    <p>{% blocktrans %}Your account does not declare a phone number yet.
+      A text message will be sent to validate the newly-declared one.{% endblocktrans %}</p>
+  {% endif %}
+  <form method="post" class="pk-mark-optional-fields">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button">{% trans "Validate" %}</button>
+      <button class="cancel-button" name="cancel" formnovalidate>{% trans "Cancel" %}</button>
+    </div>
+  </form>
+{% endblock %}

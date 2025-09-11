@@ -1,0 +1,24 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n %}
+
+{% block page-title %}{% trans "Edit roles" %} - {{ object }} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+  {% if multiple_ou and object.ou %}
+    <a href="../?search-ou={{ object.ou.pk }}">{{ object.ou }}</a>
+  {% endif %}
+  <a href="{% url 'a2-manager-user-detail' pk=object.pk %}">{{ object.get_full_name }}</a>
+  <a href="#">{% trans "Roles" %}</a>
+{% endblock %}
+
+{% block page_title %}
+  {% trans "Edit User Roles" %}
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% include "authentic2/manager/search_form.html" %}
+  </aside>
+{% endblock %}

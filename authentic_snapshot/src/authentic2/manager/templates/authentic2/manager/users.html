@@ -1,0 +1,47 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n static django_tables2 %}
+
+{% block page-title %}{% trans "Users" %} | {{ block.super }}{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    {% if extra_actions %}
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        {% for extra_action in extra_actions %}
+          <li><a href="{{ extra_action.url }}"{% if extra_action.popup %} rel="popup"{% endif %}>{{ extra_action.label }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if view.can_add %}
+      <a
+        {% if add_ou %}href="{% url "a2-manager-user-add" ou_pk=add_ou.pk %}"{% else %}
+          href="{% url "a2-manager-user-add-choose-ou" %}" rel="popup"{% endif %}
+        id="add-user-btn">
+        {% trans "Add user" %}
+      </a>
+    {% else %}
+      <a href="#" class="disabled" id="add-user-btn">{% trans "Add user" %}</a>
+    {% endif %}
+  </span>
+
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% include "authentic2/manager/search_form.html" %}
+  </aside>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=1 %}
+    {% render_table table "authentic2/manager/table.html" %}
+  {% endwith %}
+  {% include "authentic2/manager/export_include.html" with export_view_name="a2-manager-users-export" %}
+{% endblock %}

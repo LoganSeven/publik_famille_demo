@@ -1,0 +1,21 @@
+{% extends "authentic2/manager/delete.html" %}
+{% load i18n %}
+
+{% block messages %}
+{% endblock %}
+
+{% block caption %}
+  {% blocktrans with user_count=object.user_set.count role_count=object.role_set.count service_count=object.service_set.count %}
+    <p>
+      There are currently in this organizational unit:
+      <ul>
+        <li>{{ user_count }} users,</li>
+        <li>{{ role_count }} roles,</li>
+        <li>{{ service_count }} services.</li>
+      </ul>
+      <p>
+        <p>
+          They will all be deleted. Are you sure you want to delete organizational unit "{{ object }}"?
+        </p>
+  {% endblocktrans %}
+{% endblock %}

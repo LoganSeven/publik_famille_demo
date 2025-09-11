@@ -1,0 +1,11 @@
+{% extends "authentic2/manager/base.html" %}
+
+{% block main %}
+  <form>
+    <ul>
+      {% for event_type in object_list %}
+        <li>{{ event_type.name }} ({{ event_type.definition.label }}) : {{ event_type.retention_days_str }}</li>
+      {% endfor %}
+    </ul>
+  </form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "authentic2/manager/api_client_common.html" %}
+{% load i18n gadjo %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a href="{% url 'a2-manager-api-client-add' %}">{% trans "Add new API client" %}</a>
+  </span>
+{% endblock %}
+
+{% block main %}
+  {% if object_list %}
+    <ul class="objects-list single-links">
+      {% for api_client in object_list %}
+        <li>
+          <a href="{% url 'a2-manager-api-client-detail' pk=api_client.pk %}">{{ api_client.name }} ({{ api_client.identifier }}) - {{ api_client.ou.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="infonotice">{% trans "There are no API client defined." %}</div>
+  {% endif %}
+{% endblock %}

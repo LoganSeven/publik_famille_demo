@@ -1,0 +1,8 @@
+{% load i18n authenticator_extras %}
+
+<strong>{% trans "Configuration information for your identity provider" %}</strong>
+<ul>
+  {% filter urlize %}
+    <li>{% trans "Redirect URI (redirect_uri):" %}<br>{% absolute_url 'oidc-login-callback' %}</li>
+    <li>{% trans "Redirect URI after logout (post_logout_redirect_uri):" %}<br>{% absolute_url 'auth_logout' %}</li>
+  {% endfilter %}

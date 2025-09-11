@@ -1,0 +1,11 @@
+{% extends "authentic2/manager/form.html" %}
+{% load i18n %}
+
+{% block beforeform %}
+  <p>
+    {% blocktrans %}User's email will not be changed immediately. First an email will be sent to this
+      new email address containing a link on which the user's will have to click to verify that it owns
+      the email address, then it will be changed.{% endblocktrans %}
+  </p>
+  {{ block.super }}
+{% endblock %}

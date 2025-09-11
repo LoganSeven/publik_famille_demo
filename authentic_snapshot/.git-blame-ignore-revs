@@ -1,0 +1,20 @@
+# misc: apply black
+4bb33d3d3c62516cfdb1ff5bba9216936a07d368
+# misc: apply isort
+86d946adcdc784693d733131c2aecafc6caa8cbb
+# misc: remove unicode prefixed strings
+a265c6267e75c831b8294a760f94b9d6cffb92ea
+# misc: apply pyupgrade
+7bc0fcadffd16564cc200cb2f32fae80b3c3a5cf
+# misc: apply black 22.1.0
+09c2a08d113b2194697fc0a3925d569184babe97
+# misc: apply djhtml (#69422)
+8251b8188fb57414214ace63459156b43ddda46d
+# misc: apply django-upgrade (#69426)
+0bec12d61de2de7f812f5055de2724942beeedb5
+# misc: bump black version (#75442)
+f1104382b60386a5cf8c5203638696ad94cbcdd7
+# misc: bump djhtml version (#75442)
+b21196f6a32e6a4bb541ef02e7d5ada85fa49f92
+# misc: apply double-quote-string-fixer (#80252)
+b019f07d9edf778814f390b2068f46716401b768

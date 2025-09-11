@@ -1,0 +1,106 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+
+{% if service_custom_appearance %}
+  {% block css %}
+    {{ block.super }}
+    {% firstof generic_service_colour service_colour service_ou_colour as colour %}
+    {% if colour %}
+      <style>
+        div.a2-profile-block {
+          color: {{ colour }};
+        }
+      </style>
+    {% endif %}
+  {% endblock %}
+{% endif %}
+
+{% block title %}
+  {{ view.title }}
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="">{{ view.title }}</a>
+{% endblock %}
+
+{% block content %}
+  <div id="a2-profile-blocks">
+    {% if service_custom_appearance %}
+      {% firstof generic_service_name service.name service.ou.name as name %}
+      {% firstof generic_service_logo_url service_logo_url service_ou_logo_url as logo_url %}
+      <h3>{% trans "Remote service authentication" %}</h3>
+      <div id="a2-service-information" class="a2-profile-block">
+        {% blocktrans %}You logged in from service {{ name }}.{% endblocktrans %}
+      </div>
+      {% if logo_url %}
+        <picture>
+          {% if service.home_url or generic_service_home_url %}
+            <a href="{% firstof home_url generic_service_home_url %}">
+          {% endif %}
+          <img src="{{ logo_url }}" alt="{{ name }}" class="a2-service-information--logo" />
+          {% if service.home_url or generic_service_home_url %}
+            </a>
+          {% endif %}
+        </picture>
+      {% endif %}
+    {% endif %}
+    <div id="a2-profile" class="a2-profile-block">
+      {% if completion_ratio is not None %}
+        <div id="a2-profile-completion-ratio">
+          {% widthratio completion_ratio 1 100 as completion_percent %}
+          {% blocktranslate %}You have completed {{ completion_percent }}% of your user profile.{% endblocktranslate %}
+        </div>
+      {% endif %}
+      {% if attributes %}
+        <dl>
+          {% for attribute in attributes %}
+            <dt>{{ attribute.attribute.label|capfirst }}&nbsp;:</dt>
+            <dd>
+              {% if attribute.values|length == 1 %}
+                {{ attribute.values.0 }}
+              {% else %}
+                <ul>
+                  {% for value in attribute.values %}
+                    <li>{{ value }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </dd>
+          {% endfor %}
+        </dl>
+      {% endif %}
+      {% if allow_email_change %}
+        <p><a href="{% url 'email-change' %}">{% if email %}{% trans "Change email" %}{% else %}{% trans "Declare your email address" %}{% endif %}</a></p>
+      {% endif %}
+      {% if allow_phone_change %}
+        <p><a href="{% url 'phone-change' %}">
+          {% if phone %}
+            {% blocktrans %}Change {{ phone_label }} attribute used for authentication{% endblocktrans %}
+          {% else %}
+            {% blocktrans %}Declare {{ phone_label }} attribute used for authentication{% endblocktrans %}
+          {% endif %}
+        </a></p>
+        {% if unverified_phone %}
+          <p><a href="{% url 'phone-verify' %}">{% blocktrans %}Verify your {{ phone_label }} attribute in order to use it for authentication{% endblocktrans %}
+        {% endif %}
+      {% endif %}
+      {% if allow_profile_edit %}
+        <p><a href="{% url 'profile_edit' %}">{% trans "Edit account data" %}</a></p>
+      {% endif %}
+      {% if allow_authorization_management %}
+        <p><a href="{% url 'consents' %}">{% trans "Manage service authorizations" %}</a></p>
+      {% endif %}
+      {% if allow_account_deletion %}
+        <p><a href="{% url 'delete_account' %}">{% trans "Delete account" %}</a></p>
+      {% endif %}
+    </div>
+    <div id="a2-credentials" class="a2-profile-block">
+      <h3>{% trans "Credentials" %}</h3>
+      {% for html_block in frontends_block %}
+        {{ html_block|safe }}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

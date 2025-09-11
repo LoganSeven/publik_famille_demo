@@ -1,0 +1,39 @@
+{% extends "authentic2/manager/role_common.html" %}
+{% load i18n static django_tables2 %}
+
+{% block page-title %}{% trans "Roles" %} | {{ block.super }}{% endblock %}
+
+{% block page_title %}{% if multiple_ou and ou %}{{ ou }}{% else %}{{ block.super }}{% endif %}{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a class="extra-actions-menu-opener"></a>
+    {% if view.can_add %}
+      <a href="{% url 'a2-manager-role-add' %}?{{ request.GET.urlencode }}" rel="popup">{% trans "Add role" %}</a>
+    {% else %}
+      <a href="#" class="disabled" rel="popup">{% trans "Add role" %}</a>
+    {% endif %}
+    <ul class="extra-actions-menu">
+      <li><a href="{% url "a2-manager-roles-journal" %}{% if multiple_ou and ou %}?search-ou={{ ou.id }}{% endif %}">{% trans "Journal" %}</a></li>
+      <li><a download href="{% url 'a2-manager-roles-export' format="json" %}?{{ request.GET.urlencode }}">{% trans 'Export' %}</a></li>
+      {% if view.can_add %}
+        <li><a href="{% url 'a2-manager-roles-import' %}?{{ request.GET.urlencode }}" rel="popup">{% trans 'Import' %}</a></li>
+        <li><a href="{% url 'a2-manager-roles-csv-import' %}?{{ request.GET.urlencode }}" rel="popup">{% trans 'CSV import' %}</a></li>
+      {% endif %}
+    </ul>
+  </span>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% include "authentic2/manager/search_form.html" %}
+  </aside>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=1 %}
+    {% render_table table "authentic2/manager/table.html" %}
+  {% endwith %}
+  {% include "authentic2/manager/export_include.html" with export_view_name="a2-manager-roles-export" %}
+{% endblock %}

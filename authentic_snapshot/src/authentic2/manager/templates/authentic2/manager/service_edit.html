@@ -1,0 +1,10 @@
+{% extends "authentic2/manager/form.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-services' %}">{% trans "Services" %}</a>
+  <a href="{% url 'a2-manager-service' service_pk=view.kwargs.service_pk %}">{{ object.name }}</a>
+  <a href="{% url 'a2-manager-service-settings' service_pk=view.kwargs.service_pk %}">{% trans "Configuration" %}</a>
+  <a href="#"></a>
+{% endblock %}

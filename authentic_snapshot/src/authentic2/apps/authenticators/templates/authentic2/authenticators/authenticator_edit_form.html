@@ -1,0 +1,46 @@
+{% extends "authentic2/authenticators/authenticator_common.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-authenticator-detail' pk=object.pk %}">{{ object }}</a>
+  <a href="#"></a>
+{% endblock %}
+
+{% block content %}
+  {% if forms|length > 1 %}
+    <div class="pk-tabs">
+      <div class="pk-tabs--tab-list" role="tablist" aria-label="{% trans "Configuration tabs" %}">
+        {% for form in forms %}
+          <button role="tab"
+                  aria-selected="{{ forloop.first|yesno:"true,false" }}"
+                  aria-controls="panel-{{ form.tab_slug }}"
+                  id="tab-{{ form.tab_slug }}"
+                  tabindex="{{ forloop.first|yesno:"0,-1" }}"
+                  {% if form.is_not_default %}class="pk-tabs--button-marker"{% endif %}>{{ form.tab_name }}</button>
+        {% endfor %}
+      </div>
+  {% endif %}
+
+
+  <form method="post" {% if forms|length > 1 %}class="pk-tabs--container"{% endif %} enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if forms|length > 1 %}
+      {% for form in forms %}
+        <div id="panel-{{ form.tab_slug }}"
+             role="tabpanel" tabindex="0" {% if not forloop.first %}hidden{% endif %}
+             data-tab-slug="{{ form.tab_slug }}"
+             aria-labelledby="tab-{{ form.tab_slug }}">
+          {{ form|with_template }}
+        </div>
+      {% endfor %}
+    {% else %}
+      {{ forms.0|with_template }}
+    {% endif %}
+    <div class="buttons">
+      <button>{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'a2-manager-authenticator-detail' pk=object.pk %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+  {% if forms|length > 1 %}</div>{% endif %}
+{% endblock %}

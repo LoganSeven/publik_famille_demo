@@ -1,0 +1,29 @@
+{% extends "authentic2/authenticators/authenticator_common.html" %}
+{% load i18n gadjo %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a class="extra-actions-menu-opener"></a>
+    <a href="{% url 'a2-manager-authenticators-order' %}" rel="popup">{% trans "Edit order" %}</a>
+    <a href="{% url 'a2-manager-authenticator-add' %}" rel="popup">{% trans "Add new authenticator" %}</a>
+    <ul class="extra-actions-menu">
+      <li><a href="{% url 'a2-manager-authenticator-import' %}" rel="popup">{% trans "Import" %}</a></li>
+    </ul>
+  </span>
+{% endblock %}
+
+{% block main %}
+  {% for authenticator in object_list %}
+    <div class="section {% if not authenticator.enabled %}disabled{% endif %}">
+      <h3>{{ authenticator }}
+        <a class="button" href="{% url 'a2-manager-authenticator-detail' pk=authenticator.pk %}">{% trans "Configure" %}</a>
+      </h3>
+      {% if authenticator.enabled and authenticator.get_short_description %}
+        <div>
+          <p>{{ authenticator.get_short_description }}</p>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock %}

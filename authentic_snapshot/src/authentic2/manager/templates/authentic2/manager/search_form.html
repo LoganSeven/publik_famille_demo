@@ -1,0 +1,6 @@
+{% load gadjo i18n %}
+<h3>{% trans "Search" context "title" %}</h3>
+<form id="search-form" method="get">
+  {{ search_form|with_template }}
+  <button>{% trans "Search" %}</button>
+</form>

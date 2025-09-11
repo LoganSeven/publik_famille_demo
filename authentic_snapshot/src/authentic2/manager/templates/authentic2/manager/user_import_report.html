@@ -1,0 +1,171 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n gadjo static %}
+
+{% block page-title %}{% trans "Import Users" %} | {{ block.super }}{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "authentic2/manager/css/user_import.css" %}?{% start_timestamp %}">
+{% endblock %}
+
+{% block page_title %}{{ report_title }} - {{ report.created }} - {{ report.state_display }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+  <a href="{% url 'a2-manager-users-imports' %}">{% trans 'Imports' %}</a>
+  <a href="{% url 'a2-manager-users-import' uuid=user_import.uuid %}">{% trans "Users Import" %} {{ user_import.created }}</a>
+  <a href="{% url 'a2-manager-users-import-report' import_uuid=user_import.uuid report_uuid=report.uuid%}">{{ report_title }} {{ report.created }}</a>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    <h3>{% trans "Legend" %}</h3>
+    <table>
+      <tr>
+        <td><span class="header-flag-key"></span></td>
+        <td>{% trans "value is a key" %}</td>
+      </tr>
+      <tr>
+        <td><span class="header-flag-unique"></span></td>
+        <td>{% trans "value must be unique" %}</td>
+      </tr>
+      <tr>
+        <td><span class="header-flag-create"></span></td>
+        <td>{% trans "used on creation" %}</td>
+      </tr>
+      <tr>
+        <td><span class="header-flag-update"></span></td>
+        <td>{% trans "used on update" %}</td>
+      </tr>
+      <tr>
+        <td><span class="header-flag-verified"></span></td>
+        <td>{% trans "value is verified" %}</td>
+      </tr>
+      <tr>
+        <td class="legend-row-valid"></td>
+        <td>{% trans "row is valid" %}</td>
+      </tr>
+      <tr>
+        <td class="legend-cell-action-updated"></td>
+        <td>{% trans "value will be written" %}</td>
+      </tr>
+      <tr>
+        <td class="legend-row-invalid"></td>
+        <td>{% trans "row is invalid" %}</td>
+      </tr>
+      <tr>
+        <td class="legend-cell-errors"></td>
+        <td>{% trans "value has errors" %}</td>
+      </tr>
+    </table>
+    {% if report.simulate %}
+      <form action="{% url 'a2-manager-users-import' uuid=user_import.uuid %}" method="post" id="action-form">
+        {% csrf_token %}
+        <div class="buttons">
+          <button name="execute">{% trans "Execute import" %}</button>
+        </div>
+      </form>
+    {% endif %}
+  </aside>
+{% endblock %}
+
+{% block main %}
+  {% if report.exception %}
+    <p>{% trans "Exception:" %} {{ report.exception}}</p>
+  {% endif %}
+  {% if report.importer %}
+    {% with importer=report.importer %}
+      {% if importer.errors %}
+        <h4>{% trans "Errors" %}</h4>
+        <ul class="errors">
+          {% for error in importer.errors %}
+            <li data-code="{{ error.code }}">{% firstof error.description error.code %}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <h3>{% trans "Abstract" %}</h3>
+      <ul>
+        <li>{% blocktrans count rows=importer.rows|length %}{{ rows }} row{% plural %}{{ rows }} rows{% endblocktrans %}</li>
+        <li>{% blocktrans count created=importer.created %}{{ created }} user created{% plural %}{{ created }} users created{% endblocktrans %}</li>
+        <li>{% blocktrans count updated=importer.updated %}{{ updated }} user updated{% plural %}{{ updated }} users updated{% endblocktrans %}</li>
+        <li>{% blocktrans count error_rows=importer.rows_with_errors %}{{ error_rows }} row has error{% plural %}{{ error_rows }} rows have errors{% endblocktrans %}</li>
+        {% if importer.missing_roles %}
+          <li>{% trans "The following roles were missing:" %} {{ importer.missing_roles|join:", " }}</li>
+        {% endif %}
+        <li>{% blocktrans with duration=report.duration %}import took {{ duration }}{% endblocktrans %}</li>
+      </ul>
+      <h3>{% trans "Details" %}</h3>
+      {% if importer.rows %}
+        <table id="import-report-table" class="main">
+          <thead>
+            <tr>
+              <th>{% trans "Line" %}</th>
+              {% for header in importer.headers %}
+                <th
+                  {% if header.flags %}
+                    title="flags: {% for flag in header.flags %}{{ flag }} {% endfor %}"
+                  {% endif %}
+                >
+                  {{ header.name }}
+                  {% if header.flags %}<br>{% endif %}
+                  {% for flag in header.flags %}
+                    <span class="header-flag-{{ flag }}"></span>
+                  {% endfor %}
+                </th>
+              {% endfor %}
+              <th>{% trans "Action" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in importer.rows %}
+              <tr class="{% if row.is_valid %}row-valid{% else %}row-invalid{% endif %} row-action-{{ row.action }}">
+                <td class="row-line">{{ row.line }}</td>
+                {% for cell in row %}
+                  <td class="cell {% if cell.errors %}cell-errors{% endif %} {% if cell.action %}cell-action-{{ cell.action }}{% endif %}">{{ cell.value|default_if_none:"-" }}</td>
+                {% endfor %}
+                <td class="row-action">{% firstof row.action_display "-" %}</td>
+              </tr>
+              {% if not row.is_valid %}
+                {% if row.errors %}
+                  <tr class="row-invalid row-errors">
+                    <td></td>
+                    <td colspan="{{ row|length }}">
+                      <ul>
+                        {% for error in row.errors %}
+                          <li>{% firstof error.description error.code %}</li>
+                        {% endfor %}
+                      </ul>
+                    </td>
+                    <td></td>
+                  </tr>
+                {% endif %}
+                {% if row.has_cell_errors %}
+                  <tr class="row-invalid row-cells-errors">
+                    <td></td>
+                    {% for cell in row %}
+                      {% if cell.errors %}
+                        <td class="cell-errors cell-{{ cell.header.name }}">
+                          <ul>
+                            {% for error in cell.errors %}
+                              <li>{% firstof error.description error.code %}</li>
+                            {% endfor %}
+                          </ul>
+                        </td>
+                      {% else %}
+                        <td/>
+                      {% endif %}
+                    {% endfor %}
+                    <td></td>
+                  </tr>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>{% trans "No row analysed." %}</p>
+      {% endif %}
+    {% endwith %}
+  {% endif %}
+{% endblock %}

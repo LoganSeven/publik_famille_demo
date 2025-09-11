@@ -1,0 +1,93 @@
+{% extends "authentic2/manager/base.html" %}
+{% load gadjo i18n %}
+
+{% block messages %}
+  {% if not request_is_ajax %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <form
+    {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+    {% if form.form_id %}id="{{ form.form_id }}"{% endif %}
+    class="{{ form.css_class }}" method="post">
+    <div class="form-inner-container">
+      {% if messages %}
+        {% if request_is_ajax %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endif %}
+      {% csrf_token %}
+      {% block beforeform %}
+      {% endblock %}
+      {{ form|with_template }}
+      {% block afterform %}
+      {% endblock %}
+      {% block buttons %}
+        <div class="buttons">
+          <a class="cancel" href="{% if cancel_url %}{{ cancel_url }}{% else %}..{% endif %}">{% trans "Cancel" %}</a>
+          <button>{% if action %}{{ action }}{% else %}{% trans "Save" %}{% endif %}</button>
+        </div>
+      {% endblock %}
+    </div>
+    <script>
+      $(function () {
+        if ($.fn.djangoSelect2) {
+          $('.django-select2').djangoSelect2();
+        }
+      })
+    </script>
+    {% block hidden_inputs %}
+    {% endblock %}
+  </form>
+{% endblock %}
+
+{% block sidebar %}
+  {% if other_actions %}
+    <aside id="sidebar">
+      {% block other_actions %}
+        {% if other_actions %}
+          <div class="actions">
+            <h3>{% trans "Actions" %}</h3>
+            <form method="post" id="object-actions">
+              {% csrf_token %}
+              {% for action in other_actions %}
+                <p><button name="{{ action.name }}"
+                           {% if action.confirm %}data-confirm="{{ action.confirm }}"{% endif %}
+                           {% if action.url_name %}data-url="{% url action.url_name pk=object.pk %}"{% endif %}
+                           {% if action.url %}data-url="{{ action.url }}"{% endif %}
+                           {% if action.popup %}rel="popup"{% endif %}
+                  >{{ action.title }}</button></p>
+              {% endfor %}
+            </form>
+          </div>
+        {% endif %}
+      {% endblock %}
+    </aside>
+  {% endif %}
+  <script>
+    ['id_client_secret', 'id_client_id'].forEach(function(field_id){
+      const generate_anchor = document.querySelector('a.generate-input-value[aria-controls="'+field_id+'"]');
+      if (generate_anchor === null) { return; }
+      const client_input_id = generate_anchor.attributes['aria-controls'].value;
+      const client_input = document.getElementById(client_input_id);
+      generate_anchor.addEventListener('click', function() {
+        event.preventDefault()
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+          const value = JSON.parse(this.responseText)['uuid'];
+          if(value) { client_input.value = value; }
+        }
+        xhttp.open('GET', this.attributes.href.value);
+        xhttp.send();
+      })
+    })
+  </script>
+{% endblock %}

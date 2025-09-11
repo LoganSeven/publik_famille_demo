@@ -1,0 +1,24 @@
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+  {% block login-block-title %}
+  {% endblock %}
+{% endblock %}
+
+{% block content %}
+  <div class="cell--body">
+    {% include "authentic2_auth_fc/explanation.html" %}
+    <div id="fc-button-wrapper">
+      <div id="fc-button">
+        <a href="{{ login_url }}"
+           class="button connexion">
+          <span class="sr-only">{% trans 'Log in with FranceConnect' %}</span>
+        </a>
+      </div>
+    </div>
+    <div id="fc-explanation-link">
+      <a href="{{ about_url }}" target="_blank" rel="noopener" title="{% trans "What is FranceConnect?" %} {% trans "(opens in new window)" %}">{% trans "What is FranceConnect?" %}</a>
+    </div>
+  </div>
+{% endblock %}

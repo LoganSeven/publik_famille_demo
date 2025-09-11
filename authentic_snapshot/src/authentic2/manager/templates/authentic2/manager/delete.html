@@ -1,0 +1,20 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n %}
+
+{% block messages %}
+{% endblock %}
+
+{% block main %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-inner-container">
+      {% block caption %}
+        <p>{% blocktrans %}Do you want to delete {{ model_name }} {{ object }}?{% endblocktrans %}</p>
+      {% endblock %}
+      <div class="buttons">
+        <button class="delete-button">{% trans "Delete" %}</button>
+        <a class="cancel" href="..">{% trans "Cancel" %}</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}

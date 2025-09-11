@@ -1,0 +1,36 @@
+{% extends "authentic2/manager/role_common.html" %}
+{% load gadjo i18n static django_tables2 %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="..">{{ object }}</a>
+  <a href="#">{% trans "Role inheritance" %}</a>
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% static "authentic2/manager/js/roles_ajax_checkbox.js" %}?{% start_timestamp %}"></script>
+  <script>
+    $(function () {
+      $('input[type=checkbox][name=search-internals]').change(function() {
+        if(this.checked)
+          $('#id_search-admin_roles_p').show();
+        else
+          $('#id_search-admin_roles_p').hide();
+        return;
+      }).change();
+    });
+  </script>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=0 %}
+    {% render_table table "authentic2/manager/table.html" %}
+  {% endwith %}
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% include "authentic2/manager/search_form.html" %}
+  </aside>
+{% endblock %}

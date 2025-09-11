@@ -1,0 +1,5 @@
+{% load i18n %}{% blocktrans %}Hi {{ user }},{% endblocktrans %}
+
+{% blocktrans %}Your account is inactive and is pending deletion.{% endblocktrans %}
+{% blocktrans %}In order to keep your account, you must log in within {{ days_to_deletion }} days.{% endblocktrans %}
+{% trans "Past this delay, it will be deleted." %}

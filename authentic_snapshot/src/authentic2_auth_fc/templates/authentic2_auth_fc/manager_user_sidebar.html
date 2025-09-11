@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if user.fc_account %}
+  <div class="auth-fc-user-sidebar">
+    <p>{% trans "Link with FranceConnect created on" %} {{ user.fc_account.created }}.</p>
+  </div>
+{% endif %}

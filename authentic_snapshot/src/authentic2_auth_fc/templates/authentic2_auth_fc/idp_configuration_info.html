@@ -1,0 +1,11 @@
+{% load i18n authenticator_extras %}
+
+<strong>{% translate "Configuration information to declare in your service provider enrollment form (“Datapass”)" %}</strong>
+<ul>
+  {% filter urlize %}
+    <li>{% translate "Site URL:" %}<br>{% absolute_url 'auth_homepage' %}</li>
+    <li>{% translate "Login URL (redirect_uri):" %}<br>{% absolute_url 'fc-login-or-link' %}</li>
+    <li>{% translate "Logout URL (post_logout_redirect_uri):" %}<br>{% absolute_url 'fc-logout' %}</li>
+    <li>{% translate "Sector identifier URL (sector_identifier_uri): <i>leave empty</i>" %}</li>
+    <li>{% translate "Signature algorithm: ES256 or RS256" %}</li>
+  {% endfilter %}

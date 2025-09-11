@@ -1,0 +1,12 @@
+{% extends "authentic2/manager/form.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+  <a href="#">{% trans "Edit users management advanced configuration" %}</a>
+{% endblock %}
+
+{% block page_title %}
+  {% trans "Edit users management advanced configuration" %}
+{% endblock %}

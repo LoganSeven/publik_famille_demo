@@ -1,0 +1,4 @@
+{% load i18n %}
+{% blocktrans %}Hi {{ user }},{% endblocktrans %}
+
+{% blocktrans %}Your account was inactive, it has been deleted.{% endblocktrans %}

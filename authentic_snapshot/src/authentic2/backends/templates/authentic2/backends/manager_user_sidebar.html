@@ -1,0 +1,8 @@
+{% load i18n %}
+{% for external_id in user.userexternalid_set.all %}
+  <p>
+    {% blocktrans trimmed with source=external_id.source created=external_id.created uid=external_id.external_id %}
+      Link with LDAP server "{{ source }}" created on {{ created }} (external_id {{ uid }}).
+    {% endblocktrans %}
+  </p>
+{% endfor %}

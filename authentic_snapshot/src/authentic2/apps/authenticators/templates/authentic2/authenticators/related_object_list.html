@@ -1,0 +1,11 @@
+{% load i18n %}
+
+<ul class="objects-list single-links">
+  {% for related_object in object_list %}
+    <li>
+      <a rel="popup" href="{% url 'a2-manager-authenticators-edit-related-object' authenticator_pk=object.pk model_name=model_name pk=related_object.pk %}">{{ related_object }}</a>
+      <a rel="popup" class="delete" href="{% url 'a2-manager-authenticators-delete-related-object' authenticator_pk=object.pk model_name=model_name pk=related_object.pk %}">{% trans "Remove" %}</a>
+    </li>
+  {% endfor %}
+  <li><a class="add" rel="popup" href="{% url 'a2-manager-authenticators-add-related-object' authenticator_pk=object.pk model_name=model_name %}">{% trans 'Add' %}</a></li>
+</ul>

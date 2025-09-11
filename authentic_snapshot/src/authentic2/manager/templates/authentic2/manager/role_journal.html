@@ -1,0 +1,10 @@
+{% extends "authentic2/manager/journal.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb-before-title %}
+  <a href="{% url 'a2-manager-roles' %}">{% trans 'Roles' %}</a>
+  {% if multiple_ou and object.ou %}
+    <a href="../?search-ou={{ object.ou.pk }}">{{ object.ou }}</a>
+  {% endif %}
+  <a href="../">{{ object }}</a>
+{% endblock %}

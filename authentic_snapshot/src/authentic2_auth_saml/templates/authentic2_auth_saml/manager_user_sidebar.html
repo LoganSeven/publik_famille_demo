@@ -1,0 +1,9 @@
+{% load i18n %}
+{% for identifier in user_saml_identifiers %}
+  {% firstof identifier.idp.DISPLAY_NAME identifier.issuer.entity_id as provider %}
+  <p>
+    {% blocktrans trimmed with created=identifier.created name_id=identifier.name_id %}
+      Link with SAML provider {{ provider }} created on {{ created }} (NameID {{ name_id }}).
+    {% endblocktrans %}
+  </p>
+{% endfor %}

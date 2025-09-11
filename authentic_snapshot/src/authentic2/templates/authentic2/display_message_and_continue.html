@@ -1,0 +1,29 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Continue" %}{% endblock %}
+
+{% block content %}
+  <div class="a2-continue">
+    <a id="a2-continue" href="{{ url }}">{% trans "Continue" %}</a>
+  </div>
+  {% if only_info %}
+    <script>
+      $(function () {
+        var $a2_continue = $('#a2-continue');
+        var clicked = false;
+        $a2_continue.on('click', function (event) {
+          if (! clicked) {
+            # prevent double click for 3 seconds
+            clicked = true;
+            window.setTimeout(function () { clicked = false; }, 3000);
+          } else {
+            event.preventDefault();
+          }
+        });
+        # automatic click after 3 seconds
+        window.setTimeout(function () { if (!clicked) { $a2_continue.click(); } }, 3000);
+      });
+    </script>
+  {% endif %}
+{% endblock %}

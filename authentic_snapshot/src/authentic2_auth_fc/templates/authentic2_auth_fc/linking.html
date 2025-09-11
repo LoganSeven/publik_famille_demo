@@ -1,0 +1,30 @@
+{% load static %}
+{% load i18n %}
+
+<div id="fc-linking" class="{% if user.fc_account %}with-accounts{% else %}no-account{% endif %}">
+  <div class="fc">
+    <div class="cadre">
+      {% if user.fc_account %}
+        <p class="centrer">
+          {% trans "Linked FranceConnect identity:" %}
+        </p>
+        <ul class="fond">
+          <li class="picto utilisateur"><p class="lien">{{ user.fc_account }}{% if unlink %} <a href="{% url 'fc-unlink' %}">{% trans 'Delete link'%}</a>{% endif %}</p></li>
+        </ul>
+      {% else %}
+        <div>{% trans "Link your user account to FranceConnect" %}</div>
+        {% include "authentic2_auth_fc/explanation.html" %}
+        <div id="fc-button-wrapper">
+          <div id="fc-button">
+            <a href="{{ link_url }}" class="button linking-button connexion">
+              <span class="sr-only">{% trans "Link your user account to FranceConnect" %}</span>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div id="fc-explanation-link">
+    <a href="{{ about_url }}" target="_blank" rel="noopener" title="{% trans "What is FranceConnect?" %} {% trans "(opens in new window)" %}">{% trans "What is FranceConnect?" %}</a>
+  </div>
+</div>

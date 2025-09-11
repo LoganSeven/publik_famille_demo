@@ -1,0 +1,42 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n gadjo %}
+
+{% block page-title %}{% trans "Journal" %}{% if object_name %} - {{ object_name }}{% endif %} | {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  {% block breadcrumb-before-title %}
+  {% endblock %}
+  {% for caption, url in date_hierarchy.back_urls %}
+    <a href="{{ url }}">{{ caption }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    <h3>{% trans "Search" context "title" %}</h3>
+    <div class="journal-list--search-form">
+      <form action="{{ form.url }}">
+        {{ form|with_template }}
+        <button>{% trans "Search" %}</button>
+      </form>
+    </div>
+    {% if date_hierarchy.choice_name %}
+      <h4>{{ date_hierarchy.choice_name }}</h4>
+      <p>
+        {% for caption, url in date_hierarchy.choice_urls %}
+          <a href="{{ url }}">{{ caption }}</a>
+        {% endfor %}
+      </p>
+    {% endif %}
+    <div class="documentation">
+      {% for documentation in form.search_engine_class.documentation %}
+        <p>{{ documentation|safe }}</p>
+      {% endfor %}
+    </div>
+  </aside>
+{% endblock %}
+
+{% block main %}
+  {% include "journal/event_list.html" %}
+{% endblock %}

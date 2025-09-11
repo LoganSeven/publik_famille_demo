@@ -1,0 +1,28 @@
+{
+    "jwks_uri": "https://a2test.publik/idp/oidc/certs/",
+    "frontchannel_logout_session_supported": true,
+    "subject_types_supported": [
+        "public",
+        "pairwise"
+    ],
+    "token_endpoint_auth_methods_supported": [
+        "client_secret_post",
+        "client_secret_basic"
+    ],
+    "id_token_signing_alg_values_supported": [
+        "RS256",
+        "HS256"
+    ],
+    "issuer": "https://a2test.publik/",
+    "userinfo_endpoint": "https://a2test.publik/idp/oidc/user_info/",
+    "frontchannel_logout_supported": true,
+    "token_endpoint": "https://a2test.publik/idp/oidc/token/",
+    "response_types_supported": [
+        "code",
+        "token",
+        "token id_token"
+    ],
+    "end_session_endpoint": "https://a2test.publik/idp/oidc/logout/",
+    "token_revocation_endpoint": "https://a2test.publik/idp/oidc/revoke/",
+    "authorization_endpoint": "https://a2test.publik/idp/oidc/authorize/"
+}

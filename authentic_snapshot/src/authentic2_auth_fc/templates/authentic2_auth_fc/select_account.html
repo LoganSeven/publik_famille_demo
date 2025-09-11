@@ -1,0 +1,18 @@
+{% extends "authentic2_auth_fc/base.html"%}
+{% load static %}
+{% load i18n gadjo %}
+
+{% block content %}
+  {% blocktranslate %}
+    Your FranceConnect identity has previously been linked to one or several accounts.
+    Please select an existing account if you want to log in to it, or create a new one.
+  {% endblocktranslate %}
+  <form method="post" id="fc-select-account">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="buttons">
+      <button class="submit-button" name="select-account">{% trans "Select" %}</button>
+      <button class="cancel-button" name="cancel" formnovalidate>{% trans "Cancel" %}</button>
+    </div>
+  </form>
+{% endblock %}

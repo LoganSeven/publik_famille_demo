@@ -1,0 +1,29 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n static django_tables2 %}
+
+{% block page-title %}{% trans "Users" %} | {{ block.super }}{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+  {% if multiple_ou and object.ou %}
+    <a href="../?search-ou={{ object.ou.pk }}">{{ object.ou }}</a>
+  {% endif %}
+  <a href="{% url 'a2-manager-user-detail' pk=object.pk %}">{{ object.get_full_name }}</a>
+  <a href="#">{% trans "Consent Management" context "manager" %}</a>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+  </aside>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=0 %}
+    {% render_table table "authentic2/manager/user_authorizations_table.html" %}
+  {% endwith %}
+{% endblock %}

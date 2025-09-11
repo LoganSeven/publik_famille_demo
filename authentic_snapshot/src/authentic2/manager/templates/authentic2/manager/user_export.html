@@ -1,0 +1,45 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n gadjo static %}
+
+{% block page-title %}{% trans "Users export" %} | {{ block.super }}{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Users export" %}</h2>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}">{% trans 'Users' %}</a>
+  <a href="{% url 'a2-manager-users-export-progress' uuid=uuid %}"></a>
+{% endblock %}
+
+{% block main %}
+  <div class="section">
+    <div class="running">
+      <p>{% trans "Preparing CSV export file..." %}</p>
+      <span class="activity">{% trans "Progress:" %} <span id="progress">0</span>%</span>
+    </div>
+    <div class="done">
+      <p>{% trans "Export completed." %}</p>
+      <p><a class="button" href="{% url 'a2-manager-users-export-file' uuid=uuid %}">{% trans "Download CSV" %}</a></p>
+    </div>
+  </div>
+  <script>
+    function updateStatus() {
+      $('div.done').hide();
+      $.get('{% url 'a2-manager-users-export-progress' uuid=uuid %}', null,
+        function (text) {
+          if(text != 100) {
+            $('span#progress').text(text);
+            window.setTimeout(updateStatus, 2500);
+          } else {
+            $('div.running').hide();
+            $('div.done').show();
+          }
+        }
+      );
+    }
+
+    $(document).ready(updateStatus);
+  </script>
+{% endblock %}

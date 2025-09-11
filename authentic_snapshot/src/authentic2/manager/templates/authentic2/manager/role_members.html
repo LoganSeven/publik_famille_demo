@@ -1,0 +1,142 @@
+{% extends "authentic2/manager/role_common.html" %}
+{% load i18n static django_tables2 %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="#">{{ object }}</a>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    <p>{{ object.description }}</p>
+    {% include "authentic2/manager/search_form.html" %}
+    <div id="details">
+      <dl>
+        <dt>{% trans "UUID" %}</dt>
+        <dd>{{ object.uuid }}</dd>
+      </dl>
+    </div>
+  </aside>
+{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a class="extra-actions-menu-opener"></a>
+    {% if view.can_change and not object.is_internal %}
+      <a href="{% url "a2-manager-role-edit" pk=object.pk %}">{% trans "Edit" %}</a>
+    {% else %}
+      {% if not view.can_change %}
+        <a class="disabled" title="{% trans "Permission denied" %}" href="#">{% trans "Edit" %}</a>
+      {% else %}
+        <a class="disabled" title="{% trans "This role is technical, you cannot edit it." %}" href="#">{% trans "Edit" %}</a>
+      {% endif %}
+    {% endif %}
+    <ul class="extra-actions-menu">
+      {% if not object.is_internal and view.can_delete %}
+        <li><a rel="popup" href="{% url "a2-manager-role-delete" pk=object.pk %}">{% trans "Delete" %}</a></li>
+      {% else %}
+        <li><a class="disabled" title="{% trans "This role is technical, you cannot delete it." %}" href="#">{% trans "Delete" %}</a></li>
+      {% endif %}
+      <li><a href="{% url "a2-manager-role-journal" pk=object.pk %}">{% trans "Journal" %}</a></li>
+      <li><a href="{% url "a2-manager-role-summary" pk=object.pk %}">{% trans "Summary page" %}</a></li>
+      {% if view.can_manage_members %}
+        <li><a href="{% url "a2-manager-role-children" pk=object.pk %}">{% trans "Add a role as a member" %}</a></li>
+      {% endif %}
+    </ul>
+  </span>
+{% endblock %}
+
+
+{% block extra_scripts %}
+  {{ block.super }}
+  {{ choose_user_form.media }}
+{% endblock %}
+
+{% block main %}
+  {% if from_ldap %}
+    <div class="infonotice">
+      {% trans "This role is synchronised from LDAP, changing members is not allowed." %}
+    </div>
+  {% endif %}
+  {% with row_link=1 %}
+    {% render_table table "authentic2/manager/role_members_table.html" %}
+  {% endwith %}
+
+  {% if search_form.cleaned_data.all_members %}
+    {% include "authentic2/manager/export_include.html" with export_view_name="a2-manager-role-members-export" %}
+  {% endif %}
+
+  {% if view.can_manage_members %}
+    <form method="post" class="manager-m2m-add-form" id="add-member">
+      {% csrf_token %}
+      {{ form }}
+      <button>{% trans "Add" %}</button>
+    </form>
+  {% endif %}
+
+  <div class="section">
+    <h3>{% trans "Contains permissions of roles:" %}
+      {% if not object.is_internal %}
+        <a href="{% url "a2-manager-role-parents" pk=object.pk %}" class="button">{% trans "Edit" %}</a>
+      {% else %}
+        <a title="{% trans "This role is technical, you cannot modify its permissions." %}" class="button disabled">{% trans "Edit" %}</a>
+      {% endif %}
+    </h3>
+    <div>
+      {% if parents %}
+        <ul class="objects-list single-links">
+          {% for parent in parents|slice:":10" %}
+            <li>
+              <a class="role-inheritance-parent" href="{% url "a2-manager-role-members" pk=parent.pk %}">{% if parent.ou and has_multiple_ou %}{{ parent.ou }} - {% endif %}{{ parent }}</a>
+              {% if not parent.direct %}
+                <span class="badge">{% trans "Indirect" %}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+          {% if parents|length > 10 %}
+            <li><a class="role-inheritance-view-all" href="{% url "a2-manager-role-parents" pk=object.pk %}">({% trans "view all roles" %})</a></li>
+          {% endif %}
+        </ul>
+      {% else %}
+        <p>{% trans "This role doesn't contain permissions of any other role." %}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <fieldset class="gadjo-foldable gadjo-folded" id="other-properties">
+    <legend class="gadjo-foldable-widget">{% trans "Advanced parameters" %}</legend>
+    <div class="role-inheritance gadjo-folding">
+      {% trans "Is administered by users" %}
+      {% for user in object.get_admin_role.all_members %}
+        <a href="{% url "a2-manager-user-edit" pk=user.pk %}">{{ user }}</a>
+        {% if user.direct %}
+          <a rel="popup" href="{% url "a2-manager-role-remove-admin-user" pk=object.pk user_pk=user.pk %}" class="role-remove icon-minus-sign"></a>
+        {% else %}
+          <a title="{% trans "Indirect child role" %}" class="disabled role-remove icon-minus-sign"></a>
+        {% endif %}
+      {% endfor %}
+      {% if view.can_change %}
+        <a rel="popup" href="{% url "a2-manager-role-add-admin-user" pk=object.pk %}" class="role-add icon-add-sign"></a>
+      {% else %}
+        <a title="{% trans "Permission denied" %}" class="disabled role-add icon-add-sign"></a>
+      {% endif %}
+    </div>
+    <div class="role-inheritance gadjo-folding">
+      {% trans "Is administered by roles" %}
+      {% for role in admin_roles %}
+        <a href="{% url "a2-manager-role-members" pk=role.pk %}">{{ role }}</a>
+        {% if role.direct %}
+          <a rel="popup" href="{% url "a2-manager-role-remove-admin-role" pk=object.pk role_pk=role.pk %}" class="role-remove icon-minus-sign"></a>
+        {% else %}
+          <a title="{% trans "Indirect admin role" %}" class="disabled role-remove icon-minus-sign"></a>
+        {% endif %}
+      {% endfor %}
+      {% if view.can_change %}
+        <a rel="popup" href="{% url "a2-manager-role-add-admin-role" pk=object.pk %}" class="role-add icon-add-sign"></a>
+      {% else %}
+        <a title="{% trans "Permission denied" %}" class="disabled role-add icon-add-sign"></a>
+      {% endif %}
+    </div>
+  </fieldset>
+{% endblock %}

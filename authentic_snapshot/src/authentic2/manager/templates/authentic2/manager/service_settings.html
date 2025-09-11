@@ -1,0 +1,38 @@
+{% extends "authentic2/manager/service.html" %}
+{% load i18n %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-service' service_pk=view.kwargs.service_pk %}">{{ object.name }}</a>
+{% endblock %}
+
+{% block buttons %}
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% trans "Settings" %}</h2>
+  <span class="actions">
+    {% if view.can_change %}
+      <a href="{% url "a2-manager-service-settings-edit" service_pk=object.pk %}">{% trans "Edit" %}</a>
+    {% endif %}
+  </span>
+{% endblock %}
+
+
+{% block main %}
+  <div class="section">
+    {% for field, value in object_fields_values %}
+      <div class="service-field">
+        <div class="service-field--name">{{ field|capfirst }}{% trans ":" %}</div>
+        <div class="service-field--value">{% if value == True %}{% trans "yes" %}{% elif value == False %}{% trans "no" %}{% else %}{{ value|linebreaksbr }}{% endif %}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if extra_details_template %}
+    {% include extra_details_template %}
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

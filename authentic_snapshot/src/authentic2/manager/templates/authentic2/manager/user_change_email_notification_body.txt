@@ -1,0 +1,35 @@
+{% load i18n %}{% if email_is_not_unique%}{% blocktrans with name=user.get_short_name old_email=user.email %}Hi {{ name }} !
+
+An administrator requested for changing your email on {{ domain }} from:
+
+  {{ old_email }}
+
+to:
+
+  {{ email }}
+
+But this email is already linked to another account.
+
+You can recover this account password using the password reset form:
+
+  {{ password_reset_url }}
+
+--
+{{ domain }}{% endblocktrans %}{% else %}{% blocktrans with name=user.get_short_name old_email=user.email %}Hi {{ name }} !
+
+And administrator requested for changing your email on {{ domain }} from:
+
+  {{ old_email }}
+
+to:
+
+  {{ email }}
+
+To validate this change please click on the following link:
+
+  {{ link }}
+
+This link will be valid for {{ token_lifetime }}.
+
+--
+{{ domain }}{% endblocktrans %}{% endif %}

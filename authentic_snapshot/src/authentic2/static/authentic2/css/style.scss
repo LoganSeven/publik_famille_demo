@@ -1,0 +1,93 @@
+/* My Account */
+
+#a2-profile dt {
+  font-weight: bold;
+  float: left;
+  padding-right: 1ex;
+}
+
+#a2-profile-blocks {
+  display: flex;
+  flex-direction: row;
+}
+.a2-profile-block {
+  padding-right: 1em;
+  margin-right: 1em;
+  border-right: 1px solid black;
+}
+
+/* Login form */
+#a2-login-forms {
+  min-width: 400px;
+  width: 40%;
+  margin: 1ex auto;
+}
+#a2-login-forms .css-tab-content {
+  margin: 5px 10px;
+  clear: left;
+}
+
+/* Phone input composite field */
+.django-phone-widget {
+  select:has(+ input) {
+    max-width: 8rem;
+    margin-right: 0.25rem;
+  }
+  select + input {
+    max-width: calc(100% - 8.25rem);
+  }
+}
+
+/* CSS tabs style */
+.css-tab-link, :target ~ .css-tab-link.css-tab-default {
+  display: block;
+  float: left;
+  color: grey;
+  padding: 1ex;
+  border: 1px solid #aaa;
+  margin: 0px;
+  margin-bottom: -1px;
+  margin-left: 1ex;
+}
+
+.css-tab-content {
+  border: 1px solid #aaa;
+  border-width: 1px 0 0 0;
+  padding: 1em 1em;
+}
+
+.css-tab-link.css-tab1,
+:target ~ .css-tab-link.css-tab1 {
+  margin-left: 2em;
+}
+
+.css-tab-link.css-tab-default,
+#css-tab1:target ~ .css-tab-link.css-tab1,
+#css-tab2:target ~ .css-tab-link.css-tab2,
+#css-tab3:target ~ .css-tab-link.css-tab3,
+#css-tab4:target ~ .css-tab-link.css-tab4,
+#css-tab5:target ~ .css-tab-link.css-tab5,
+#css-tab6:target ~ .css-tab-link.css-tab6,
+#css-tab7:target ~ .css-tab-link.css-tab7,
+#css-tab8:target ~ .css-tab-link.css-tab8
+{
+  color: black;
+  border-bottom-color: white;
+}
+
+/* log table on error pages */
+.a2-log-line:nth-child(odd) {
+  background: lightgrey;
+}
+.a2-log-time, .a2-log-level, .a2-log-message {
+  vertical-align: top;
+  padding: 5px;
+}
+
+.a2-log-message {
+  white-space: pre-wrap;
+}
+
+.a2-password-policy-rule {
+  padding: 0.3ex;
+}

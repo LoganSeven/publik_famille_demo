@@ -1,0 +1,159 @@
+{% extends "authentic2/manager/form.html" %}
+{% load i18n static %}
+
+{% block page-title %}{{ object.get_full_name }} | {{ block.super }}{% endblock %}
+
+{% block appbar %}
+  <h2>{{ object }}
+    {% if not object.is_active %}
+      <span class="disabled-badge">{% trans "disabled" %}</span>
+    {% endif %}
+  </h2>
+  <span class="actions">
+    <a class="extra-actions-menu-opener"></a>
+    <a href="{% url "a2-manager-user-journal" pk=object.pk %}">{% trans "Journal" %}</a>
+    {% if view.can_change %}
+      <a href="{% url "a2-manager-user-edit" pk=object.pk %}">{% trans "Edit" %}</a>
+    {% else %}
+      <a class="disabled" title="{% trans "You do not have the rights to edit this user." %}" href="#">{% trans "Edit" %}</a>
+    {% endif %}
+    <ul class="extra-actions-menu">
+      {% if view.can_delete %}
+        <li><a rel="popup" href="{% url "a2-manager-user-delete" pk=object.pk %}">{% trans "Delete" %}</a></li>
+      {% else %}
+        <li><a class="disabled" title="{% trans "You do not have the rights to delete this user." %}" href="#">{% trans "Delete" %}</a></li>
+      {% endif %}
+      {% if view.is_oidc_services %}
+        <li><a href="{% url "a2-manager-user-authorizations" pk=object.pk %}">{% trans "Consents" %}</a></li>
+      {% endif %}
+    </ul>
+  </span>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="../">{% trans 'Users' %}</a>
+  {% if multiple_ou and object.ou %}
+    <a href="../?search-ou={{ object.ou.pk }}">{{ object.ou }}</a>
+  {% endif %}
+  <a href="#">{{ object }}</a>
+{% endblock %}
+
+{% block afterform %}
+  {% if object.passwordreset_set.exists %}
+    <div class="warning-box">{% trans "User must change its password on next access to authentic" %}
+      <button name="delete_password_reset">{% trans "Cancel this constraint" %}</button>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block buttons %}
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+
+    <p class="a2-manager-user-last-login">
+      {% if object.last_login %}
+        {% blocktrans with date=object.last_login %}Last login on {{ date }}.{% endblocktrans %}
+      {% else %}
+        {% trans "Never logged in." %}
+      {% endif %}
+    </p>
+
+    {% if object.keepalive %}
+      <p class="a2-manager-user-last-activity">
+        {% blocktrans with date=object.keepalive %}Last activity on {{ date }}.{% endblocktrans %}
+      </p>
+    {% endif %}
+
+    <p class="a2-manager-user-date-joined">
+      {% blocktrans with date=object.date_joined %}Created on {{ date }}{% endblocktrans %}
+    </p>
+
+    {% if object.date_joined != object.modified %}
+      <p class="a2-manager-user-modified">
+        {% blocktrans with date=object.modified %}Modified on {{ date }}{% endblocktrans %}
+      </p>
+    {% endif %}
+
+    {% if not object.is_active and object.deactivation %}
+      <p class="a2-manager-user-date-deactivated">
+        {% blocktrans trimmed with date=object.deactivation reason=object.verbose_deactivation_reason %}
+          Deactivated on {{ date }} ({{ reason }}).
+        {% endblocktrans %}
+      </p>
+    {% endif %}
+
+    {% if object.ou.clean_unused_accounts_alert and object.ou.clean_unused_accounts_deletion %}
+      {% if alert_date %}
+        <p class="a2-manager-user-date-alert">
+          {% if object.last_account_deletion_alert %}
+            {% blocktrans with alert_date=object.last_account_deletion_alert %}Deletion alert email sent on {{ alert_date }}.{% endblocktrans %}
+          {% elif alert_date >= now %}
+            {% blocktrans %}Deletion alert email planned for {{ alert_date }}.{% endblocktrans %}
+          {% elif alert_date < now %}
+            {% blocktrans %}Deletion alert email pending (should have been sent on {{ alert_date }}).{% endblocktrans %}
+          {% endif %}
+        </p>
+      {% endif %}
+      {% if deletion_date %}
+        <p class="a2-manager-user-date-deletion">
+          {% if deletion_date > now %}
+            {% blocktrans %}Account deletion planned for {{ deletion_date }}.{% endblocktrans %}
+          {% else %}
+            {% blocktrans %}Account deletion pending (should have been performed on {{ deletion_date }}).{% endblocktrans %}
+          {% endif %}
+        </p>
+      {% endif %}
+    {% endif %}
+
+    {% for data in user_data %}
+      {{ data }}
+    {% endfor %}
+
+    {% block other_actions %}{{ block.super }}{% endblock %}
+
+    {% if roles_by_ou or can_change_roles %}
+      <div class="user-roles">
+        <h3>{% trans "Roles" %}</h3>
+        <ul>
+          {% for ou, ou_roles in roles_by_ou.items %}
+            {% if have_roles_on_multiple_ou %}
+              <li>{% if ou %}{{ ou }}{% else %}{% trans "All organizational units" %}{% endif %}
+                <ul>
+            {% endif %}
+            {% for role in ou_roles %}
+              <li {% if role.description %}title="{{ role.description }}"{% endif %}>
+                {% if role.user_visible %}<a href="{% url "a2-manager-role-members" pk=role.pk %}">{{ role }}</a>{% else %}{{ role }}{% endif %}</li>
+            {% endfor %}
+            {% if have_roles_on_multiple_ou %}
+              </ul>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+
+        {% if can_change_roles %}
+          <button onclick="window.location.href = '{% url "a2-manager-user-roles" pk=object.pk %}?search-ou={% firstof object.ou.pk default_ou.pk %}'; return false">{% trans "Modify roles" %}</button>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if perms.custom_user.admin_user %}
+      <div id="details">
+        <dl>
+          <dt>{% trans "UUID" %}</dt>
+          <dd>{{ object.uuid }}</dd>
+        </dl>
+      </div>
+    {% endif %}
+
+    {% if sidebar_advanced_info %}
+      <div id="advanced-info">
+        {{ sidebar_advanced_info|safe }}
+      </div>
+    {% endif %}
+
+  </aside>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "authentic2/manager/user_common_roles.html" %}
+{% load i18n django_tables2 %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script>
+    $(function () {
+      $('.indeterminate').each(function (i, elem) {
+        elem.indeterminate = true;
+      })
+    })
+  </script>
+{% endblock %}
+
+{% block main %}
+  {% with row_link=1 %}
+    {% render_table table "authentic2/manager/user_roles_table.html" %}
+  {% endwith %}
+
+  {% if view.can_change %}
+    <form method="post" class="manager-m2m-add-form">
+      {% csrf_token %}
+      {{ form }}
+      <button>{% trans "Add" %}</button>
+    </form>
+  {% endif %}
+{% endblock %}

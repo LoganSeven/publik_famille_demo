@@ -1,0 +1,39 @@
+{% load i18n %}
+<div class="table-container">
+  {% for event in page %}
+    {% if forloop.first %}
+      <table class="main plaintable">
+        <thead>
+          <tr>
+            <th class="journal-list--timestamp-column">{% trans "Timestamp" %}</th>
+            <th class="journal-list--user-column">{% trans "User" %}</th>
+            <th class="journal-list--session-column">{% trans "Session" %}</th>
+            <th class="journal-list--message-column">{% trans "Message" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+    {% endif %}
+    <tr data-event-id="{{ event.id }}" data-event-cursor="{{ event.cursor }}" data-event-type="{{ event.type.name }}">
+      <td class="journal-list--timestamp-column">{% block event-timestamp %}{{ event.timestamp }}{% endblock %}</td>
+      <td class="journal-list--user-column" {% if event.user and not event.user.deleted %}data-user-id="{{ event.user.id }}"{% endif %}>{% block event-user %}{% if event.user and not event.user.deleted %}<a href="{% url 'a2-manager-user-detail' pk=event.user.pk %}">{{ event.user }}</a>{% elif event.user %}{{ event.user }}{% else %}-{% endif %}{% endblock %}</td>
+      <td class="journal-list--session-column">{% block event-session %}{% if event.api %}API{% else %}{{ event.session_id_shortened|default:"-" }}{% endif %}{% endblock %}</td>
+      <td class="journal-list--message-column">{% block event-message %}{{ event.message|default:"-" }}{% endblock %}</td>
+    </tr>
+    {% if forloop.last %}
+      </tbody>
+      </table>
+    {% endif %}
+  {% empty %}
+    {% block empty %}
+      <div>
+        {% if request.GET %}
+          <p>{% trans "No event found." %}</p>
+        {% else %}
+          <p>{% trans "Journal is empty." %}</p>
+        {% endif %}
+      </div>
+    {% endblock %}
+  {% endfor %}
+  {% include "journal/pagination.html" with page=page %}
+</div>
+

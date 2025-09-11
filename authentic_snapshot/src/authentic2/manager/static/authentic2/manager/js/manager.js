@@ -1,0 +1,221 @@
+(function($, window, undefined) {
+    $.fn.values = function(data) {
+        var els = this.find(':input').get();
+
+        if(arguments.length === 0) {
+            // return all data
+            data = {};
+
+            $.each(els, function() {
+                if (this.name && !this.disabled && (this.checked
+                                || /select|textarea/i.test(this.nodeName)
+                                || /text|hidden|password/i.test(this.type))) {
+                    if(data[this.name] == undefined){
+                        data[this.name] = [];
+                    }
+                    data[this.name].push($(this).val());
+                }
+            });
+            return data;
+        } else {
+            $.each(els, function() {
+                if (this.name && data[this.name]) {
+                    var names = data[this.name];
+                    var $this = $(this);
+                    if(Object.prototype.toString.call(names) !== '[object Array]'){
+                        names = [names]; //backwards compat to old version of this code
+                    }
+                    if(this.type == 'checkbox' || this.type == 'radio') {
+                        var val = $this.val();
+                        var found = false;
+                        for(var i = 0; i < names.length; i++){
+                            if(names[i] == val){
+                                found = true;
+                                break;
+                            }
+                        }
+                        $this.attr("checked", found);
+                    } else {
+                        $this.val(names[0]);
+                    }
+                }
+            });
+            return this;
+        }
+    };
+    $(function() {
+        /* Copied from http://stackoverflow.com/questions/1489486/jquery-plugin-to-serialize-a-form-and-also-restore-populate-the-form/1490431#1490431
+         * by mkoryak
+         * jQuery.values: get or set all of the name/value pairs from child input controls
+         * @argument data {array} If included, will populate all child controls.
+         * @returns element if data was provided, or array of values if not
+        */
+
+        /* search inputs behaviours */
+        $('#search-input').change(function () {
+          var params = $.url().param();
+          if ($(this).val()) {
+            params.search = $(this).val();
+          } else {
+            if ('search' in params) {
+              delete params.search;
+            }
+          }
+          var href = $.url().attr('path')
+          if ($.param(params)) {
+            href += '?' + $.param(params);
+          }
+          window.location = href;
+        });
+
+        /* content column update */
+        function update_content(href, state, push) {
+          /* make the back button work */
+          if (push) {
+              window.history.pushState(state, window.document.tile, href);
+          }
+          url = window.location.href;
+          $('body').addClass('refreshing');
+          $.get(url, function (response_text) {
+            var $response = $(response_text);
+            var $content = $response.find('#content .content');
+            var $appbar = $response.find('#appbar');
+            var $container = $('#content .content');
+            var $old_appbar = $('#appbar');
+            $container.replaceWith($content);
+            $old_appbar.replaceWith($appbar);
+            /* keep django-select2 fields working */
+            if ($.fn.djangoSelect2 != undefined) {
+               $('.django-select2').djangoSelect2();
+            }
+            $(window.document).trigger('gadjo:content-update');
+          }).always(function() {
+            $('body').removeClass('refreshing');
+          });
+        }
+        window.update_content = update_content;
+
+        /* document popstate  */
+        $(window).on('popstate', function (e) {
+            var state = e.originalEvent.state;
+            if (state != undefined) {
+                if ('form' in state) {
+                   $(state.form).values(state.values);
+                }
+            }
+            update_content(window.document.location);
+            return true;
+        });
+
+        /* paginator ajax loading */
+        $(document).on('click', '.paginator a', function () {
+          var href = $(this).attr('href');
+          var title = $(this).text();
+          update_content(href, undefined, true);
+          return false;
+        });
+        /* dialog load handler */
+        $(document).on('gadjo:dialog-loaded', function (e, form) {
+          $('.messages', form).delay(3000*(1+$('.messages li', form).length)).fadeOut('slow');
+          if ($('.table-container').length) {
+            update_content(location.href);
+          }
+        });
+        /* user deletion */
+        $(document).on('click', '.js-remove-object', function (e) {
+          var $anchor = $(this);
+          if ($anchor.data('confirm')) {
+            if (! confirm($anchor.data('confirm'))) {
+              return false;
+            }
+          }
+          var $tr = $anchor.parents('tr');
+          var pk = $tr.data('pk');
+          var pk_arg = $anchor.data('pk-arg');
+          var post_content = {
+             'csrfmiddlewaretoken': window.csrf_token,
+            'action': 'remove'}
+          post_content[pk_arg] = pk
+          $.post('', post_content, function () {
+              update_content(window.location.href);
+          });
+          return false;
+        });
+        /* confirmation on submit buttons */
+        $(document).on('click', 'button[data-confirm]', function (e) {
+          if (! confirm($(e.target).data('confirm'))) {
+            e.preventDefault();
+            return false;
+          }
+        });
+        $(document).on('click', 'button[data-url]', function (e) {
+          e.preventDefault();
+          if ($(e.target).attr('rel') == 'popup') {
+            return displayPopup.apply($(e.target), [e]);
+          } else {
+            window.location.href = $(e.target).data('url');
+          }
+        });
+        $(document).on('change', '#id_generate_password', function (e) {
+            if ($(e.target).is(':checked')) {
+                $('#id_send_mail').prop('disabled', true);
+                $('#id_send_mail').data('old_value', $('#id_send_mail').is(':checked'));
+                $('#id_send_mail').prop('checked', true);
+                $('#id_password1').prop('disabled', true);
+                $('#id_password2').prop('disabled', true);
+            } else {
+                $('#id_send_mail').prop('disabled', false);
+                $('#id_send_mail').prop('checked', $('#id_send_mail').data('old_value'));
+                $('#id_password1').prop('disabled', false);
+                $('#id_password2').prop('disabled', false);
+            }
+        });
+        var timer;
+        $('#search-form').on('input propertychange change', 'input,select', function (e) {
+          var $form = $('#search-form');
+          window.clearTimeout(timer);
+          timer = window.setTimeout(function () {
+            var query = $form.serialize();
+            if (window.location.href.split('?')[1] == query) {
+                return;
+            };
+            update_content('?' + query, {'form': '#search-form', 'values': $form.values()}, true);
+          }, 600);
+
+        });
+        $('#search-form button').on('click', function(e) {
+          e.preventDefault();
+          $('#search-form').trigger('submit');
+          return false;
+        });
+        $('#search-form').on('submit', function(e) {
+          var $form = $('#search-form');
+          if (timer) {
+            window.clearTimeout(timer);
+            timer = null;
+          }
+          var query = $form.serialize();
+          update_content('?' + query, {'form': '#search-form', 'values': $form.values()}, true);
+          return false;
+        });
+        if ($('#search-form').length) {
+            window.history.replaceState({'form': '#search-form', 'values': $('#search-form').values()}, window.document.title, window.location.href)
+        }
+        $(window.document).trigger('gadjo:content-update');
+        function FitToContent(id, maxHeight)
+        {
+           var text = id && id.style ? id : document.getElementById(id);
+           if ( !text )
+              return;
+
+        }
+        $('textarea.js-autoresize').each(function () {
+          this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        })
+        $(document).on('input', 'textarea.js-autoresize', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+          return true;
+        });
+    });
+})(jQuery, window)

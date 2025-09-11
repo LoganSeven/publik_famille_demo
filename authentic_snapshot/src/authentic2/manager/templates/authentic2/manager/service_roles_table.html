@@ -1,0 +1,10 @@
+{% extends "authentic2/manager/table.html" %}
+
+{% load i18n %}
+
+{% block table.head.last.column %}
+  <th></th>
+{% endblock %}
+{% block table.tbody.last.column %}
+  <td class="remove-icon-column">{% if table.context.view.can_change %}<a class="js-remove-object" data-confirm="{% blocktrans with name=row.record.name slug=table.context.object %}Do you really want to remove role &quot;{{ name }}&quot; from service &quot;{{ slug }}&quot;?{% endblocktrans %}" href="#" data-pk-arg="role"><span class="icon-remove-sign"></span></a>{% endif %}</td>
+{% endblock %}

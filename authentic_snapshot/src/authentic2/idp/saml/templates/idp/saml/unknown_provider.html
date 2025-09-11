@@ -1,0 +1,17 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Unknown provider" %}
+{% endblock %}
+
+{% block content %}
+  <p>
+    {% blocktrans trimmed %}We were unable to load provider <tt>{{ entity_id }}</tt>.{% endblocktrans %}
+    {% if request.user.is_staff %}
+      {% blocktrans trimmed %}
+        You can <a href="{{ add_url }}">add</a> it now or <a href="">retry</a>.
+      {% endblocktrans %}
+    {% endif %}
+  </p>
+{% endblock %}

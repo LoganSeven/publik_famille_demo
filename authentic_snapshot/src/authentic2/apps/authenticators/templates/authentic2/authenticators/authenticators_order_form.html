@@ -1,0 +1,46 @@
+{% extends "authentic2/authenticators/authenticator_common.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="#"></a>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+
+    <ul class="objects-list" id="authenticators-ordered-list">
+      {% for authenticator in authenticators %}
+        <li data-authenticator-id="{{ authenticator.pk }}">
+          <span class="handle">⣿</span> {{ authenticator }}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button>{% trans "Save" %}</button>
+      <a class="cancel" href="{% url 'a2-manager-authenticators' %}">{% trans 'Cancel' %}</a>
+    </div>
+
+    <script>
+      $(function () {
+        function set_order_field_value () {
+          var new_order = $('#authenticators-ordered-list li').map(
+            function() { return $(this).data('authenticator-id'); }
+          ).get().join();
+          $('#id_order').val(new_order);
+        }
+        set_order_field_value();
+
+        $('#authenticators-ordered-list').sortable({
+          handle: '.handle',
+          stop: function(event, ui) {
+            set_order_field_value();
+          }
+        }).sortable('refresh');
+      });
+    </script>
+  </form>
+{% endblock %}

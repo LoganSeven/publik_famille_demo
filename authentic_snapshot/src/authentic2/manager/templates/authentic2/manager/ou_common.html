@@ -1,0 +1,9 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ block.super }} - {% trans "Organizational units" %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-ous' %}">{% trans 'Organizational units' %}</a>
+{% endblock %}

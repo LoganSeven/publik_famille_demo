@@ -1,0 +1,38 @@
+{% extends "authentic2_auth_fc/base.html"%}
+{% load static %}
+{% load i18n gadjo %}
+
+{% block content %}
+  <p>
+    {% blocktrans trimmed %}
+      You're about to delete the link between your user account and FranceConnect.
+    {% endblocktrans %}
+  </p>
+  <p>
+    {% blocktrans trimmed %}
+      Deleting this link won't delete your user account. However, once the link with
+      FranceConnect is deleted, it is no more possible to use FranceConnect to automatically log
+      in to your user account. It is still possible to link your user account again, using the
+      “FranceConnect” button on your account page.
+    {% endblocktrans %}
+  </p>
+  {% if no_password %}
+    <p>
+      {% blocktrans trimmed %}
+        On your next authentications, you will have to type in a password. Clicking the “Unlink”
+        button here will prompt you to pick this new password. Please, mind that this password will
+        be your local account's, not the one to the account used through FranceConnect whatsoever.
+        It will be used when logging in to this website with your email address rather than through
+        FranceConnect.
+      {% endblocktrans %}
+    </p>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <div class="buttons">
+      <button class="submit-button" name="unlink">{% trans "Unlink" %}</button>
+      <button class="cancel-button" name="cancel" formnovalidate>{% trans "Cancel" %}</button>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "authentic2/manager/form.html" %}
+{% load i18n %}
+
+{% block page-title %}{% trans "Add an user" %} | {{ block.super }}{% endblock %}
+
+{% block beforeform %}
+  {% if duplicate_users %}
+    <input type="hidden" name="confirm-creation-token" value="{{ form.cleaned_data.first_name }} {{ form.cleaned_data.last_name }}">
+    <div class=warningnotice>
+      <p>{% trans "This user may already exist, please check the list below before creating it :" %}</p>
+      <ul class="user-duplicates">
+        {% for user in duplicate_users %}
+          {% include "authentic2/manager/duplicate_user_add.html" with user=user %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block hidden_inputs %}
+  {{ block.super }}
+  {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'a2-manager-users' %}{% if multiple_ou and ou %}?search-ou={{ ou.pk }}{% endif %}">{% trans 'Users' %}{% if multiple_ou and ou %}&nbsp;: {{ ou }}{% endif %}</a>
+  <a href="#">{% trans "Add an user" %}</a>
+{% endblock %}

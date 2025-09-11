@@ -1,0 +1,4 @@
+{% extends "emails/subject.txt" %}
+{% load i18n %}
+
+{% block email-subject %}{% trans "Account creation using FranceConnect" %}{% endblock %}

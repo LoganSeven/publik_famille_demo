@@ -1,0 +1,16 @@
+{% extends "authentic2/manager/import_form.html" %}
+{% load i18n gadjo %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|with_template }}
+    <p>
+      <a href="{% url 'a2-manager-roles-csv-import-sample' %}" download="roles.csv">{% trans 'Download sample file' %}</a>
+    </p>
+    <div class="buttons">
+      <button>{% trans "Import" %}</button>
+      <a class="cancel" href="{% url 'a2-manager-homepage' %}">{% trans 'Cancel' %}</a>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "authentic2/manager/api_client_common.html" %}
+{% load i18n gadjo %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="#"></a>
+{% endblock %}
+
+{% block appbar %}
+  {{ block.super }}
+  <span class="actions">
+    <a href="{% url 'a2-manager-api-client-delete' pk=api_client.pk %}" rel="popup">{% trans "Delete" %}</a>
+    <a href="{% url 'a2-manager-api-client-edit' pk=api_client.pk %}">{% trans "Edit" %}</a>
+  </span>
+{% endblock %}
+
+{% block main %}
+  {% if api_client.description %}
+    <div class="bo-block">{{api_client.description}}</div>
+  {% endif %}
+  <div class="bo-block">
+    <h3>{% trans "Parameters" %}</h3>
+    <ul>
+      <li>{% blocktrans with identifier=api_client.identifier %}Identifier: {{ identifier }}{% endblocktrans %}</li>
+      <li>
+        {% if api_client.ou %}
+          {% url 'a2-manager-ou-detail' pk=api_client.ou.pk as ou_url %}
+          {% blocktrans with ou=api_client.ou.name %}Restricted to data within organizational unit <a href="{{ ou_url }}">{{ ou }}</a>{% endblocktrans %}
+        {% else %}
+          {% trans "Unrestricted data access regardless of its organizational unit." %}
+        {% endif %}
+      </li>
+      {% if api_client.apiclient_roles.count %}
+        <li>{% trans "Roles:" %}
+          <ul>
+            {% for role in  api_client.apiclient_roles.all %}
+              <li>
+                {% if role in roles_with_access %}
+                  <a href="{% url 'a2-manager-role-members' pk=role.pk %}">{{ role.name }}</a>
+                  {% if display_ou %}
+                    {% if role.ou %}
+                      (<a href="{% url 'a2-manager-ou-detail' pk=role.ou.pk %}">{{ role.ou.name }}</a>)
+                    {% else %}
+                      ({% trans "No organizational unit" %})
+                    {% endif %}
+                  {% endif %}
+                {% else %}
+                  {{ role.name }}{% if display_ou %} ({% if role.ou %}{{ role.ou.name }}{% else %}{% trans "No organizational unit" %}{% endif %}){% endif %}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% if parent_roles %}
+          <li>{% trans "Inherited roles:" %}
+            <ul>
+              {% for role in parent_roles %}
+                <li>
+                  {% if role in roles_with_access %}
+                    <a href="{% url 'a2-manager-role-members' pk=role.pk %}">{{ role.name }}</a>
+                    {% if display_ou %}
+                      {% if role.ou %}
+                        (<a href="{% url 'a2-manager-ou-detail' pk=role.ou.pk %}">{{ role.ou.name }}</a>)
+                      {% else %}
+                        ({% trans "No organizational unit" %})
+                      {% endif %}
+                    {% endif %}
+                  {% else %}
+                    {{ role.name }}{% if display_ou %} ({% if role.ou %}{{ role.ou.name }}{% else %}{% trans "No organizational unit" %}{% endif %}){% endif %}
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+        {% endif %}
+      {% else %}
+        <li>{% trans "No role assigned to this client." %}</li>
+      {% endif %}
+      {% if api_client.restrict_to_anonymised_data %}
+        <li>{% trans "Restricted to anonymised data" %}</li>
+      {% else %}
+        <li>{% trans "No restriction to anonymised-only data." %}</li>
+      {% endif %}
+      {% if api_client.allowed_user_attributes.count %}
+        <li>{% trans "Allowed user attributes:" %}
+          <ul>
+            {% for attr in  api_client.allowed_user_attributes.all %}<li>{{ attr.name }}</li>{% endfor %}
+          </ul>
+        </li>
+      {% else %}
+        <li>{% trans "Unrestricted access to user profile attributes." %}
+      {% endif %}
+      {% if A2_API_USERS_ALLOW_IP_RESTRICTIONS %}
+        <li>{% trans "IP restrictions" %}
+          {% if api_client.ip_allow_deny %}
+            {% trans "(evaluation order Allow/Deny)" %}
+            <ul>
+              <li>{% trans "Allow:" %} {{ api_client.allowed_ip_list|join:", "|default:_("None") }}</li>
+              <li>{% trans "Deny:" %} {{ api_client.denied_ip_list|join:", "|default:_("None") }}</li>
+            </ul>
+          {% else %}
+            {% trans "(evaluation order Deny/Allow)" %}
+            <ul>
+              <li>{% trans "Deny:" %} {{ api_client.denied_ip_list|join:", "|default:_("None")}}</li>
+              <li>{% trans "Allow:" %} {{ api_client.allowed_ip_list|join:", "|default:_("None")}}</li>
+            </ul>
+          {% endif %}
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}

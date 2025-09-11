@@ -1,0 +1,14 @@
+{% extends "authentic2/manager/table.html" %}
+
+{% load i18n %}
+
+{% block table.head.last.column %}
+  <th></th>
+{% endblock %}
+{% block table.tbody.last.column %}
+  <td class="remove-icon-column">
+    {% if table.context.view.can_change and row.record.member %}
+      <a class="{% if not row.record.can_manage_members %} disabled {% else %} js-remove-object {% endif %}" data-confirm="{% blocktrans with name=row.record.name user=table.context.object %}Do you really want to remove role &quot;{{ name }}&quot; from user &quot;{{ user }}&quot;?{% endblocktrans %}" href="#" data-pk-arg="role" title="{% if not row.record.can_manage_members %}{% trans "This role is synchronised from LDAP, changing members is not allowed." %}{% endif %}"><span class="icon-remove-sign"></span></a>
+    {% endif %}
+  </td>
+{% endblock %}

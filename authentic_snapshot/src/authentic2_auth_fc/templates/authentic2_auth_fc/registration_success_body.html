@@ -1,0 +1,10 @@
+{% extends "emails/body_base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <p>{% blocktrans  %}Hi {{ user }},{% endblocktrans %}</p>
+
+  <p>{% trans "You have just created an account using FranceConnect." %}</p>
+
+  {% include "emails/button-link.html" with url=login_url label=_("Login now") %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "authentic2/manager/base.html" %}
+{% load i18n %}
+
+{% block beforecontent %}
+{% endblock %}
+
+{% block appbar %}
+  <h2>{% blocktrans %}Identity management{% endblocktrans %}</h2>
+  {% if user.is_superuser %}
+    <span class="actions">
+      <a class="extra-actions-menu-opener"></a>
+      <ul class="extra-actions-menu">
+        {% if user.is_superuser %}
+          <li><a download href="{% url 'a2-manager-site-export' %}">{% trans 'Export Site' %}</a></li>
+          <li><a href="{% url 'a2-manager-site-import' %}" rel="popup">{% trans 'Import Site' %}</a></li>
+        {% endif %}
+      </ul>
+    </span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="a2-manager-main random-bg-{{ bg_image_random }}">
+    <div class="fx-grid--t2">
+      {% for entry in entries %}
+        <a class="button button-paragraph" href="{{ entry.href }}">{{ entry.label }}
+          <p>{{ entry.help_text }}</p></a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+  <aside id="sidebar">
+    {% if sidebar_entries %}
+      <h3>{% blocktrans %}Configuration & technical information{% endblocktrans %}</h3>
+    {% endif %}
+    <div class="a2-manager-id-tools_content">
+      {% for entry in sidebar_entries %}
+        <a id="{{ entry.slug }}" class="button button-paragraph" href="{{ entry.href }}">{{ entry.label }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  </aside>
+{% endblock %}

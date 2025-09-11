@@ -1,0 +1,35 @@
+{% extends "authentic2/base-page.html" %}
+{% load i18n gadjo static %}
+
+{% block title %}
+  {% trans "Logout" %}
+{% endblock %}
+
+{% block bodyargs %}
+  data-next-url="{{next_url}}" data-redir-timeout="{{redir_timeout}}"
+{% endblock %}
+
+{% block messages %}
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  <script src="{% xstatic 'jquery' 'jquery.min.js' %}?{% start_timestamp %}"></script>
+  <script type="text/javascript" src="{% static "authentic2/js/logout.js" %}?{% start_timestamp %}"></script>
+{% endblock %}
+
+{% block user-links %}
+{% endblock %}
+
+{% block content %}
+  <h2>{% trans message %}</h2>
+  <ul class="logout-list">
+    {% for fragment in logout_list %}
+      {{ fragment|safe }}
+    {% endfor %}
+  </ul>
+
+  <div id="continue-link">
+    <a href="{{ next_url }}">{% trans "Continue logout" %}</a>
+  </div>
+{% endblock %}
