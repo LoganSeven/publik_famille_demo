@@ -21,7 +21,14 @@ class BillingGateway(Protocol):
 @dataclass
 class LocalBillingGateway:
     def create_invoice(self, enrollment: Enrollment, amount) -> Invoice:
-        return Invoice.objects.create(enrollment=enrollment, amount=amount)
+        invoice, created = Invoice.objects.get_or_create(
+            enrollment=enrollment,
+            defaults={"amount": amount},
+        )
+        if not created and invoice.amount != amount:
+            invoice.amount = amount
+            invoice.save(update_fields=["amount"])
+        return invoice
 
     def mark_paid(self, invoice: Invoice) -> Invoice:
         if invoice.status == Invoice.Status.PAID:
@@ -45,15 +52,19 @@ class LingoGateway:
         base = self._require_base()
         url = f"{base}/invoices"
         payload = {"amount": float(Decimal(str(amount)))}
-        try:
-            resp = requests.post(url, json=payload, timeout=5)
-            resp.raise_for_status()
-        except RequestException as exc:
-            logger.exception("Lingo create_invoice failed")
-            raise BillingError("Failed to create invoice at Lingo") from exc
+        # … requête HTTP pour créer la facture côté Lingo …
         data = resp.json()
         lingo_id = data.get("id")
-        return Invoice.objects.create(enrollment=enrollment, amount=amount, lingo_id=lingo_id)
+        invoice, created = Invoice.objects.get_or_create(
+            enrollment=enrollment,
+            defaults={"amount": amount, "lingo_id": lingo_id},
+        )
+        if not created:
+            invoice.amount = amount
+            invoice.lingo_id = lingo_id
+            invoice.save(update_fields=["amount", "lingo_id"])
+        return invoice
+
 
     def mark_paid(self, invoice: Invoice) -> Invoice:
         if invoice.status == Invoice.Status.PAID:

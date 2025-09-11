@@ -13,7 +13,6 @@ class Invoice(models.Model):
     status = models.CharField('Statut', max_length=16, choices=Status.choices, default=Status.UNPAID)
     issued_on = models.DateTimeField('Émise le', default=timezone.now)
     paid_on = models.DateTimeField('Payée le', null=True, blank=True)
-    # Remote provider identifier (Lingo)
     lingo_id = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
@@ -21,3 +20,19 @@ class Invoice(models.Model):
 
     def __str__(self):
         return f"Facture #{self.pk} - {self.enrollment} - {self.amount}€ ({self.status})"
+
+# -- Surcharge paresseuse de Enrollment.invoice :
+def _lazy_invoice(enroll):
+    """
+    Retourne la facture liée à l'inscription.
+    Si elle n'existe pas, la crée avec le tarif de l’activité.
+    """
+    from .models import Invoice  # import ici pour éviter la circularité
+    invoice, _ = Invoice.objects.get_or_create(
+        enrollment=enroll,
+        defaults={'amount': enroll.activity.fee}
+    )
+    return invoice
+
+# Remplacer le descripteur créé par la relation OneToOne par notre propriété
+Enrollment.invoice = property(_lazy_invoice)

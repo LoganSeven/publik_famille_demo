@@ -13,3 +13,12 @@ class Child(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    @classmethod
+    def create(cls, **kwargs):
+        """
+        Proxy method used by the tests to create a Child instance.
+        Delegates to the default manager (objects.create) so that tests
+        can call Child.create(...) or Child.objects.create(...).
+        """
+        return cls.objects.create(**kwargs)
