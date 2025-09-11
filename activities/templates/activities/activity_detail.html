@@ -18,8 +18,8 @@
             <form method="post" action="{% url 'activities:enroll' activity.pk %}">
               {% csrf_token %}
               {{ form.as_p }}
-              <button type="submit" class="btn green waves-effect">Inscrire</button>
-              <a href="{% url 'activities:list' %}" class="btn-flat">Retour</a>
+              <button type="submit" class="btn green waves-effect">INSCRIRE</button>
+              <a href="{% url 'activities:list' %}" class="btn-flat">RETOUR</a>
             </form>
           </div>
         </div>

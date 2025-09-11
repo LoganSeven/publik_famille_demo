@@ -4,10 +4,17 @@ from .models import Enrollment
 from families.models import Child
 
 class EnrollmentForm(forms.ModelForm):
-    child = forms.ModelChoiceField(queryset=Child.objects.none(), label='Enfant')
+    # Ajout de browser-default pour rendre le select visible sans init JS
+    child = forms.ModelChoiceField(
+        queryset=Child.objects.none(),
+        label='Enfant',
+        widget=forms.Select(attrs={'class': 'browser-default'})
+    )
+
     class Meta:
         model = Enrollment
         fields = ['child']
+
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)

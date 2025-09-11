@@ -9,11 +9,9 @@ from django.utils import timezone
 from .models import Activity, Enrollment
 from .forms import EnrollmentForm
 
-# Gateways (adapters)
 from billing.gateways import get_billing_gateway
 from .gateways import get_enrollment_gateway
 
-# --- Logging: on tente le logger HTML demandé, sinon fallback vers logging Python ---
 try:
     from monitoring.html_logger import info, warn, error  # type: ignore
 except Exception:
@@ -28,7 +26,6 @@ class ActivityListView(ListView):
     context_object_name = 'activities'
 
     def get_queryset(self):
-        # Ne proposer que les activités dont la date de début n’est pas passée
         today = timezone.now().date()
         return Activity.objects.filter(is_active=True, start_date__gte=today)
 
@@ -41,7 +38,6 @@ class ActivityDetailView(DetailView):
         ctx = super().get_context_data(**kwargs)
         activity = self.object
         today = timezone.now().date()
-        # Autoriser l’inscription seulement si l’activité n’est pas passée
         ctx['can_enroll'] = activity.start_date is None or activity.start_date >= today
         if self.request.user.is_authenticated:
             ctx['form'] = EnrollmentForm(user=self.request.user)
@@ -66,13 +62,11 @@ class EnrollView(LoginRequiredMixin, View):
             return redirect('activities:detail', pk=pk)
 
         child = form.cleaned_data['child']
-        # Sécurité : l'enfant doit appartenir au parent connecté
         if child.parent_id != request.user.id:
             messages.error(request, "Enfant invalide.")
             error(f"Tentative d'inscription avec enfant non autorisé (user={request.user.id}, child={child.id}).")
             return redirect('activities:detail', pk=activity.pk)
 
-        # Capacité (si définie)
         if activity.capacity is not None:
             current = Enrollment.objects.filter(activity=activity).count()
             if current >= activity.capacity:
@@ -80,29 +74,23 @@ class EnrollView(LoginRequiredMixin, View):
                 warn(f"Capacité atteinte pour l'activité {activity.id}.")
                 return redirect('activities:detail', pk=activity.pk)
 
-        # Gateways
         enrollment_gateway = get_enrollment_gateway()
         billing_gateway = get_billing_gateway()
 
         try:
-            # Créer (ou récupérer) l'inscription via la passerelle d’inscription
             enrollment, created = enrollment_gateway.create_enrollment(activity=activity, child=child)
             if not created:
                 messages.info(request, "Cette inscription existe déjà.")
                 info(f"Inscription déjà existante child={child.id} activity={activity.id}.")
                 return redirect('activities:enrollments')
 
-            # Créer la facture via la passerelle de facturation (UNPAID à la création)
             billing_gateway.create_invoice(enrollment=enrollment, amount=activity.fee)
 
             messages.success(request, "Inscription créée. Merci de régler la facture.")
             info(f"Inscription créée enrollment_id={enrollment.id} (user={request.user.id}).")
             return redirect('activities:enrollments')
 
-        except Exception as exc:  # gestion d'erreur robuste
-            error(
-                f"Erreur lors de la création d'inscription: {exc!r} "
-                f"(user={request.user.id}, activity={activity.id})."
-            )
+        except Exception as exc:
+            error(f"Erreur lors de la création d'inscription: {exc!r} (user={request.user.id}, activity={activity.id}).")
             messages.error(request, "Erreur interne lors de la création de l'inscription.")
             return redirect('activities:detail', pk=activity.pk)

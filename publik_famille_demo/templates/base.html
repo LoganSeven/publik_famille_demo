@@ -73,12 +73,16 @@
         </div>
       </div>
     </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.sidenav');
-        // init avec un objet vide
-        M.Sidenav.init(elems, {}); 
+        // Init menu latéral
+        var sidenavElems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(sidenavElems, {});
+        // Init des <select> (sinon Materialize masque le select et le formulaire reste vide)
+        var selectElems = document.querySelectorAll('select');
+        M.FormSelect.init(selectElems, {});
       });
     </script>
   </body>
