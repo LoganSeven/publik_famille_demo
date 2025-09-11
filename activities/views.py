@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, View
+from django.utils import timezone
 
 from .models import Activity, Enrollment
 from .forms import EnrollmentForm
@@ -18,24 +19,18 @@ try:
 except Exception:
     import logging
     _logger = logging.getLogger(__name__)
-
-    def info(msg: str) -> None:
-        _logger.info(msg)
-
-    def warn(msg: str) -> None:
-        _logger.warning(msg)
-
-    def error(msg: str) -> None:
-        _logger.error(msg)
-
+    def info(msg: str) -> None: _logger.info(msg)
+    def warn(msg: str) -> None: _logger.warning(msg)
+    def error(msg: str) -> None: _logger.error(msg)
 
 class ActivityListView(ListView):
     template_name = 'activities/activity_list.html'
     context_object_name = 'activities'
 
     def get_queryset(self):
-        return Activity.objects.filter(is_active=True)
-
+        # Ne proposer que les activités dont la date de début n’est pas passée
+        today = timezone.now().date()
+        return Activity.objects.filter(is_active=True, start_date__gte=today)
 
 class ActivityDetailView(DetailView):
     model = Activity
@@ -44,10 +39,13 @@ class ActivityDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        activity = self.object
+        today = timezone.now().date()
+        # Autoriser l’inscription seulement si l’activité n’est pas passée
+        ctx['can_enroll'] = activity.start_date is None or activity.start_date >= today
         if self.request.user.is_authenticated:
             ctx['form'] = EnrollmentForm(user=self.request.user)
         return ctx
-
 
 class EnrollmentListView(LoginRequiredMixin, ListView):
     template_name = 'activities/enrollment_list.html'
@@ -56,10 +54,8 @@ class EnrollmentListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Enrollment.objects.filter(child__parent=self.request.user)
 
-
 class EnrollView(LoginRequiredMixin, View):
     """Crée une inscription via la passerelle choisie, puis une facture via la passerelle de facturation."""
-
     def post(self, request, pk):
         activity = get_object_or_404(Activity, pk=pk, is_active=True)
         form = EnrollmentForm(request.POST, user=request.user)
@@ -70,7 +66,6 @@ class EnrollView(LoginRequiredMixin, View):
             return redirect('activities:detail', pk=pk)
 
         child = form.cleaned_data['child']
-
         # Sécurité : l'enfant doit appartenir au parent connecté
         if child.parent_id != request.user.id:
             messages.error(request, "Enfant invalide.")

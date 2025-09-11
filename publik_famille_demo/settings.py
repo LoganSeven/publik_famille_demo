@@ -115,7 +115,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'publik_famille_demo.context_processors.branding',  # <-- ajout de branding
+                'publik_famille_demo.context_processors.branding', 
             ],
         },
     },
