@@ -24,13 +24,22 @@
         </a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'families:child_list' %}"><i class="material-icons left">group</i>Mes enfants</a></li>
-          <li><a href="{% url 'activities:list' %}"><i class="material-icons left">event</i>Activités</a></li>
-          <li><a href="{% url 'activities:enrollments' %}"><i class="material-icons left">assignment</i>Mes inscriptions</a></li>
-          <li><a href="{% url 'documents:list' %}"><i class="material-icons left">folder</i>Mes documents</a></li>
           {% if user.is_authenticated %}
+            {% if user.is_staff %}
+              <!-- Admin mode: show logs and admin only -->
+              <li><a href="{% url 'monitoring:logs' %}"><i class="material-icons left">list</i>Logs</a></li>
+              <li><a href="{% url 'admin:index' %}"><i class="material-icons left">settings</i>Admin</a></li>
+            {% else %}
+              <!-- User mode: show regular navigation links -->
+              <li><a href="{% url 'families:child_list' %}"><i class="material-icons left">group</i>Mes enfants</a></li>
+              <li><a href="{% url 'activities:list' %}"><i class="material-icons left">event</i>Activités</a></li>
+              <li><a href="{% url 'activities:enrollments' %}"><i class="material-icons left">assignment</i>Mes inscriptions</a></li>
+              <li><a href="{% url 'documents:list' %}"><i class="material-icons left">folder</i>Mes documents</a></li>
+            {% endif %}
+            <!-- Always show logout for authenticated users -->
             <li><a class="waves-effect" href="{% url 'logout' %}"><i class="material-icons left">logout</i>Se déconnecter</a></li>
           {% else %}
+            <!-- Anonymous users: login link -->
             <li><a class="waves-effect" href="{% url 'login' %}"><i class="material-icons left">login</i>Se connecter</a></li>
           {% endif %}
         </ul>
@@ -38,13 +47,22 @@
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-      <li><a href="{% url 'families:child_list' %}">Mes enfants</a></li>
-      <li><a href="{% url 'activities:list' %}">Activités</a></li>
-      <li><a href="{% url 'activities:enrollments' %}">Mes inscriptions</a></li>
-      <li><a href="{% url 'documents:list' %}">Mes documents</a></li>
       {% if user.is_authenticated %}
+        {% if user.is_staff %}
+          <!-- Admin mode mobile: show logs and admin only -->
+          <li><a href="{% url 'monitoring:logs' %}">Logs</a></li>
+          <li><a href="{% url 'admin:index' %}">Admin</a></li>
+        {% else %}
+          <!-- User mode mobile: show regular navigation -->
+          <li><a href="{% url 'families:child_list' %}">Mes enfants</a></li>
+          <li><a href="{% url 'activities:list' %}">Activités</a></li>
+          <li><a href="{% url 'activities:enrollments' %}">Mes inscriptions</a></li>
+          <li><a href="{% url 'documents:list' %}">Mes documents</a></li>
+        {% endif %}
+        <!-- Always show logout for authenticated users -->
         <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
       {% else %}
+        <!-- Anonymous users: login link -->
         <li><a href="{% url 'login' %}">Se connecter</a></li>
       {% endif %}
     </ul>

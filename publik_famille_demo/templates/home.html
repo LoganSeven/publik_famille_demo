@@ -1,21 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="section">
-  <div class="row">
-    <div class="col s12">
-      <div class="card hoverable">
-        <div class="card-content">
-          <span class="card-title"><i class="material-icons left">dashboard</i>Bienvenue</span>
-          <p>Gérez vos enfants, inscrivez-les à des activités municipales et payez en ligne (paiement simulé). Vos <strong>factures PDF</strong> sont disponibles dans <em>Mes documents</em>.</p>
-        </div>
-        <div class="card-action">
-          <a class="btn waves-effect" href="{% url 'families:child_list' %}"><i class="material-icons left">group</i>Mes enfants</a>
-          <a class="btn waves-effect" href="{% url 'activities:list' %}"><i class="material-icons left">event</i>Activités</a>
-          <a class="btn waves-effect" href="{% url 'activities:enrollments' %}"><i class="material-icons left">assignment</i>Mes inscriptions</a>
-          <a class="btn waves-effect" href="{% url 'documents:list' %}"><i class="material-icons left">folder</i>Mes documents</a>
+  {% if user.is_authenticated and user.is_staff %}
+    <!-- Only message for admin, no other controls -->
+    <div class="card-panel blue lighten-4">
+      <span class="blue-text text-darken-2">
+        Projet de démo&nbsp;— une interface d'administration spécialisée peut être ajoutée ici. En l'état vous pouvez accéder à l'admin Django et aux logs via la barre de navigation.
+      </span>
+    </div>
+  {% else %}
+    <!-- Regular home page for normal users -->
+    <div class="row">
+      <div class="col s12">
+        <div class="card hoverable">
+          <div class="card-content">
+            <span class="card-title"><i class="material-icons left">dashboard</i>Bienvenue</span>
+            <p>Gérez vos enfants, inscrivez-les à des activités municipales et payez en ligne (paiement simulé). Vos <strong>factures PDF</strong> sont disponibles dans <em>Mes documents</em>.</p>
+          </div>
+          <div class="card-action">
+            <a class="btn waves-effect" href="{% url 'families:child_list' %}"><i class="material-icons left">group</i>Mes enfants</a>
+            <a class="btn waves-effect" href="{% url 'activities:list' %}"><i class="material-icons left">event</i>Activités</a>
+            <a class="btn waves-effect" href="{% url 'activities:enrollments' %}"><i class="material-icons left">assignment</i>Mes inscriptions</a>
+            <a class="btn waves-effect" href="{% url 'documents:list' %}"><i class="material-icons left">folder</i>Mes documents</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  {% endif %}
 </div>
 {% endblock %}
