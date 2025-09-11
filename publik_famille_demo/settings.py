@@ -99,3 +99,24 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # lecture des variables WCS
 WCS_BASE_URL = os.getenv("WCS_BASE_URL")
 WCS_API_TOKEN = os.getenv("WCS_API_TOKEN")
+
+# lecture des logos
+EO_LOGO_URL = os.getenv("EO_LOGO_URL")
+PUBLIK_LOGO_URL = os.getenv("PUBLIK_LOGO_URL")
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'publik_famille_demo' / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'publik_famille_demo.context_processors.branding',  # <-- ajout de branding
+            ],
+        },
+    },
+]
