@@ -1,12 +1,44 @@
 # billing/exceptions.py
+"""
+Custom exceptions for the billing application.
+
+This module defines domain-specific exceptions used for
+error handling in billing, payment, PDF generation, and
+document storage.
+"""
+
+
 class BillingError(Exception):
-    """Erreur générique de facturation."""
+    """
+    Base class for billing-related errors.
+
+    All billing exceptions should inherit from this class
+    to allow grouped exception handling.
+    """
+
 
 class PaymentError(BillingError):
-    """Erreur lors du paiement."""
+    """
+    Raised when a payment operation fails.
+
+    Typically indicates issues such as gateway errors
+    or rejected transactions.
+    """
+
 
 class PDFGenerationError(BillingError):
-    """Erreur lors de la génération de la facture PDF."""
+    """
+    Raised when invoice PDF generation fails.
+
+    Used when ReportLab or file I/O errors prevent
+    successful PDF creation.
+    """
+
 
 class DocumentStorageError(BillingError):
-    """Erreur lors de l'enregistrement du document lié à la facture."""
+    """
+    Raised when storing an invoice document fails.
+
+    Typically occurs when saving the generated PDF
+    into the Document model or file system.
+    """
