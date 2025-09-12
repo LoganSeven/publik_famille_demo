@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vérification d'identité</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+  </head>
+  <body>
+    {% if messages %}
+      {% for m in messages %}<p>{{ m }}</p>{% endfor %}
+    {% endif %}
+    {% if mode == "simulation" %}
+      <h1>Vérifier mon identité</h1>
+      <form method="post" action="">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        <button type="submit">Confirmer</button>
+      </form>
+    {% else %}
+      <a href="{% url 'accounts_verify_start' %}?next={{ next }}">Continuer</a>
+    {% endif %}
+  </body>
+</html>
