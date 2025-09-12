@@ -32,6 +32,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Blocage des inscriptions tant que l'identité n'est pas vérifiée
+    'accounts.middleware.IdentityVerificationMiddleware',
 ]
 
 ROOT_URLCONF = 'publik_famille_demo.urls'
@@ -75,7 +77,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [ BASE_DIR / 'publik_famille_demo' / 'static' ]
+STATICFILES_DIRS = [BASE_DIR / 'publik_famille_demo' / 'static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -86,24 +88,23 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# --- Sécurité / tokens ---
+# Sécurité
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# Email de reset mot de passe (console)
+# Email reset mot de passe
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# lecture des variables WCS
+# WCS / logos
 WCS_BASE_URL = os.getenv("WCS_BASE_URL")
 WCS_API_TOKEN = os.getenv("WCS_API_TOKEN")
-
-# lecture des logos
 EO_LOGO_URL = os.getenv("EO_LOGO_URL")
 PUBLIK_LOGO_URL = os.getenv("PUBLIK_LOGO_URL")
 
+# Context processors personnalisés
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -115,8 +116,22 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'publik_famille_demo.context_processors.branding', 
+                'publik_famille_demo.context_processors.branding',
             ],
         },
     },
 ]
+
+# Configuration d’identité
+IDENTITY_BACKEND = os.environ.get("IDENTITY_BACKEND", "simulation")
+IDENTITY_ENROLL_URL_NAMES = os.environ.get(
+    "IDENTITY_ENROLL_URL_NAMES", "activities:enroll"
+).split(",")
+
+AUTHENTIC_AUTHORIZE_URL = os.environ.get("AUTHENTIC_AUTHORIZE_URL", "")
+AUTHENTIC_TOKEN_URL = os.environ.get("AUTHENTIC_TOKEN_URL", "")
+AUTHENTIC_USERINFO_URL = os.environ.get("AUTHENTIC_USERINFO_URL", "")
+AUTHENTIC_CLIENT_ID = os.environ.get("AUTHENTIC_CLIENT_ID", "")
+AUTHENTIC_CLIENT_SECRET = os.environ.get("AUTHENTIC_CLIENT_SECRET", "")
+AUTHENTIC_REDIRECT_URI = os.environ.get("AUTHENTIC_REDIRECT_URI", "")
+AUTHENTIC_DRY_RUN = os.environ.get("AUTHENTIC_DRY_RUN", "0") in {"1", "true", "True"}

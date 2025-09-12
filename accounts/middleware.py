@@ -1,32 +1,21 @@
 # accounts/middleware.py
-from django.contrib import messages
+from django.conf import settings
 from django.shortcuts import redirect
-from django.urls import reverse
-from django.utils.deprecation import MiddlewareMixin
 
+def _is_admin(user) -> bool:
+    return user.is_authenticated and (user.is_staff or user.is_superuser)
 
-def _should_gate(request) -> bool:
-    if request.method != "POST":
-        return False
-    path = (request.path or "").rstrip("/")
-    if not path.endswith("/inscrire"):
-        return False
-    user = getattr(request, "user", None)
-    if not user or not user.is_authenticated:
-        return False
-    if user.is_staff or user.is_superuser:
-        return False
-    try:
-        return not bool(user.profile.id_verified)
-    except Exception:
-        return True
+class IdentityVerificationMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
 
-
-class EnforceIdentityVerificationMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        if _should_gate(request):
-            next_url = request.get_full_path()
-            url = reverse("accounts_verify_identity")
-            messages.error(request, "Vérification d'identité requise.")
-            return redirect(f"{url}?next={next_url}")
-        return None
+    def __call__(self, request):
+        rm = getattr(request, "resolver_match", None)
+        if rm and rm.view_name in getattr(settings, "IDENTITY_ENROLL_URL_NAMES", []):
+            user = request.user
+            if user.is_authenticated and not _is_admin(user):
+                profile = getattr(user, "profile", None)
+                if not profile or not profile.id_verified:
+                    next_url = request.get_full_path()
+                    return redirect(f"{settings.LOGIN_URL.rstrip('/')}/verify/?next={next_url}")
+        return self.get_response(request)

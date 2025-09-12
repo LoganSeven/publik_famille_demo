@@ -4,9 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
-
 User = get_user_model()
-
 
 class IdentitySimulationTests(TestCase):
     def setUp(self):
@@ -27,13 +25,10 @@ class IdentitySimulationTests(TestCase):
         self.assertEqual(r1.status_code, 302)
         verify = reverse("accounts_verify_identity")
         self.assertTrue(r1["Location"].startswith(verify))
-
         r2 = self.client.post(verify, {"next": "/activities/999/inscrire/"})
         self.assertEqual(r2.status_code, 302)
-
         r3 = self.client.post("/activities/999/inscrire/", follow=False)
         self.assertNotIn(verify, r3.get("Location", ""))
-
 
 class IdentityAuthenticTests(TestCase):
     def setUp(self):
@@ -68,15 +63,11 @@ class IdentityAuthenticTests(TestCase):
         mock_post.return_value = {"access_token": "abc"}
         mock_get.return_value = {"sub": "123"}
         self.client.login(username="u2", password="pw")
-
-        # init state
         s = self.client.session
         s["idv_state"] = "S"
         s["idv_next"] = "/activities/1/inscrire/"
         s.save()
-
         r = self.client.get(reverse("accounts_verify_callback") + "?code=C&state=S")
         self.assertEqual(r.status_code, 302)
-
         self.user.refresh_from_db()
         self.assertTrue(self.user.profile.id_verified)

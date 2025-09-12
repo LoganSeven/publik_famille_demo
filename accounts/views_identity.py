@@ -10,48 +10,36 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.utils.http import url_has_allowed_host_and_scheme
-
 from .models import UserProfile
-
 
 def _conf(name: str, default=None):
     if hasattr(settings, name):
         return getattr(settings, name)
     return os.environ.get(name, default)
 
-
 def _backend() -> str:
     return _conf("IDENTITY_BACKEND", "simulation").strip().lower()
-
 
 def _ok_next(request, nxt: str) -> str:
     if nxt and url_has_allowed_host_and_scheme(nxt, allowed_hosts={request.get_host()}):
         return nxt
     return "/"
 
-
 def _http_post(url: str, data: dict, auth: tuple | None = None, timeout: int = 5) -> dict:
     payload = urllib.parse.urlencode(data).encode()
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     if auth:
         token = ("%s:%s" % auth).encode()
-        headers["Authorization"] = "Basic " + _b64(token)
+        import base64
+        headers["Authorization"] = "Basic " + base64.b64encode(token).decode("ascii")
     req = urllib.request.Request(url, data=payload, headers=headers, method="POST")
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
-
 
 def _http_get(url: str, headers: dict | None = None, timeout: int = 5) -> dict:
     req = urllib.request.Request(url, headers=headers or {}, method="GET")
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
-
-
-def _b64(raw: bytes) -> str:
-    import base64
-
-    return base64.b64encode(raw).decode("ascii")
-
 
 @login_required
 def verify_identity(request):
@@ -67,7 +55,6 @@ def verify_identity(request):
             return redirect(_ok_next(request, request.POST.get("next") or nxt))
         return render(request, "accounts/verify_identity.html", {"next": nxt, "mode": "simulation"})
     return redirect("accounts_verify_start" + f"?next={urllib.parse.quote(nxt)}")
-
 
 @login_required
 def verify_start(request):
@@ -90,7 +77,6 @@ def verify_start(request):
     url = f"{base}?{urllib.parse.urlencode(params)}"
     request.session["idv_next"] = _ok_next(request, nxt)
     return redirect(url)
-
 
 @login_required
 def verify_callback(request):
