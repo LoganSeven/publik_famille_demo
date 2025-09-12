@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # Apps du projet
     'accounts.apps.AccountsConfig',
     'families.apps.FamiliesConfig',
     'activities.apps.ActivitiesConfig',
@@ -32,8 +32,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Blocage des inscriptions tant que l'identité n'est pas vérifiée
-    'accounts.middleware.IdentityVerificationMiddleware',
+    # Le middleware d’identité est inséré par AccountsConfig.ready()
 ]
 
 ROOT_URLCONF = 'publik_famille_demo.urls'
@@ -49,6 +48,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'publik_famille_demo.context_processors.branding',
             ],
         },
     },
@@ -88,50 +88,30 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# Sécurité
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# Email reset mot de passe
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# WCS / logos
 WCS_BASE_URL = os.getenv("WCS_BASE_URL")
 WCS_API_TOKEN = os.getenv("WCS_API_TOKEN")
 EO_LOGO_URL = os.getenv("EO_LOGO_URL")
 PUBLIK_LOGO_URL = os.getenv("PUBLIK_LOGO_URL")
 
-# Context processors personnalisés
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'publik_famille_demo' / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'publik_famille_demo.context_processors.branding',
-            ],
-        },
-    },
-]
-
 # Configuration d’identité
-IDENTITY_BACKEND = os.environ.get("IDENTITY_BACKEND", "simulation")
+IDENTITY_BACKEND = os.environ.get('IDENTITY_BACKEND', 'simulation').lower()
 IDENTITY_ENROLL_URL_NAMES = os.environ.get(
-    "IDENTITY_ENROLL_URL_NAMES", "activities:enroll"
-).split(",")
+    'IDENTITY_ENROLL_URL_NAMES',
+    'activities:enroll'
+).split(',')
 
-AUTHENTIC_AUTHORIZE_URL = os.environ.get("AUTHENTIC_AUTHORIZE_URL", "")
-AUTHENTIC_TOKEN_URL = os.environ.get("AUTHENTIC_TOKEN_URL", "")
-AUTHENTIC_USERINFO_URL = os.environ.get("AUTHENTIC_USERINFO_URL", "")
-AUTHENTIC_CLIENT_ID = os.environ.get("AUTHENTIC_CLIENT_ID", "")
-AUTHENTIC_CLIENT_SECRET = os.environ.get("AUTHENTIC_CLIENT_SECRET", "")
-AUTHENTIC_REDIRECT_URI = os.environ.get("AUTHENTIC_REDIRECT_URI", "")
-AUTHENTIC_DRY_RUN = os.environ.get("AUTHENTIC_DRY_RUN", "0") in {"1", "true", "True"}
+AUTHENTIC_AUTHORIZE_URL = os.environ.get('AUTHENTIC_AUTHORIZE_URL', '')
+AUTHENTIC_TOKEN_URL = os.environ.get('AUTHENTIC_TOKEN_URL', '')
+AUTHENTIC_USERINFO_URL = os.environ.get('AUTHENTIC_USERINFO_URL', '')
+AUTHENTIC_CLIENT_ID = os.environ.get('AUTHENTIC_CLIENT_ID', '')
+AUTHENTIC_CLIENT_SECRET = os.environ.get('AUTHENTIC_CLIENT_SECRET', '')
+AUTHENTIC_REDIRECT_URI = os.environ.get('AUTHENTIC_REDIRECT_URI', '')
+AUTHENTIC_DRY_RUN = os.environ.get('AUTHENTIC_DRY_RUN', '0') in {'1', 'true', 'True'}

@@ -1,3 +1,4 @@
+# accounts/migrations/0002_backfill_profiles.py
 from django.db import migrations
 
 def backfill_profiles(apps, schema_editor):

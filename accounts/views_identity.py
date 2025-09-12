@@ -4,7 +4,6 @@ import os
 import secrets
 import urllib.parse
 import urllib.request
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -18,7 +17,7 @@ def _conf(name: str, default=None):
     return os.environ.get(name, default)
 
 def _backend() -> str:
-    return _conf("IDENTITY_BACKEND", "simulation").strip().lower()
+    return _conf("IDENTITY_BACKEND", "simulation")
 
 def _ok_next(request, nxt: str) -> str:
     if nxt and url_has_allowed_host_and_scheme(nxt, allowed_hosts={request.get_host()}):

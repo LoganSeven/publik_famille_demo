@@ -15,7 +15,6 @@ def create_profile_on_user_create(sender, instance, created, **kwargs):
     try:
         UserProfile.objects.get_or_create(user=instance)
     except (OperationalError, ProgrammingError):
-        # Table may not exist yet during bootstrap
         pass
 
 @receiver(post_migrate)
