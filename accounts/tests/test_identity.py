@@ -1,10 +1,12 @@
 # accounts/tests/test_identity.py
 from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 
 User = get_user_model()
+
 
 class IdentitySimulationTests(TestCase):
     def setUp(self) -> None:
@@ -14,6 +16,7 @@ class IdentitySimulationTests(TestCase):
     @override_settings(IDENTITY_BACKEND="simulation")
     def test_block_then_verify_then_allow(self) -> None:
         self.c.login(username="u", password="p")
+
         r = self.c.post("/activities/999/inscrire/", follow=False)
         self.assertEqual(r.status_code, 302)
         self.assertIn(reverse("accounts_verify_identity"), r["Location"])
@@ -28,9 +31,14 @@ class IdentitySimulationTests(TestCase):
         r3 = self.c.post("/activities/999/inscrire/", follow=False)
         self.assertNotIn(verify, r3.get("Location", ""))
 
-    def test_admin_bypassed(self) -> None:
-        admin = User.objects.create_superuser(username="admin", password="p")
-        self.assertTrue(admin.is_superuser)
+    @override_settings(IDENTITY_BACKEND="simulation")
+    def test_verify_redirect_sanitizes_next_post_only(self) -> None:
+        self.c.login(username="u", password="p")
+        verify = reverse("accounts_verify_identity")
+        r = self.c.post(verify, {"next": "/activities/123/inscrire/"}, follow=False)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r["Location"], "/activities/123/")
+
 
 class IdentityAuthenticDryRunTests(TestCase):
     def setUp(self) -> None:
@@ -64,12 +72,15 @@ class IdentityAuthenticDryRunTests(TestCase):
     def test_callback_marks_verified(self, mock_get, mock_post) -> None:
         mock_post.return_value = {"access_token": "abc"}
         mock_get.return_value = {"sub": "123"}
+
         self.c.login(username="u2", password="p")
         s = self.c.session
         s["idv_state"] = "S"
         s["idv_next"] = "/activities/1/inscrire/"
         s.save()
+
         r = self.c.get(reverse("accounts_verify_callback") + "?code=C&state=S")
         self.assertEqual(r.status_code, 302)
+
         self.user.refresh_from_db()
         self.assertTrue(self.user.profile.id_verified)
