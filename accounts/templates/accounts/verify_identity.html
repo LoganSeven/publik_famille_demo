@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="margin-top: 24px;">
+  <h4>Vérification d'identité</h4>
+
+  {% if mode == "simulation" %}
+    <p>Votre identité doit être vérifiée avant l'inscription.</p>
+    <form method="post" action="">
+      {% csrf_token %}
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      <button type="submit" class="btn green waves-effect">Vérifier maintenant</button>
+      <a class="btn-flat" href="/">Annuler</a>
+    </form>
+  {% else %}
+    <p>Vous allez être redirigé vers votre fournisseur d'identité (Authentic).</p>
+    <p><a class="btn" href="{% url 'accounts_authentic_authorize' %}{% if next %}?next={{ next }}{% endif %}">Continuer</a></p>
+  {% endif %}
+</div>
+{% endblock %}

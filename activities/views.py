@@ -1,14 +1,13 @@
 # activities/views.py
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, View
 from django.utils import timezone
 
 from .models import Activity, Enrollment
 from .forms import EnrollmentForm
-
 from billing.gateways import get_billing_gateway
 from .gateways import get_enrollment_gateway
 
@@ -67,6 +66,13 @@ class EnrollView(LoginRequiredMixin, View):
             error(f"Tentative d'inscription avec enfant non autorisé (user={request.user.id}, child={child.id}).")
             return redirect('activities:detail', pk=activity.pk)
 
+        # Vérification d'identité : redirige si le profil n'est pas vérifié (sauf admin)
+        if not request.user.is_staff and not request.user.is_superuser:
+            profile = getattr(request.user, 'profile', None)
+            if not profile or not profile.id_verified:
+                messages.warning(request, "Veuillez vérifier votre identité avant d'inscrire un enfant à une activité.")
+                return redirect(f"{reverse('accounts_verify_identity')}?next={request.get_full_path()}")
+
         if activity.capacity is not None:
             current = Enrollment.objects.filter(activity=activity).count()
             if current >= activity.capacity:
@@ -85,11 +91,9 @@ class EnrollView(LoginRequiredMixin, View):
                 return redirect('activities:enrollments')
 
             billing_gateway.create_invoice(enrollment=enrollment, amount=activity.fee)
-
             messages.success(request, "Inscription créée. Merci de régler la facture.")
             info(f"Inscription créée enrollment_id={enrollment.id} (user={request.user.id}).")
             return redirect('activities:enrollments')
-
         except Exception as exc:
             error(f"Erreur lors de la création d'inscription: {exc!r} (user={request.user.id}, activity={activity.id}).")
             messages.error(request, "Erreur interne lors de la création de l'inscription.")
