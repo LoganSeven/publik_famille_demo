@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>monitoring.html_logger &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../accounts/index.html">Accounts Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../activities/index.html">Activities Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../billing/index.html">Billing Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../families/index.html">Families Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documents/index.html">Documents Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">monitoring.html_logger</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de monitoring.html_logger</h1><div class="highlight"><pre>
+<span></span><span class="c1"># monitoring/html_logger.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">HTML logger for the monitoring application.</span>
+
+<span class="sd">This module provides simple logging functions (info, warn, error)</span>
+<span class="sd">that append log entries to an HTML file. The generated log file</span>
+<span class="sd">can be displayed directly in a browser and styled with basic CSS.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.timezone</span><span class="w"> </span><span class="kn">import</span> <span class="n">now</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Log file setup</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="n">LOG_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;logs&quot;</span>
+<span class="n">LOG_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">LOG_FILE</span> <span class="o">=</span> <span class="n">LOG_DIR</span> <span class="o">/</span> <span class="s2">&quot;app.log.html&quot;</span>
+
+<span class="c1"># HTML header and footer for the log file</span>
+<span class="n">HEADER</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;!doctype html&gt;</span>
+<span class="s2">&lt;html lang=&quot;fr&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Journaux&lt;/title&gt;</span>
+<span class="s2">&lt;style&gt;</span>
+<span class="s2">.log-info{ background:#e3f2fd; color:#0d47a1; padding:.5rem; border-left:4px solid #1976d2; margin:.25rem 0; }</span>
+<span class="s2">.log-warn{ background:#fff8e1; color:#e65100; padding:.5rem; border-left:4px solid #ff9800; margin:.25rem 0; }</span>
+<span class="s2">.log-error{ background:#ffebee; color:#b71c1c; padding:.5rem; border-left:4px solid #f44336; margin:.25rem 0; }</span>
+<span class="s2">.code{ font-family:monospace; }</span>
+<span class="s2">&lt;/style&gt;&lt;/head&gt;&lt;body&gt;</span>
+<span class="s2">&lt;h3&gt;Journaux applicatifs&lt;/h3&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">FOOTER</span> <span class="o">=</span> <span class="s2">&quot;&lt;/body&gt;&lt;/html&gt;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_file</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure that the log file exists.</span>
+
+<span class="sd">    If the file does not exist, it is created with the HTML header.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">LOG_FILE</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">LOG_FILE</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">HEADER</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_append</span><span class="p">(</span><span class="n">html_line</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append a single HTML line to the log file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    html_line : str</span>
+<span class="sd">        The HTML-formatted log entry to append.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_file</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">LOG_FILE</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="info">
+<a class="viewcode-back" href="../../monitoring/index.html#monitoring.html_logger.info">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log an informational message.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The message to log.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+    <span class="n">_append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;div class=&quot;log-info&quot;&gt;&lt;strong&gt;[INFO </span><span class="si">{</span><span class="n">ts</span><span class="si">}</span><span class="s1">]&lt;/strong&gt; </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1">&lt;/div&gt;&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="warn">
+<a class="viewcode-back" href="../../monitoring/index.html#monitoring.html_logger.warn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">warn</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log a warning message.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The message to log.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+    <span class="n">_append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;div class=&quot;log-warn&quot;&gt;&lt;strong&gt;[WARN </span><span class="si">{</span><span class="n">ts</span><span class="si">}</span><span class="s1">]&lt;/strong&gt; </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1">&lt;/div&gt;&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="error">
+<a class="viewcode-back" href="../../monitoring/index.html#monitoring.html_logger.error">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">error</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log an error message.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The message to log.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+    <span class="n">_append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;div class=&quot;log-error&quot;&gt;&lt;strong&gt;[ERROR </span><span class="si">{</span><span class="n">ts</span><span class="si">}</span><span class="s1">]&lt;/strong&gt; </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1">&lt;/div&gt;&#39;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

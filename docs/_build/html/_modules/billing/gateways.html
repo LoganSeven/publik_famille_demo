@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>billing.gateways &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../accounts/index.html">Accounts Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../activities/index.html">Activities Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../billing/index.html">Billing Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../families/index.html">Families Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documents/index.html">Documents Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">billing.gateways</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de billing.gateways</h1><div class="highlight"><pre>
+<span></span><span class="c1"># billing/gateways.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Billing gateways for invoice management.</span>
+
+<span class="sd">This module defines abstractions and implementations for</span>
+<span class="sd">billing backends. Two gateways are provided:</span>
+
+<span class="sd">- LocalBillingGateway: pure Django, local-only.</span>
+<span class="sd">- LingoGateway: remote backend using HTTP calls to Lingo.</span>
+
+<span class="sd">A factory function `get_billing_gateway` selects the gateway</span>
+<span class="sd">based on Django settings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">requests.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">RequestException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">timezone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.utils.dateparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_datetime</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Invoice</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">BillingError</span><span class="p">,</span> <span class="n">PaymentError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">activities.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enrollment</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BillingGateway">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.BillingGateway">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BillingGateway</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Protocol for billing gateways.</span>
+
+<span class="sd">    Any billing gateway must implement methods to create</span>
+<span class="sd">    invoices and mark them as paid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BillingGateway.create_invoice">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.BillingGateway.create_invoice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enrollment</span><span class="p">:</span> <span class="n">Enrollment</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Invoice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create or fetch an invoice for the given enrollment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        enrollment : Enrollment</span>
+<span class="sd">            The enrollment associated with the invoice.</span>
+<span class="sd">        amount : Decimal or float</span>
+<span class="sd">            The amount to bill.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Invoice</span>
+<span class="sd">            The created or retrieved invoice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="BillingGateway.mark_paid">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.BillingGateway.mark_paid">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mark_paid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="n">Invoice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Invoice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark an invoice as paid.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        invoice : Invoice</span>
+<span class="sd">            The invoice to mark as paid.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Invoice</span>
+<span class="sd">            The updated invoice instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+</div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Local (pure Django) billing backend</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="LocalBillingGateway">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.LocalBillingGateway">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LocalBillingGateway</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Local billing gateway implementation.</span>
+
+<span class="sd">    Provides invoice management without external services.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LocalBillingGateway.create_invoice">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.LocalBillingGateway.create_invoice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enrollment</span><span class="p">:</span> <span class="n">Enrollment</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Invoice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create or retrieve an invoice for the given enrollment.</span>
+
+<span class="sd">        Ensures idempotency by returning the existing invoice if present.</span>
+<span class="sd">        Updates the amount if it has changed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        enrollment : Enrollment</span>
+<span class="sd">            The enrollment associated with the invoice.</span>
+<span class="sd">        amount : Decimal or float</span>
+<span class="sd">            The amount to bill.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Invoice</span>
+<span class="sd">            The created or updated invoice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">invoice</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+            <span class="n">enrollment</span><span class="o">=</span><span class="n">enrollment</span><span class="p">,</span>
+            <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;amount&quot;</span><span class="p">:</span> <span class="n">amount</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">created</span> <span class="ow">and</span> <span class="n">invoice</span><span class="o">.</span><span class="n">amount</span> <span class="o">!=</span> <span class="n">amount</span><span class="p">:</span>
+            <span class="n">invoice</span><span class="o">.</span><span class="n">amount</span> <span class="o">=</span> <span class="n">amount</span>
+            <span class="n">invoice</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;amount&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">invoice</span></div>
+
+
+<div class="viewcode-block" id="LocalBillingGateway.mark_paid">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.LocalBillingGateway.mark_paid">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mark_paid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="n">Invoice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Invoice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark an invoice as paid locally and confirm the enrollment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        invoice : Invoice</span>
+<span class="sd">            The invoice to update.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Invoice</span>
+<span class="sd">            The updated invoice with status and payment date set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">invoice</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">PAID</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">invoice</span>
+
+        <span class="n">invoice</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">PAID</span>
+        <span class="n">invoice</span><span class="o">.</span><span class="n">paid_on</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">invoice</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;paid_on&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Also confirm the related enrollment</span>
+        <span class="n">enroll</span> <span class="o">=</span> <span class="n">invoice</span><span class="o">.</span><span class="n">enrollment</span>
+        <span class="k">if</span> <span class="n">enroll</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">Enrollment</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">CONFIRMED</span><span class="p">:</span>
+            <span class="n">enroll</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Enrollment</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">CONFIRMED</span>
+            <span class="n">enroll</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">invoice</span></div>
+</div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Lingo-backed billing backend (remote HTTP calls)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="LingoGateway">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.LingoGateway">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LingoGateway</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lingo billing gateway implementation.</span>
+
+<span class="sd">    Integrates with a remote Lingo backend via HTTP to</span>
+<span class="sd">    create invoices and mark them as paid.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_url : str, optional</span>
+<span class="sd">        Base URL of the Lingo service, e.g., http://localhost:8080.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_require_base</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure base URL is configured.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The normalized base URL.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        BillingError</span>
+<span class="sd">            If no base URL is configured.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;BILLING_LINGO_BASE_URL&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">base</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BillingError</span><span class="p">(</span><span class="s2">&quot;BILLING_LINGO_BASE_URL is not configured&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">base</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LingoGateway.create_invoice">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.LingoGateway.create_invoice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enrollment</span><span class="p">:</span> <span class="n">Enrollment</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Invoice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create or fetch an invoice while mirroring creation to Lingo.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        enrollment : Enrollment</span>
+<span class="sd">            The enrollment associated with the invoice.</span>
+<span class="sd">        amount : Decimal or float</span>
+<span class="sd">            The amount to bill.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Invoice</span>
+<span class="sd">            The created or updated invoice.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        BillingError</span>
+<span class="sd">            If the remote creation at Lingo fails.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_base</span><span class="p">()</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">/invoices&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;amount&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">amount</span><span class="p">)))}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">RequestException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Lingo create_invoice failed&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">BillingError</span><span class="p">(</span><span class="s2">&quot;Failed to create invoice at Lingo&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">lingo_id</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+
+        <span class="n">invoice</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+            <span class="n">enrollment</span><span class="o">=</span><span class="n">enrollment</span><span class="p">,</span>
+            <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;amount&quot;</span><span class="p">:</span> <span class="n">amount</span><span class="p">,</span> <span class="s2">&quot;lingo_id&quot;</span><span class="p">:</span> <span class="n">lingo_id</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">created</span><span class="p">:</span>
+            <span class="n">changed_fields</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">invoice</span><span class="o">.</span><span class="n">amount</span> <span class="o">!=</span> <span class="n">amount</span><span class="p">:</span>
+                <span class="n">invoice</span><span class="o">.</span><span class="n">amount</span> <span class="o">=</span> <span class="n">amount</span>
+                <span class="n">changed_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;amount&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lingo_id</span> <span class="ow">and</span> <span class="n">invoice</span><span class="o">.</span><span class="n">lingo_id</span> <span class="o">!=</span> <span class="n">lingo_id</span><span class="p">:</span>
+                <span class="n">invoice</span><span class="o">.</span><span class="n">lingo_id</span> <span class="o">=</span> <span class="n">lingo_id</span>
+                <span class="n">changed_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;lingo_id&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">changed_fields</span><span class="p">:</span>
+                <span class="n">invoice</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="n">changed_fields</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">invoice</span></div>
+
+
+<div class="viewcode-block" id="LingoGateway.mark_paid">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.LingoGateway.mark_paid">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mark_paid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="n">Invoice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Invoice</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark an invoice as paid at Lingo and confirm locally.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        invoice : Invoice</span>
+<span class="sd">            The invoice to update.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Invoice</span>
+<span class="sd">            The updated invoice with status and paid date set.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        PaymentError</span>
+<span class="sd">            If marking the invoice as paid fails remotely.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">invoice</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">PAID</span><span class="p">:</span>
+            <span class="c1"># Ensure enrollment is also confirmed</span>
+            <span class="n">enroll</span> <span class="o">=</span> <span class="n">invoice</span><span class="o">.</span><span class="n">enrollment</span>
+            <span class="k">if</span> <span class="n">enroll</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">Enrollment</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">CONFIRMED</span><span class="p">:</span>
+                <span class="n">enroll</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Enrollment</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">CONFIRMED</span>
+                <span class="n">enroll</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">invoice</span>
+
+        <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_base</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">invoice</span><span class="o">.</span><span class="n">lingo_id</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PaymentError</span><span class="p">(</span><span class="s2">&quot;Invoice has no lingo_id&quot;</span><span class="p">)</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">/invoices/</span><span class="si">{</span><span class="n">invoice</span><span class="o">.</span><span class="n">lingo_id</span><span class="si">}</span><span class="s2">/pay&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">RequestException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Lingo mark_paid failed&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">PaymentError</span><span class="p">(</span><span class="s2">&quot;Failed to mark invoice paid at Lingo&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">new_status</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">PAID</span>
+        <span class="n">invoice</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">new_status</span>
+
+        <span class="n">paid_str</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;paid_on&quot;</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">parse_datetime</span><span class="p">(</span><span class="n">paid_str</span><span class="p">)</span> <span class="k">if</span> <span class="n">paid_str</span> <span class="k">else</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">timezone</span><span class="o">.</span><span class="n">is_naive</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">make_aware</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">timezone</span><span class="o">.</span><span class="n">get_current_timezone</span><span class="p">())</span>
+        <span class="n">invoice</span><span class="o">.</span><span class="n">paid_on</span> <span class="o">=</span> <span class="n">dt</span>
+        <span class="n">invoice</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;paid_on&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Confirm the related enrollment locally</span>
+        <span class="n">enroll</span> <span class="o">=</span> <span class="n">invoice</span><span class="o">.</span><span class="n">enrollment</span>
+        <span class="k">if</span> <span class="n">enroll</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">Enrollment</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">CONFIRMED</span><span class="p">:</span>
+            <span class="n">enroll</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">Enrollment</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">CONFIRMED</span>
+            <span class="n">enroll</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">invoice</span></div>
+</div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Factory</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="get_billing_gateway">
+<a class="viewcode-back" href="../../billing/index.html#billing.gateways.get_billing_gateway">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_billing_gateway</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">BillingGateway</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Factory to return the configured billing gateway.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    BillingGateway</span>
+<span class="sd">        Either a LingoGateway or a LocalBillingGateway instance</span>
+<span class="sd">        depending on the BILLING_BACKEND setting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">django.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
+
+    <span class="n">backend</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;BILLING_BACKEND&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;lingo&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">LingoGateway</span><span class="p">(</span>
+            <span class="n">base_url</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;BILLING_LINGO_BASE_URL&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">LocalBillingGateway</span><span class="p">()</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

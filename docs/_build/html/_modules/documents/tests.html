@@ -1,0 +1,192 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>documents.tests &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../accounts/index.html">Accounts Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../activities/index.html">Activities Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../billing/index.html">Billing Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../families/index.html">Families Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documents/index.html">Documents Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">documents.tests</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de documents.tests</h1><div class="highlight"><pre>
+<span></span><span class="c1"># documents/tests.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Test suite for the documents application.</span>
+
+<span class="sd">This module validates access control for documents, ensuring</span>
+<span class="sd">that users can only see their own documents in the list view.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.urls</span><span class="w"> </span><span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">families.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Child</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">activities.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Activity</span><span class="p">,</span> <span class="n">Enrollment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">billing.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Invoice</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">documents.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">DocumentKind</span>
+
+
+<div class="viewcode-block" id="DocumentsAccessTest">
+<a class="viewcode-back" href="../../documents/index.html#documents.tests.DocumentsAccessTest">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentsAccessTest</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test cases for document access control.</span>
+
+<span class="sd">    Ensures that a user cannot see documents belonging</span>
+<span class="sd">    to another user.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DocumentsAccessTest.setUp">
+<a class="viewcode-back" href="../../documents/index.html#documents.tests.DocumentsAccessTest.setUp">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepare test fixtures.</span>
+
+<span class="sd">        Creates:</span>
+<span class="sd">        - Two users (u1, u2).</span>
+<span class="sd">        - A child associated with u1.</span>
+<span class="sd">        - An activity and enrollment for the child.</span>
+<span class="sd">        - An invoice and associated document linked to u1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u1</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s2">&quot;u1&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;u1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u2</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s2">&quot;u2&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;u2&quot;</span><span class="p">)</span>
+
+        <span class="n">child</span> <span class="o">=</span> <span class="n">Child</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">u1</span><span class="p">,</span>
+            <span class="n">first_name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span>
+            <span class="n">last_name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
+            <span class="n">birth_date</span><span class="o">=</span><span class="s2">&quot;2016-01-01&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">act</span> <span class="o">=</span> <span class="n">Activity</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Act&quot;</span><span class="p">,</span> <span class="n">fee</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">is_active</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">enroll</span> <span class="o">=</span> <span class="n">Enrollment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">child</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">activity</span><span class="o">=</span><span class="n">act</span><span class="p">)</span>
+        <span class="n">inv</span> <span class="o">=</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">enrollment</span><span class="o">=</span><span class="n">enroll</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+        <span class="n">Document</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">u1</span><span class="p">,</span>
+            <span class="n">kind</span><span class="o">=</span><span class="n">DocumentKind</span><span class="o">.</span><span class="n">FACTURE</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Facture #1&quot;</span><span class="p">,</span>
+            <span class="n">file</span><span class="o">=</span><span class="s2">&quot;invoices/x.pdf&quot;</span><span class="p">,</span>
+            <span class="n">invoice</span><span class="o">=</span><span class="n">inv</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DocumentsAccessTest.test_user_sees_only_own_documents">
+<a class="viewcode-back" href="../../documents/index.html#documents.tests.DocumentsAccessTest.test_user_sees_only_own_documents">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_user_sees_only_own_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure that users cannot see documents belonging to others.</span>
+
+<span class="sd">        Logs in as u2 and checks that the document created for u1</span>
+<span class="sd">        does not appear in the list view.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;u2&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;u2&quot;</span><span class="p">)</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;documents:list&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotContains</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">&quot;Facture #1&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

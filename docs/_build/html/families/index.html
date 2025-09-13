@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Families Application &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Documents Application" href="../documents/index.html" />
+    <link rel="prev" title="Billing Application" href="../billing/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../accounts/index.html">Accounts Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../activities/index.html">Activities Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../billing/index.html">Billing Application</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Families Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#families.models.Child"><code class="docutils literal notranslate"><span class="pre">Child</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.parent"><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.first_name"><code class="docutils literal notranslate"><span class="pre">Child.first_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.last_name"><code class="docutils literal notranslate"><span class="pre">Child.last_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.birth_date"><code class="docutils literal notranslate"><span class="pre">Child.birth_date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Child.first_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">Child.last_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Child.birth_date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.create"><code class="docutils literal notranslate"><span class="pre">Child.create()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Child.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Child.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.enrollments"><code class="docutils literal notranslate"><span class="pre">Child.enrollments</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.get_next_by_birth_date"><code class="docutils literal notranslate"><span class="pre">Child.get_next_by_birth_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.get_previous_by_birth_date"><code class="docutils literal notranslate"><span class="pre">Child.get_previous_by_birth_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.id"><code class="docutils literal notranslate"><span class="pre">Child.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.objects"><code class="docutils literal notranslate"><span class="pre">Child.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.models.Child.parent_id"><code class="docutils literal notranslate"><span class="pre">Child.parent_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#families.views.ChildListView"><code class="docutils literal notranslate"><span class="pre">ChildListView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildListView.template_name"><code class="docutils literal notranslate"><span class="pre">ChildListView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildListView.context_object_name"><code class="docutils literal notranslate"><span class="pre">ChildListView.context_object_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildListView.get_queryset"><code class="docutils literal notranslate"><span class="pre">ChildListView.get_queryset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#families.views.ChildCreateView"><code class="docutils literal notranslate"><span class="pre">ChildCreateView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildCreateView.model"><code class="docutils literal notranslate"><span class="pre">ChildCreateView.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildCreateView.form_class"><code class="docutils literal notranslate"><span class="pre">ChildCreateView.form_class</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildCreateView.template_name"><code class="docutils literal notranslate"><span class="pre">ChildCreateView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildCreateView.success_url"><code class="docutils literal notranslate"><span class="pre">ChildCreateView.success_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildCreateView.form_valid"><code class="docutils literal notranslate"><span class="pre">ChildCreateView.form_valid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#families.views.ChildUpdateView"><code class="docutils literal notranslate"><span class="pre">ChildUpdateView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildUpdateView.model"><code class="docutils literal notranslate"><span class="pre">ChildUpdateView.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildUpdateView.form_class"><code class="docutils literal notranslate"><span class="pre">ChildUpdateView.form_class</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildUpdateView.template_name"><code class="docutils literal notranslate"><span class="pre">ChildUpdateView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildUpdateView.success_url"><code class="docutils literal notranslate"><span class="pre">ChildUpdateView.success_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildUpdateView.get_object"><code class="docutils literal notranslate"><span class="pre">ChildUpdateView.get_object()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#families.views.ChildDeleteView"><code class="docutils literal notranslate"><span class="pre">ChildDeleteView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildDeleteView.model"><code class="docutils literal notranslate"><span class="pre">ChildDeleteView.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildDeleteView.template_name"><code class="docutils literal notranslate"><span class="pre">ChildDeleteView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildDeleteView.success_url"><code class="docutils literal notranslate"><span class="pre">ChildDeleteView.success_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.views.ChildDeleteView.get_object"><code class="docutils literal notranslate"><span class="pre">ChildDeleteView.get_object()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#families.forms.ChildForm"><code class="docutils literal notranslate"><span class="pre">ChildForm</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#families.forms.ChildForm.Meta"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#families.forms.ChildForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#families.forms.ChildForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#families.forms.ChildForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#families.forms.ChildForm.Meta.widgets"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">ChildForm.Meta.widgets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#families.forms.ChildForm.base_fields"><code class="docutils literal notranslate"><span class="pre">ChildForm.base_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.forms.ChildForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">ChildForm.declared_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#families.forms.ChildForm.media"><code class="docutils literal notranslate"><span class="pre">ChildForm.media</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#families.urls.urlpatterns"><code class="docutils literal notranslate"><span class="pre">urlpatterns</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../documents/index.html">Documents Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Families Application</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/families/index.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-families.models">
+<span id="families-application"></span><h1>Families Application<a class="headerlink" href="#module-families.models" title="Lien vers cette rubrique"></a></h1>
+<p>Database models for the families application.</p>
+<p>This module defines the Child model, which represents
+a child belonging to a parent user.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="families.models.Child">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">families.models.</span></span><span class="sig-name descname"><span class="pre">Child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/models.html#Child"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.models.Child" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Model representing a child in a family.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#families.models.Child.parent" title="Lien vers cette définition"></a></dt>
+<dd><p>The user (parent) associated with this child.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ForeignKey</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.first_name">
+<span class="sig-name descname"><span class="pre">first_name</span></span><a class="headerlink" href="#families.models.Child.first_name" title="Lien vers cette définition"></a></dt>
+<dd><p>The child’s first name (verbose name: “Prénom”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.last_name">
+<span class="sig-name descname"><span class="pre">last_name</span></span><a class="headerlink" href="#families.models.Child.last_name" title="Lien vers cette définition"></a></dt>
+<dd><p>The child’s last name (verbose name: “Nom”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.birth_date">
+<span class="sig-name descname"><span class="pre">birth_date</span></span><a class="headerlink" href="#families.models.Child.birth_date" title="Lien vers cette définition"></a></dt>
+<dd><p>The child’s date of birth (verbose name: “Date de naissance”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#id0" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">first_name</span></span><a class="headerlink" href="#id1" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">last_name</span></span><a class="headerlink" href="#id2" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">birth_date</span></span><a class="headerlink" href="#id3" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="families.models.Child.create">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/models.html#Child.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.models.Child.create" title="Lien vers cette définition"></a></dt>
+<dd><p>Proxy method to create a Child instance.</p>
+<p>This method exists primarily for use in tests, to allow
+<code class="docutils literal notranslate"><span class="pre">Child.create(...)</span></code> calls as a shorthand for
+<code class="docutils literal notranslate"><span class="pre">Child.objects.create(...)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<em>dict</em>) – Keyword arguments passed to the model manager.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created Child instance.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#families.models.Child" title="families.models.Child">Child</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="families.models.Child.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#families.models.Child.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="families.models.Child.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#families.models.Child.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.enrollments">
+<span class="sig-name descname"><span class="pre">enrollments</span></span><a class="headerlink" href="#families.models.Child.enrollments" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="families.models.Child.get_next_by_birth_date">
+<span class="sig-name descname"><span class="pre">get_next_by_birth_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">birth_date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#families.models.Child.get_next_by_birth_date" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="families.models.Child.get_previous_by_birth_date">
+<span class="sig-name descname"><span class="pre">get_previous_by_birth_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">birth_date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#families.models.Child.get_previous_by_birth_date" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#families.models.Child.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#families.models.Child.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.models.Child.parent_id">
+<span class="sig-name descname"><span class="pre">parent_id</span></span><a class="headerlink" href="#families.models.Child.parent_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-families.views">Views for the families application.</p>
+<p>This module defines class-based views for managing children,
+including listing, creating, updating, and deleting.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="families.views.ChildListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">families.views.</span></span><span class="sig-name descname"><span class="pre">ChildListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildListView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ListView</span></code></p>
+<p>View for listing children of the authenticated parent.</p>
+<p>Requires login and restricts the queryset to children
+belonging to the current user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildListView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'families/child_list.html'</span></em><a class="headerlink" href="#families.views.ChildListView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildListView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'children'</span></em><a class="headerlink" href="#families.views.ChildListView.context_object_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="families.views.ChildListView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildListView.get_queryset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildListView.get_queryset" title="Lien vers cette définition"></a></dt>
+<dd><p>Return the queryset of children for the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>All Child instances related to the authenticated parent.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="families.views.ChildCreateView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">families.views.</span></span><span class="sig-name descname"><span class="pre">ChildCreateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildCreateView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildCreateView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CreateView</span></code></p>
+<p>View for creating a new child record.</p>
+<p>Requires login and automatically sets the parent field
+to the authenticated user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildCreateView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#families.views.ChildCreateView.model" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#families.models.Child" title="families.models.Child"><code class="xref py py-class docutils literal notranslate"><span class="pre">Child</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildCreateView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#families.views.ChildCreateView.form_class" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#families.forms.ChildForm" title="families.forms.ChildForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildForm</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildCreateView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'families/child_form.html'</span></em><a class="headerlink" href="#families.views.ChildCreateView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildCreateView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/families/'</span></em><a class="headerlink" href="#families.views.ChildCreateView.success_url" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="families.views.ChildCreateView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildCreateView.form_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildCreateView.form_valid" title="Lien vers cette définition"></a></dt>
+<dd><p>Set the parent to the authenticated user before saving.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>form</strong> (<a class="reference internal" href="#families.forms.ChildForm" title="families.forms.ChildForm"><em>ChildForm</em></a>) – The validated form instance.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Redirect to the success URL if valid.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="families.views.ChildUpdateView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">families.views.</span></span><span class="sig-name descname"><span class="pre">ChildUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildUpdateView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildUpdateView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">UpdateView</span></code></p>
+<p>View for updating an existing child record.</p>
+<p>Requires login and restricts updates to children owned
+by the authenticated user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildUpdateView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#families.views.ChildUpdateView.model" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#families.models.Child" title="families.models.Child"><code class="xref py py-class docutils literal notranslate"><span class="pre">Child</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildUpdateView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#families.views.ChildUpdateView.form_class" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#families.forms.ChildForm" title="families.forms.ChildForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildForm</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildUpdateView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'families/child_form.html'</span></em><a class="headerlink" href="#families.views.ChildUpdateView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildUpdateView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/families/'</span></em><a class="headerlink" href="#families.views.ChildUpdateView.success_url" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="families.views.ChildUpdateView.get_object">
+<span class="sig-name descname"><span class="pre">get_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildUpdateView.get_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildUpdateView.get_object" title="Lien vers cette définition"></a></dt>
+<dd><p>Retrieve the child instance ensuring ownership by the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>queryset</strong> (<em>QuerySet</em><em>, </em><em>optional</em>) – An optional queryset to filter results.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The child instance belonging to the authenticated user.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#families.models.Child" title="families.models.Child">Child</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="families.views.ChildDeleteView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">families.views.</span></span><span class="sig-name descname"><span class="pre">ChildDeleteView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildDeleteView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildDeleteView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DeleteView</span></code></p>
+<p>View for deleting an existing child record.</p>
+<p>Requires login and restricts deletion to children owned
+by the authenticated user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildDeleteView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#families.views.ChildDeleteView.model" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#families.models.Child" title="families.models.Child"><code class="xref py py-class docutils literal notranslate"><span class="pre">Child</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildDeleteView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'families/child_confirm_delete.html'</span></em><a class="headerlink" href="#families.views.ChildDeleteView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.views.ChildDeleteView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/families/'</span></em><a class="headerlink" href="#families.views.ChildDeleteView.success_url" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="families.views.ChildDeleteView.get_object">
+<span class="sig-name descname"><span class="pre">get_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/views.html#ChildDeleteView.get_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.views.ChildDeleteView.get_object" title="Lien vers cette définition"></a></dt>
+<dd><p>Retrieve the child instance ensuring ownership by the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>queryset</strong> (<em>QuerySet</em><em>, </em><em>optional</em>) – An optional queryset to filter results.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The child instance belonging to the authenticated user.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#families.models.Child" title="families.models.Child">Child</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-families.forms">Forms for the families application.</p>
+<p>This module defines form classes for managing children
+within the families app.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="families.forms.ChildForm">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">families.forms.</span></span><span class="sig-name descname"><span class="pre">ChildForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/families/forms.html#ChildForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.forms.ChildForm" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
+<p>Form for creating or updating a Child instance.</p>
+<p>Provides form fields for first name, last name,
+and birth date, with labels and widgets adapted
+for user-friendly rendering.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="families.forms.ChildForm.Meta">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="../_modules/families/forms.html#ChildForm.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#families.forms.ChildForm.Meta" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta configuration for ChildForm.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.forms.ChildForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#families.forms.ChildForm.Meta.model" title="Lien vers cette définition"></a></dt>
+<dd><p>The model associated with this form (Child).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.forms.ChildForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><a class="headerlink" href="#families.forms.ChildForm.Meta.fields" title="Lien vers cette définition"></a></dt>
+<dd><p>The list of model fields included in the form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.forms.ChildForm.Meta.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#families.forms.ChildForm.Meta.labels" title="Lien vers cette définition"></a></dt>
+<dd><p>Custom labels for form fields, translated for UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.forms.ChildForm.Meta.widgets">
+<span class="sig-name descname"><span class="pre">widgets</span></span><a class="headerlink" href="#families.forms.ChildForm.Meta.widgets" title="Lien vers cette définition"></a></dt>
+<dd><p>Widget configurations for customizing field rendering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#id4" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#families.models.Child" title="families.models.Child"><code class="xref py py-class docutils literal notranslate"><span class="pre">Child</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['first_name',</span> <span class="pre">'last_name',</span> <span class="pre">'birth_date']</span></em><a class="headerlink" href="#id5" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'birth_date':</span> <span class="pre">'Date</span> <span class="pre">de</span> <span class="pre">naissance',</span> <span class="pre">'first_name':</span> <span class="pre">'Prénom',</span> <span class="pre">'last_name':</span> <span class="pre">'Nom'}</span></em><a class="headerlink" href="#id6" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">widgets</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'birth_date':</span> <span class="pre">&lt;django.forms.widgets.DateInput</span> <span class="pre">object&gt;,</span> <span class="pre">'first_name':</span> <span class="pre">&lt;django.forms.widgets.TextInput</span> <span class="pre">object&gt;,</span> <span class="pre">'last_name':</span> <span class="pre">&lt;django.forms.widgets.TextInput</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#id7" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.forms.ChildForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'birth_date':</span> <span class="pre">&lt;django.forms.fields.DateField</span> <span class="pre">object&gt;,</span> <span class="pre">'first_name':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'last_name':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#families.forms.ChildForm.base_fields" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="families.forms.ChildForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#families.forms.ChildForm.declared_fields" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="families.forms.ChildForm.media">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#families.forms.ChildForm.media" title="Lien vers cette définition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-families.urls">URL configuration for the families application.</p>
+<p>This module defines routes for managing children,
+including listing, creating, updating, and deleting.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="families.urls.urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">families.urls.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">''</span> <span class="pre">[name='child_list']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'ajouter/'</span> <span class="pre">[name='child_add']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'&lt;int:pk&gt;/editer/'</span> <span class="pre">[name='child_edit']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'&lt;int:pk&gt;/supprimer/'</span> <span class="pre">[name='child_delete']&gt;]</span></em><a class="headerlink" href="#families.urls.urlpatterns" title="Lien vers cette définition"></a></dt>
+<dd><p>URL patterns for the families application</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="../billing/index.html" class="btn btn-neutral float-left" title="Billing Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="../documents/index.html" class="btn btn-neutral float-right" title="Documents Application" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

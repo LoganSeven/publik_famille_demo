@@ -1,0 +1,710 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billing Application &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Families Application" href="../families/index.html" />
+    <link rel="prev" title="Activities Application" href="../activities/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../accounts/index.html">Accounts Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../activities/index.html">Activities Application</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Billing Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#billing.models.Invoice"><code class="docutils literal notranslate"><span class="pre">Invoice</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.enrollment"><code class="docutils literal notranslate"><span class="pre">Invoice.enrollment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.amount"><code class="docutils literal notranslate"><span class="pre">Invoice.amount</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.status"><code class="docutils literal notranslate"><span class="pre">Invoice.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.issued_on"><code class="docutils literal notranslate"><span class="pre">Invoice.issued_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.paid_on"><code class="docutils literal notranslate"><span class="pre">Invoice.paid_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.lingo_id"><code class="docutils literal notranslate"><span class="pre">Invoice.lingo_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.Status"><code class="docutils literal notranslate"><span class="pre">Invoice.Status</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#billing.models.Invoice.Status.UNPAID"><code class="docutils literal notranslate"><span class="pre">Invoice.Status.UNPAID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#billing.models.Invoice.Status.PAID"><code class="docutils literal notranslate"><span class="pre">Invoice.Status.PAID</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Invoice.enrollment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Invoice.amount</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">Invoice.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Invoice.issued_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">Invoice.paid_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">Invoice.lingo_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Invoice.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Invoice.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.document"><code class="docutils literal notranslate"><span class="pre">Invoice.document</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.enrollment_id"><code class="docutils literal notranslate"><span class="pre">Invoice.enrollment_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.get_next_by_issued_on"><code class="docutils literal notranslate"><span class="pre">Invoice.get_next_by_issued_on()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.get_previous_by_issued_on"><code class="docutils literal notranslate"><span class="pre">Invoice.get_previous_by_issued_on()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.get_status_display"><code class="docutils literal notranslate"><span class="pre">Invoice.get_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.id"><code class="docutils literal notranslate"><span class="pre">Invoice.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.models.Invoice.objects"><code class="docutils literal notranslate"><span class="pre">Invoice.objects</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.views.pay_invoice"><code class="docutils literal notranslate"><span class="pre">pay_invoice()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.gateways.BillingGateway"><code class="docutils literal notranslate"><span class="pre">BillingGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#billing.gateways.BillingGateway.create_invoice"><code class="docutils literal notranslate"><span class="pre">BillingGateway.create_invoice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.gateways.BillingGateway.mark_paid"><code class="docutils literal notranslate"><span class="pre">BillingGateway.mark_paid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.gateways.LocalBillingGateway"><code class="docutils literal notranslate"><span class="pre">LocalBillingGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#billing.gateways.LocalBillingGateway.create_invoice"><code class="docutils literal notranslate"><span class="pre">LocalBillingGateway.create_invoice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.gateways.LocalBillingGateway.mark_paid"><code class="docutils literal notranslate"><span class="pre">LocalBillingGateway.mark_paid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.gateways.LingoGateway"><code class="docutils literal notranslate"><span class="pre">LingoGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#billing.gateways.LingoGateway.base_url"><code class="docutils literal notranslate"><span class="pre">LingoGateway.base_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">LingoGateway.base_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.gateways.LingoGateway.create_invoice"><code class="docutils literal notranslate"><span class="pre">LingoGateway.create_invoice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#billing.gateways.LingoGateway.mark_paid"><code class="docutils literal notranslate"><span class="pre">LingoGateway.mark_paid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.gateways.get_billing_gateway"><code class="docutils literal notranslate"><span class="pre">get_billing_gateway()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.exceptions.BillingError"><code class="docutils literal notranslate"><span class="pre">BillingError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.exceptions.PaymentError"><code class="docutils literal notranslate"><span class="pre">PaymentError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.exceptions.PDFGenerationError"><code class="docutils literal notranslate"><span class="pre">PDFGenerationError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.exceptions.DocumentStorageError"><code class="docutils literal notranslate"><span class="pre">DocumentStorageError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.signals.mark_enrollment_confirmed_on_paid"><code class="docutils literal notranslate"><span class="pre">mark_enrollment_confirmed_on_paid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.pdf.generate_invoice_pdf"><code class="docutils literal notranslate"><span class="pre">generate_invoice_pdf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#billing.urls.urlpatterns"><code class="docutils literal notranslate"><span class="pre">urlpatterns</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../families/index.html">Families Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents/index.html">Documents Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Billing Application</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/billing/index.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-billing.models">
+<span id="billing-application"></span><h1>Billing Application<a class="headerlink" href="#module-billing.models" title="Lien vers cette rubrique"></a></h1>
+<p>Database models for the billing application.</p>
+<p>This module defines the Invoice model, which is bound 1:1
+to an Enrollment, and provides a lazy accessor to ensure
+safe invoice retrieval or creation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="billing.models.Invoice">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.models.</span></span><span class="sig-name descname"><span class="pre">Invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/models.html#Invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.models.Invoice" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Invoice bound one-to-one with an Enrollment.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.enrollment">
+<span class="sig-name descname"><span class="pre">enrollment</span></span><a class="headerlink" href="#billing.models.Invoice.enrollment" title="Lien vers cette définition"></a></dt>
+<dd><p>The enrollment linked to this invoice. Cascade delete
+ensures invoices are removed when enrollments are deleted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OneToOneField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.amount">
+<span class="sig-name descname"><span class="pre">amount</span></span><a class="headerlink" href="#billing.models.Invoice.amount" title="Lien vers cette définition"></a></dt>
+<dd><p>The billed amount in euros. Defaults to zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DecimalField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#billing.models.Invoice.status" title="Lien vers cette définition"></a></dt>
+<dd><p>Current status of the invoice. Either UNPAID or PAID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.issued_on">
+<span class="sig-name descname"><span class="pre">issued_on</span></span><a class="headerlink" href="#billing.models.Invoice.issued_on" title="Lien vers cette définition"></a></dt>
+<dd><p>Date and time when the invoice was issued. Defaults to now.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateTimeField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.paid_on">
+<span class="sig-name descname"><span class="pre">paid_on</span></span><a class="headerlink" href="#billing.models.Invoice.paid_on" title="Lien vers cette définition"></a></dt>
+<dd><p>Date and time when the invoice was paid. Optional.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateTimeField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.lingo_id">
+<span class="sig-name descname"><span class="pre">lingo_id</span></span><a class="headerlink" href="#billing.models.Invoice.lingo_id" title="Lien vers cette définition"></a></dt>
+<dd><p>Identifier from the remote Lingo backend if applicable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="billing.models.Invoice.Status">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/models.html#Invoice.Status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.models.Invoice.Status" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">TextChoices</span></code></p>
+<p>Enumeration of invoice statuses.</p>
+<dl class="simple">
+<dt>UNPAID</dt><dd><p>Invoice has been issued but not yet paid.</p>
+</dd>
+<dt>PAID</dt><dd><p>Invoice has been paid.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.Status.UNPAID">
+<span class="sig-name descname"><span class="pre">UNPAID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNPAID'</span></em><a class="headerlink" href="#billing.models.Invoice.Status.UNPAID" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.Status.PAID">
+<span class="sig-name descname"><span class="pre">PAID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PAID'</span></em><a class="headerlink" href="#billing.models.Invoice.Status.PAID" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">enrollment</span></span><a class="headerlink" href="#id0" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">amount</span></span><a class="headerlink" href="#id1" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#id2" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">issued_on</span></span><a class="headerlink" href="#id3" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">paid_on</span></span><a class="headerlink" href="#id4" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">lingo_id</span></span><a class="headerlink" href="#id5" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="billing.models.Invoice.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#billing.models.Invoice.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="billing.models.Invoice.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#billing.models.Invoice.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.document">
+<span class="sig-name descname"><span class="pre">document</span></span><a class="headerlink" href="#billing.models.Invoice.document" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.enrollment_id">
+<span class="sig-name descname"><span class="pre">enrollment_id</span></span><a class="headerlink" href="#billing.models.Invoice.enrollment_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.models.Invoice.get_next_by_issued_on">
+<span class="sig-name descname"><span class="pre">get_next_by_issued_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">issued_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#billing.models.Invoice.get_next_by_issued_on" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.models.Invoice.get_previous_by_issued_on">
+<span class="sig-name descname"><span class="pre">get_previous_by_issued_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">issued_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#billing.models.Invoice.get_previous_by_issued_on" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.models.Invoice.get_status_display">
+<span class="sig-name descname"><span class="pre">get_status_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">status&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#billing.models.Invoice.get_status_display" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#billing.models.Invoice.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.models.Invoice.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#billing.models.Invoice.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-billing.views">Views for the billing application.</p>
+<p>This module defines the payment flow for invoices, including
+access control, payment processing through gateways, PDF
+generation, and document storage.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="billing.views.pay_invoice">
+<span class="sig-prename descclassname"><span class="pre">billing.views.</span></span><span class="sig-name descname"><span class="pre">pay_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/views.html#pay_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.views.pay_invoice" title="Lien vers cette définition"></a></dt>
+<dd><p>Handle invoice payment.</p>
+<p>Verifies user access, processes payment via the billing
+gateway, generates a PDF copy of the invoice, and stores
+it as a Document. Returns appropriate messages for the user
+in case of success, duplicate payment, or failure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current HTTP request.</p></li>
+<li><p><strong>pk</strong> (<em>int</em>) – Primary key of the invoice to be paid.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the enrollments list page, with messages
+describing the result of the operation.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-billing.gateways">Billing gateways for invoice management.</p>
+<p>This module defines abstractions and implementations for
+billing backends. Two gateways are provided:</p>
+<ul class="simple">
+<li><p>LocalBillingGateway: pure Django, local-only.</p></li>
+<li><p>LingoGateway: remote backend using HTTP calls to Lingo.</p></li>
+</ul>
+<p>A factory function <cite>get_billing_gateway</cite> selects the gateway
+based on Django settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="billing.gateways.BillingGateway">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.gateways.</span></span><span class="sig-name descname"><span class="pre">BillingGateway</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#BillingGateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.BillingGateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>Protocol for billing gateways.</p>
+<p>Any billing gateway must implement methods to create
+invoices and mark them as paid.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.gateways.BillingGateway.create_invoice">
+<span class="sig-name descname"><span class="pre">create_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enrollment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#BillingGateway.create_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.BillingGateway.create_invoice" title="Lien vers cette définition"></a></dt>
+<dd><p>Create or fetch an invoice for the given enrollment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enrollment</strong> (<a class="reference internal" href="../activities/index.html#activities.models.Enrollment" title="activities.models.Enrollment"><em>Enrollment</em></a>) – The enrollment associated with the invoice.</p></li>
+<li><p><strong>amount</strong> (<em>Decimal</em><em> or </em><em>float</em>) – The amount to bill.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created or retrieved invoice.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice">Invoice</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.gateways.BillingGateway.mark_paid">
+<span class="sig-name descname"><span class="pre">mark_paid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invoice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#BillingGateway.mark_paid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.BillingGateway.mark_paid" title="Lien vers cette définition"></a></dt>
+<dd><p>Mark an invoice as paid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>invoice</strong> (<a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice"><em>Invoice</em></a>) – The invoice to mark as paid.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated invoice instance.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice">Invoice</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="billing.gateways.LocalBillingGateway">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.gateways.</span></span><span class="sig-name descname"><span class="pre">LocalBillingGateway</span></span><a class="reference internal" href="../_modules/billing/gateways.html#LocalBillingGateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.LocalBillingGateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Local billing gateway implementation.</p>
+<p>Provides invoice management without external services.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.gateways.LocalBillingGateway.create_invoice">
+<span class="sig-name descname"><span class="pre">create_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enrollment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#LocalBillingGateway.create_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.LocalBillingGateway.create_invoice" title="Lien vers cette définition"></a></dt>
+<dd><p>Create or retrieve an invoice for the given enrollment.</p>
+<p>Ensures idempotency by returning the existing invoice if present.
+Updates the amount if it has changed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enrollment</strong> (<a class="reference internal" href="../activities/index.html#activities.models.Enrollment" title="activities.models.Enrollment"><em>Enrollment</em></a>) – The enrollment associated with the invoice.</p></li>
+<li><p><strong>amount</strong> (<em>Decimal</em><em> or </em><em>float</em>) – The amount to bill.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created or updated invoice.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice">Invoice</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.gateways.LocalBillingGateway.mark_paid">
+<span class="sig-name descname"><span class="pre">mark_paid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invoice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#LocalBillingGateway.mark_paid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.LocalBillingGateway.mark_paid" title="Lien vers cette définition"></a></dt>
+<dd><p>Mark an invoice as paid locally and confirm the enrollment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>invoice</strong> (<a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice"><em>Invoice</em></a>) – The invoice to update.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated invoice with status and payment date set.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice">Invoice</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="billing.gateways.LingoGateway">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.gateways.</span></span><span class="sig-name descname"><span class="pre">LingoGateway</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#LingoGateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.LingoGateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Lingo billing gateway implementation.</p>
+<p>Integrates with a remote Lingo backend via HTTP to
+create invoices and mark them as paid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>base_url</strong> (<em>str</em><em> | </em><em>None</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="billing.gateways.LingoGateway.base_url">
+<span class="sig-name descname"><span class="pre">base_url</span></span><a class="headerlink" href="#billing.gateways.LingoGateway.base_url" title="Lien vers cette définition"></a></dt>
+<dd><p>Base URL of the Lingo service, e.g., <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">base_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id6" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.gateways.LingoGateway.create_invoice">
+<span class="sig-name descname"><span class="pre">create_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enrollment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#LingoGateway.create_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.LingoGateway.create_invoice" title="Lien vers cette définition"></a></dt>
+<dd><p>Create or fetch an invoice while mirroring creation to Lingo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enrollment</strong> (<a class="reference internal" href="../activities/index.html#activities.models.Enrollment" title="activities.models.Enrollment"><em>Enrollment</em></a>) – The enrollment associated with the invoice.</p></li>
+<li><p><strong>amount</strong> (<em>Decimal</em><em> or </em><em>float</em>) – The amount to bill.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created or updated invoice.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice">Invoice</a></p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#billing.exceptions.BillingError" title="billing.exceptions.BillingError"><strong>BillingError</strong></a> – If the remote creation at Lingo fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="billing.gateways.LingoGateway.mark_paid">
+<span class="sig-name descname"><span class="pre">mark_paid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invoice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#LingoGateway.mark_paid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.LingoGateway.mark_paid" title="Lien vers cette définition"></a></dt>
+<dd><p>Mark an invoice as paid at Lingo and confirm locally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>invoice</strong> (<a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice"><em>Invoice</em></a>) – The invoice to update.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated invoice with status and paid date set.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice">Invoice</a></p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#billing.exceptions.PaymentError" title="billing.exceptions.PaymentError"><strong>PaymentError</strong></a> – If marking the invoice as paid fails remotely.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="billing.gateways.get_billing_gateway">
+<span class="sig-prename descclassname"><span class="pre">billing.gateways.</span></span><span class="sig-name descname"><span class="pre">get_billing_gateway</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/gateways.html#get_billing_gateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.gateways.get_billing_gateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Factory to return the configured billing gateway.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Either a LingoGateway or a LocalBillingGateway instance
+depending on the BILLING_BACKEND setting.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#billing.gateways.BillingGateway" title="billing.gateways.BillingGateway">BillingGateway</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-billing.exceptions">Custom exceptions for the billing application.</p>
+<p>This module defines domain-specific exceptions used for
+error handling in billing, payment, PDF generation, and
+document storage.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="billing.exceptions.BillingError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.exceptions.</span></span><span class="sig-name descname"><span class="pre">BillingError</span></span><a class="reference internal" href="../_modules/billing/exceptions.html#BillingError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.exceptions.BillingError" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Base class for billing-related errors.</p>
+<p>All billing exceptions should inherit from this class
+to allow grouped exception handling.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="billing.exceptions.PaymentError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.exceptions.</span></span><span class="sig-name descname"><span class="pre">PaymentError</span></span><a class="reference internal" href="../_modules/billing/exceptions.html#PaymentError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.exceptions.PaymentError" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference internal" href="#billing.exceptions.BillingError" title="billing.exceptions.BillingError"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillingError</span></code></a></p>
+<p>Raised when a payment operation fails.</p>
+<p>Typically indicates issues such as gateway errors
+or rejected transactions.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="billing.exceptions.PDFGenerationError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.exceptions.</span></span><span class="sig-name descname"><span class="pre">PDFGenerationError</span></span><a class="reference internal" href="../_modules/billing/exceptions.html#PDFGenerationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.exceptions.PDFGenerationError" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference internal" href="#billing.exceptions.BillingError" title="billing.exceptions.BillingError"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillingError</span></code></a></p>
+<p>Raised when invoice PDF generation fails.</p>
+<p>Used when ReportLab or file I/O errors prevent
+successful PDF creation.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="billing.exceptions.DocumentStorageError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">billing.exceptions.</span></span><span class="sig-name descname"><span class="pre">DocumentStorageError</span></span><a class="reference internal" href="../_modules/billing/exceptions.html#DocumentStorageError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.exceptions.DocumentStorageError" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference internal" href="#billing.exceptions.BillingError" title="billing.exceptions.BillingError"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillingError</span></code></a></p>
+<p>Raised when storing an invoice document fails.</p>
+<p>Typically occurs when saving the generated PDF
+into the Document model or file system.</p>
+</dd></dl>
+
+<p id="module-billing.signals">Signals for the billing application.</p>
+<p>This module defines signal handlers for keeping billing
+and enrollment states synchronized. In particular, it
+updates the enrollment status when an invoice is paid.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="billing.signals.mark_enrollment_confirmed_on_paid">
+<span class="sig-prename descclassname"><span class="pre">billing.signals.</span></span><span class="sig-name descname"><span class="pre">mark_enrollment_confirmed_on_paid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/signals.html#mark_enrollment_confirmed_on_paid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.signals.mark_enrollment_confirmed_on_paid" title="Lien vers cette définition"></a></dt>
+<dd><p>Update enrollment status when an invoice is marked as paid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<em>Model</em>) – The model class sending the signal (Invoice).</p></li>
+<li><p><strong>instance</strong> (<a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice"><em>Invoice</em></a>) – The invoice instance that was saved.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional arguments provided by the signal.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Triggered whenever an Invoice is saved.</p></li>
+<li><p>If the invoice status is <code class="docutils literal notranslate"><span class="pre">PAID</span></code>, the related enrollment
+is set to <code class="docutils literal notranslate"><span class="pre">CONFIRMED</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">approved_on</span></code> field is reset to <code class="docutils literal notranslate"><span class="pre">None</span></code> when the
+status is updated.</p></li>
+</ul>
+</dd></dl>
+
+<p id="module-billing.pdf">PDF generation utilities for the billing application.</p>
+<p>This module provides functionality to generate PDF invoices
+using ReportLab. The generated document includes basic
+information such as invoice ID, date, payer details,
+activity, and amount.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="billing.pdf.generate_invoice_pdf">
+<span class="sig-prename descclassname"><span class="pre">billing.pdf.</span></span><span class="sig-name descname"><span class="pre">generate_invoice_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invoice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/billing/pdf.html#generate_invoice_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#billing.pdf.generate_invoice_pdf" title="Lien vers cette définition"></a></dt>
+<dd><p>Generate a simple invoice PDF in euros.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>invoice</strong> (<a class="reference internal" href="#billing.models.Invoice" title="billing.models.Invoice"><em>Invoice</em></a>) – The invoice instance for which the PDF is generated.</p></li>
+<li><p><strong>file_path</strong> (<em>str</em>) – The full file system path where the PDF will be saved.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Uses ReportLab for PDF generation.</p></li>
+<li><p>Layout includes header, recipient details, activity,
+amount, and a footer.</p></li>
+<li><p>The invoice file is saved to the specified location.</p></li>
+</ul>
+</dd></dl>
+
+<p id="module-billing.urls">URL configuration for the billing application.</p>
+<p>This module defines routes for invoice-related actions,
+such as paying an invoice.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="billing.urls.urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">billing.urls.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">'payer/&lt;int:pk&gt;/'</span> <span class="pre">[name='pay_invoice']&gt;]</span></em><a class="headerlink" href="#billing.urls.urlpatterns" title="Lien vers cette définition"></a></dt>
+<dd><p>URL patterns for the billing application</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="../activities/index.html" class="btn btn-neutral float-left" title="Activities Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="../families/index.html" class="btn btn-neutral float-right" title="Families Application" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

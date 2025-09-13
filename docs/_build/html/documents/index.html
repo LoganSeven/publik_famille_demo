@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documents Application &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Monitoring Application" href="../monitoring/index.html" />
+    <link rel="prev" title="Families Application" href="../families/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../accounts/index.html">Accounts Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../activities/index.html">Activities Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../billing/index.html">Billing Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../families/index.html">Families Application</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documents Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#documents.models.DocumentKind"><code class="docutils literal notranslate"><span class="pre">DocumentKind</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.DocumentKind.FACTURE"><code class="docutils literal notranslate"><span class="pre">DocumentKind.FACTURE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">DocumentKind.FACTURE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documents.models.Document"><code class="docutils literal notranslate"><span class="pre">Document</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.user"><code class="docutils literal notranslate"><span class="pre">Document.user</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.kind"><code class="docutils literal notranslate"><span class="pre">Document.kind</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.title"><code class="docutils literal notranslate"><span class="pre">Document.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.file"><code class="docutils literal notranslate"><span class="pre">Document.file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.created_at"><code class="docutils literal notranslate"><span class="pre">Document.created_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.invoice"><code class="docutils literal notranslate"><span class="pre">Document.invoice</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Document.user</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">Document.kind</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Document.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">Document.file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">Document.created_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">Document.invoice</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Document.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Document.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.get_kind_display"><code class="docutils literal notranslate"><span class="pre">Document.get_kind_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.get_next_by_created_at"><code class="docutils literal notranslate"><span class="pre">Document.get_next_by_created_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.get_previous_by_created_at"><code class="docutils literal notranslate"><span class="pre">Document.get_previous_by_created_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.id"><code class="docutils literal notranslate"><span class="pre">Document.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.invoice_id"><code class="docutils literal notranslate"><span class="pre">Document.invoice_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.objects"><code class="docutils literal notranslate"><span class="pre">Document.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.models.Document.user_id"><code class="docutils literal notranslate"><span class="pre">Document.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documents.views.DocumentListView"><code class="docutils literal notranslate"><span class="pre">DocumentListView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documents.views.DocumentListView.template_name"><code class="docutils literal notranslate"><span class="pre">DocumentListView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.views.DocumentListView.context_object_name"><code class="docutils literal notranslate"><span class="pre">DocumentListView.context_object_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.views.DocumentListView.get_queryset"><code class="docutils literal notranslate"><span class="pre">DocumentListView.get_queryset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documents.views.InvoiceListView"><code class="docutils literal notranslate"><span class="pre">InvoiceListView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documents.views.InvoiceListView.template_name"><code class="docutils literal notranslate"><span class="pre">InvoiceListView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.views.InvoiceListView.context_object_name"><code class="docutils literal notranslate"><span class="pre">InvoiceListView.context_object_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.views.InvoiceListView.get_queryset"><code class="docutils literal notranslate"><span class="pre">InvoiceListView.get_queryset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documents.urls.urlpatterns"><code class="docutils literal notranslate"><span class="pre">urlpatterns</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documents.tests.DocumentsAccessTest"><code class="docutils literal notranslate"><span class="pre">DocumentsAccessTest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documents.tests.DocumentsAccessTest.setUp"><code class="docutils literal notranslate"><span class="pre">DocumentsAccessTest.setUp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documents.tests.DocumentsAccessTest.test_user_sees_only_own_documents"><code class="docutils literal notranslate"><span class="pre">DocumentsAccessTest.test_user_sees_only_own_documents()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documents Application</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/documents/index.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-documents.models">
+<span id="documents-application"></span><h1>Documents Application<a class="headerlink" href="#module-documents.models" title="Lien vers cette rubrique"></a></h1>
+<p>Database models for the documents application.</p>
+<p>This module defines models for handling user documents,
+including invoices stored as PDF files.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="documents.models.DocumentKind">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">documents.models.</span></span><span class="sig-name descname"><span class="pre">DocumentKind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/models.html#DocumentKind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.models.DocumentKind" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">TextChoices</span></code></p>
+<p>Enumeration of document types.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.DocumentKind.FACTURE">
+<span class="sig-name descname"><span class="pre">FACTURE</span></span><a class="headerlink" href="#documents.models.DocumentKind.FACTURE" title="Lien vers cette définition"></a></dt>
+<dd><p>Represents an invoice document (verbose name: « Facture »).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">FACTURE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FACTURE'</span></em><a class="headerlink" href="#id0" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="documents.models.Document">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">documents.models.</span></span><span class="sig-name descname"><span class="pre">Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/models.html#Document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.models.Document" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Model representing a stored document.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#documents.models.Document.user" title="Lien vers cette définition"></a></dt>
+<dd><p>The user who owns the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ForeignKey</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.kind">
+<span class="sig-name descname"><span class="pre">kind</span></span><a class="headerlink" href="#documents.models.Document.kind" title="Lien vers cette définition"></a></dt>
+<dd><p>The type of document (e.g., FACTURE).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#documents.models.Document.title" title="Lien vers cette définition"></a></dt>
+<dd><p>The human-readable title of the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.file">
+<span class="sig-name descname"><span class="pre">file</span></span><a class="headerlink" href="#documents.models.Document.file" title="Lien vers cette définition"></a></dt>
+<dd><p>The uploaded file path for the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FileField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#documents.models.Document.created_at" title="Lien vers cette définition"></a></dt>
+<dd><p>Timestamp when the document was created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateTimeField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.invoice">
+<span class="sig-name descname"><span class="pre">invoice</span></span><a class="headerlink" href="#documents.models.Document.invoice" title="Lien vers cette définition"></a></dt>
+<dd><p>Optional link to an Invoice when the document
+represents a billing invoice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OneToOneField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#id1" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">kind</span></span><a class="headerlink" href="#id2" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#id3" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">file</span></span><a class="headerlink" href="#id4" title="Lien vers cette définition"></a></dt>
+<dd><p>The descriptor for the file attribute on the model instance. Return a
+FieldFile when accessed so you can write code like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">myapp.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">size</span>
+</pre></div>
+</div>
+<p>Assign a file object on assignment so you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/path/to/hello.world&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">instance</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#id5" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">invoice</span></span><a class="headerlink" href="#id6" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="documents.models.Document.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#documents.models.Document.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="documents.models.Document.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#documents.models.Document.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="documents.models.Document.get_kind_display">
+<span class="sig-name descname"><span class="pre">get_kind_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">kind&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#documents.models.Document.get_kind_display" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="documents.models.Document.get_next_by_created_at">
+<span class="sig-name descname"><span class="pre">get_next_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#documents.models.Document.get_next_by_created_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="documents.models.Document.get_previous_by_created_at">
+<span class="sig-name descname"><span class="pre">get_previous_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#documents.models.Document.get_previous_by_created_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#documents.models.Document.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.invoice_id">
+<span class="sig-name descname"><span class="pre">invoice_id</span></span><a class="headerlink" href="#documents.models.Document.invoice_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#documents.models.Document.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.models.Document.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#documents.models.Document.user_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-documents.views">Views for the documents application.</p>
+<p>This module defines class-based views for listing documents,
+including all documents of a user and invoices specifically.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="documents.views.DocumentListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">documents.views.</span></span><span class="sig-name descname"><span class="pre">DocumentListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/views.html#DocumentListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.views.DocumentListView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ListView</span></code></p>
+<p>View for listing all documents of the authenticated user.</p>
+<p>Requires login and restricts results to the current user’s documents.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.views.DocumentListView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'documents/document_list.html'</span></em><a class="headerlink" href="#documents.views.DocumentListView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.views.DocumentListView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'documents'</span></em><a class="headerlink" href="#documents.views.DocumentListView.context_object_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="documents.views.DocumentListView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/views.html#DocumentListView.get_queryset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.views.DocumentListView.get_queryset" title="Lien vers cette définition"></a></dt>
+<dd><p>Return the queryset of documents for the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>All Document instances belonging to the authenticated user.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="documents.views.InvoiceListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">documents.views.</span></span><span class="sig-name descname"><span class="pre">InvoiceListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/views.html#InvoiceListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.views.InvoiceListView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ListView</span></code></p>
+<p>View for listing only invoice documents of the authenticated user.</p>
+<p>Requires login and restricts results to documents of type FACTURE
+belonging to the current user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.views.InvoiceListView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'documents/invoice_list.html'</span></em><a class="headerlink" href="#documents.views.InvoiceListView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="documents.views.InvoiceListView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'documents'</span></em><a class="headerlink" href="#documents.views.InvoiceListView.context_object_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="documents.views.InvoiceListView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/views.html#InvoiceListView.get_queryset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.views.InvoiceListView.get_queryset" title="Lien vers cette définition"></a></dt>
+<dd><p>Return the queryset of invoice documents for the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>All Document instances with kind FACTURE
+belonging to the authenticated user.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-documents.urls">URL configuration for the documents application.</p>
+<p>This module defines routes for listing documents,
+including all documents and invoices specifically.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="documents.urls.urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">documents.urls.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">''</span> <span class="pre">[name='list']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'factures/'</span> <span class="pre">[name='invoices']&gt;]</span></em><a class="headerlink" href="#documents.urls.urlpatterns" title="Lien vers cette définition"></a></dt>
+<dd><p>URL patterns for the documents application</p>
+</dd></dl>
+
+<p id="module-documents.tests">Test suite for the documents application.</p>
+<p>This module validates access control for documents, ensuring
+that users can only see their own documents in the list view.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="documents.tests.DocumentsAccessTest">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">documents.tests.</span></span><span class="sig-name descname"><span class="pre">DocumentsAccessTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/tests.html#DocumentsAccessTest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.tests.DocumentsAccessTest" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<p>Test cases for document access control.</p>
+<p>Ensures that a user cannot see documents belonging
+to another user.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="documents.tests.DocumentsAccessTest.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/tests.html#DocumentsAccessTest.setUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.tests.DocumentsAccessTest.setUp" title="Lien vers cette définition"></a></dt>
+<dd><p>Prepare test fixtures.</p>
+<p>Creates:
+- Two users (u1, u2).
+- A child associated with u1.
+- An activity and enrollment for the child.
+- An invoice and associated document linked to u1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="documents.tests.DocumentsAccessTest.test_user_sees_only_own_documents">
+<span class="sig-name descname"><span class="pre">test_user_sees_only_own_documents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/documents/tests.html#DocumentsAccessTest.test_user_sees_only_own_documents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#documents.tests.DocumentsAccessTest.test_user_sees_only_own_documents" title="Lien vers cette définition"></a></dt>
+<dd><p>Ensure that users cannot see documents belonging to others.</p>
+<p>Logs in as u2 and checks that the document created for u1
+does not appear in the list view.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="../families/index.html" class="btn btn-neutral float-left" title="Families Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="../monitoring/index.html" class="btn btn-neutral float-right" title="Monitoring Application" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

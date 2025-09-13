@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accounts Application &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Activities Application" href="../activities/index.html" />
+    <link rel="prev" title="Usage" href="../usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Accounts Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.models.UserProfile"><code class="docutils literal notranslate"><span class="pre">UserProfile</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.models.UserProfile.user"><code class="docutils literal notranslate"><span class="pre">UserProfile.user</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.models.UserProfile.id_verified"><code class="docutils literal notranslate"><span class="pre">UserProfile.id_verified</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">UserProfile.user</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">UserProfile.id_verified</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.models.UserProfile.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">UserProfile.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.models.UserProfile.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">UserProfile.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.models.UserProfile.id"><code class="docutils literal notranslate"><span class="pre">UserProfile.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.models.UserProfile.objects"><code class="docutils literal notranslate"><span class="pre">UserProfile.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.models.UserProfile.user_id"><code class="docutils literal notranslate"><span class="pre">UserProfile.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.views.signup"><code class="docutils literal notranslate"><span class="pre">signup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.views.logout_view"><code class="docutils literal notranslate"><span class="pre">logout_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.views_identity.verify_identity"><code class="docutils literal notranslate"><span class="pre">verify_identity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.views_identity.verify_start"><code class="docutils literal notranslate"><span class="pre">verify_start()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.views_identity.verify_callback"><code class="docutils literal notranslate"><span class="pre">verify_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.forms.SignUpForm"><code class="docutils literal notranslate"><span class="pre">SignUpForm</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.forms.SignUpForm.password"><code class="docutils literal notranslate"><span class="pre">SignUpForm.password</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.forms.SignUpForm.password_confirm"><code class="docutils literal notranslate"><span class="pre">SignUpForm.password_confirm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.forms.SignUpForm.Meta"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accounts.forms.SignUpForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accounts.forms.SignUpForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accounts.forms.SignUpForm.Meta.labels"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accounts.forms.SignUpForm.Meta.widgets"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">SignUpForm.Meta.widgets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.forms.SignUpForm.clean"><code class="docutils literal notranslate"><span class="pre">SignUpForm.clean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.forms.SignUpForm.base_fields"><code class="docutils literal notranslate"><span class="pre">SignUpForm.base_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.forms.SignUpForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">SignUpForm.declared_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts.forms.SignUpForm.media"><code class="docutils literal notranslate"><span class="pre">SignUpForm.media</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.middleware.IdentityVerificationMiddleware"><code class="docutils literal notranslate"><span class="pre">IdentityVerificationMiddleware</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.signals.create_profile_on_user_create"><code class="docutils literal notranslate"><span class="pre">create_profile_on_user_create()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.signals.backfill_profiles"><code class="docutils literal notranslate"><span class="pre">backfill_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts.urls.urlpatterns"><code class="docutils literal notranslate"><span class="pre">urlpatterns</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../activities/index.html">Activities Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../billing/index.html">Billing Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../families/index.html">Families Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents/index.html">Documents Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Accounts Application</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/accounts/index.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-accounts.models">
+<span id="accounts-application"></span><h1>Accounts Application<a class="headerlink" href="#module-accounts.models" title="Lien vers cette rubrique"></a></h1>
+<p>Database models for the accounts application.</p>
+<p>This module defines the UserProfile model, which extends
+the built-in Django user with additional fields such as
+identity verification status.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accounts.models.UserProfile">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.models.</span></span><span class="sig-name descname"><span class="pre">UserProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/models.html#UserProfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.models.UserProfile" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Profile model linked to the Django user.</p>
+<p>This model stores additional information about a user
+that is not present in the default Django user model.
+In particular, it includes the identity verification flag.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.models.UserProfile.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#accounts.models.UserProfile.user" title="Lien vers cette définition"></a></dt>
+<dd><p>A one-to-one relationship with the user model defined
+by <code class="docutils literal notranslate"><span class="pre">settings.AUTH_USER_MODEL</span></code>. Each user has exactly
+one profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OneToOneField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.models.UserProfile.id_verified">
+<span class="sig-name descname"><span class="pre">id_verified</span></span><a class="headerlink" href="#accounts.models.UserProfile.id_verified" title="Lien vers cette définition"></a></dt>
+<dd><p>Indicates whether the user’s identity has been verified.
+Defaults to False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>BooleanField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#id0" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">id_verified</span></span><a class="headerlink" href="#id1" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="accounts.models.UserProfile.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#accounts.models.UserProfile.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="accounts.models.UserProfile.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#accounts.models.UserProfile.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.models.UserProfile.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#accounts.models.UserProfile.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.models.UserProfile.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#accounts.models.UserProfile.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.models.UserProfile.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#accounts.models.UserProfile.user_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-accounts.views">Views for the accounts application.</p>
+<p>This module defines user-related views such as sign-up
+and logout. It integrates with Django’s authentication
+framework and custom forms.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="accounts.views.signup">
+<span class="sig-prename descclassname"><span class="pre">accounts.views.</span></span><span class="sig-name descname"><span class="pre">signup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/views.html#signup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.views.signup" title="Lien vers cette définition"></a></dt>
+<dd><p>Handle user registration.</p>
+<p>Supports GET and POST methods:
+- GET: Render the sign-up form.
+- POST: Validate and create a new user account. If valid,</p>
+<blockquote>
+<div><p>the user is logged in immediately and redirected to home.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The incoming request object.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rendered template with the form on GET or failed POST,
+or a redirect to home on successful sign-up.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="accounts.views.logout_view">
+<span class="sig-prename descclassname"><span class="pre">accounts.views.</span></span><span class="sig-name descname"><span class="pre">logout_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/views.html#logout_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.views.logout_view" title="Lien vers cette définition"></a></dt>
+<dd><p>Log out the current user.</p>
+<p>Terminates the user’s session and redirects to the home page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The incoming request object.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Redirect to the home page after logout.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-accounts.views_identity">Views for user identity verification.</p>
+<p>This module implements simulation and production backends
+for verifying a user’s identity before allowing enrollment
+in activities. The simulation mode marks the user profile
+as verified locally, while the production mode integrates
+with an external OIDC provider such as Authentic.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="accounts.views_identity.verify_identity">
+<span class="sig-prename descclassname"><span class="pre">accounts.views_identity.</span></span><span class="sig-name descname"><span class="pre">verify_identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/views_identity.html#verify_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.views_identity.verify_identity" title="Lien vers cette définition"></a></dt>
+<dd><p>Entry point for identity verification.</p>
+<p>In simulation mode:
+- On POST, mark the profile as verified and redirect.
+- On GET, render the verification template.</p>
+<p>In production mode:
+- Redirect to <code class="docutils literal notranslate"><span class="pre">verify_start</span></code> to initiate OIDC flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>)</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>HttpResponse</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="accounts.views_identity.verify_start">
+<span class="sig-prename descclassname"><span class="pre">accounts.views_identity.</span></span><span class="sig-name descname"><span class="pre">verify_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/views_identity.html#verify_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.views_identity.verify_start" title="Lien vers cette définition"></a></dt>
+<dd><p>Start the OIDC identity verification flow.</p>
+<p>Stores state in the session and redirects to the configured
+authorization endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>)</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>HttpResponse</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="accounts.views_identity.verify_callback">
+<span class="sig-prename descclassname"><span class="pre">accounts.views_identity.</span></span><span class="sig-name descname"><span class="pre">verify_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/views_identity.html#verify_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.views_identity.verify_callback" title="Lien vers cette définition"></a></dt>
+<dd><p>Handle callback from OIDC provider after verification.</p>
+<p>Validates the state, exchanges authorization code for
+an access token, fetches user info, and updates the
+user profile as verified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The callback request containing authorization data.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Redirection to the safe next page.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-accounts.forms">Forms for the accounts application.</p>
+<p>This module defines forms for user account management,
+including sign-up with password confirmation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.forms.</span></span><span class="sig-name descname"><span class="pre">SignUpForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/forms.html#SignUpForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.forms.SignUpForm" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
+<p>Form for registering a new user account.</p>
+<p>Extends Django’s <code class="docutils literal notranslate"><span class="pre">ModelForm</span></code> to include password
+confirmation logic. Ensures that both password
+fields match before saving.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.password">
+<span class="sig-name descname"><span class="pre">password</span></span><a class="headerlink" href="#accounts.forms.SignUpForm.password" title="Lien vers cette définition"></a></dt>
+<dd><p>The main password field with a password input widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.password_confirm">
+<span class="sig-name descname"><span class="pre">password_confirm</span></span><a class="headerlink" href="#accounts.forms.SignUpForm.password_confirm" title="Lien vers cette définition"></a></dt>
+<dd><p>A confirmation password field, also rendered as a
+password input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.Meta">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="../_modules/accounts/forms.html#SignUpForm.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.forms.SignUpForm.Meta" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta configuration for the SignUpForm.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#accounts.forms.SignUpForm.Meta.model" title="Lien vers cette définition"></a></dt>
+<dd><p>The model bound to this form (Django’s User model).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><a class="headerlink" href="#accounts.forms.SignUpForm.Meta.fields" title="Lien vers cette définition"></a></dt>
+<dd><p>The fields exposed to the form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.Meta.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#accounts.forms.SignUpForm.Meta.labels" title="Lien vers cette définition"></a></dt>
+<dd><p>Custom labels for username and email fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.Meta.widgets">
+<span class="sig-name descname"><span class="pre">widgets</span></span><a class="headerlink" href="#accounts.forms.SignUpForm.Meta.widgets" title="Lien vers cette définition"></a></dt>
+<dd><p>Widgets applied to username and email inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#id2" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['username',</span> <span class="pre">'email',</span> <span class="pre">'password']</span></em><a class="headerlink" href="#id3" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'email':</span> <span class="pre">'E-mail',</span> <span class="pre">'username':</span> <span class="pre">&quot;Nom</span> <span class="pre">d'utilisateur&quot;}</span></em><a class="headerlink" href="#id4" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">widgets</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'email':</span> <span class="pre">&lt;django.forms.widgets.EmailInput</span> <span class="pre">object&gt;,</span> <span class="pre">'username':</span> <span class="pre">&lt;django.forms.widgets.TextInput</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#id5" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/forms.html#SignUpForm.clean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.forms.SignUpForm.clean" title="Lien vers cette définition"></a></dt>
+<dd><p>Validate password confirmation.</p>
+<p>Ensures that the two password fields match. If they do not,
+an error is added to the <code class="docutils literal notranslate"><span class="pre">password_confirm</span></code> field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cleaned form data after validation.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'email':</span> <span class="pre">&lt;django.forms.fields.EmailField</span> <span class="pre">object&gt;,</span> <span class="pre">'password':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'password_confirm':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'username':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#accounts.forms.SignUpForm.base_fields" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'password':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'password_confirm':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#accounts.forms.SignUpForm.declared_fields" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="accounts.forms.SignUpForm.media">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#accounts.forms.SignUpForm.media" title="Lien vers cette définition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-accounts.middleware">Middleware for enforcing identity verification.</p>
+<p>This module defines middleware that ensures users must verify
+their identity before accessing enrollment-related views.
+Admins and superusers are exempt from this restriction.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accounts.middleware.IdentityVerificationMiddleware">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accounts.middleware.</span></span><span class="sig-name descname"><span class="pre">IdentityVerificationMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/middleware.html#IdentityVerificationMiddleware"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.middleware.IdentityVerificationMiddleware" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Middleware enforcing identity verification for protected views.</p>
+<p>If the request targets a view listed in the setting
+<code class="docutils literal notranslate"><span class="pre">IDENTITY_ENROLL_URL_NAMES</span></code> and the user is not verified,
+the middleware redirects to the identity verification process.</p>
+</dd></dl>
+
+<p id="module-accounts.signals">Signals for the accounts application.</p>
+<p>This module ensures that each user has an associated
+UserProfile instance. It defines signals that create a
+profile upon user creation and backfill missing profiles
+after database migrations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="accounts.signals.create_profile_on_user_create">
+<span class="sig-prename descclassname"><span class="pre">accounts.signals.</span></span><span class="sig-name descname"><span class="pre">create_profile_on_user_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/signals.html#create_profile_on_user_create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.signals.create_profile_on_user_create" title="Lien vers cette définition"></a></dt>
+<dd><p>Create a UserProfile when a new user is created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<em>Model</em>) – The model class sending the signal (User).</p></li>
+<li><p><strong>instance</strong> (<em>User</em>) – The user instance that was created or updated.</p></li>
+<li><p><strong>created</strong> (<em>bool</em>) – True if a new user instance was created, False otherwise.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword arguments provided by the signal.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Wrapped in a try/except to handle migration states where
+the UserProfile table may not exist yet.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="accounts.signals.backfill_profiles">
+<span class="sig-prename descclassname"><span class="pre">accounts.signals.</span></span><span class="sig-name descname"><span class="pre">backfill_profiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/accounts/signals.html#backfill_profiles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accounts.signals.backfill_profiles" title="Lien vers cette définition"></a></dt>
+<dd><p>Ensure all existing users have associated UserProfile records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<em>AppConfig</em>) – The app configuration sending the signal.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword arguments provided by the signal.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Executed after migrations are applied.</p></li>
+<li><p>Creates profiles for users without one.</p></li>
+<li><p>Wrapped in a try/except to handle early migration states.</p></li>
+</ul>
+</dd></dl>
+
+<p id="module-accounts.urls">URL configuration for the accounts application.</p>
+<p>This module defines URL patterns for user account management,
+including sign-up, logout, identity verification, and built-in
+Django authentication views.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="accounts.urls.urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">accounts.urls.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">'signup/'</span> <span class="pre">[name='signup']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'logout/'</span> <span class="pre">[name='logout']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'verify/'</span> <span class="pre">[name='accounts_verify_identity']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'verify/start/'</span> <span class="pre">[name='accounts_verify_start']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'verify/callback/'</span> <span class="pre">[name='accounts_verify_callback']&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;module</span> <span class="pre">'django.contrib.auth.urls'</span> <span class="pre">from</span> <span class="pre">'/home/react/Desktop/Entrouvert/publik_famille/.venv/lib/python3.12/site-packages/django/contrib/auth/urls.py'&gt;</span> <span class="pre">(None:None)</span> <span class="pre">''&gt;]</span></em><a class="headerlink" href="#accounts.urls.urlpatterns" title="Lien vers cette définition"></a></dt>
+<dd><p>URL patterns for the accounts application</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="../usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="../activities/index.html" class="btn btn-neutral float-right" title="Activities Application" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

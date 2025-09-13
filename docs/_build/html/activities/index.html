@@ -1,0 +1,1112 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activities Application &mdash; Documentation Publik Famille Demo 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7a28dfa3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Billing Application" href="../billing/index.html" />
+    <link rel="prev" title="Accounts Application" href="../accounts/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Publik Famille Demo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../accounts/index.html">Accounts Application</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Activities Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#activities.models.Activity"><code class="docutils literal notranslate"><span class="pre">Activity</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.title"><code class="docutils literal notranslate"><span class="pre">Activity.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.description"><code class="docutils literal notranslate"><span class="pre">Activity.description</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.fee"><code class="docutils literal notranslate"><span class="pre">Activity.fee</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.start_date"><code class="docutils literal notranslate"><span class="pre">Activity.start_date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.end_date"><code class="docutils literal notranslate"><span class="pre">Activity.end_date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.capacity"><code class="docutils literal notranslate"><span class="pre">Activity.capacity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.is_active"><code class="docutils literal notranslate"><span class="pre">Activity.is_active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Activity.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Activity.description</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">Activity.fee</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Activity.start_date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">Activity.end_date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">Activity.capacity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">Activity.is_active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Activity.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Activity.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.enrollments"><code class="docutils literal notranslate"><span class="pre">Activity.enrollments</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.id"><code class="docutils literal notranslate"><span class="pre">Activity.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Activity.objects"><code class="docutils literal notranslate"><span class="pre">Activity.objects</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.models.Enrollment"><code class="docutils literal notranslate"><span class="pre">Enrollment</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.child"><code class="docutils literal notranslate"><span class="pre">Enrollment.child</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.activity"><code class="docutils literal notranslate"><span class="pre">Enrollment.activity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.status"><code class="docutils literal notranslate"><span class="pre">Enrollment.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.requested_on"><code class="docutils literal notranslate"><span class="pre">Enrollment.requested_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.approved_on"><code class="docutils literal notranslate"><span class="pre">Enrollment.approved_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.wcs_id"><code class="docutils literal notranslate"><span class="pre">Enrollment.wcs_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.Status"><code class="docutils literal notranslate"><span class="pre">Enrollment.Status</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#activities.models.Enrollment.Status.PENDING_PAYMENT"><code class="docutils literal notranslate"><span class="pre">Enrollment.Status.PENDING_PAYMENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#activities.models.Enrollment.Status.CONFIRMED"><code class="docutils literal notranslate"><span class="pre">Enrollment.Status.CONFIRMED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#activities.models.Enrollment.Status.CANCELLED"><code class="docutils literal notranslate"><span class="pre">Enrollment.Status.CANCELLED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">Enrollment.child</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">Enrollment.activity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">Enrollment.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">Enrollment.requested_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">Enrollment.approved_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">Enrollment.wcs_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Enrollment.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Enrollment.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.activity_id"><code class="docutils literal notranslate"><span class="pre">Enrollment.activity_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.child_id"><code class="docutils literal notranslate"><span class="pre">Enrollment.child_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.get_next_by_requested_on"><code class="docutils literal notranslate"><span class="pre">Enrollment.get_next_by_requested_on()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.get_previous_by_requested_on"><code class="docutils literal notranslate"><span class="pre">Enrollment.get_previous_by_requested_on()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.get_status_display"><code class="docutils literal notranslate"><span class="pre">Enrollment.get_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.id"><code class="docutils literal notranslate"><span class="pre">Enrollment.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.invoice"><code class="docutils literal notranslate"><span class="pre">Enrollment.invoice</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.models.Enrollment.objects"><code class="docutils literal notranslate"><span class="pre">Enrollment.objects</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.views.ActivityListView"><code class="docutils literal notranslate"><span class="pre">ActivityListView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.ActivityListView.template_name"><code class="docutils literal notranslate"><span class="pre">ActivityListView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.ActivityListView.context_object_name"><code class="docutils literal notranslate"><span class="pre">ActivityListView.context_object_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.ActivityListView.get_queryset"><code class="docutils literal notranslate"><span class="pre">ActivityListView.get_queryset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.views.ActivityDetailView"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.ActivityDetailView.model"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.ActivityDetailView.template_name"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.ActivityDetailView.context_object_name"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView.context_object_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.ActivityDetailView.get_context_data"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView.get_context_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.views.EnrollmentListView"><code class="docutils literal notranslate"><span class="pre">EnrollmentListView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.EnrollmentListView.template_name"><code class="docutils literal notranslate"><span class="pre">EnrollmentListView.template_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.EnrollmentListView.context_object_name"><code class="docutils literal notranslate"><span class="pre">EnrollmentListView.context_object_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.EnrollmentListView.get_queryset"><code class="docutils literal notranslate"><span class="pre">EnrollmentListView.get_queryset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.views.EnrollView"><code class="docutils literal notranslate"><span class="pre">EnrollView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.views.EnrollView.post"><code class="docutils literal notranslate"><span class="pre">EnrollView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.forms.EnrollmentForm"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.forms.EnrollmentForm.child"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.child</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.forms.EnrollmentForm.Meta"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.Meta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#activities.forms.EnrollmentForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.Meta.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#activities.forms.EnrollmentForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.Meta.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.Meta.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.Meta.fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.forms.EnrollmentForm.base_fields"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.base_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.forms.EnrollmentForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.declared_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.forms.EnrollmentForm.media"><code class="docutils literal notranslate"><span class="pre">EnrollmentForm.media</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.gateways.EnrollmentGateway"><code class="docutils literal notranslate"><span class="pre">EnrollmentGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.gateways.EnrollmentGateway.create_enrollment"><code class="docutils literal notranslate"><span class="pre">EnrollmentGateway.create_enrollment()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.gateways.LocalEnrollmentGateway"><code class="docutils literal notranslate"><span class="pre">LocalEnrollmentGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.gateways.LocalEnrollmentGateway.create_enrollment"><code class="docutils literal notranslate"><span class="pre">LocalEnrollmentGateway.create_enrollment()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.gateways.WcsEnrollmentGateway"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#activities.gateways.WcsEnrollmentGateway.base_url"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.base_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.gateways.WcsEnrollmentGateway.api_token"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.api_token</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.gateways.WcsEnrollmentGateway.timeout_sec"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.timeout_sec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.base_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.api_token</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.timeout_sec</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.gateways.WcsEnrollmentGateway.create_enrollment"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.create_enrollment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activities.gateways.WcsEnrollmentGateway.sync_enrollment"><code class="docutils literal notranslate"><span class="pre">WcsEnrollmentGateway.sync_enrollment()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.gateways.get_enrollment_gateway"><code class="docutils literal notranslate"><span class="pre">get_enrollment_gateway()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.exceptions.EnrollmentError"><code class="docutils literal notranslate"><span class="pre">EnrollmentError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.exceptions.EnrollmentCreationError"><code class="docutils literal notranslate"><span class="pre">EnrollmentCreationError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.exceptions.EnrollmentSyncError"><code class="docutils literal notranslate"><span class="pre">EnrollmentSyncError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activities.urls.urlpatterns"><code class="docutils literal notranslate"><span class="pre">urlpatterns</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../billing/index.html">Billing Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../families/index.html">Families Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documents/index.html">Documents Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring Application</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../publik_famille_demo/index.html">Publik Famille Demo Core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Publik Famille Demo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Activities Application</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/activities/index.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-activities.models">
+<span id="activities-application"></span><h1>Activities Application<a class="headerlink" href="#module-activities.models" title="Lien vers cette rubrique"></a></h1>
+<p>Database models for the activities application.</p>
+<p>This module defines the Activity and Enrollment models.
+Activities represent events or services offered to families,
+while enrollments represent a child’s participation in a
+specific activity.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.models.Activity">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.models.</span></span><span class="sig-name descname"><span class="pre">Activity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/models.html#Activity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.models.Activity" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Model representing an activity.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#activities.models.Activity.title" title="Lien vers cette définition"></a></dt>
+<dd><p>The title of the activity (French verbose name: “Titre”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#activities.models.Activity.description" title="Lien vers cette définition"></a></dt>
+<dd><p>Optional description of the activity (French verbose name: “Description”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TextField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.fee">
+<span class="sig-name descname"><span class="pre">fee</span></span><a class="headerlink" href="#activities.models.Activity.fee" title="Lien vers cette définition"></a></dt>
+<dd><p>Fee for the activity in euros (French verbose name: “Tarif (€)”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DecimalField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.start_date">
+<span class="sig-name descname"><span class="pre">start_date</span></span><a class="headerlink" href="#activities.models.Activity.start_date" title="Lien vers cette définition"></a></dt>
+<dd><p>Optional start date of the activity (French verbose name: “Date de début”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.end_date">
+<span class="sig-name descname"><span class="pre">end_date</span></span><a class="headerlink" href="#activities.models.Activity.end_date" title="Lien vers cette définition"></a></dt>
+<dd><p>Optional end date of the activity (French verbose name: “Date de fin”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.capacity">
+<span class="sig-name descname"><span class="pre">capacity</span></span><a class="headerlink" href="#activities.models.Activity.capacity" title="Lien vers cette définition"></a></dt>
+<dd><p>Optional maximum number of participants (French verbose name: “Capacité”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PositiveIntegerField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.is_active">
+<span class="sig-name descname"><span class="pre">is_active</span></span><a class="headerlink" href="#activities.models.Activity.is_active" title="Lien vers cette définition"></a></dt>
+<dd><p>Indicates whether the activity is active (French verbose name: “Active”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>BooleanField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#id0" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#id1" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">fee</span></span><a class="headerlink" href="#id2" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">start_date</span></span><a class="headerlink" href="#id3" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">end_date</span></span><a class="headerlink" href="#id4" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">capacity</span></span><a class="headerlink" href="#id5" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">is_active</span></span><a class="headerlink" href="#id6" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="activities.models.Activity.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#activities.models.Activity.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="activities.models.Activity.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#activities.models.Activity.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.enrollments">
+<span class="sig-name descname"><span class="pre">enrollments</span></span><a class="headerlink" href="#activities.models.Activity.enrollments" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#activities.models.Activity.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Activity.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#activities.models.Activity.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.models.Enrollment">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.models.</span></span><span class="sig-name descname"><span class="pre">Enrollment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/models.html#Enrollment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.models.Enrollment" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Model representing an enrollment of a child in an activity.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.child">
+<span class="sig-name descname"><span class="pre">child</span></span><a class="headerlink" href="#activities.models.Enrollment.child" title="Lien vers cette définition"></a></dt>
+<dd><p>The child enrolled (related to families.Child).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ForeignKey</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.activity">
+<span class="sig-name descname"><span class="pre">activity</span></span><a class="headerlink" href="#activities.models.Enrollment.activity" title="Lien vers cette définition"></a></dt>
+<dd><p>The activity in which the child is enrolled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ForeignKey</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#activities.models.Enrollment.status" title="Lien vers cette définition"></a></dt>
+<dd><p>Current status of the enrollment. Choices defined in the Status inner class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.requested_on">
+<span class="sig-name descname"><span class="pre">requested_on</span></span><a class="headerlink" href="#activities.models.Enrollment.requested_on" title="Lien vers cette définition"></a></dt>
+<dd><p>Timestamp when the enrollment was requested.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateTimeField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.approved_on">
+<span class="sig-name descname"><span class="pre">approved_on</span></span><a class="headerlink" href="#activities.models.Enrollment.approved_on" title="Lien vers cette définition"></a></dt>
+<dd><p>Optional timestamp when the enrollment was approved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DateTimeField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.wcs_id">
+<span class="sig-name descname"><span class="pre">wcs_id</span></span><a class="headerlink" href="#activities.models.Enrollment.wcs_id" title="Lien vers cette définition"></a></dt>
+<dd><p>Optional identifier used by a remote WCS backend.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CharField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.models.Enrollment.Status">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/models.html#Enrollment.Status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.models.Enrollment.Status" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">TextChoices</span></code></p>
+<p>Enumeration of enrollment statuses.</p>
+<dl class="simple">
+<dt>PENDING_PAYMENT</dt><dd><p>Enrollment has been created but payment is pending.</p>
+</dd>
+<dt>CONFIRMED</dt><dd><p>Enrollment has been confirmed.</p>
+</dd>
+<dt>CANCELLED</dt><dd><p>Enrollment has been cancelled.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.Status.PENDING_PAYMENT">
+<span class="sig-name descname"><span class="pre">PENDING_PAYMENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PENDING_PAYMENT'</span></em><a class="headerlink" href="#activities.models.Enrollment.Status.PENDING_PAYMENT" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.Status.CONFIRMED">
+<span class="sig-name descname"><span class="pre">CONFIRMED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CONFIRMED'</span></em><a class="headerlink" href="#activities.models.Enrollment.Status.CONFIRMED" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.Status.CANCELLED">
+<span class="sig-name descname"><span class="pre">CANCELLED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CANCELLED'</span></em><a class="headerlink" href="#activities.models.Enrollment.Status.CANCELLED" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">child</span></span><a class="headerlink" href="#id7" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">activity</span></span><a class="headerlink" href="#id8" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#id9" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">requested_on</span></span><a class="headerlink" href="#id10" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">approved_on</span></span><a class="headerlink" href="#id11" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">wcs_id</span></span><a class="headerlink" href="#id12" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="activities.models.Enrollment.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#activities.models.Enrollment.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="activities.models.Enrollment.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#activities.models.Enrollment.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.activity_id">
+<span class="sig-name descname"><span class="pre">activity_id</span></span><a class="headerlink" href="#activities.models.Enrollment.activity_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.child_id">
+<span class="sig-name descname"><span class="pre">child_id</span></span><a class="headerlink" href="#activities.models.Enrollment.child_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.models.Enrollment.get_next_by_requested_on">
+<span class="sig-name descname"><span class="pre">get_next_by_requested_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">requested_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#activities.models.Enrollment.get_next_by_requested_on" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.models.Enrollment.get_previous_by_requested_on">
+<span class="sig-name descname"><span class="pre">get_previous_by_requested_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">requested_on&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#activities.models.Enrollment.get_previous_by_requested_on" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.models.Enrollment.get_status_display">
+<span class="sig-name descname"><span class="pre">get_status_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">status&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#activities.models.Enrollment.get_status_display" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#activities.models.Enrollment.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="activities.models.Enrollment.invoice">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">invoice</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../billing/index.html#billing.models.Invoice" title="billing.models.Invoice"><span class="pre">Invoice</span></a></em><a class="headerlink" href="#activities.models.Enrollment.invoice" title="Lien vers cette définition"></a></dt>
+<dd><p>Return the invoice associated with an enrollment, creating it on demand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enroll</strong> (<a class="reference internal" href="#activities.models.Enrollment" title="activities.models.Enrollment"><em>Enrollment</em></a>) – The enrollment instance for which the invoice is required.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The invoice instance, newly created if it did not exist.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../billing/index.html#billing.models.Invoice" title="billing.models.Invoice">Invoice</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Uses <code class="docutils literal notranslate"><span class="pre">activity.fee</span></code> as the default amount when creating
+the invoice.</p></li>
+<li><p>This function ensures that templates and tests accessing
+<code class="docutils literal notranslate"><span class="pre">enroll.invoice</span></code> will never raise RelatedObjectDoesNotExist.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.models.Enrollment.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#activities.models.Enrollment.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-activities.views">Views for the activities application.</p>
+<p>This module defines class-based views for listing activities,
+displaying details, managing enrollments, and handling enrollment
+creation with integration to enrollment and billing gateways.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.views.ActivityListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.views.</span></span><span class="sig-name descname"><span class="pre">ActivityListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#ActivityListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.ActivityListView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ListView</span></code></p>
+<p>View for listing all active activities.</p>
+<p>Displays only activities that are active and whose start date
+is greater than or equal to the current date.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.views.ActivityListView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activities/activity_list.html'</span></em><a class="headerlink" href="#activities.views.ActivityListView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.views.ActivityListView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activities'</span></em><a class="headerlink" href="#activities.views.ActivityListView.context_object_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.views.ActivityListView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#ActivityListView.get_queryset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.ActivityListView.get_queryset" title="Lien vers cette définition"></a></dt>
+<dd><p>Return the queryset of activities to be displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Active activities starting today or later.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.views.ActivityDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.views.</span></span><span class="sig-name descname"><span class="pre">ActivityDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#ActivityDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.ActivityDetailView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">DetailView</span></code></p>
+<p>View for displaying the details of a single activity.</p>
+<p>Adds context information about whether enrollment is allowed
+and provides an enrollment form if the user is authenticated.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.views.ActivityDetailView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#activities.views.ActivityDetailView.model" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#activities.models.Activity" title="activities.models.Activity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Activity</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.views.ActivityDetailView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activities/activity_detail.html'</span></em><a class="headerlink" href="#activities.views.ActivityDetailView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.views.ActivityDetailView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activity'</span></em><a class="headerlink" href="#activities.views.ActivityDetailView.context_object_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.views.ActivityDetailView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#ActivityDetailView.get_context_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.ActivityDetailView.get_context_data" title="Lien vers cette définition"></a></dt>
+<dd><p>Extend the context with enrollment form and availability flag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<em>dict</em>) – Additional context data passed from the superclass.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Context dictionary with keys:
+- <code class="docutils literal notranslate"><span class="pre">can_enroll</span></code>: bool indicating if enrollment is possible.
+- <code class="docutils literal notranslate"><span class="pre">form</span></code>: EnrollmentForm instance for authenticated users.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.views.EnrollmentListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.views.</span></span><span class="sig-name descname"><span class="pre">EnrollmentListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#EnrollmentListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.EnrollmentListView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ListView</span></code></p>
+<p>View for listing all enrollments of the authenticated user.</p>
+<p>Requires login and displays enrollments associated with
+the user’s children.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.views.EnrollmentListView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activities/enrollment_list.html'</span></em><a class="headerlink" href="#activities.views.EnrollmentListView.template_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.views.EnrollmentListView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'enrollments'</span></em><a class="headerlink" href="#activities.views.EnrollmentListView.context_object_name" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.views.EnrollmentListView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#EnrollmentListView.get_queryset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.EnrollmentListView.get_queryset" title="Lien vers cette définition"></a></dt>
+<dd><p>Return the queryset of enrollments for the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Enrollments filtered by the authenticated user’s children.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.views.EnrollView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.views.</span></span><span class="sig-name descname"><span class="pre">EnrollView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#EnrollView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.EnrollView" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></p>
+<p>Handle creation of an enrollment and associated invoice.</p>
+<p>Enrollment is created through the configured enrollment gateway,
+and a billing record is generated using the billing gateway.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.views.EnrollView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/views.html#EnrollView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.views.EnrollView.post" title="Lien vers cette définition"></a></dt>
+<dd><p>Handle POST request to enroll a child in an activity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request containing enrollment data.</p></li>
+<li><p><strong>pk</strong> (<em>int</em>) – The primary key of the activity to enroll in.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirection response to either the detail page,
+enrollment list, or verification page.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-activities.forms">Forms for the activities application.</p>
+<p>This module defines form classes used to handle user input
+related to enrollments in activities. Forms integrate with
+Django’s form system and provide validation and UI customization.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.forms.</span></span><span class="sig-name descname"><span class="pre">EnrollmentForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/forms.html#EnrollmentForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.forms.EnrollmentForm" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></p>
+<p>Form for creating an enrollment in an activity.</p>
+<p>This form allows a parent to select one of their children
+and enroll them in an activity. The available children
+are restricted to those associated with the authenticated user.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm.child">
+<span class="sig-name descname"><span class="pre">child</span></span><a class="headerlink" href="#activities.forms.EnrollmentForm.child" title="Lien vers cette définition"></a></dt>
+<dd><p>A dropdown field that lets the user choose one of their
+children for the enrollment. It uses a browser-default
+style for compatibility without requiring JavaScript.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>forms.ModelChoiceField</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm.Meta">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="../_modules/activities/forms.html#EnrollmentForm.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.forms.EnrollmentForm.Meta" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Meta configuration for the EnrollmentForm.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#activities.forms.EnrollmentForm.Meta.model" title="Lien vers cette définition"></a></dt>
+<dd><p>The model associated with this form (Enrollment).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><a class="headerlink" href="#activities.forms.EnrollmentForm.Meta.fields" title="Lien vers cette définition"></a></dt>
+<dd><p>The fields exposed to the form, here only “child”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#id13" title="Lien vers cette définition"></a></dt>
+<dd><p>alias de <a class="reference internal" href="#activities.models.Enrollment" title="activities.models.Enrollment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enrollment</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['child']</span></em><a class="headerlink" href="#id14" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm.base_fields">
+<span class="sig-name descname"><span class="pre">base_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'child':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#activities.forms.EnrollmentForm.base_fields" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm.declared_fields">
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'child':</span> <span class="pre">&lt;django.forms.models.ModelChoiceField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#activities.forms.EnrollmentForm.declared_fields" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="activities.forms.EnrollmentForm.media">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#activities.forms.EnrollmentForm.media" title="Lien vers cette définition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-activities.gateways">Gateways for enrollment management.</p>
+<p>This module defines abstractions and implementations of gateways
+responsible for creating and synchronizing enrollments. A gateway
+can operate locally or interact with an external WCS (Web
+Citizen Service) backend. All implementations follow a common
+interface to allow interchangeable use.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.gateways.EnrollmentGateway">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.gateways.</span></span><span class="sig-name descname"><span class="pre">EnrollmentGateway</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/gateways.html#EnrollmentGateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.EnrollmentGateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>Protocol for enrollment gateways.</p>
+<p>Any enrollment gateway must implement the <code class="docutils literal notranslate"><span class="pre">create_enrollment</span></code>
+method to create or retrieve an enrollment associated with
+an activity and a child.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.gateways.EnrollmentGateway.create_enrollment">
+<span class="sig-name descname"><span class="pre">create_enrollment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/gateways.html#EnrollmentGateway.create_enrollment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.EnrollmentGateway.create_enrollment" title="Lien vers cette définition"></a></dt>
+<dd><p>Create or retrieve an enrollment for a given activity and child.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>activity</strong> (<a class="reference internal" href="#activities.models.Activity" title="activities.models.Activity"><em>Activity</em></a>) – The activity in which the child should be enrolled.</p></li>
+<li><p><strong>child</strong> (<a class="reference internal" href="../families/index.html#families.models.Child" title="families.models.Child"><em>Child</em></a>) – The child being enrolled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of (enrollment instance, created flag).</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.gateways.LocalEnrollmentGateway">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.gateways.</span></span><span class="sig-name descname"><span class="pre">LocalEnrollmentGateway</span></span><a class="reference internal" href="../_modules/activities/gateways.html#LocalEnrollmentGateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.LocalEnrollmentGateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Local enrollment gateway implementation.</p>
+<p>Handles enrollment creation directly in the local database
+without contacting external services.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.gateways.LocalEnrollmentGateway.create_enrollment">
+<span class="sig-name descname"><span class="pre">create_enrollment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/gateways.html#LocalEnrollmentGateway.create_enrollment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.LocalEnrollmentGateway.create_enrollment" title="Lien vers cette définition"></a></dt>
+<dd><p>Create or retrieve a local enrollment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>activity</strong> (<a class="reference internal" href="#activities.models.Activity" title="activities.models.Activity"><em>Activity</em></a>) – The activity in which the child should be enrolled.</p></li>
+<li><p><strong>child</strong> (<a class="reference internal" href="../families/index.html#families.models.Child" title="families.models.Child"><em>Child</em></a>) – The child being enrolled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the enrollment and a boolean
+indicating whether it was created.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="activities.gateways.WcsEnrollmentGateway">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.gateways.</span></span><span class="sig-name descname"><span class="pre">WcsEnrollmentGateway</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/gateways.html#WcsEnrollmentGateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.WcsEnrollmentGateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Remote WCS enrollment gateway.</p>
+<p>Provides integration with an external WCS service. It mirrors
+local enrollment creation to the WCS backend and can synchronize
+enrollment status. Features include robust error handling,
+configurable timeouts, and token-based authentication.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_url</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>api_token</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>timeout_sec</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.gateways.WcsEnrollmentGateway.base_url">
+<span class="sig-name descname"><span class="pre">base_url</span></span><a class="headerlink" href="#activities.gateways.WcsEnrollmentGateway.base_url" title="Lien vers cette définition"></a></dt>
+<dd><p>The base URL of the WCS backend.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.gateways.WcsEnrollmentGateway.api_token">
+<span class="sig-name descname"><span class="pre">api_token</span></span><a class="headerlink" href="#activities.gateways.WcsEnrollmentGateway.api_token" title="Lien vers cette définition"></a></dt>
+<dd><p>The API token for authentication with WCS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="activities.gateways.WcsEnrollmentGateway.timeout_sec">
+<span class="sig-name descname"><span class="pre">timeout_sec</span></span><a class="headerlink" href="#activities.gateways.WcsEnrollmentGateway.timeout_sec" title="Lien vers cette définition"></a></dt>
+<dd><p>The timeout for HTTP requests, in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">base_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id15" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">api_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id16" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">timeout_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#id17" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.gateways.WcsEnrollmentGateway.create_enrollment">
+<span class="sig-name descname"><span class="pre">create_enrollment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/gateways.html#WcsEnrollmentGateway.create_enrollment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.WcsEnrollmentGateway.create_enrollment" title="Lien vers cette définition"></a></dt>
+<dd><p>Create or retrieve an enrollment and mirror it to WCS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>activity</strong> (<a class="reference internal" href="#activities.models.Activity" title="activities.models.Activity"><em>Activity</em></a>) – The activity in which the child should be enrolled.</p></li>
+<li><p><strong>child</strong> (<a class="reference internal" href="../families/index.html#families.models.Child" title="families.models.Child"><em>Child</em></a>) – The child being enrolled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the enrollment and a boolean
+indicating whether it was created.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#activities.exceptions.EnrollmentCreationError" title="activities.exceptions.EnrollmentCreationError"><strong>EnrollmentCreationError</strong></a> – If the WCS backend request fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="activities.gateways.WcsEnrollmentGateway.sync_enrollment">
+<span class="sig-name descname"><span class="pre">sync_enrollment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">enrollment</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/gateways.html#WcsEnrollmentGateway.sync_enrollment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.WcsEnrollmentGateway.sync_enrollment" title="Lien vers cette définition"></a></dt>
+<dd><p>Synchronize enrollment status from WCS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enrollment</strong> (<a class="reference internal" href="#activities.models.Enrollment" title="activities.models.Enrollment"><em>Enrollment</em></a>) – The local enrollment instance to synchronize.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated enrollment instance.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#activities.models.Enrollment" title="activities.models.Enrollment">Enrollment</a></p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#activities.exceptions.EnrollmentSyncError" title="activities.exceptions.EnrollmentSyncError"><strong>EnrollmentSyncError</strong></a> – If synchronization with WCS fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="activities.gateways.get_enrollment_gateway">
+<span class="sig-prename descclassname"><span class="pre">activities.gateways.</span></span><span class="sig-name descname"><span class="pre">get_enrollment_gateway</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/activities/gateways.html#get_enrollment_gateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.gateways.get_enrollment_gateway" title="Lien vers cette définition"></a></dt>
+<dd><p>Factory function to select the enrollment gateway.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The enrollment gateway instance based on configuration.
+Defaults to local gateway if no backend is specified.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#activities.gateways.EnrollmentGateway" title="activities.gateways.EnrollmentGateway">EnrollmentGateway</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-activities.exceptions">Custom exceptions for the activities application.</p>
+<p>This module defines domain-specific exceptions used for handling
+errors related to the enrollment process. These exceptions provide
+a structured way to signal and catch gateway-related failures.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="activities.exceptions.EnrollmentError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.exceptions.</span></span><span class="sig-name descname"><span class="pre">EnrollmentError</span></span><a class="reference internal" href="../_modules/activities/exceptions.html#EnrollmentError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.exceptions.EnrollmentError" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Base class for enrollment-related errors.</p>
+<p>All custom exceptions related to enrollment inherit from
+this class. It can be used to catch any enrollment-specific
+error raised by the application.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="activities.exceptions.EnrollmentCreationError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.exceptions.</span></span><span class="sig-name descname"><span class="pre">EnrollmentCreationError</span></span><a class="reference internal" href="../_modules/activities/exceptions.html#EnrollmentCreationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.exceptions.EnrollmentCreationError" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference internal" href="#activities.exceptions.EnrollmentError" title="activities.exceptions.EnrollmentError"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnrollmentError</span></code></a></p>
+<p>Raised when remote enrollment creation fails.</p>
+<p>Typically used when the gateway or backend service cannot
+process a new enrollment request successfully.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="activities.exceptions.EnrollmentSyncError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">activities.exceptions.</span></span><span class="sig-name descname"><span class="pre">EnrollmentSyncError</span></span><a class="reference internal" href="../_modules/activities/exceptions.html#EnrollmentSyncError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.exceptions.EnrollmentSyncError" title="Lien vers cette définition"></a></dt>
+<dd><p>Bases : <a class="reference internal" href="#activities.exceptions.EnrollmentError" title="activities.exceptions.EnrollmentError"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnrollmentError</span></code></a></p>
+<p>Raised when remote enrollment synchronization fails.</p>
+<p>Typically used when the local enrollment state cannot
+be synchronized with the remote gateway or backend service.</p>
+</dd></dl>
+
+<p id="module-activities.urls">URL configuration for the activities application.</p>
+<p>This module defines all routes related to activities and
+enrollments. Each route maps to a class-based view that
+handles the corresponding HTTP requests.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="activities.urls.urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">activities.urls.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">''</span> <span class="pre">[name='list']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'&lt;int:pk&gt;/'</span> <span class="pre">[name='detail']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'&lt;int:pk&gt;/inscrire/'</span> <span class="pre">[name='enroll']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'inscriptions/'</span> <span class="pre">[name='enrollments']&gt;]</span></em><a class="headerlink" href="#activities.urls.urlpatterns" title="Lien vers cette définition"></a></dt>
+<dd><p>URL patterns for the activities application</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="../accounts/index.html" class="btn btn-neutral float-left" title="Accounts Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="../billing/index.html" class="btn btn-neutral float-right" title="Billing Application" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur .</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
