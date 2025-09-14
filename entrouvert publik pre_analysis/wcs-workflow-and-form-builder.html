@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>w.c.s. (Workflow &amp; Form Builder) — Publik Ecosystem</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <h2>w.c.s. (Workflow &amp; Form Builder)</h2>
+    <input class="search" placeholder="Filter sections..." oninput="filterNav(this.value)">
+    <ul>
+      <li><a href="#summary--integration">Summary &amp; Integration</a></li>
+      <li><a href="#philosophy--design--usage">Philosophy, Design &amp; Usage</a></li>
+      <li><a href="#key-features--functions">Key Features &amp; Functions</a></li>
+      <li><a href="#unknowns-or-gaps">Unknowns or Gaps</a></li>
+      <li><a href="#suppositions">Suppositions</a></li>
+    </ul>
+    <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
+    <div class="small">
+      <div><a href="index.html">← All modules</a></div>
+      <div><a href="glossary.html">Glossary</a></div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="header">
+      <div class="breadcrumbs"><a href="index.html">Modules</a> / w.c.s. (Workflow &amp; Form Builder)</div>
+      <div>
+        <a class="btn" href="glossary.html">Open Glossary</a>
+      </div>
+    </div>
+    <h1>w.c.s. (Workflow &amp; Form Builder)</h1>
+
+    <h2 id="summary--integration">Summary &amp; Integration</h2>
+    <p><a class="term" href="glossary.html#wcs">w.c.s.</a> (often written in lowercase, standing for Web Curator Service or Web Services for Citoyens, colloquially) is Publik’s form builder and workflow engine. It allows creating and managing online forms (téléservices) and handling the workflow of user requests submitted through those forms[12]. In the Publik ecosystem, <a class="term" href="glossary.html#wcs">WCS</a> is the backbone for e-administration processes: it collects citizen requests (e.g. civil registry applications, technical service requests) and provides a back-office for agents to process those submissions[12][13]. <a class="term" href="glossary.html#wcs">WCS</a> integrates with <a class="term" href="glossary.html#combo">Combo</a> (forms designed in <a class="term" href="glossary.html#wcs">WCS</a> are exposed to users via the <a class="term" href="glossary.html#combo">Combo</a> portal) and with <a class="term" href="glossary.html#passerelle">Passerelle</a> and <a class="term" href="glossary.html#lingo">Lingo</a> for calling external services or initiating payments as part of workflows. It also stores the data that BiJoe (the <a class="term" href="glossary.html#bi">BI</a> module) may later analyze, and can export information to <a class="term" href="glossary.html#fargo">Fargo</a> or external archives. Notably, <a class="term" href="glossary.html#wcs">WCS</a> is integrated with the connectors mechanism: during form display or workflow transitions, it can query external APIs through <a class="term" href="glossary.html#passerelle">Passerelle</a> (for example, to auto-fill data or validate information)[14][15]. This makes <a class="term" href="glossary.html#wcs">WCS</a> a central hub where many other modules intersect.</p>
+
+    <h2 id="philosophy--design--usage">Philosophy, Design &amp; Usage</h2>
+    <p>The philosophy of <a class="term" href="glossary.html#wcs">WCS</a> is to empower non-developers (municipal staff or administrators) to digitize procedures without writing code. It achieves this by providing a web-based studio for form design and a configurable workflow engine – focusing on no-code customization[16]. From a design perspective, <a class="term" href="glossary.html#wcs">WCS</a> predates some more modern frameworks; it historically utilizes the <a class="term" href="glossary.html#quixote">Quixote</a> Python web toolkit internally for certain page flows, alongside <a class="term" href="glossary.html#django">Django</a> components. This suggests a pragmatic coding approach, mixing technologies to leverage their strengths (<a class="term" href="glossary.html#quixote">Quixote</a> for efficient stateful form interactions and <a class="term" href="glossary.html#django">Django</a> for models/<a class="term" href="glossary.html#orm">ORM</a> and admin <a class="term" href="glossary.html#ui">UI</a>). <a class="term" href="glossary.html#wcs">WCS</a> emphasizes standards and accessibility: forms generated aim to comply with web standards and be usable by all audiences[17]. The user interface for administrators is intentionally easy to use, offering drag-and-drop form field placement, conditional logic via a simple expression language, and point-and-click workflow definition[18][19]. The design choice to include a full workflow engine means each online form can have its own multi-step processing pipeline (statuses, transitions, actions) defined through the <a class="term" href="glossary.html#ui">UI</a> – reflecting a declarative philosophy where business rules are configured rather than coded. For usage, agents with the appropriate rights can create or modify forms and workflows on the fly, which gives municipalities agility in deploying new services. The underlying code is modular: there are components for form definition, form execution (submission handling), and workflow management, all orchestrated under <a class="term" href="glossary.html#wcs">WCS</a>.</p>
+
+    <h2 id="key-features--functions">Key Features &amp; Functions</h2>
+    <p><a class="term" href="glossary.html#wcs">WCS</a>’s essential features include a form builder (supporting a variety of field types, validation rules, and multi-page forms) and a workflow editor for creating processing rules. It provides a back-office interface where agents can see incoming form submissions (often called “demandes”) and advance them through statuses (e.g., Waiting, Open, Done, etc.)[20]. By default, <a class="term" href="glossary.html#wcs">WCS</a> defines common statuses like waiting, open, done, which can be extended or refined per workflow[21]. The workflow engine allows defining actions at each step – for example, sending notification emails, requiring approval from a group of users, automatically transitioning after a deadline, or calling an external web service[19]. <a class="term" href="glossary.html#wcs">WCS</a> has built-in support for exporting data: submissions can be exported as <a class="term" href="glossary.html#csv">CSV</a> or <a class="term" href="glossary.html#ods">ODS</a> spreadsheets for offline analysis or record-keeping[22]. Internally, it even has background job classes to handle exports (e.g. classes like CsvExportAfterJob and OdsExportAfterJob exist to generate files asynchronously[23]). Another key function is the ability to include dynamic data in forms using connectors: <a class="term" href="glossary.html#wcs">WCS</a> can populate a dropdown from an external source (e.g., list of streets or a user’s children) by querying a connector when the form is loaded[24]. It also supports type-ahead suggestions for fields with very long lists, fetching matches on the fly as the user types[25]. On the workflow side, <a class="term" href="glossary.html#wcs">WCS</a> can call external services during processing via a “call webservice” action – for instance, to send the submitted data to an external business application and receive a response[15]. The results from such calls become part of the case data and can influence subsequent steps. <a class="term" href="glossary.html#wcs">WCS</a> also allows setting up triggers (webhooks) that external systems can call to change the status of a request[26] – this is used internally for payment integration, where the <a class="term" href="glossary.html#lingo">Lingo</a> module calls a trigger to mark a request as paid[27]. Overall, <a class="term" href="glossary.html#wcs">WCS</a>’s initial core functions revolve around form creation, data capture, workflow automation, and interoperability, all packaged in a user-friendly administrative interface[18]. The codebase includes classes for form definitions (FormDef), form instances (FormData), conditions, and actions – reflecting the elements one configures in the <a class="term" href="glossary.html#ui">UI</a>.</p>
+
+    <h2 id="unknowns-or-gaps">Unknowns or Gaps</h2>
+    <p>One area of uncertainty is the exact technical stack under the hood. The presence of <a class="term" href="glossary.html#quixote">Quixote</a> library calls in the code suggests that <a class="term" href="glossary.html#wcs">WCS</a> might not be a pure <a class="term" href="glossary.html#django">Django</a> app, but uses a hybrid approach; how this hybrid is structured (which parts use <a class="term" href="glossary.html#django">Django</a> vs <a class="term" href="glossary.html#quixote">Quixote</a>) is not clearly documented externally. Also, while <a class="term" href="glossary.html#wcs">WCS</a> has been in use for many years (with version numbers into 14.x[28]), there is little publicly available high-level architecture documentation – for instance, how the system stores form definitions (perhaps in the database as <a class="term" href="glossary.html#xml">XML</a> or Python pickles?), or how it handles versioning of forms, is largely unknown without inspecting the code. Another gap is the acronym origin: “<a class="term" href="glossary.html#wcs">w.c.s.</a>” is not explicitly expanded in documentation; it’s an inherited name that new developers might wonder about (it is often just accepted as the name of the form tool). In terms of features, some advanced capabilities like complex scripting within forms rely on an expression language (Python/<a class="term" href="glossary.html#django">Django</a> template syntax for conditions[29]) – the limits of these and how far one can customize logic without patching code are not fully enumerated in user docs, which could be a knowledge gap for new coders. Additionally, performance and scaling details (such as how many concurrent submissions it can handle, or strategies for heavy load) are not covered in the docs we have; these are things one might only learn from deployment experience. Finally, <a class="term" href="glossary.html#wcs">WCS</a> is excluded from the database configuration step in the <a class="term" href="glossary.html#ha">HA</a> installation guide[30] – it’s not clear why (perhaps <a class="term" href="glossary.html#wcs">WCS</a> uses its own default SQLite or another mechanism), and that is an undocumented peculiarity that raises questions about how <a class="term" href="glossary.html#wcs">WCS</a> manages its data storage in a cluster environment.</p>
+
+    <h2 id="suppositions">Suppositions</h2>
+    <p>We can suppose that <a class="term" href="glossary.html#wcs">WCS</a>’s architecture is influenced by its long history and must maintain backward compatibility with many existing workflows. Therefore, one might expect the code to contain legacy patterns (like the FakeField class noted as legacy for compatibility[31]) and gradual improvements rather than radical rewrites. Given recent developments, it’s plausible the maintainers are modernizing parts of <a class="term" href="glossary.html#wcs">WCS</a> – for example, adding features for better <a class="term" href="glossary.html#ui">UI</a> or data handling. The mention of “waiting queue” functionality (possibly to queue form submissions or manage high traffic) appears in related project discussions and extensions (like the separate wcs-waiting-queue plugin[32]), so a supposition is that queue management (to throttle or schedule form processing) might be an area of ongoing development. We also suspect that <a class="term" href="glossary.html#wcs">WCS</a> will increasingly rely on the rest of the ecosystem for specialized tasks: e.g., instead of adding complex payment handling internally, it delegates to <a class="term" href="glossary.html#lingo">Lingo</a>; instead of complex reporting, it delegates to BiJoe. Thus <a class="term" href="glossary.html#wcs">WCS</a>’s future enhancements may focus on core form/workflow usability and leave integrations to other modules or connector plugins. For new developers, an assumption is that understanding <a class="term" href="glossary.html#wcs">WCS</a> deeply will require reading parts of its code (especially the workflow execution and form rendering logic), as the high-level docs only cover usage, not internals. Lastly, one might guess that eventually <a class="term" href="glossary.html#wcs">WCS</a> could be refactored to align more with <a class="term" href="glossary.html#django">Django</a> conventions (reducing <a class="term" href="glossary.html#quixote">Quixote</a> usage), but only if it can be done without breaking the thousands of deployments – so any such change would be gradual. In summary, <a class="term" href="glossary.html#wcs">WCS</a> is likely to continue as the stable, robust form engine at the heart of Publik, with incremental improvements emphasizing configurability and integration rather than fundamental changes.</p>
+
+    <div class="nav-pager">
+      <div><a class="btn" href="combo-citizen-portal.html">← Combo (Citizen Portal)</a></div>
+      <div><a class="btn" href="passerelle-integration-hub.html">→ Passerelle (Integration Hub)</a></div>
+    </div>
+
+    <div class="footer small"></div>
+  </main>
+</div>
+<script>
+function filterNav(q){
+  q=(q||'').toLowerCase();
+  document.querySelectorAll('.sidebar li').forEach(function(li){
+    var a = li.querySelector('a'); if(!a) return;
+    li.style.display = a.textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

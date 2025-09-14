@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Combo (Citizen Portal) — Publik Ecosystem</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <h2>Combo (Citizen Portal)</h2>
+    <input class="search" placeholder="Filter sections..." oninput="filterNav(this.value)">
+    <ul>
+      <li><a href="#summary--integration">Summary &amp; Integration</a></li>
+      <li><a href="#philosophy--design--usage">Philosophy, Design &amp; Usage</a></li>
+      <li><a href="#key-features--functions">Key Features &amp; Functions</a></li>
+      <li><a href="#unknowns-or-gaps">Unknowns or Gaps</a></li>
+      <li><a href="#suppositions">Suppositions</a></li>
+    </ul>
+    <hr style="margin:16px 0;border:none;border-top:1px solid var(--border)">
+    <div class="small">
+      <div><a href="index.html">← All modules</a></div>
+      <div><a href="glossary.html">Glossary</a></div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="header">
+      <div class="breadcrumbs"><a href="index.html">Modules</a> / Combo (Citizen Portal)</div>
+      <div>
+        <a class="btn" href="glossary.html">Open Glossary</a>
+      </div>
+    </div>
+    <h1>Combo (Citizen Portal)</h1>
+
+    <h2 id="summary--integration">Summary &amp; Integration</h2>
+    <p><a class="term" href="glossary.html#combo">Combo</a> is the content management system (<a class="term" href="glossary.html#cms">CMS</a>) serving as Publik’s front-office user portal and also the back-office agent portal[1]. It is a <a class="term" href="glossary.html#django">Django</a>-based web application used to build and customize portals for citizens and staff[2]. <a class="term" href="glossary.html#combo">Combo</a> handles the website pages, templates, and theming, allowing each city or tenant to have a uniquely branded portal. It integrates tightly with the Authentic 2 identity provider for user accounts and single sign-on (<a class="term" href="glossary.html#sso">SSO</a>): the portal delegates authentication and personal data management to Authentic, ensuring secure login and user profile handling[3]. Through a system of pluggable content “cells”, <a class="term" href="glossary.html#combo">Combo</a> can display dynamic information from other Publik modules. For example, when a user logs in, a cell can show the list of that user’s ongoing requests by querying the <a class="term" href="glossary.html#wcs">WCS</a> service in real time[4]. This design means <a class="term" href="glossary.html#combo">Combo</a> acts as the face of the ecosystem, aggregating data from <a class="term" href="glossary.html#wcs">WCS</a> (for e-forms), <a class="term" href="glossary.html#lingo">Lingo</a> (for payments), <a class="term" href="glossary.html#chrono">Chrono</a> (for appointments), etc., into a unified portal experience.</p>
+
+    <h2 id="philosophy--design--usage">Philosophy, Design &amp; Usage</h2>
+    <p>The philosophy behind <a class="term" href="glossary.html#combo">Combo</a> is to provide a simplified <a class="term" href="glossary.html#cms">CMS</a> tailored for e-government portals. It uses <a class="term" href="glossary.html#django">Django</a>’s template framework to enable fine-grained control over page layouts and style[5], so that cities can implement their web design strategy within the portal. Each page is composed of cells (content widgets), which can be static content or live data from external systems, allowing flexible integration of third-party or backend information[6][4]. This approach promotes a modular design – new cells or features can be added via plugins (indeed, several <a class="term" href="glossary.html#combo">Combo</a> plugins exist for specific needs). Coding choices favor reuse of <a class="term" href="glossary.html#django">Django</a> components, keeping <a class="term" href="glossary.html#combo">Combo</a> relatively lightweight as a <a class="term" href="glossary.html#cms">CMS</a>. The user experience is kept simple by design – navigation and ergonomics are meant to be intuitive for citizens[7]. In usage, administrators (via the agent portal, which is essentially the same <a class="term" href="glossary.html#combo">Combo</a> application in back-office mode) can create and edit pages or place cells without deep technical skills. The integration choices (templating system, plugin architecture, and connectors) reflect a goal of openness: <a class="term" href="glossary.html#combo">Combo</a> doesn’t reinvent content storage but rather focuses on presenting information and interfacing with other modules through standard web techniques.</p>
+
+    <h2 id="key-features--functions">Key Features &amp; Functions</h2>
+    <p><a class="term" href="glossary.html#combo">Combo</a>’s core functions include managing portal pages, menus, and content templates. It provides authentication hooks to work with <a class="term" href="glossary.html#sso">SSO</a> (users can log in via Authentic 2, or <a class="term" href="glossary.html#franceconnect">FranceConnect</a> federated login)[3]. It also includes a role-based view: the same portal can serve different audiences (citizens vs agents) by presenting different sections or requiring login. A notable feature is the cell system – cells are configurable components on a page that can display, for instance, news feeds, maps, or personalized data. For personalized data, <a class="term" href="glossary.html#combo">Combo</a> calls the relevant backend module via its <a class="term" href="glossary.html#api">API</a> at page render time (e.g. fetching a user’s submitted forms from <a class="term" href="glossary.html#wcs">WCS</a>)[4]. <a class="term" href="glossary.html#combo">Combo</a> also supports custom <a class="term" href="glossary.html#django">Django</a> template tags (the project publik-django-templatetags provides shared filters and tags for Publik apps[8][9]). In terms of extensibility, <a class="term" href="glossary.html#combo">Combo</a>’s repository includes plugin modules (e.g. combo-plugin-gnm, combo-plugin-nanterre as listed in the package index[10]) which add localized functionalities or integrations. This modular structure is an essential function: new features can be rolled out as separate plugins rather than altering core code. Overall, <a class="term" href="glossary.html#combo">Combo</a>’s initial essential capability is serving as a portal framework – it renders pages, interfaces with user authentication, and pulls in content from various sources on the fly.</p>
+
+    <h2 id="unknowns-or-gaps">Unknowns or Gaps</h2>
+    <p>Specific implementation details of <a class="term" href="glossary.html#combo">Combo</a>’s internal architecture are not extensively documented publicly. For example, the precise mechanism for the front-office/back-office distinction is not explicitly described in available sources – it is likely done via <a class="term" href="glossary.html#django">Django</a> settings or separate site instances, but this is not confirmed in documentation. Another unknown is the full extent of <a class="term" href="glossary.html#combo">Combo</a>’s plugin <a class="term" href="glossary.html#api">API</a> for developers (i.e. how one writes new “cells” or extensions); this likely exists in the code but is not covered in high-level docs. It’s also not explicitly stated how <a class="term" href="glossary.html#combo">Combo</a> handles content versioning or publishing workflows – presumably it’s a simple draft/publish model, but documentation is sparse. Additionally, while we know <a class="term" href="glossary.html#combo">Combo</a> relies on Authentic for user data, it’s not clear if <a class="term" href="glossary.html#combo">Combo</a> stores any user profile info locally or if absolutely all profile management is offloaded to Authentic (the assumption is the latter, but details are not found in the docs). These areas would require reading the source to fully understand. Finally, performance considerations (caching of cell data, etc.) are not discussed in the docs – it’s unknown if <a class="term" href="glossary.html#combo">Combo</a> caches external data or always fetches fresh data for each page view.</p>
+
+    <h2 id="suppositions">Suppositions</h2>
+    <p>Based on its role, one can suppose that <a class="term" href="glossary.html#combo">Combo</a>’s development is geared toward increasing flexibility and integration. For instance, recent commits have likely focused on improvements like new cell types or better error handling for content (indeed, an example fix in early 2025 addressed file name length issues for page “picture” attachments[11], showing ongoing refinement). It can be supposed that future directions might include more built-in connectors or visualization cells (there have been mentions of dataviz features in development tickets, suggesting possible chart or dashboard cells). Another supposition is that <a class="term" href="glossary.html#combo">Combo</a> will continue to serve as the layout engine while heavy business logic lives in other modules – meaning the team likely keeps <a class="term" href="glossary.html#combo">Combo</a>’s core simple and offloads new functional requirements to specialized services or plugins. Given the trend towards multi-tenant use, we also surmise that <a class="term" href="glossary.html#combo">Combo</a> supports multi-tenancy via <a class="term" href="glossary.html#hobo">Hobo</a> (e.g., one <a class="term" href="glossary.html#combo">Combo</a> instance can host multiple portals for different tenants, separated by <a class="term" href="glossary.html#url">URL</a> and branding), though the exact mechanism is abstracted by <a class="term" href="glossary.html#hobo">Hobo</a>. In summary, <a class="term" href="glossary.html#combo">Combo</a> is expected to remain the adaptable front-end that evolves mainly through extensions and theming capabilities, rather than drastic architectural changes.</p>
+
+    <div class="nav-pager">
+      <div></div>
+      <div><a class="btn" href="wcs-workflow-and-form-builder.html">→ w.c.s. (Workflow &amp; Form Builder)</a></div>
+    </div>
+
+    <div class="footer small"></div>
+  </main>
+</div>
+<script>
+function filterNav(q){
+  q=(q||'').toLowerCase();
+  document.querySelectorAll('.sidebar li').forEach(function(li){
+    var a = li.querySelector('a'); if(!a) return;
+    li.style.display = a.textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
